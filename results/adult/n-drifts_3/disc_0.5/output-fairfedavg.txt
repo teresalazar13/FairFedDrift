@@ -1,0 +1,1318 @@
+Metal device set to: Apple M2
+
+systemMemory: 16.00 GB
+maxCacheSize: 5.33 GB
+
+WARNING:tensorflow:From /Users/teresasalazar/Desktop/Online-Fairness/main.py:45: The name tf.keras.backend.set_session is deprecated. Please use tf.compat.v1.keras.backend.set_session instead.
+
+Drift change at round 3 client 0
+Drift change at round 4 client 2
+Drift change at round 4 client 3
+Drift change at round 5 client 1
+Drift change at round 5 client 3
+Drift change at round 6 client 2
+Drift change at round 7 client 3
+Drift change at round 8 client 0
+Drift change at round 9 client 0
+Drift change at round 9 client 1
+Drift change at round 9 client 3
+[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [2, 0, 0, 0], [2, 0, 1, 2], [2, 2, 1, 1], [2, 2, 2, 1], [2, 2, 2, 0], [1, 2, 2, 0], [2, 0, 2, 2]]
+Client 0 - checking best model
+2023-07-11 17:58:22.511456: W tensorflow/tsl/platform/profile_utils/cpu_utils.cc:128] Failed to get CPU frequency: 0 Hz
+39/39 [==============================] - 0s 926us/step
+Client 0 - testing on model 0
+ACC - 0.21
+BalancedACC - 0.27
+39/39 [==============================] - 0s 743us/step
+Client 0 - testing on best model 0
+ACC - 0.21
+BalancedACC - 0.27
+No drift detected at client 0
+Client 1 - checking best model
+39/39 [==============================] - 0s 949us/step
+Client 1 - testing on model 0
+ACC - 0.24
+BalancedACC - 0.29
+39/39 [==============================] - 0s 745us/step
+Client 1 - testing on best model 0
+ACC - 0.24
+BalancedACC - 0.29
+No drift detected at client 1
+Client 2 - checking best model
+39/39 [==============================] - 0s 746us/step
+Client 2 - testing on model 0
+ACC - 0.24
+BalancedACC - 0.36
+39/39 [==============================] - 0s 755us/step
+Client 2 - testing on best model 0
+ACC - 0.24
+BalancedACC - 0.36
+No drift detected at client 2
+Client 3 - checking best model
+39/39 [==============================] - 0s 747us/step
+Client 3 - testing on model 0
+ACC - 0.26
+BalancedACC - 0.44
+39/39 [==============================] - 0s 743us/step
+Client 3 - testing on best model 0
+ACC - 0.26
+BalancedACC - 0.44
+No drift detected at client 3
+Cluster identities timestep 0 - [0, 0, 0, 0]
+Trained model timestep 0 cround 0 client 0 with identity 0
+Trained model timestep 0 cround 0 client 1 with identity 0
+Trained model timestep 0 cround 0 client 2 with identity 0
+Trained model timestep 0 cround 0 client 3 with identity 0
+Averaged models on timestep 0 cround 0 of cluster identity 0
+Trained model timestep 0 cround 1 client 0 with identity 0
+Trained model timestep 0 cround 1 client 1 with identity 0
+Trained model timestep 0 cround 1 client 2 with identity 0
+Trained model timestep 0 cround 1 client 3 with identity 0
+Averaged models on timestep 0 cround 1 of cluster identity 0
+Trained model timestep 0 cround 2 client 0 with identity 0
+Trained model timestep 0 cround 2 client 1 with identity 0
+Trained model timestep 0 cround 2 client 2 with identity 0
+Trained model timestep 0 cround 2 client 3 with identity 0
+Averaged models on timestep 0 cround 2 of cluster identity 0
+Trained model timestep 0 cround 3 client 0 with identity 0
+Trained model timestep 0 cround 3 client 1 with identity 0
+Trained model timestep 0 cround 3 client 2 with identity 0
+Trained model timestep 0 cround 3 client 3 with identity 0
+Averaged models on timestep 0 cround 3 of cluster identity 0
+Trained model timestep 0 cround 4 client 0 with identity 0
+Trained model timestep 0 cround 4 client 1 with identity 0
+Trained model timestep 0 cround 4 client 2 with identity 0
+Trained model timestep 0 cround 4 client 3 with identity 0
+Averaged models on timestep 0 cround 4 of cluster identity 0
+Trained model timestep 0 cround 5 client 0 with identity 0
+Trained model timestep 0 cround 5 client 1 with identity 0
+Trained model timestep 0 cround 5 client 2 with identity 0
+Trained model timestep 0 cround 5 client 3 with identity 0
+Averaged models on timestep 0 cround 5 of cluster identity 0
+Trained model timestep 0 cround 6 client 0 with identity 0
+Trained model timestep 0 cround 6 client 1 with identity 0
+Trained model timestep 0 cround 6 client 2 with identity 0
+Trained model timestep 0 cround 6 client 3 with identity 0
+Averaged models on timestep 0 cround 6 of cluster identity 0
+Trained model timestep 0 cround 7 client 0 with identity 0
+Trained model timestep 0 cround 7 client 1 with identity 0
+Trained model timestep 0 cround 7 client 2 with identity 0
+Trained model timestep 0 cround 7 client 3 with identity 0
+Averaged models on timestep 0 cround 7 of cluster identity 0
+Trained model timestep 0 cround 8 client 0 with identity 0
+Trained model timestep 0 cround 8 client 1 with identity 0
+Trained model timestep 0 cround 8 client 2 with identity 0
+Trained model timestep 0 cround 8 client 3 with identity 0
+Averaged models on timestep 0 cround 8 of cluster identity 0
+Trained model timestep 0 cround 9 client 0 with identity 0
+Trained model timestep 0 cround 9 client 1 with identity 0
+Trained model timestep 0 cround 9 client 2 with identity 0
+Trained model timestep 0 cround 9 client 3 with identity 0
+Averaged models on timestep 0 cround 9 of cluster identity 0
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.84
+BalancedACC - 0.87
+Client 0 - testing on best model 0
+ACC - 0.84
+BalancedACC - 0.87
+prev 0.2144026186579378 0.2036824877250409 0.8387888707037643
+prev 0.27253395094220445 0.25890725339509424 0.8656694261666885
+No drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.83
+BalancedACC - 0.87
+Client 1 - testing on best model 0
+ACC - 0.83
+BalancedACC - 0.87
+prev 0.2416052416052416 0.22952497952497952 0.8288288288288288
+prev 0.29247413874916955 0.27785043181171104 0.8748258760035263
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.82
+BalancedACC - 0.84
+Client 2 - testing on best model 0
+ACC - 0.82
+BalancedACC - 0.84
+prev 0.23996723996723995 0.22796887796887794 0.8214578214578214
+prev 0.3616954474097331 0.3436106750392464 0.837773253679538
+No drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.84
+BalancedACC - 0.88
+Client 3 - testing on best model 0
+ACC - 0.84
+BalancedACC - 0.88
+prev 0.26371826371826373 0.2505323505323505 0.8443898443898444
+prev 0.4422468048959419 0.4201344646511448 0.8752900510489846
+No drift detected at client 3
+Cluster identities timestep 1 - [0, 0, 0, 0]
+Trained model timestep 1 cround 0 client 0 with identity 0
+Trained model timestep 1 cround 0 client 1 with identity 0
+Trained model timestep 1 cround 0 client 2 with identity 0
+Trained model timestep 1 cround 0 client 3 with identity 0
+Averaged models on timestep 1 cround 0 of cluster identity 0
+Trained model timestep 1 cround 1 client 0 with identity 0
+Trained model timestep 1 cround 1 client 1 with identity 0
+Trained model timestep 1 cround 1 client 2 with identity 0
+Trained model timestep 1 cround 1 client 3 with identity 0
+Averaged models on timestep 1 cround 1 of cluster identity 0
+Trained model timestep 1 cround 2 client 0 with identity 0
+Trained model timestep 1 cround 2 client 1 with identity 0
+Trained model timestep 1 cround 2 client 2 with identity 0
+Trained model timestep 1 cround 2 client 3 with identity 0
+Averaged models on timestep 1 cround 2 of cluster identity 0
+Trained model timestep 1 cround 3 client 0 with identity 0
+Trained model timestep 1 cround 3 client 1 with identity 0
+Trained model timestep 1 cround 3 client 2 with identity 0
+Trained model timestep 1 cround 3 client 3 with identity 0
+Averaged models on timestep 1 cround 3 of cluster identity 0
+Trained model timestep 1 cround 4 client 0 with identity 0
+Trained model timestep 1 cround 4 client 1 with identity 0
+Trained model timestep 1 cround 4 client 2 with identity 0
+Trained model timestep 1 cround 4 client 3 with identity 0
+Averaged models on timestep 1 cround 4 of cluster identity 0
+Trained model timestep 1 cround 5 client 0 with identity 0
+Trained model timestep 1 cround 5 client 1 with identity 0
+Trained model timestep 1 cround 5 client 2 with identity 0
+Trained model timestep 1 cround 5 client 3 with identity 0
+Averaged models on timestep 1 cround 5 of cluster identity 0
+Trained model timestep 1 cround 6 client 0 with identity 0
+Trained model timestep 1 cround 6 client 1 with identity 0
+Trained model timestep 1 cround 6 client 2 with identity 0
+Trained model timestep 1 cround 6 client 3 with identity 0
+Averaged models on timestep 1 cround 6 of cluster identity 0
+Trained model timestep 1 cround 7 client 0 with identity 0
+Trained model timestep 1 cround 7 client 1 with identity 0
+Trained model timestep 1 cround 7 client 2 with identity 0
+Trained model timestep 1 cround 7 client 3 with identity 0
+Averaged models on timestep 1 cround 7 of cluster identity 0
+Trained model timestep 1 cround 8 client 0 with identity 0
+Trained model timestep 1 cround 8 client 1 with identity 0
+Trained model timestep 1 cround 8 client 2 with identity 0
+Trained model timestep 1 cround 8 client 3 with identity 0
+Averaged models on timestep 1 cround 8 of cluster identity 0
+Trained model timestep 1 cround 9 client 0 with identity 0
+Trained model timestep 1 cround 9 client 1 with identity 0
+Trained model timestep 1 cround 9 client 2 with identity 0
+Trained model timestep 1 cround 9 client 3 with identity 0
+Averaged models on timestep 1 cround 9 of cluster identity 0
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.85
+BalancedACC - 0.88
+Client 0 - testing on best model 0
+ACC - 0.85
+BalancedACC - 0.88
+prev 0.8387888707037643 0.796849427168576 0.8542178542178542
+prev 0.8656694261666885 0.8223859548583541 0.8837031719096724
+No drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.86
+BalancedACC - 0.91
+Client 1 - testing on best model 0
+ACC - 0.86
+BalancedACC - 0.91
+prev 0.8288288288288288 0.7873873873873873 0.8558558558558559
+prev 0.8748258760035263 0.83108458220335 0.909343978690978
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.86
+BalancedACC - 0.88
+Client 2 - testing on best model 0
+ACC - 0.86
+BalancedACC - 0.88
+prev 0.8214578214578214 0.7803849303849303 0.8574938574938575
+prev 0.837773253679538 0.7958845909955611 0.8805155474169807
+No drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.84
+BalancedACC - 0.86
+Client 3 - testing on best model 0
+ACC - 0.84
+BalancedACC - 0.86
+prev 0.8443898443898444 0.8021703521703522 0.8411138411138411
+prev 0.8752900510489846 0.8315255484965354 0.8621377425853162
+No drift detected at client 3
+Cluster identities timestep 2 - [0, 0, 0, 0]
+Trained model timestep 2 cround 0 client 0 with identity 0
+Trained model timestep 2 cround 0 client 1 with identity 0
+Trained model timestep 2 cround 0 client 2 with identity 0
+Trained model timestep 2 cround 0 client 3 with identity 0
+Averaged models on timestep 2 cround 0 of cluster identity 0
+Trained model timestep 2 cround 1 client 0 with identity 0
+Trained model timestep 2 cround 1 client 1 with identity 0
+Trained model timestep 2 cround 1 client 2 with identity 0
+Trained model timestep 2 cround 1 client 3 with identity 0
+Averaged models on timestep 2 cround 1 of cluster identity 0
+Trained model timestep 2 cround 2 client 0 with identity 0
+Trained model timestep 2 cround 2 client 1 with identity 0
+Trained model timestep 2 cround 2 client 2 with identity 0
+Trained model timestep 2 cround 2 client 3 with identity 0
+Averaged models on timestep 2 cround 2 of cluster identity 0
+Trained model timestep 2 cround 3 client 0 with identity 0
+Trained model timestep 2 cround 3 client 1 with identity 0
+Trained model timestep 2 cround 3 client 2 with identity 0
+Trained model timestep 2 cround 3 client 3 with identity 0
+Averaged models on timestep 2 cround 3 of cluster identity 0
+Trained model timestep 2 cround 4 client 0 with identity 0
+Trained model timestep 2 cround 4 client 1 with identity 0
+Trained model timestep 2 cround 4 client 2 with identity 0
+Trained model timestep 2 cround 4 client 3 with identity 0
+Averaged models on timestep 2 cround 4 of cluster identity 0
+Trained model timestep 2 cround 5 client 0 with identity 0
+Trained model timestep 2 cround 5 client 1 with identity 0
+Trained model timestep 2 cround 5 client 2 with identity 0
+Trained model timestep 2 cround 5 client 3 with identity 0
+Averaged models on timestep 2 cround 5 of cluster identity 0
+Trained model timestep 2 cround 6 client 0 with identity 0
+Trained model timestep 2 cround 6 client 1 with identity 0
+Trained model timestep 2 cround 6 client 2 with identity 0
+Trained model timestep 2 cround 6 client 3 with identity 0
+Averaged models on timestep 2 cround 6 of cluster identity 0
+Trained model timestep 2 cround 7 client 0 with identity 0
+Trained model timestep 2 cround 7 client 1 with identity 0
+Trained model timestep 2 cround 7 client 2 with identity 0
+Trained model timestep 2 cround 7 client 3 with identity 0
+Averaged models on timestep 2 cround 7 of cluster identity 0
+Trained model timestep 2 cround 8 client 0 with identity 0
+Trained model timestep 2 cround 8 client 1 with identity 0
+Trained model timestep 2 cround 8 client 2 with identity 0
+Trained model timestep 2 cround 8 client 3 with identity 0
+Averaged models on timestep 2 cround 8 of cluster identity 0
+Trained model timestep 2 cround 9 client 0 with identity 0
+Trained model timestep 2 cround 9 client 1 with identity 0
+Trained model timestep 2 cround 9 client 2 with identity 0
+Trained model timestep 2 cround 9 client 3 with identity 0
+Averaged models on timestep 2 cround 9 of cluster identity 0
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.77
+BalancedACC - 0.76
+Client 0 - testing on best model 0
+ACC - 0.77
+BalancedACC - 0.76
+prev 0.8542178542178542 0.8115069615069614 0.7657657657657657
+Drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.86
+BalancedACC - 0.92
+Client 1 - testing on best model 0
+ACC - 0.86
+BalancedACC - 0.92
+prev 0.8558558558558559 0.8130630630630631 0.855036855036855
+prev 0.909343978690978 0.8638767797564291 0.9219389464418271
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.85
+BalancedACC - 0.86
+Client 2 - testing on best model 0
+ACC - 0.85
+BalancedACC - 0.86
+prev 0.8574938574938575 0.8146191646191646 0.8468468468468469
+prev 0.8805155474169807 0.8364897700461316 0.8602037967615856
+No drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.86
+BalancedACC - 0.89
+Client 3 - testing on best model 0
+ACC - 0.86
+BalancedACC - 0.89
+prev 0.8411138411138411 0.7990581490581491 0.8591318591318591
+prev 0.8621377425853162 0.8190308554560504 0.8900317995976377
+No drift detected at client 3
+Cluster identities timestep 3 - [1, 0, 0, 0]
+Trained model timestep 3 cround 0 client 0 with identity 1
+Trained model timestep 3 cround 0 client 1 with identity 0
+Trained model timestep 3 cround 0 client 2 with identity 0
+Trained model timestep 3 cround 0 client 3 with identity 0
+Averaged models on timestep 3 cround 0 of cluster identity 0
+Averaged models on timestep 3 cround 0 of cluster identity 1
+Trained model timestep 3 cround 1 client 0 with identity 1
+Trained model timestep 3 cround 1 client 1 with identity 0
+Trained model timestep 3 cround 1 client 2 with identity 0
+Trained model timestep 3 cround 1 client 3 with identity 0
+Averaged models on timestep 3 cround 1 of cluster identity 0
+Averaged models on timestep 3 cround 1 of cluster identity 1
+Trained model timestep 3 cround 2 client 0 with identity 1
+Trained model timestep 3 cround 2 client 1 with identity 0
+Trained model timestep 3 cround 2 client 2 with identity 0
+Trained model timestep 3 cround 2 client 3 with identity 0
+Averaged models on timestep 3 cround 2 of cluster identity 0
+Averaged models on timestep 3 cround 2 of cluster identity 1
+Trained model timestep 3 cround 3 client 0 with identity 1
+Trained model timestep 3 cround 3 client 1 with identity 0
+Trained model timestep 3 cround 3 client 2 with identity 0
+Trained model timestep 3 cround 3 client 3 with identity 0
+Averaged models on timestep 3 cround 3 of cluster identity 0
+Averaged models on timestep 3 cround 3 of cluster identity 1
+Trained model timestep 3 cround 4 client 0 with identity 1
+Trained model timestep 3 cround 4 client 1 with identity 0
+Trained model timestep 3 cround 4 client 2 with identity 0
+Trained model timestep 3 cround 4 client 3 with identity 0
+Averaged models on timestep 3 cround 4 of cluster identity 0
+Averaged models on timestep 3 cround 4 of cluster identity 1
+Trained model timestep 3 cround 5 client 0 with identity 1
+Trained model timestep 3 cround 5 client 1 with identity 0
+Trained model timestep 3 cround 5 client 2 with identity 0
+Trained model timestep 3 cround 5 client 3 with identity 0
+Averaged models on timestep 3 cround 5 of cluster identity 0
+Averaged models on timestep 3 cround 5 of cluster identity 1
+Trained model timestep 3 cround 6 client 0 with identity 1
+Trained model timestep 3 cround 6 client 1 with identity 0
+Trained model timestep 3 cround 6 client 2 with identity 0
+Trained model timestep 3 cround 6 client 3 with identity 0
+Averaged models on timestep 3 cround 6 of cluster identity 0
+Averaged models on timestep 3 cround 6 of cluster identity 1
+Trained model timestep 3 cround 7 client 0 with identity 1
+Trained model timestep 3 cround 7 client 1 with identity 0
+Trained model timestep 3 cround 7 client 2 with identity 0
+Trained model timestep 3 cround 7 client 3 with identity 0
+Averaged models on timestep 3 cround 7 of cluster identity 0
+Averaged models on timestep 3 cround 7 of cluster identity 1
+Trained model timestep 3 cround 8 client 0 with identity 1
+Trained model timestep 3 cround 8 client 1 with identity 0
+Trained model timestep 3 cround 8 client 2 with identity 0
+Trained model timestep 3 cround 8 client 3 with identity 0
+Averaged models on timestep 3 cround 8 of cluster identity 0
+Averaged models on timestep 3 cround 8 of cluster identity 1
+Trained model timestep 3 cround 9 client 0 with identity 1
+Trained model timestep 3 cround 9 client 1 with identity 0
+Trained model timestep 3 cround 9 client 2 with identity 0
+Trained model timestep 3 cround 9 client 3 with identity 0
+Averaged models on timestep 3 cround 9 of cluster identity 0
+Averaged models on timestep 3 cround 9 of cluster identity 1
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.79
+BalancedACC - 0.80
+Client 0 - testing on model 1
+ACC - 0.81
+BalancedACC - 0.84
+Client 0 - testing on best model 1
+ACC - 0.81
+BalancedACC - 0.84
+prev 0.7657657657657657 0.7274774774774774 0.8132678132678133
+prev 0.7575427265534537 0.7196655902257809 0.8381527415143603
+No drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.83
+BalancedACC - 0.84
+Client 1 - testing on model 1
+ACC - 0.78
+BalancedACC - 0.76
+Client 1 - testing on best model 0
+ACC - 0.83
+BalancedACC - 0.84
+prev 0.855036855036855 0.8122850122850123 0.8312858312858313
+prev 0.9219389464418271 0.8758419991197357 0.8412007551670626
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.74
+BalancedACC - 0.71
+Client 2 - testing on model 1
+ACC - 0.72
+BalancedACC - 0.70
+Client 2 - testing on best model 0
+ACC - 0.74
+BalancedACC - 0.71
+prev 0.8468468468468469 0.8045045045045045 0.7395577395577395
+Drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.80
+BalancedACC - 0.80
+Client 3 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.88
+Client 3 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.88
+prev 0.8591318591318591 0.816175266175266 0.8402948402948403
+prev 0.8900317995976377 0.8455302096177557 0.8832632075755902
+No drift detected at client 3
+Cluster identities timestep 4 - [1, 0, 2, 1]
+Trained model timestep 4 cround 0 client 0 with identity 1
+Trained model timestep 4 cround 0 client 1 with identity 0
+Trained model timestep 4 cround 0 client 2 with identity 2
+Trained model timestep 4 cround 0 client 3 with identity 1
+Averaged models on timestep 4 cround 0 of cluster identity 0
+Averaged models on timestep 4 cround 0 of cluster identity 1
+Averaged models on timestep 4 cround 0 of cluster identity 2
+Trained model timestep 4 cround 1 client 0 with identity 1
+Trained model timestep 4 cround 1 client 1 with identity 0
+Trained model timestep 4 cround 1 client 2 with identity 2
+Trained model timestep 4 cround 1 client 3 with identity 1
+Averaged models on timestep 4 cround 1 of cluster identity 0
+Averaged models on timestep 4 cround 1 of cluster identity 1
+Averaged models on timestep 4 cround 1 of cluster identity 2
+Trained model timestep 4 cround 2 client 0 with identity 1
+Trained model timestep 4 cround 2 client 1 with identity 0
+Trained model timestep 4 cround 2 client 2 with identity 2
+Trained model timestep 4 cround 2 client 3 with identity 1
+Averaged models on timestep 4 cround 2 of cluster identity 0
+Averaged models on timestep 4 cround 2 of cluster identity 1
+Averaged models on timestep 4 cround 2 of cluster identity 2
+Trained model timestep 4 cround 3 client 0 with identity 1
+Trained model timestep 4 cround 3 client 1 with identity 0
+Trained model timestep 4 cround 3 client 2 with identity 2
+Trained model timestep 4 cround 3 client 3 with identity 1
+Averaged models on timestep 4 cround 3 of cluster identity 0
+Averaged models on timestep 4 cround 3 of cluster identity 1
+Averaged models on timestep 4 cround 3 of cluster identity 2
+Trained model timestep 4 cround 4 client 0 with identity 1
+Trained model timestep 4 cround 4 client 1 with identity 0
+Trained model timestep 4 cround 4 client 2 with identity 2
+Trained model timestep 4 cround 4 client 3 with identity 1
+Averaged models on timestep 4 cround 4 of cluster identity 0
+Averaged models on timestep 4 cround 4 of cluster identity 1
+Averaged models on timestep 4 cround 4 of cluster identity 2
+Trained model timestep 4 cround 5 client 0 with identity 1
+Trained model timestep 4 cround 5 client 1 with identity 0
+Trained model timestep 4 cround 5 client 2 with identity 2
+Trained model timestep 4 cround 5 client 3 with identity 1
+Averaged models on timestep 4 cround 5 of cluster identity 0
+Averaged models on timestep 4 cround 5 of cluster identity 1
+Averaged models on timestep 4 cround 5 of cluster identity 2
+Trained model timestep 4 cround 6 client 0 with identity 1
+Trained model timestep 4 cround 6 client 1 with identity 0
+Trained model timestep 4 cround 6 client 2 with identity 2
+Trained model timestep 4 cround 6 client 3 with identity 1
+Averaged models on timestep 4 cround 6 of cluster identity 0
+Averaged models on timestep 4 cround 6 of cluster identity 1
+Averaged models on timestep 4 cround 6 of cluster identity 2
+Trained model timestep 4 cround 7 client 0 with identity 1
+Trained model timestep 4 cround 7 client 1 with identity 0
+Trained model timestep 4 cround 7 client 2 with identity 2
+Trained model timestep 4 cround 7 client 3 with identity 1
+Averaged models on timestep 4 cround 7 of cluster identity 0
+Averaged models on timestep 4 cround 7 of cluster identity 1
+Averaged models on timestep 4 cround 7 of cluster identity 2
+Trained model timestep 4 cround 8 client 0 with identity 1
+Trained model timestep 4 cround 8 client 1 with identity 0
+Trained model timestep 4 cround 8 client 2 with identity 2
+Trained model timestep 4 cround 8 client 3 with identity 1
+Averaged models on timestep 4 cround 8 of cluster identity 0
+Averaged models on timestep 4 cround 8 of cluster identity 1
+Averaged models on timestep 4 cround 8 of cluster identity 2
+Trained model timestep 4 cround 9 client 0 with identity 1
+Trained model timestep 4 cround 9 client 1 with identity 0
+Trained model timestep 4 cround 9 client 2 with identity 2
+Trained model timestep 4 cround 9 client 3 with identity 1
+Averaged models on timestep 4 cround 9 of cluster identity 0
+Averaged models on timestep 4 cround 9 of cluster identity 1
+Averaged models on timestep 4 cround 9 of cluster identity 2
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.77
+BalancedACC - 0.79
+Client 0 - testing on model 1
+ACC - 0.83
+BalancedACC - 0.89
+Client 0 - testing on model 2
+ACC - 0.80
+BalancedACC - 0.84
+Client 0 - testing on best model 1
+ACC - 0.83
+BalancedACC - 0.89
+prev 0.8132678132678133 0.7726044226044225 0.8337428337428338
+prev 0.8381527415143603 0.7962451044386422 0.888227477355318
+No drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.75
+BalancedACC - 0.72
+Client 1 - testing on model 1
+ACC - 0.83
+BalancedACC - 0.86
+Client 1 - testing on model 2
+ACC - 0.80
+BalancedACC - 0.83
+Client 1 - testing on best model 1
+ACC - 0.83
+BalancedACC - 0.86
+prev 0.8312858312858313 0.7897215397215397 0.828009828009828
+prev 0.8412007551670626 0.7991407174087094 0.8552278820375335
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.68
+BalancedACC - 0.63
+Client 2 - testing on model 1
+ACC - 0.72
+BalancedACC - 0.67
+Client 2 - testing on model 2
+ACC - 0.75
+BalancedACC - 0.77
+Client 2 - testing on best model 2
+ACC - 0.75
+BalancedACC - 0.77
+prev 0.7395577395577395 0.7025798525798526 0.7518427518427518
+prev 0.7070095103909827 0.6716590348714335 0.766053380136779
+No drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.72
+BalancedACC - 0.67
+Client 3 - testing on model 1
+ACC - 0.72
+BalancedACC - 0.68
+Client 3 - testing on model 2
+ACC - 0.75
+BalancedACC - 0.72
+Client 3 - testing on best model 2
+ACC - 0.75
+BalancedACC - 0.72
+prev 0.8402948402948403 0.7982800982800982 0.7452907452907452
+Drift detected at client 3
+Cluster identities timestep 5 - [1, 1, 2, 3]
+Trained model timestep 5 cround 0 client 0 with identity 1
+Trained model timestep 5 cround 0 client 1 with identity 1
+Trained model timestep 5 cround 0 client 2 with identity 2
+Trained model timestep 5 cround 0 client 3 with identity 3
+Did not average models on timestep 5 cround 0 of cluster identity 0
+Averaged models on timestep 5 cround 0 of cluster identity 1
+Averaged models on timestep 5 cround 0 of cluster identity 2
+Averaged models on timestep 5 cround 0 of cluster identity 3
+Trained model timestep 5 cround 1 client 0 with identity 1
+Trained model timestep 5 cround 1 client 1 with identity 1
+Trained model timestep 5 cround 1 client 2 with identity 2
+Trained model timestep 5 cround 1 client 3 with identity 3
+Did not average models on timestep 5 cround 1 of cluster identity 0
+Averaged models on timestep 5 cround 1 of cluster identity 1
+Averaged models on timestep 5 cround 1 of cluster identity 2
+Averaged models on timestep 5 cround 1 of cluster identity 3
+Trained model timestep 5 cround 2 client 0 with identity 1
+Trained model timestep 5 cround 2 client 1 with identity 1
+Trained model timestep 5 cround 2 client 2 with identity 2
+Trained model timestep 5 cround 2 client 3 with identity 3
+Did not average models on timestep 5 cround 2 of cluster identity 0
+Averaged models on timestep 5 cround 2 of cluster identity 1
+Averaged models on timestep 5 cround 2 of cluster identity 2
+Averaged models on timestep 5 cround 2 of cluster identity 3
+Trained model timestep 5 cround 3 client 0 with identity 1
+Trained model timestep 5 cround 3 client 1 with identity 1
+Trained model timestep 5 cround 3 client 2 with identity 2
+Trained model timestep 5 cround 3 client 3 with identity 3
+Did not average models on timestep 5 cround 3 of cluster identity 0
+Averaged models on timestep 5 cround 3 of cluster identity 1
+Averaged models on timestep 5 cround 3 of cluster identity 2
+Averaged models on timestep 5 cround 3 of cluster identity 3
+Trained model timestep 5 cround 4 client 0 with identity 1
+Trained model timestep 5 cround 4 client 1 with identity 1
+Trained model timestep 5 cround 4 client 2 with identity 2
+Trained model timestep 5 cround 4 client 3 with identity 3
+Did not average models on timestep 5 cround 4 of cluster identity 0
+Averaged models on timestep 5 cround 4 of cluster identity 1
+Averaged models on timestep 5 cround 4 of cluster identity 2
+Averaged models on timestep 5 cround 4 of cluster identity 3
+Trained model timestep 5 cround 5 client 0 with identity 1
+Trained model timestep 5 cround 5 client 1 with identity 1
+Trained model timestep 5 cround 5 client 2 with identity 2
+Trained model timestep 5 cround 5 client 3 with identity 3
+Did not average models on timestep 5 cround 5 of cluster identity 0
+Averaged models on timestep 5 cround 5 of cluster identity 1
+Averaged models on timestep 5 cround 5 of cluster identity 2
+Averaged models on timestep 5 cround 5 of cluster identity 3
+Trained model timestep 5 cround 6 client 0 with identity 1
+Trained model timestep 5 cround 6 client 1 with identity 1
+Trained model timestep 5 cround 6 client 2 with identity 2
+Trained model timestep 5 cround 6 client 3 with identity 3
+Did not average models on timestep 5 cround 6 of cluster identity 0
+Averaged models on timestep 5 cround 6 of cluster identity 1
+Averaged models on timestep 5 cround 6 of cluster identity 2
+Averaged models on timestep 5 cround 6 of cluster identity 3
+Trained model timestep 5 cround 7 client 0 with identity 1
+Trained model timestep 5 cround 7 client 1 with identity 1
+Trained model timestep 5 cround 7 client 2 with identity 2
+Trained model timestep 5 cround 7 client 3 with identity 3
+Did not average models on timestep 5 cround 7 of cluster identity 0
+Averaged models on timestep 5 cround 7 of cluster identity 1
+Averaged models on timestep 5 cround 7 of cluster identity 2
+Averaged models on timestep 5 cround 7 of cluster identity 3
+Trained model timestep 5 cround 8 client 0 with identity 1
+Trained model timestep 5 cround 8 client 1 with identity 1
+Trained model timestep 5 cround 8 client 2 with identity 2
+Trained model timestep 5 cround 8 client 3 with identity 3
+Did not average models on timestep 5 cround 8 of cluster identity 0
+Averaged models on timestep 5 cround 8 of cluster identity 1
+Averaged models on timestep 5 cround 8 of cluster identity 2
+Averaged models on timestep 5 cround 8 of cluster identity 3
+Trained model timestep 5 cround 9 client 0 with identity 1
+Trained model timestep 5 cround 9 client 1 with identity 1
+Trained model timestep 5 cround 9 client 2 with identity 2
+Trained model timestep 5 cround 9 client 3 with identity 3
+Did not average models on timestep 5 cround 9 of cluster identity 0
+Averaged models on timestep 5 cround 9 of cluster identity 1
+Averaged models on timestep 5 cround 9 of cluster identity 2
+Averaged models on timestep 5 cround 9 of cluster identity 3
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.78
+BalancedACC - 0.75
+Client 0 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.86
+Client 0 - testing on model 2
+ACC - 0.69
+BalancedACC - 0.65
+Client 0 - testing on model 3
+ACC - 0.73
+BalancedACC - 0.71
+Client 0 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.86
+prev 0.8337428337428338 0.792055692055692 0.8361998361998362
+prev 0.888227477355318 0.8438161034875521 0.8608709716817021
+No drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.75
+BalancedACC - 0.75
+Client 1 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.89
+Client 1 - testing on model 2
+ACC - 0.67
+BalancedACC - 0.66
+Client 1 - testing on model 3
+ACC - 0.72
+BalancedACC - 0.71
+Client 1 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.89
+prev 0.828009828009828 0.7866093366093366 0.8353808353808354
+prev 0.8552278820375335 0.8124664879356568 0.8875977653631285
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.78
+BalancedACC - 0.77
+Client 2 - testing on model 1
+ACC - 0.81
+BalancedACC - 0.82
+Client 2 - testing on model 2
+ACC - 0.69
+BalancedACC - 0.65
+Client 2 - testing on model 3
+ACC - 0.73
+BalancedACC - 0.72
+Client 2 - testing on best model 1
+ACC - 0.81
+BalancedACC - 0.82
+prev 0.7518427518427518 0.7142506142506142 0.8149058149058149
+prev 0.766053380136779 0.72775071112994 0.8237764809492012
+No drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.70
+BalancedACC - 0.65
+Client 3 - testing on model 1
+ACC - 0.69
+BalancedACC - 0.66
+Client 3 - testing on model 2
+ACC - 0.71
+BalancedACC - 0.71
+Client 3 - testing on model 3
+ACC - 0.72
+BalancedACC - 0.70
+Client 3 - testing on best model 3
+ACC - 0.72
+BalancedACC - 0.70
+prev 0.7452907452907452 0.708026208026208 0.719082719082719
+prev 0.7157252066382958 0.679938946306381 0.7046219279119222
+No drift detected at client 3
+Cluster identities timestep 6 - [1, 1, 1, 3]
+Trained model timestep 6 cround 0 client 0 with identity 1
+Trained model timestep 6 cround 0 client 1 with identity 1
+Trained model timestep 6 cround 0 client 2 with identity 1
+Trained model timestep 6 cround 0 client 3 with identity 3
+Did not average models on timestep 6 cround 0 of cluster identity 0
+Averaged models on timestep 6 cround 0 of cluster identity 1
+Did not average models on timestep 6 cround 0 of cluster identity 2
+Averaged models on timestep 6 cround 0 of cluster identity 3
+Trained model timestep 6 cround 1 client 0 with identity 1
+Trained model timestep 6 cround 1 client 1 with identity 1
+Trained model timestep 6 cround 1 client 2 with identity 1
+Trained model timestep 6 cround 1 client 3 with identity 3
+Did not average models on timestep 6 cround 1 of cluster identity 0
+Averaged models on timestep 6 cround 1 of cluster identity 1
+Did not average models on timestep 6 cround 1 of cluster identity 2
+Averaged models on timestep 6 cround 1 of cluster identity 3
+Trained model timestep 6 cround 2 client 0 with identity 1
+Trained model timestep 6 cround 2 client 1 with identity 1
+Trained model timestep 6 cround 2 client 2 with identity 1
+Trained model timestep 6 cround 2 client 3 with identity 3
+Did not average models on timestep 6 cround 2 of cluster identity 0
+Averaged models on timestep 6 cround 2 of cluster identity 1
+Did not average models on timestep 6 cround 2 of cluster identity 2
+Averaged models on timestep 6 cround 2 of cluster identity 3
+Trained model timestep 6 cround 3 client 0 with identity 1
+Trained model timestep 6 cround 3 client 1 with identity 1
+Trained model timestep 6 cround 3 client 2 with identity 1
+Trained model timestep 6 cround 3 client 3 with identity 3
+Did not average models on timestep 6 cround 3 of cluster identity 0
+Averaged models on timestep 6 cround 3 of cluster identity 1
+Did not average models on timestep 6 cround 3 of cluster identity 2
+Averaged models on timestep 6 cround 3 of cluster identity 3
+Trained model timestep 6 cround 4 client 0 with identity 1
+Trained model timestep 6 cround 4 client 1 with identity 1
+Trained model timestep 6 cround 4 client 2 with identity 1
+Trained model timestep 6 cround 4 client 3 with identity 3
+Did not average models on timestep 6 cround 4 of cluster identity 0
+Averaged models on timestep 6 cround 4 of cluster identity 1
+Did not average models on timestep 6 cround 4 of cluster identity 2
+Averaged models on timestep 6 cround 4 of cluster identity 3
+Trained model timestep 6 cround 5 client 0 with identity 1
+Trained model timestep 6 cround 5 client 1 with identity 1
+Trained model timestep 6 cround 5 client 2 with identity 1
+Trained model timestep 6 cround 5 client 3 with identity 3
+Did not average models on timestep 6 cround 5 of cluster identity 0
+Averaged models on timestep 6 cround 5 of cluster identity 1
+Did not average models on timestep 6 cround 5 of cluster identity 2
+Averaged models on timestep 6 cround 5 of cluster identity 3
+Trained model timestep 6 cround 6 client 0 with identity 1
+Trained model timestep 6 cround 6 client 1 with identity 1
+Trained model timestep 6 cround 6 client 2 with identity 1
+Trained model timestep 6 cround 6 client 3 with identity 3
+Did not average models on timestep 6 cround 6 of cluster identity 0
+Averaged models on timestep 6 cround 6 of cluster identity 1
+Did not average models on timestep 6 cround 6 of cluster identity 2
+Averaged models on timestep 6 cround 6 of cluster identity 3
+Trained model timestep 6 cround 7 client 0 with identity 1
+Trained model timestep 6 cround 7 client 1 with identity 1
+Trained model timestep 6 cround 7 client 2 with identity 1
+Trained model timestep 6 cround 7 client 3 with identity 3
+Did not average models on timestep 6 cround 7 of cluster identity 0
+Averaged models on timestep 6 cround 7 of cluster identity 1
+Did not average models on timestep 6 cround 7 of cluster identity 2
+Averaged models on timestep 6 cround 7 of cluster identity 3
+Trained model timestep 6 cround 8 client 0 with identity 1
+Trained model timestep 6 cround 8 client 1 with identity 1
+Trained model timestep 6 cround 8 client 2 with identity 1
+Trained model timestep 6 cround 8 client 3 with identity 3
+Did not average models on timestep 6 cround 8 of cluster identity 0
+Averaged models on timestep 6 cround 8 of cluster identity 1
+Did not average models on timestep 6 cround 8 of cluster identity 2
+Averaged models on timestep 6 cround 8 of cluster identity 3
+Trained model timestep 6 cround 9 client 0 with identity 1
+Trained model timestep 6 cround 9 client 1 with identity 1
+Trained model timestep 6 cround 9 client 2 with identity 1
+Trained model timestep 6 cround 9 client 3 with identity 3
+Did not average models on timestep 6 cround 9 of cluster identity 0
+Averaged models on timestep 6 cround 9 of cluster identity 1
+Did not average models on timestep 6 cround 9 of cluster identity 2
+Averaged models on timestep 6 cround 9 of cluster identity 3
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.76
+BalancedACC - 0.79
+Client 0 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.91
+Client 0 - testing on model 2
+ACC - 0.65
+BalancedACC - 0.61
+Client 0 - testing on model 3
+ACC - 0.61
+BalancedACC - 0.57
+Client 0 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.91
+prev 0.8361998361998362 0.7943898443898443 0.8394758394758395
+prev 0.8608709716817021 0.817827423097617 0.9129882502381708
+No drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.78
+BalancedACC - 0.73
+Client 1 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.86
+Client 1 - testing on model 2
+ACC - 0.69
+BalancedACC - 0.64
+Client 1 - testing on model 3
+ACC - 0.66
+BalancedACC - 0.63
+Client 1 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.86
+prev 0.8353808353808354 0.7936117936117936 0.8411138411138411
+prev 0.8875977653631285 0.8432178770949721 0.8558909601897691
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.76
+BalancedACC - 0.77
+Client 2 - testing on model 1
+ACC - 0.83
+BalancedACC - 0.85
+Client 2 - testing on model 2
+ACC - 0.71
+BalancedACC - 0.67
+Client 2 - testing on model 3
+ACC - 0.69
+BalancedACC - 0.65
+Client 2 - testing on best model 1
+ACC - 0.83
+BalancedACC - 0.85
+prev 0.8149058149058149 0.7741605241605242 0.8296478296478297
+prev 0.8237764809492012 0.7825876569017411 0.8520682802279517
+No drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.85
+BalancedACC - 0.88
+Client 3 - testing on model 1
+ACC - 0.74
+BalancedACC - 0.70
+Client 3 - testing on model 2
+ACC - 0.61
+BalancedACC - 0.51
+Client 3 - testing on model 3
+ACC - 0.56
+BalancedACC - 0.44
+Client 3 - testing on best model 0
+ACC - 0.85
+BalancedACC - 0.88
+prev 0.719082719082719 0.683128583128583 0.8525798525798526
+prev 0.7046219279119222 0.6693908315163261 0.8798765309170566
+No drift detected at client 3
+Cluster identities timestep 7 - [1, 1, 1, 0]
+Trained model timestep 7 cround 0 client 0 with identity 1
+Trained model timestep 7 cround 0 client 1 with identity 1
+Trained model timestep 7 cround 0 client 2 with identity 1
+Trained model timestep 7 cround 0 client 3 with identity 0
+Averaged models on timestep 7 cround 0 of cluster identity 0
+Averaged models on timestep 7 cround 0 of cluster identity 1
+Did not average models on timestep 7 cround 0 of cluster identity 2
+Did not average models on timestep 7 cround 0 of cluster identity 3
+Trained model timestep 7 cround 1 client 0 with identity 1
+Trained model timestep 7 cround 1 client 1 with identity 1
+Trained model timestep 7 cround 1 client 2 with identity 1
+Trained model timestep 7 cround 1 client 3 with identity 0
+Averaged models on timestep 7 cround 1 of cluster identity 0
+Averaged models on timestep 7 cround 1 of cluster identity 1
+Did not average models on timestep 7 cround 1 of cluster identity 2
+Did not average models on timestep 7 cround 1 of cluster identity 3
+Trained model timestep 7 cround 2 client 0 with identity 1
+Trained model timestep 7 cround 2 client 1 with identity 1
+Trained model timestep 7 cround 2 client 2 with identity 1
+Trained model timestep 7 cround 2 client 3 with identity 0
+Averaged models on timestep 7 cround 2 of cluster identity 0
+Averaged models on timestep 7 cround 2 of cluster identity 1
+Did not average models on timestep 7 cround 2 of cluster identity 2
+Did not average models on timestep 7 cround 2 of cluster identity 3
+Trained model timestep 7 cround 3 client 0 with identity 1
+Trained model timestep 7 cround 3 client 1 with identity 1
+Trained model timestep 7 cround 3 client 2 with identity 1
+Trained model timestep 7 cround 3 client 3 with identity 0
+Averaged models on timestep 7 cround 3 of cluster identity 0
+Averaged models on timestep 7 cround 3 of cluster identity 1
+Did not average models on timestep 7 cround 3 of cluster identity 2
+Did not average models on timestep 7 cround 3 of cluster identity 3
+Trained model timestep 7 cround 4 client 0 with identity 1
+Trained model timestep 7 cround 4 client 1 with identity 1
+Trained model timestep 7 cround 4 client 2 with identity 1
+Trained model timestep 7 cround 4 client 3 with identity 0
+Averaged models on timestep 7 cround 4 of cluster identity 0
+Averaged models on timestep 7 cround 4 of cluster identity 1
+Did not average models on timestep 7 cround 4 of cluster identity 2
+Did not average models on timestep 7 cround 4 of cluster identity 3
+Trained model timestep 7 cround 5 client 0 with identity 1
+Trained model timestep 7 cround 5 client 1 with identity 1
+Trained model timestep 7 cround 5 client 2 with identity 1
+Trained model timestep 7 cround 5 client 3 with identity 0
+Averaged models on timestep 7 cround 5 of cluster identity 0
+Averaged models on timestep 7 cround 5 of cluster identity 1
+Did not average models on timestep 7 cround 5 of cluster identity 2
+Did not average models on timestep 7 cround 5 of cluster identity 3
+Trained model timestep 7 cround 6 client 0 with identity 1
+Trained model timestep 7 cround 6 client 1 with identity 1
+Trained model timestep 7 cround 6 client 2 with identity 1
+Trained model timestep 7 cround 6 client 3 with identity 0
+Averaged models on timestep 7 cround 6 of cluster identity 0
+Averaged models on timestep 7 cround 6 of cluster identity 1
+Did not average models on timestep 7 cround 6 of cluster identity 2
+Did not average models on timestep 7 cround 6 of cluster identity 3
+Trained model timestep 7 cround 7 client 0 with identity 1
+Trained model timestep 7 cround 7 client 1 with identity 1
+Trained model timestep 7 cround 7 client 2 with identity 1
+Trained model timestep 7 cround 7 client 3 with identity 0
+Averaged models on timestep 7 cround 7 of cluster identity 0
+Averaged models on timestep 7 cround 7 of cluster identity 1
+Did not average models on timestep 7 cround 7 of cluster identity 2
+Did not average models on timestep 7 cround 7 of cluster identity 3
+Trained model timestep 7 cround 8 client 0 with identity 1
+Trained model timestep 7 cround 8 client 1 with identity 1
+Trained model timestep 7 cround 8 client 2 with identity 1
+Trained model timestep 7 cround 8 client 3 with identity 0
+Averaged models on timestep 7 cround 8 of cluster identity 0
+Averaged models on timestep 7 cround 8 of cluster identity 1
+Did not average models on timestep 7 cround 8 of cluster identity 2
+Did not average models on timestep 7 cround 8 of cluster identity 3
+Trained model timestep 7 cround 9 client 0 with identity 1
+Trained model timestep 7 cround 9 client 1 with identity 1
+Trained model timestep 7 cround 9 client 2 with identity 1
+Trained model timestep 7 cround 9 client 3 with identity 0
+Averaged models on timestep 7 cround 9 of cluster identity 0
+Averaged models on timestep 7 cround 9 of cluster identity 1
+Did not average models on timestep 7 cround 9 of cluster identity 2
+Did not average models on timestep 7 cround 9 of cluster identity 3
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.68
+BalancedACC - 0.62
+Client 0 - testing on model 1
+ACC - 0.73
+BalancedACC - 0.69
+Client 0 - testing on model 2
+ACC - 0.74
+BalancedACC - 0.69
+Client 0 - testing on model 3
+ACC - 0.72
+BalancedACC - 0.69
+Client 0 - testing on best model 2
+ACC - 0.74
+BalancedACC - 0.69
+prev 0.8394758394758395 0.7975020475020475 0.7362817362817363
+Drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.74
+BalancedACC - 0.77
+Client 1 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.89
+Client 1 - testing on model 2
+ACC - 0.66
+BalancedACC - 0.62
+Client 1 - testing on model 3
+ACC - 0.63
+BalancedACC - 0.59
+Client 1 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.89
+prev 0.8411138411138411 0.7990581490581491 0.8411138411138411
+prev 0.8558909601897691 0.8130964121802806 0.8855170028204992
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.73
+BalancedACC - 0.73
+Client 2 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.89
+Client 2 - testing on model 2
+ACC - 0.65
+BalancedACC - 0.60
+Client 2 - testing on model 3
+ACC - 0.64
+BalancedACC - 0.64
+Client 2 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.89
+prev 0.8296478296478297 0.7881654381654382 0.8411138411138411
+prev 0.8520682802279517 0.809464866216554 0.889813647001693
+No drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.83
+BalancedACC - 0.87
+Client 3 - testing on model 1
+ACC - 0.75
+BalancedACC - 0.72
+Client 3 - testing on model 2
+ACC - 0.58
+BalancedACC - 0.46
+Client 3 - testing on model 3
+ACC - 0.56
+BalancedACC - 0.43
+Client 3 - testing on best model 0
+ACC - 0.83
+BalancedACC - 0.87
+prev 0.8525798525798526 0.8099508599508599 0.8312858312858313
+prev 0.8798765309170566 0.8358827043712038 0.8693685733173626
+No drift detected at client 3
+Cluster identities timestep 8 - [4, 1, 1, 0]
+Trained model timestep 8 cround 0 client 0 with identity 4
+Trained model timestep 8 cround 0 client 1 with identity 1
+Trained model timestep 8 cround 0 client 2 with identity 1
+Trained model timestep 8 cround 0 client 3 with identity 0
+Averaged models on timestep 8 cround 0 of cluster identity 0
+Averaged models on timestep 8 cround 0 of cluster identity 1
+Did not average models on timestep 8 cround 0 of cluster identity 2
+Did not average models on timestep 8 cround 0 of cluster identity 3
+Averaged models on timestep 8 cround 0 of cluster identity 4
+Trained model timestep 8 cround 1 client 0 with identity 4
+Trained model timestep 8 cround 1 client 1 with identity 1
+Trained model timestep 8 cround 1 client 2 with identity 1
+Trained model timestep 8 cround 1 client 3 with identity 0
+Averaged models on timestep 8 cround 1 of cluster identity 0
+Averaged models on timestep 8 cround 1 of cluster identity 1
+Did not average models on timestep 8 cround 1 of cluster identity 2
+Did not average models on timestep 8 cround 1 of cluster identity 3
+Averaged models on timestep 8 cround 1 of cluster identity 4
+Trained model timestep 8 cround 2 client 0 with identity 4
+Trained model timestep 8 cround 2 client 1 with identity 1
+Trained model timestep 8 cround 2 client 2 with identity 1
+Trained model timestep 8 cround 2 client 3 with identity 0
+Averaged models on timestep 8 cround 2 of cluster identity 0
+Averaged models on timestep 8 cround 2 of cluster identity 1
+Did not average models on timestep 8 cround 2 of cluster identity 2
+Did not average models on timestep 8 cround 2 of cluster identity 3
+Averaged models on timestep 8 cround 2 of cluster identity 4
+Trained model timestep 8 cround 3 client 0 with identity 4
+Trained model timestep 8 cround 3 client 1 with identity 1
+Trained model timestep 8 cround 3 client 2 with identity 1
+Trained model timestep 8 cround 3 client 3 with identity 0
+Averaged models on timestep 8 cround 3 of cluster identity 0
+Averaged models on timestep 8 cround 3 of cluster identity 1
+Did not average models on timestep 8 cround 3 of cluster identity 2
+Did not average models on timestep 8 cround 3 of cluster identity 3
+Averaged models on timestep 8 cround 3 of cluster identity 4
+Trained model timestep 8 cround 4 client 0 with identity 4
+Trained model timestep 8 cround 4 client 1 with identity 1
+Trained model timestep 8 cround 4 client 2 with identity 1
+Trained model timestep 8 cround 4 client 3 with identity 0
+Averaged models on timestep 8 cround 4 of cluster identity 0
+Averaged models on timestep 8 cround 4 of cluster identity 1
+Did not average models on timestep 8 cround 4 of cluster identity 2
+Did not average models on timestep 8 cround 4 of cluster identity 3
+Averaged models on timestep 8 cround 4 of cluster identity 4
+Trained model timestep 8 cround 5 client 0 with identity 4
+Trained model timestep 8 cround 5 client 1 with identity 1
+Trained model timestep 8 cround 5 client 2 with identity 1
+Trained model timestep 8 cround 5 client 3 with identity 0
+Averaged models on timestep 8 cround 5 of cluster identity 0
+Averaged models on timestep 8 cround 5 of cluster identity 1
+Did not average models on timestep 8 cround 5 of cluster identity 2
+Did not average models on timestep 8 cround 5 of cluster identity 3
+Averaged models on timestep 8 cround 5 of cluster identity 4
+Trained model timestep 8 cround 6 client 0 with identity 4
+Trained model timestep 8 cround 6 client 1 with identity 1
+Trained model timestep 8 cround 6 client 2 with identity 1
+Trained model timestep 8 cround 6 client 3 with identity 0
+Averaged models on timestep 8 cround 6 of cluster identity 0
+Averaged models on timestep 8 cround 6 of cluster identity 1
+Did not average models on timestep 8 cround 6 of cluster identity 2
+Did not average models on timestep 8 cround 6 of cluster identity 3
+Averaged models on timestep 8 cround 6 of cluster identity 4
+Trained model timestep 8 cround 7 client 0 with identity 4
+Trained model timestep 8 cround 7 client 1 with identity 1
+Trained model timestep 8 cround 7 client 2 with identity 1
+Trained model timestep 8 cround 7 client 3 with identity 0
+Averaged models on timestep 8 cround 7 of cluster identity 0
+Averaged models on timestep 8 cround 7 of cluster identity 1
+Did not average models on timestep 8 cround 7 of cluster identity 2
+Did not average models on timestep 8 cround 7 of cluster identity 3
+Averaged models on timestep 8 cround 7 of cluster identity 4
+Trained model timestep 8 cround 8 client 0 with identity 4
+Trained model timestep 8 cround 8 client 1 with identity 1
+Trained model timestep 8 cround 8 client 2 with identity 1
+Trained model timestep 8 cround 8 client 3 with identity 0
+Averaged models on timestep 8 cround 8 of cluster identity 0
+Averaged models on timestep 8 cround 8 of cluster identity 1
+Did not average models on timestep 8 cround 8 of cluster identity 2
+Did not average models on timestep 8 cround 8 of cluster identity 3
+Averaged models on timestep 8 cround 8 of cluster identity 4
+Trained model timestep 8 cround 9 client 0 with identity 4
+Trained model timestep 8 cround 9 client 1 with identity 1
+Trained model timestep 8 cround 9 client 2 with identity 1
+Trained model timestep 8 cround 9 client 3 with identity 0
+Averaged models on timestep 8 cround 9 of cluster identity 0
+Averaged models on timestep 8 cround 9 of cluster identity 1
+Did not average models on timestep 8 cround 9 of cluster identity 2
+Did not average models on timestep 8 cround 9 of cluster identity 3
+Averaged models on timestep 8 cround 9 of cluster identity 4
+Client 0 - checking best model
+Client 0 - testing on model 0
+ACC - 0.78
+BalancedACC - 0.79
+Client 0 - testing on model 1
+ACC - 0.85
+BalancedACC - 0.89
+Client 0 - testing on model 2
+ACC - 0.68
+BalancedACC - 0.61
+Client 0 - testing on model 3
+ACC - 0.66
+BalancedACC - 0.61
+Client 0 - testing on model 4
+ACC - 0.76
+BalancedACC - 0.79
+Client 0 - testing on best model 1
+ACC - 0.85
+BalancedACC - 0.89
+prev 0.7362817362817363 0.6994676494676495 0.8452088452088452
+prev 0.6906154347976502 0.6560846630577677 0.8899054398499716
+No drift detected at client 0
+Client 1 - checking best model
+Client 1 - testing on model 0
+ACC - 0.85
+BalancedACC - 0.85
+Client 1 - testing on model 1
+ACC - 0.75
+BalancedACC - 0.69
+Client 1 - testing on model 2
+ACC - 0.62
+BalancedACC - 0.49
+Client 1 - testing on model 3
+ACC - 0.57
+BalancedACC - 0.43
+Client 1 - testing on model 4
+ACC - 0.69
+BalancedACC - 0.62
+Client 1 - testing on best model 0
+ACC - 0.85
+BalancedACC - 0.85
+prev 0.8411138411138411 0.7990581490581491 0.8468468468468469
+prev 0.8855170028204992 0.8412411526794742 0.8542293557810097
+No drift detected at client 1
+Client 2 - checking best model
+Client 2 - testing on model 0
+ACC - 0.77
+BalancedACC - 0.78
+Client 2 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.89
+Client 2 - testing on model 2
+ACC - 0.66
+BalancedACC - 0.60
+Client 2 - testing on model 3
+ACC - 0.64
+BalancedACC - 0.59
+Client 2 - testing on model 4
+ACC - 0.75
+BalancedACC - 0.73
+Client 2 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.89
+prev 0.8411138411138411 0.7990581490581491 0.8419328419328419
+prev 0.889813647001693 0.8453229646516083 0.8949375153148739
+No drift detected at client 2
+Client 3 - checking best model
+Client 3 - testing on model 0
+ACC - 0.78
+BalancedACC - 0.76
+Client 3 - testing on model 1
+ACC - 0.84
+BalancedACC - 0.88
+Client 3 - testing on model 2
+ACC - 0.69
+BalancedACC - 0.62
+Client 3 - testing on model 3
+ACC - 0.66
+BalancedACC - 0.58
+Client 3 - testing on model 4
+ACC - 0.76
+BalancedACC - 0.75
+Client 3 - testing on best model 1
+ACC - 0.84
+BalancedACC - 0.88
+prev 0.8312858312858313 0.7897215397215397 0.8419328419328419
+prev 0.8693685733173626 0.8259001446514944 0.8756907626679686
+No drift detected at client 3
+Cluster identities timestep 9 - [1, 0, 1, 1]
+Trained model timestep 9 cround 0 client 0 with identity 1
+Trained model timestep 9 cround 0 client 1 with identity 0
+Trained model timestep 9 cround 0 client 2 with identity 1
+Trained model timestep 9 cround 0 client 3 with identity 1
+Averaged models on timestep 9 cround 0 of cluster identity 0
+Averaged models on timestep 9 cround 0 of cluster identity 1
+Did not average models on timestep 9 cround 0 of cluster identity 2
+Did not average models on timestep 9 cround 0 of cluster identity 3
+Did not average models on timestep 9 cround 0 of cluster identity 4
+Trained model timestep 9 cround 1 client 0 with identity 1
+Trained model timestep 9 cround 1 client 1 with identity 0
+Trained model timestep 9 cround 1 client 2 with identity 1
+Trained model timestep 9 cround 1 client 3 with identity 1
+Averaged models on timestep 9 cround 1 of cluster identity 0
+Averaged models on timestep 9 cround 1 of cluster identity 1
+Did not average models on timestep 9 cround 1 of cluster identity 2
+Did not average models on timestep 9 cround 1 of cluster identity 3
+Did not average models on timestep 9 cround 1 of cluster identity 4
+Trained model timestep 9 cround 2 client 0 with identity 1
+Trained model timestep 9 cround 2 client 1 with identity 0
+Trained model timestep 9 cround 2 client 2 with identity 1
+Trained model timestep 9 cround 2 client 3 with identity 1
+Averaged models on timestep 9 cround 2 of cluster identity 0
+Averaged models on timestep 9 cround 2 of cluster identity 1
+Did not average models on timestep 9 cround 2 of cluster identity 2
+Did not average models on timestep 9 cround 2 of cluster identity 3
+Did not average models on timestep 9 cround 2 of cluster identity 4
+Trained model timestep 9 cround 3 client 0 with identity 1
+Trained model timestep 9 cround 3 client 1 with identity 0
+Trained model timestep 9 cround 3 client 2 with identity 1
+Trained model timestep 9 cround 3 client 3 with identity 1
+Averaged models on timestep 9 cround 3 of cluster identity 0
+Averaged models on timestep 9 cround 3 of cluster identity 1
+Did not average models on timestep 9 cround 3 of cluster identity 2
+Did not average models on timestep 9 cround 3 of cluster identity 3
+Did not average models on timestep 9 cround 3 of cluster identity 4
+Trained model timestep 9 cround 4 client 0 with identity 1
+Trained model timestep 9 cround 4 client 1 with identity 0
+Trained model timestep 9 cround 4 client 2 with identity 1
+Trained model timestep 9 cround 4 client 3 with identity 1
+Averaged models on timestep 9 cround 4 of cluster identity 0
+Averaged models on timestep 9 cround 4 of cluster identity 1
+Did not average models on timestep 9 cround 4 of cluster identity 2
+Did not average models on timestep 9 cround 4 of cluster identity 3
+Did not average models on timestep 9 cround 4 of cluster identity 4
+Trained model timestep 9 cround 5 client 0 with identity 1
+Trained model timestep 9 cround 5 client 1 with identity 0
+Trained model timestep 9 cround 5 client 2 with identity 1
+Trained model timestep 9 cround 5 client 3 with identity 1
+Averaged models on timestep 9 cround 5 of cluster identity 0
+Averaged models on timestep 9 cround 5 of cluster identity 1
+Did not average models on timestep 9 cround 5 of cluster identity 2
+Did not average models on timestep 9 cround 5 of cluster identity 3
+Did not average models on timestep 9 cround 5 of cluster identity 4
+Trained model timestep 9 cround 6 client 0 with identity 1
+Trained model timestep 9 cround 6 client 1 with identity 0
+Trained model timestep 9 cround 6 client 2 with identity 1
+Trained model timestep 9 cround 6 client 3 with identity 1
+Averaged models on timestep 9 cround 6 of cluster identity 0
+Averaged models on timestep 9 cround 6 of cluster identity 1
+Did not average models on timestep 9 cround 6 of cluster identity 2
+Did not average models on timestep 9 cround 6 of cluster identity 3
+Did not average models on timestep 9 cround 6 of cluster identity 4
+Trained model timestep 9 cround 7 client 0 with identity 1
+Trained model timestep 9 cround 7 client 1 with identity 0
+Trained model timestep 9 cround 7 client 2 with identity 1
+Trained model timestep 9 cround 7 client 3 with identity 1
+Averaged models on timestep 9 cround 7 of cluster identity 0
+Averaged models on timestep 9 cround 7 of cluster identity 1
+Did not average models on timestep 9 cround 7 of cluster identity 2
+Did not average models on timestep 9 cround 7 of cluster identity 3
+Did not average models on timestep 9 cround 7 of cluster identity 4
+Trained model timestep 9 cround 8 client 0 with identity 1
+Trained model timestep 9 cround 8 client 1 with identity 0
+Trained model timestep 9 cround 8 client 2 with identity 1
+Trained model timestep 9 cround 8 client 3 with identity 1
+Averaged models on timestep 9 cround 8 of cluster identity 0
+Averaged models on timestep 9 cround 8 of cluster identity 1
+Did not average models on timestep 9 cround 8 of cluster identity 2
+Did not average models on timestep 9 cround 8 of cluster identity 3
+Did not average models on timestep 9 cround 8 of cluster identity 4
+Trained model timestep 9 cround 9 client 0 with identity 1
+Trained model timestep 9 cround 9 client 1 with identity 0
+Trained model timestep 9 cround 9 client 2 with identity 1
+Trained model timestep 9 cround 9 client 3 with identity 1
+Averaged models on timestep 9 cround 9 of cluster identity 0
+Averaged models on timestep 9 cround 9 of cluster identity 1
+Did not average models on timestep 9 cround 9 of cluster identity 2
+Did not average models on timestep 9 cround 9 of cluster identity 3
+Did not average models on timestep 9 cround 9 of cluster identity 4

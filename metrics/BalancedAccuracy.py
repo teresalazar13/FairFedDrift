@@ -31,7 +31,10 @@ class BalancedAccuracy(Metric):
         total_unpriv = len(df[df["s"] == 0])
         acc_priv = correct_priv / total_priv
         acc_unpriv = correct_unpriv / total_unpriv
-        res = acc_unpriv / acc_priv
+        if acc_priv != 0:
+            res = acc_unpriv / acc_priv
+        else:
+            res = 0
         if res > 1:
             res = 1 / res
 

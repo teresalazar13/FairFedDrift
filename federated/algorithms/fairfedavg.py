@@ -81,7 +81,7 @@ def get_new_cluster_identities(
         best_res_sum = 0
         best_res = []
         for j, res in enumerate(res_models):
-            if sum(res) > best_res_sum:
+            if sum(res) >= best_res_sum:
                 cluster_identity = j
                 best_res_sum = sum(res)
                 best_res = res
@@ -93,8 +93,11 @@ def get_new_cluster_identities(
             print("{} - {:.2f}".format(client_metric.name, res))
 
         drift_detected = 0
-        for res in best_res:
-            if timestep > 0 and res < 0.85:  # DETECT CONCEPT DRIFT
+        for k, res in enumerate(best_res):  # all metrics - accuracy (only balanced accuracy)
+            if timestep > 0:
+                print("prev", clients_metrics[client_id][k].res[-2], clients_metrics[client_id][k].res[-2] * 0.95, res)
+            if timestep > 0 and res < clients_metrics[client_id][k].res[-2] * 0.95:  # DETECT CONCEPT DRIFT  -> prev 0.8 (mnist 0.1) and 0.85 (mnist 0.5)
+            #if timestep > 0 and res < 0.85:  # DETECT CONCEPT DRIFT  -> prev 0.8 (mnist 0.1) and 0.85 (mnist 0.5)
                 print("Drift detected at client {}".format(client_id))
                 global_models.append(NN_model(n_features, seed, is_image))
                 cluster_identities.append(len(global_models) - 1)

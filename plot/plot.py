@@ -6,12 +6,14 @@ import distinctipy
 
 
 def plot_synthetic_data(drift_data, n_drifts, n_samples, filename):
-    fig, axs = plt.subplots(nrows=n_drifts, ncols=1, figsize=(10, 25))
+    fig, axs = plt.subplots(nrows=n_drifts, ncols=1, figsize=(10, 5 * n_drifts))
 
     for i in range(len(drift_data)):
         X, y, s, disc, right, up = drift_data[i]
-        plot_synthetic_data_drift(X, y, s, disc, right, up, axs[i], n_samples[i])
-
+        if n_drifts > 1:
+            plot_synthetic_data_drift(X, y, s, disc, right, up, axs[i], n_samples[i])
+        else:
+            plot_synthetic_data_drift(X, y, s, disc, right, up, axs, n_samples[i])
     plt.savefig(filename)
 
 
@@ -48,7 +50,7 @@ def plot_synthetic_data_drift(X, y, s, disc, right, up, ax, n_samples):
     )  # dont need the ticks to see the data distribution
     ax.tick_params(axis='y', which='both', left='off', right='off', labelleft='off')
     ax.set_title("up: {} | right: {} | disc: {}".format(up, right, disc))
-    ax.legend(fontsize=15)
+    ax.legend(fontsize=15, loc="lower right")
     ax.set_xlim((-15, 15))
     ax.set_ylim((-15, 15))
 

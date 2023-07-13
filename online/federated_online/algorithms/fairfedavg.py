@@ -46,9 +46,9 @@ class FairFedAvg(Algorithm):
                     else:
                         new_model_id = len(global_models)
                         client_gm_ids[client] = new_model_id  # update client's global model is
-                        new_model = NN_model_online(n_features, seed, is_image)  # create new global model
+                        new_model = NN_model_online(n_features, seed, is_image)  # create new.csv global model
                         new_model.set_weights(global_models[gm_id].get_weights())
-                        global_models.append(new_model)  # add new global model to list
+                        global_models.append(new_model)  # add new.csv global model to list
                         local_weights_list.append([])
                         client_scaling_factors.append([])
                         continue_loop = True

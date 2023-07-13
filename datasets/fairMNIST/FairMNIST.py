@@ -41,13 +41,6 @@ class FairMNIST:
                 train_y_priv_round_client = train_y_priv_round_clients[j]
                 size_unpriv = round(len(train_X_priv_round_client) * varying_disc)
                 train_X_unpriv_round_client = np.rot90(train_X_priv_round_client.copy() * -1, axes=(-2, -1))
-                for n in range(len(train_y_priv_round_client)):
-                    if train_y_priv_round_client[n] == 7:
-                        plt.imshow(train_X_unpriv_round_client[n])
-                        plt.show()
-                        plt.imshow(train_X_priv_round_client[n])
-                        plt.show()
-                        exit()
                 train_y_unpriv_round_client = train_y_priv_round_client.copy()
                 if drift_id != 0:
                     train_y_unpriv_round_client[train_y_unpriv_round_client == drift_id] = 100
@@ -68,7 +61,7 @@ class FairMNIST:
                 drift_ids_col[j].append(drift_ids[i][j])
             batched_data.append(batched_data_round)
 
-        return batched_data, drift_ids_col, 3
+        return batched_data, drift_ids_col, _
 
     def generate_drift_ids(self, n_clients, n_timesteps, n_drifts):
         drift_ids = [
@@ -92,17 +85,3 @@ class FairMNIST:
         print(drift_ids)
 
         return drift_ids
-
-
-def color_grayscale_arr(arr, red=True):
-    """Converts grayscale image to either red or green"""
-    assert arr.ndim == 2
-    dtype = arr.dtype
-    h, w = arr.shape
-    arr = np.reshape(arr, [h, w, 1])
-    if red:
-        arr = np.concatenate([arr, np.zeros((h, w, 2), dtype=dtype)], axis=2)
-    else:
-        arr = np.concatenate([np.zeros((h, w, 1), dtype=dtype), arr, np.zeros((h, w, 1), dtype=dtype)], axis=2)
-
-    return arr

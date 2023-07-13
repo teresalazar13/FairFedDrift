@@ -117,7 +117,7 @@ def generate_synthetic_data(n_samples, disc, right, up):
         Code for generating the synthetic data.
         We will have two non-sensitive features and one sensitive feature.
         A sensitive feature value of 0.0 means the example is considered to be in protected group (e.g., female) and
-        disc_1.0 means it's in non-protected group (e.g., male).
+        disc_0.5 means it's in non-protected group (e.g., male).
     """
     SEED = 1122334455
     random.seed(SEED)

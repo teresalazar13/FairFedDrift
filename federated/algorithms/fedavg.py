@@ -41,6 +41,7 @@ class FedAvg(Algorithm):
                     client_scaling_factors_list.append(len(x))
                     #K.clear_session()
                     print("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
+
                 new_global_weights = calculate_global_weights(local_weights_list, client_scaling_factors_list)
                 global_model.set_weights(new_global_weights)
                 print("Averaged models on timestep {} cround {}".format(timestep, cround))
@@ -57,11 +58,13 @@ class FedAvg(Algorithm):
 def get_y(y, pred, is_image):
     y_new = []
     pred_new = []
+
     for y_i, pred_i in zip(y, pred):
         if not is_image:
-            pred_new.append(0)
-            if pred_i[0][0] > 0.5:
-                pred_new.append(1)
+            pred_new_i = 0
+            if pred_i[0] > 0.5:
+                pred_new_i = 1
+            pred_new.append(pred_new_i)
             y_new.append(y_i)
         else:
             y_new.append(y_i.argmax())
