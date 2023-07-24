@@ -1,27 +1,34 @@
-from tensorflow.keras import backend as K
+import tensorflow as tf
+from copy import deepcopy
 
 from federated.algorithms.Algorithm import Algorithm
-from federated.algorithms.fedavg import get_y, calculate_global_weights
+from federated.algorithms.fedavg import get_y
+from federated.algorithms.fedmom import calculate_local_updates_momentum
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics
 
 
-class FairFedAvg(Algorithm):
+class FairFedAvgMom(Algorithm):
 
     def __init__(self):
-        name = "fair_fedavg"
+        name = "fair_fedavg_mom"
+        self.beta = 0.9
         super().__init__(name)
 
     def perform_fl(self, n_timesteps, n_crounds, n_clients, n_features, clients_data, seed, is_image):
         initial_global_model = NN_model(n_features, seed, is_image)
         global_models = [initial_global_model]
+        previous_momentum = [[tf.zeros_like(weight) for weight in initial_global_model.get_weights()]]
+        previous_global_weights = [deepcopy(initial_global_model.get_weights())]
+        iteration = 1
         clients_metrics = [get_metrics(is_image) for _ in range(n_clients)]
         client_identities = [[] for _ in range(n_clients)]
 
         for timestep in range(n_timesteps):
             # STEP 1 - test and determine cluster identities
-            cluster_identities, global_models = get_new_cluster_identities(
-                clients_data[timestep], global_models, clients_metrics, is_image, n_features, seed, timestep
+            cluster_identities, global_models, previous_momentum, previous_global_weights = get_new_cluster_identities(
+                clients_data[timestep], global_models, previous_momentum, previous_global_weights,
+                clients_metrics, is_image, n_features, seed, timestep
             )
             print("Cluster identities timestep {} - {}".format(timestep, cluster_identities))
             [client_identities[i].append(id) for i, id in enumerate(cluster_identities)]
@@ -46,8 +53,14 @@ class FairFedAvg(Algorithm):
 
                 for i, (weights, scales) in enumerate(zip(local_weights_lists, client_scaling_factors_lists)):
                     if len(weights) > 0:
-                        new_global_weights = calculate_global_weights(weights, scales)
-                        global_models[i].set_weights(new_global_weights)
+                        new_global_weights, new_momentum = calculate_local_updates_momentum(
+                            weights, scales, previous_global_weights[i], previous_momentum[i],
+                            self.beta, iteration
+                        )
+                        global_models[i].set_weights(deepcopy(new_global_weights))
+                        previous_global_weights[i] = deepcopy(new_global_weights)
+                        previous_momentum[i] = deepcopy(new_momentum)
+
                         print("Averaged models on timestep {} cround {} of cluster identity {}".format(timestep, cround, i))
                     else:
                         print("Did not average models on timestep {} cround {} of cluster identity {}".format(timestep, cround,
@@ -57,7 +70,8 @@ class FairFedAvg(Algorithm):
 
 
 def get_new_cluster_identities(
-        clients_data_timestep, global_models, clients_metrics, is_image, n_features, seed, timestep
+        clients_data_timestep, global_models, previous_momentum, previous_global_weights,
+        clients_metrics, is_image, n_features, seed, timestep
 ):
     cluster_identities = []
     original_size = len(global_models)
@@ -95,11 +109,14 @@ def get_new_cluster_identities(
         drift_detected = 0
         for k, res in enumerate(best_res):  # all metrics - accuracy (only balanced accuracy)
             if timestep > 0:
-                print("prev", clients_metrics[client_id][k].res[-2], clients_metrics[client_id][k].res[-2] * 0.95, res)
-            if timestep > 0 and res < clients_metrics[client_id][k].res[-2] * 0.95:  # DETECT CONCEPT DRIFT  -> prev 0.8 (mnist 0.1) and 0.85 (mnist 0.5)
-            #if timestep > 0 and res < 0.85:  # DETECT CONCEPT DRIFT  -> prev 0.8 (mnist 0.1) and 0.85 (mnist 0.5)
+                print("prev {:.2f}, res: {:.2f}".format(clients_metrics[client_id][k].res[-2], res))
+            #if timestep > 0 and res < clients_metrics[client_id][k].res[-2] * 0.95:  # DETECT CONCEPT DRIFT
+            if timestep > 0 and res < 0.8:  # DETECT CONCEPT DRIFT  -> 0.8 (mnist 0.1) and 0.85 (mnist 0.5)
                 print("Drift detected at client {}".format(client_id))
-                global_models.append(NN_model(n_features, seed, is_image))
+                initial_global_model = NN_model(n_features, seed, is_image)
+                global_models.append(initial_global_model)
+                previous_momentum.append([tf.zeros_like(weight) for weight in initial_global_model.get_weights()])
+                previous_global_weights.append(deepcopy(initial_global_model.get_weights()))
                 cluster_identities.append(len(global_models) - 1)
                 drift_detected = 1
                 break
@@ -107,4 +124,4 @@ def get_new_cluster_identities(
             print("No drift detected at client {}".format(client_id))
             cluster_identities.append(cluster_identity)
 
-    return cluster_identities, global_models
+    return cluster_identities, global_models, previous_momentum, previous_global_weights

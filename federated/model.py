@@ -37,9 +37,14 @@ class NN_model:
             opt = tf.keras.optimizers.SGD(learning_rate=0.1)
             self.model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
 
-    def learn(self, x, y):
+    def learn(self, x, y, sample_weights=None):
         tf.keras.utils.disable_interactive_logging()
-        self.model.fit(x=x, y=y, batch_size=self.batch_size, epochs=self.n_epochs, verbose=0)
+        if sample_weights is not None:
+            self.model.fit(
+                x=x, y=y, batch_size=self.batch_size, epochs=self.n_epochs, verbose=0, sample_weight=sample_weights
+            )
+        else:
+            self.model.fit(x=x, y=y, batch_size=self.batch_size, epochs=self.n_epochs, verbose=0)
 
     def predict(self, x):
         return self.model.predict(x)

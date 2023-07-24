@@ -70,7 +70,7 @@ class Dutch:
                 y = df_y.to_numpy().astype(np.int32)
                 s = df_X[self.sensitive_attribute.name].to_numpy().astype(np.float32)
 
-                batched_data_round.append([X, y, s])
+                batched_data_round.append([X, y, s, y])
                 drift_ids_col[j].append(drift_ids[i][j])
             batched_data.append(batched_data_round)
 

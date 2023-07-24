@@ -20,7 +20,7 @@ class FairAggregation(Algorithm):
         for timestep in range(n_timesteps):
             # STEP 1 - test
             for client_data, client_metrics in zip(clients_data[timestep], clients_metrics):
-                x, y, s = client_data
+                x, y, s, _ = client_data
                 pred = global_model.predict(x)
                 y, pred = get_y(y, pred, is_image)
                 for client_metric in client_metrics:
@@ -34,7 +34,7 @@ class FairAggregation(Algorithm):
                 local_res_list = []
                 local_res_sum = [0 for _ in range(len(clients_metrics[0]))]
                 for client in range(n_clients):
-                    x, y, s = clients_data[timestep][client]
+                    x, y, s, _ = clients_data[timestep][client]
                     global_weights = global_model.get_weights()
                     local_model = NN_model(n_features, seed, is_image)
                     local_model.compile(is_image)

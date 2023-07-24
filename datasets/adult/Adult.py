@@ -49,6 +49,7 @@ class Adult:
                 if drift_id == 1:
                     df_round_client.loc[
                         (df_round_client["workclass"] == "Private") &
+                        (df_round_client["marital-status"] != "Married-civ-spouse") &
                         (df_round_client[self.sensitive_attribute.name] == 1) &
                         (df_round_client[self.target.name] == 0) &
                         (df_round_client["RAND"] > varying_disc),
@@ -57,6 +58,7 @@ class Adult:
                 elif drift_id == 2:
                     df_round_client.loc[
                         (df_round_client["marital-status"] == "Married-civ-spouse") &
+                        (df_round_client["workclass"] != "Private") &
                         (df_round_client[self.sensitive_attribute.name] == 1) &
                         (df_round_client[self.target.name] == 0) &
                         (df_round_client["RAND"] > varying_disc),
@@ -71,7 +73,7 @@ class Adult:
                 X = df_X.to_numpy().astype(np.float32)
                 y = df_y.to_numpy().astype(np.int32)
                 s = df_X[self.sensitive_attribute.name].to_numpy().astype(np.float32)
-                batched_data_round.append([X, y, s])
+                batched_data_round.append([X, y, s, y])
                 drift_ids_col[j].append(drift_ids[i][j])
             batched_data.append(batched_data_round)
 

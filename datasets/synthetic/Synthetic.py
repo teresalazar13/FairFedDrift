@@ -35,7 +35,8 @@ class Synthetic:
                 drift_data_id_client_round = [
                     drift_data_id[0][:self.n_samples],
                     drift_data_id[1][:self.n_samples],
-                    drift_data_id[2][:self.n_samples]
+                    drift_data_id[2][:self.n_samples],
+                    drift_data_id[1][:self.n_samples]
                 ]
                 batched_data_round.append(drift_data_id_client_round)  # add data
                 drift_data_id[0] = drift_data_id[0][self.n_samples:]  # remove added data

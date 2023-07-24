@@ -48,16 +48,16 @@ class FairMNIST:
                     train_y_unpriv_round_client[train_y_unpriv_round_client == 100] = drift_id + 1
                     train_y_unpriv_round_client[train_y_unpriv_round_client == 101] = drift_id
                 train_X = np.concatenate((train_X_priv_round_client[size_unpriv:], train_X_unpriv_round_client[:size_unpriv]), axis=0)
-                train_y = np.concatenate((train_y_priv_round_client[size_unpriv:], train_y_unpriv_round_client[:size_unpriv]), axis=0)
+                train_y_original = np.concatenate((train_y_priv_round_client[size_unpriv:], train_y_unpriv_round_client[:size_unpriv]), axis=0)
                 train_s = [1] * (len(train_X_priv_round_client) - size_unpriv) + [0] * size_unpriv
                 train_X = train_X.astype('float32') / 255.0
-                train_y = to_categorical(train_y)
+                train_y = to_categorical(train_y_original)
                 perm = list(range(0, len(train_X)))
                 random.shuffle(perm)
                 train_X = train_X[perm]
                 train_y = train_y[perm]
                 train_s = np.array(train_s)[perm]
-                batched_data_round.append([train_X, train_y, train_s])
+                batched_data_round.append([train_X, train_y, train_s, train_y_original])
                 drift_ids_col[j].append(drift_ids[i][j])
             batched_data.append(batched_data_round)
 

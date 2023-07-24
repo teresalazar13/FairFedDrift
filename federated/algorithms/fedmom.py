@@ -2,9 +2,9 @@ import tensorflow as tf
 from tensorflow.keras import backend as K
 import math
 from copy import deepcopy
-import numpy as np
 
 from federated.algorithms.Algorithm import Algorithm
+from federated.algorithms.fedavg import get_y
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics
 
@@ -26,7 +26,7 @@ class FedMom(Algorithm):
         for timestep in range(n_timesteps):
             # STEP 1 - test
             for client_data, client_metrics in zip(clients_data[timestep], clients_metrics):
-                x, y, s = client_data
+                x, y, s, _ = client_data
                 pred = global_model.predict(x)
                 y, pred = get_y(y, pred, is_image)
                 for client_metric in client_metrics:
@@ -38,7 +38,7 @@ class FedMom(Algorithm):
                 local_weights_list = []
                 client_scaling_factors_list = []
                 for client in range(n_clients):
-                    x, y, s = clients_data[timestep][client]
+                    x, y, s, _ = clients_data[timestep][client]
                     global_weights = deepcopy(global_model.get_weights())
                     local_model = NN_model(n_features, seed, is_image)
                     local_model.compile(is_image)
@@ -77,24 +77,6 @@ class FedMom(Algorithm):
         return clients_metrics, client_identities
 
 
-def get_y(y, pred, is_image):
-    y_new = []
-    pred_new = []
-
-    for y_i, pred_i in zip(y, pred):
-        if not is_image:
-            pred_new_i = 0
-            if pred_i[0] > 0.5:
-                pred_new_i = 1
-            pred_new.append(pred_new_i)
-            y_new.append(y_i)
-        else:
-            y_new.append(y_i.argmax())
-            pred_new.append(pred_i.argmax())
-
-    return y_new, pred_new
-
-
 def calculate_local_updates_momentum(
         local_weights_list, client_scaling_factors, previous_global_weights, previous_momentum, beta, iteration
 ):
@@ -107,7 +89,6 @@ def calculate_local_updates_momentum(
         for layer in range(len(local_weights)):
             scaled_local_weights.append(scale * (local_weights[layer] - previous_global_weights[layer]))
         scaled_local_updates_list.append(scaled_local_weights)
-
 
     new_global_weights = []
     new_momentum = []
