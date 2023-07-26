@@ -159,13 +159,13 @@ def plot_each_client(res_clients, filename, metric):
         unique_drifts_ids = res_clients[i]["drift-id"].unique()
         for drift_id in unique_drifts_ids:
             unique_gm_ids = res_clients[i]["gm-id"].unique()
-            for gm_id in unique_gm_ids:
+            for j, gm_id in enumerate(unique_gm_ids):
                 indexes = np.where(
                     (res_clients[i]["drift-id"].values == drift_id) & (res_clients[i]["gm-id"].values == gm_id)
                 )[0]
                 plt.scatter(
                     indexes, res_clients[i][metric].values[indexes],
-                    label="drift-{} gm={}".format(drift_id, gm_id), marker=markers[drift_id], color=colors[gm_id]
+                    label="drift-{} gm={}".format(drift_id, gm_id), marker=markers[drift_id], color=colors[j]
                 )
 
         plt.xlabel("time")

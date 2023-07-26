@@ -1,34 +1,30 @@
 import random
-import os
 import numpy as np
 from scipy.stats import multivariate_normal
+
+from datasets.Dataset import Dataset
 from plot.plot import plot_synthetic_data
 
 
-class Synthetic:
+class Synthetic(Dataset):
 
     def __init__(self):
-        self.name = "synthetic"
+        name = "synthetic"
+        n_features = 3
+        super().__init__(name, n_features)
         self.n_samples = 5000
         self.is_image = False
 
-    def get_folder(self, alg, n_drifts, varying_disc):
-        return "./results/{}/n-drifts_{}/disc_{}/{}".format(self.name, n_drifts, varying_disc, alg)
-
-    def get_all_folders(self, n_drifts, varying_disc):
-        folder = "./results/{}/n-drifts_{}/disc_{}".format(self.name, n_drifts, varying_disc)
-        algs = [x for x in os.listdir(folder) if not x.startswith('.') and "." not in x]
-        folders = ["{}/{}".format(folder, x) for x in algs]
-
-        return folder, folders, algs
-
-    def create_batched_data(self, alg, n_drifts, varying_disc, n_clients, n_rounds):
-        drift_ids, n_samples = self.generate_drift_ids(n_clients, n_rounds, n_drifts)
+    def create_batched_data(self, alg, varying_disc):
+        drift_ids = self.drift_ids
+        n_drifts = self.n_drifts
+        n_clients = self.n_clients
+        n_timesteps = self.n_timesteps
+        n_samples = self.get_n_samples_per_drift(drift_ids, n_drifts)
         drift_data = self.generate_drift_data(alg, n_drifts, varying_disc, n_samples)
-        drift_ids_col = [[] for _ in range(n_clients)]
 
         batched_data = []
-        for i in range(n_rounds):
+        for i in range(n_timesteps):
             batched_data_round = []
             for j in range(n_clients):
                 drift_data_id = drift_data[drift_ids[i][j]]
@@ -42,40 +38,19 @@ class Synthetic:
                 drift_data_id[0] = drift_data_id[0][self.n_samples:]  # remove added data
                 drift_data_id[1] = drift_data_id[1][self.n_samples:]
                 drift_data_id[2] = drift_data_id[2][self.n_samples:]
-                drift_ids_col[j].append(drift_ids[i][j])
             batched_data.append(batched_data_round)
 
-        return batched_data, drift_ids_col, 3
+        return batched_data
 
-    def generate_drift_ids(self, n_clients, n_rounds, n_drifts):
-        drift_ids = [
-            [0 for _ in range(n_clients)],
-            [0 for _ in range(n_clients)],
-            [0 for _ in range(n_clients)],
-        ]  # start with the same concept (0)
-        n_samples = [self.n_samples * n_clients * 3]
-        n_samples.extend(
-            [0 for _ in range(n_drifts - 1)]
-        )
+    def get_n_samples_per_drift(self, drift_ids, n_drifts):
+        n_samples = [0 for _ in range(n_drifts)]
+        for drift_ids_timestep in drift_ids:
+            for drift_id_client in drift_ids_timestep:
+                n_samples[drift_id_client] += self.n_samples
 
-        for i in range(3, n_rounds):
-            drift_id_round = []
-            for j in range(n_clients):
-                if n_drifts > 1 and random.random() > 0.5:  # 50% chance of changing concept
-                    choices = list(range(n_drifts))
-                    choices.remove(drift_ids[i - 1][j])
-                    drift_id = random.choice(choices)
-                    print("Drift change at round", i, "client", j)
-                else:
-                    drift_id = drift_ids[i - 1][j]  # get previous drift id
-                drift_id_round.append(drift_id)
-                n_samples[drift_id] += self.n_samples
-            drift_ids.append(drift_id_round)
-        print(drift_ids)
+        return n_samples
 
-        return drift_ids, n_samples
-
-    def generate_drift_data(self, alg, n_drifts, varying_disc, n_samples):
+    def generate_drift_data(self, n_drifts, alg, varying_disc, n_samples):
         drift_data = []
         up = 0
         right = 0
@@ -87,7 +62,7 @@ class Synthetic:
             drift_data.append([X_client, y_client, s_client, varying_disc, right, up])
             up += 0.1
             right += 0.1
-        filename = "{}/data.png".format(self.get_folder(alg, n_drifts, varying_disc))
+        filename = "{}/data.png".format(self.get_folder(alg, varying_disc))
         plot_synthetic_data(drift_data, n_drifts, n_samples, filename)
 
         return drift_data

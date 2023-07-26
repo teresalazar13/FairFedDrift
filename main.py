@@ -14,24 +14,29 @@ def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--fl', required=True, help='algorithm')
     parser.add_argument('--dataset', required=True, help='dataset')
-    parser.add_argument('--n_timesteps', required=True, help='n_timesteps')
-    parser.add_argument('--n_rounds', required=True, help='n_rounds')
-    parser.add_argument('--n_clients', required=True, help='n_clients')
-    parser.add_argument('--n_drifts', required=True, help='n_drifts')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
+
+    parser.add_argument('--clustering', required=False, help='clustering')
+    parser.add_argument('--metrics', nargs='+', required=False, help='metrics')
+    parser.add_argument('--drift_detector', required=True, help='drift_detector')
+
     args = parser.parse_args(sys.argv[1:])
+    algorithm = get_algorithm_by_name(args.fl)
+    dataset = get_dataset_by_name(args.dataset)
+    if args.clustering and args.metrics and args.drift_detector:  # FairFedDrift
+        algorithm.set_specs(args)
+    varying_disc = float(args.varying_disc)
 
-    return get_algorithm_by_name(args.fl), get_dataset_by_name(args.dataset), \
-           int(args.n_timesteps), int(args.n_rounds), int(args.n_clients), int(args.n_drifts), float(args.varying_disc)
+    return algorithm, dataset, varying_disc
 
 
-def generate_directories(dataset, alg, n_clients, n_drifts, varying_disc):
-    folder = dataset.get_folder(alg, n_drifts, varying_disc)
+def generate_directories(dataset, alg, varying_disc):
+    folder = dataset.get_folder(alg, varying_disc)
     if os.path.exists(folder):
         shutil.rmtree(folder)
 
     os.makedirs(folder, exist_ok=True)
-    for i in range(n_clients):
+    for i in range(dataset.n_clients):
         os.mkdir("{}/client_{}".format(folder, i+1))
 
 
@@ -48,17 +53,13 @@ def set_seeds(seed):
 if __name__ == '__main__':
     seed = 10
     set_seeds(seed)
-    algorithm, dataset, n_timesteps, n_rounds, n_clients, n_drifts, varying_disc = get_arguments()
-    generate_directories(dataset, algorithm.name, n_clients, n_drifts, varying_disc)
-    clients_data, drift_ids_col, n_features = dataset.create_batched_data(
-        algorithm.name, n_drifts, varying_disc, n_clients, n_timesteps
-    )
-    clients_metrics, client_gm_ids_col = algorithm.perform_fl(
-        n_timesteps, n_rounds, n_clients, n_features, clients_data, seed, dataset.is_image
-    )
+    algorithm, dataset, varying_disc = get_arguments()
+    generate_directories(dataset, algorithm.name, varying_disc)
+    clients_data = dataset.create_batched_data(algorithm.name, varying_disc)
+    clients_metrics, client_gm_ids_col = algorithm.perform_fl(seed, clients_data, dataset)
 
     for i in range(len(clients_metrics)):
         save_results(
-            clients_metrics[i], drift_ids_col[i], client_gm_ids_col[i],
-            "{}/client_{}/results.csv".format(dataset.get_folder(algorithm.name, n_drifts, varying_disc), i+1)
+            clients_metrics[i], dataset.drift_ids_col[i], client_gm_ids_col[i],
+            "{}/client_{}/results.csv".format(dataset.get_folder(algorithm.name, varying_disc), i+1)
         )

@@ -3,7 +3,6 @@ import numpy as np
 from tensorflow.keras import backend as K
 
 from federated.algorithms.Algorithm import Algorithm
-from federated.algorithms.fedavg import calculate_global_weights, get_y
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics
 
@@ -14,29 +13,23 @@ class FedLR(Algorithm):
         name = "fed_lr"
         super().__init__(name)
 
-    def perform_fl(self, n_timesteps, n_crounds, n_clients, n_features, clients_data, seed, is_image):
-        global_model = NN_model(n_features, seed, is_image)
-        clients_metrics = [get_metrics(is_image) for _ in range(n_clients)]
+    def perform_fl(self, seed, clients_data, dataset):
+        global_model = NN_model(dataset.n_features, seed, dataset.is_image)
+        clients_metrics = [get_metrics(dataset.is_image) for _ in range(dataset.n_clients)]
 
-        for timestep in range(n_timesteps):
-            # STEP 1 - test
-            for client_data, client_metrics in zip(clients_data[timestep], clients_metrics):
-                x, y, s, y_original = client_data
-                pred = global_model.predict(x)
-                y, pred = get_y(y, pred, is_image)
-                for client_metric in client_metrics:
-                    res = client_metric.update(y, pred, s)
-                    print(res, client_metric.name)
+        for timestep in range(dataset.n_timesteps):
+            # STEP 1 - Test
+            super().test(clients_data[timestep], clients_metrics, global_model, dataset)
 
             # STEP 2 - Train and average models
-            for cround in range(n_crounds):
+            for cround in range(dataset.n_rounds):
                 local_weights_list = []
                 client_scaling_factors_list = []
-                for client in range(n_clients):
+                for client in range(dataset.n_clients):
                     x, y, s, y_original = clients_data[timestep][client]
                     global_weights = global_model.get_weights()
-                    local_model = NN_model(n_features, seed, is_image)
-                    local_model.compile(is_image)
+                    local_model = NN_model(dataset.n_features, seed, dataset.is_image)
+                    local_model.compile(dataset.is_image)
                     local_model.set_weights(global_weights)
                     sample_weights = calculate_sample_weights(y_original, s)
                     local_model.learn(x, y, sample_weights=sample_weights)
@@ -45,14 +38,14 @@ class FedLR(Algorithm):
                     #K.clear_session()
                     print("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
 
-                new_global_weights = calculate_global_weights(local_weights_list, client_scaling_factors_list)
+                new_global_weights = super().average_weights(local_weights_list, client_scaling_factors_list)
                 global_model.set_weights(new_global_weights)
                 print("Averaged models on timestep {} cround {}".format(timestep, cround))
 
         # Client identity is always 0 (only one global model)
-        client_identities = [[] for _ in range(n_clients)]
-        for i in range(n_clients):
-            for _ in range(n_timesteps):
+        client_identities = [[] for _ in range(dataset.n_clients)]
+        for i in range(dataset.n_clients):
+            for _ in range(dataset.n_timesteps):
                 client_identities[i].append(0)
 
         return clients_metrics, client_identities

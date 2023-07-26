@@ -3,7 +3,7 @@ from metrics.MetricFactory import get_metrics
 from plot.plot import read_results, plot, plot_each_client, plot_avg, plot_algorithms
 
 if __name__ == '__main__':
-    algorithm, dataset, n_timesteps, n_rounds, n_clients, n_drifts, varying_disc = get_arguments()
+    algorithm, dataset, n_timesteps, n_rounds, n_clients, n_drifts, varying_disc, _, __, ___ = get_arguments()
     folder = dataset.get_folder(algorithm.name, n_drifts, varying_disc)
     res_clients = []
 

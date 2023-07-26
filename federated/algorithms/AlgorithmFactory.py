@@ -1,13 +1,12 @@
-from federated.algorithms.fair_aggregation import FairAggregation
-from federated.algorithms.fairfedavg import FairFedAvg
-from federated.algorithms.fairfedavg_mom import FairFedAvgMom
-from federated.algorithms.fed_lr import FedLR
+from federated.algorithms.fair_fed_drift.fair_fed_drift import FairFedDrift
 from federated.algorithms.fedavg import FedAvg
 from federated.algorithms.fedmom import FedMom
+from federated.algorithms.fair_aggregation import FairAggregation
+from federated.algorithms.fed_lr import FedLR
 
 
 def get_algorithms():
-    return [FedAvg(), FairFedAvg(), FairAggregation(), FedMom(), FairFedAvgMom(), FedLR()]
+    return [FairFedDrift(), FedAvg(), FedMom(), FairAggregation(), FedLR()]
 
 
 def get_algorithm_by_name(name):
