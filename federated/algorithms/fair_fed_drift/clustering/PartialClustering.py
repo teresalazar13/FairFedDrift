@@ -1,5 +1,4 @@
 from federated.algorithms.fair_fed_drift.clustering.Clustering import Clustering
-from federated.algorithms.fedavg import average_weights
 from federated.model import NN_model
 
 """
@@ -18,10 +17,10 @@ class PartialClustering(Clustering):
 
         return cluster_identities
 
-    def get_model_cluster_identities(self, global_models, cluster_identities, seed, dataset):
+    def get_model_cluster_identities(self, alg, global_models, cluster_identities, seed, dataset):
         weights_list = [model.get_weights() for model in global_models]
         scaling_factors = [cluster_identity[1] for cluster_identity in cluster_identities]
-        model_weights = average_weights(weights_list, scaling_factors)
+        model_weights = alg.average_weights(weights_list, scaling_factors)
         model = NN_model(dataset.n_features, seed, dataset.is_image)
         model.compile(dataset.is_image)
         model.set_weights(model_weights)

@@ -6,6 +6,10 @@ class Algorithm:
 
     def __init__(self, name):
         self.name = name
+        self.subfolders = name
+
+    def set_subfolders(self, subfolders):
+        self.subfolders = subfolders
 
     @abstractmethod
     def perform_fl(self, seed, clients_data, dataset):
@@ -18,7 +22,7 @@ class Algorithm:
         for client_data, client_metrics in zip(clients_data_timestep, clients_metrics):
             x, y, s, _ = client_data
             pred = global_model.predict(x)
-            y, pred = get_y(y, pred, dataset.is_image)
+            y, pred = self.get_y(y, pred, dataset.is_image)
             for client_metric in client_metrics:
                 res = client_metric.update(y, pred, s)
                 print(res, client_metric.name)

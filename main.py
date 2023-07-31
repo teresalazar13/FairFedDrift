@@ -18,7 +18,8 @@ def get_arguments():
 
     parser.add_argument('--clustering', required=False, help='clustering')
     parser.add_argument('--metrics', nargs='+', required=False, help='metrics')
-    parser.add_argument('--drift_detector', required=True, help='drift_detector')
+    parser.add_argument('--drift_detector', required=False, help='drift_detector')
+    parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')
 
     args = parser.parse_args(sys.argv[1:])
     algorithm = get_algorithm_by_name(args.fl)
@@ -30,8 +31,8 @@ def get_arguments():
     return algorithm, dataset, varying_disc
 
 
-def generate_directories(dataset, alg, varying_disc):
-    folder = dataset.get_folder(alg, varying_disc)
+def generate_directories(dataset, algorithm_subfolders, varying_disc):
+    folder = dataset.get_folder(algorithm_subfolders, varying_disc)
     if os.path.exists(folder):
         shutil.rmtree(folder)
 
@@ -54,12 +55,12 @@ if __name__ == '__main__':
     seed = 10
     set_seeds(seed)
     algorithm, dataset, varying_disc = get_arguments()
-    generate_directories(dataset, algorithm.name, varying_disc)
-    clients_data = dataset.create_batched_data(algorithm.name, varying_disc)
+    generate_directories(dataset, algorithm.subfolders, varying_disc)
+    clients_data = dataset.create_batched_data(algorithm.subfolders, varying_disc)
     clients_metrics, client_gm_ids_col = algorithm.perform_fl(seed, clients_data, dataset)
 
     for i in range(len(clients_metrics)):
         save_results(
             clients_metrics[i], dataset.drift_ids_col[i], client_gm_ids_col[i],
-            "{}/client_{}/results.csv".format(dataset.get_folder(algorithm.name, varying_disc), i+1)
+            "{}/client_{}/results.csv".format(dataset.get_folder(algorithm.subfolders, varying_disc), i+1)
         )

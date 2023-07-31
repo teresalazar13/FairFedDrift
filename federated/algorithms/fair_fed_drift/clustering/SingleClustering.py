@@ -22,7 +22,7 @@ class SingleClustering(Clustering):
 
         return [[best_cluster_identity, self.default_weight]]
 
-    def get_model_cluster_identities(self, global_models, cluster_identities, seed, dataset):
+    def get_model_cluster_identities(self, _, global_models, cluster_identities, seed, dataset):
         model = NN_model(dataset.n_features, seed, dataset.is_image)
         model.compile(dataset.is_image)
         model.set_weights(global_models[cluster_identities[0][0]].get_weights())

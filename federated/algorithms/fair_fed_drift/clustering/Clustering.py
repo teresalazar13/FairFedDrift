@@ -11,7 +11,7 @@ class Clustering:
         raise NotImplementedError("Must implement calculate_cluster_identities")
 
     @abstractmethod
-    def get_model_cluster_identities(self, global_models, cluster_identities, seed, dataset):
+    def get_model_cluster_identities(self, alg, global_models, cluster_identities, seed, dataset):
         raise NotImplementedError("Must implement get_model_cluster_identities")
 
     @abstractmethod

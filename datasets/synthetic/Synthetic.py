@@ -15,13 +15,13 @@ class Synthetic(Dataset):
         self.n_samples = 5000
         self.is_image = False
 
-    def create_batched_data(self, alg, varying_disc):
+    def create_batched_data(self, algorithm_subfolders, varying_disc):
         drift_ids = self.drift_ids
         n_drifts = self.n_drifts
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps
         n_samples = self.get_n_samples_per_drift(drift_ids, n_drifts)
-        drift_data = self.generate_drift_data(alg, n_drifts, varying_disc, n_samples)
+        drift_data = self.generate_drift_data(algorithm_subfolders, n_drifts, varying_disc, n_samples)
 
         batched_data = []
         for i in range(n_timesteps):
@@ -50,7 +50,7 @@ class Synthetic(Dataset):
 
         return n_samples
 
-    def generate_drift_data(self, n_drifts, alg, varying_disc, n_samples):
+    def generate_drift_data(self, n_drifts, algorithm_subfolders, varying_disc, n_samples):
         drift_data = []
         up = 0
         right = 0
@@ -62,7 +62,7 @@ class Synthetic(Dataset):
             drift_data.append([X_client, y_client, s_client, varying_disc, right, up])
             up += 0.1
             right += 0.1
-        filename = "{}/data.png".format(self.get_folder(alg, varying_disc))
+        filename = "{}/data.png".format(self.get_folder(algorithm_subfolders, varying_disc))
         plot_synthetic_data(drift_data, n_drifts, n_samples, filename)
 
         return drift_data

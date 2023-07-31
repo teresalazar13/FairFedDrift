@@ -34,11 +34,11 @@ class Dataset:
 
         return drift_ids_col, n_clients, len(drifts), len(drift_ids)
 
-    def get_folder(self, alg, varying_disc):
-        return "./results/{}/disc_{}/{}".format(self.name, varying_disc, alg)
+    def get_folder(self, algorithm_subfolders, varying_disc):
+        return "./results/{}/disc_{}/{}".format(self.name, varying_disc, algorithm_subfolders)
 
-    def get_all_folders(self, n_drifts, varying_disc):
-        folder = "./results/{}/n-drifts_{}/disc_{}".format(self.name, n_drifts, varying_disc)
+    def get_all_folders(self, varying_disc):
+        folder = "./results/{}/disc_{}".format(self.name, varying_disc)
         algs = [x for x in os.listdir(folder) if not x.startswith('.') and "." not in x]
         folders = ["{}/{}".format(folder, x) for x in algs]
 

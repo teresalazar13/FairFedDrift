@@ -1,5 +1,4 @@
 from federated.algorithms.fair_fed_drift.clustering.Clustering import Clustering
-from federated.algorithms.fedavg import average_weights
 from federated.model import NN_model
 
 """
@@ -25,10 +24,10 @@ class MultipleClustering(Clustering):
 
         return best_cluster_ids
 
-    def get_model_cluster_identities(self, global_models, cluster_identities, seed, dataset):
+    def get_model_cluster_identities(self, alg, global_models, cluster_identities, seed, dataset):
         weights_list = [global_models[id].get_weights() for [id, _] in cluster_identities]
         scaling_factors = [self.default_weight for _ in range(len(cluster_identities))]  # array of size M
-        model_weights = average_weights(weights_list, scaling_factors)
+        model_weights = alg.average_weights(weights_list, scaling_factors)
         model = NN_model(dataset.n_features, seed, dataset.is_image)
         model.compile(dataset.is_image)
         model.set_weights(model_weights)

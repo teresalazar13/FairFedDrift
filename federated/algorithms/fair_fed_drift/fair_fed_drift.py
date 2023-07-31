@@ -17,36 +17,43 @@ class FairFedDrift(Algorithm):
     def set_specs(self, args):
         self.clustering = get_clustering_by_name(args.clustering)
         self.drift_detector = get_detector_by_name(args.drift_detector)
+        self.drift_detector.set_specs(args)
         self.metrics_clustering = get_metrics_by_names(args.metrics)
+        metrics_string = "-".join(args.metrics)
+        super().set_subfolders("{}/clustering-{}/drift_detector-{}/metrics-{}".format(
+            self.name, self.clustering.name, self.drift_detector.name, metrics_string
+        ))
 
     def perform_fl(self, seed, clients_data, dataset):
         initial_global_model = NN_model(dataset.n_features, seed, dataset.is_image)
         global_models = [initial_global_model]
         clients_metrics = [get_metrics(dataset.is_image) for _ in range(dataset.n_clients)]
-        client_identities = [[] for _ in range(dataset.n_clients)]  # TODO
+        client_identities = [[] for _ in range(dataset.n_clients)]
         cluster_identities_clients = [[[0, 1]] for _ in range(dataset.n_clients)]  # first
 
         for timestep in range(dataset.n_timesteps):
             # STEP 1 - Test each client's data on previous clustering identities
-            self.test(global_models, clients_data[timestep], clients_metrics, seed, dataset, cluster_identities_clients)
+            self.test_models(
+                global_models, clients_data[timestep], clients_metrics, seed, dataset, cluster_identities_clients
+            )
 
-            # STEP 2 - Determine cluster identities and detect concept drift
+            # STEP 2 - Determine cluster identities and detect concept drift  # TODO - merge and delete old
             cluster_identities_clients, global_models = self.get_new_cluster_identities(
                 clients_data[timestep], global_models, seed, dataset, timestep
             )
             print("Cluster identities timestep {} - {}".format(timestep, cluster_identities_clients))
-            [client_identities[i].append(id) for i, id in enumerate(cluster_identities_clients)]  # TODO
+            [client_identities[i].append(id) for i, id in enumerate(cluster_identities_clients)]
 
             # STEP 3 - Train and average models
             self.train_and_average(timestep, dataset, clients_data, cluster_identities_clients, global_models, seed)
 
         return clients_metrics, client_identities
 
-    def test(self, global_models, clients_data_timestep, clients_metrics, seed, dataset, cluster_identities_clients):
+    def test_models(self, global_models, clients_data_timestep, clients_metrics, seed, dataset, cluster_identities_clients):
         for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
             x, y, s, _ = client_data
             model = self.clustering.get_model_cluster_identities(
-                global_models, cluster_identities_clients[client_id], seed, dataset
+                self, global_models, cluster_identities_clients[client_id], seed, dataset
             )
             pred = model.predict(x)
             y, pred = super().get_y(y, pred, dataset.is_image)
@@ -81,7 +88,7 @@ class FairFedDrift(Algorithm):
             cluster_identities = self.clustering.get_cluster_identities(values_clusters)
 
             # Calculate results on best model(s)
-            model = self.clustering.get_model_cluster_identities(global_models, cluster_identities, seed, dataset)
+            model = self.clustering.get_model_cluster_identities(self, global_models, cluster_identities, seed, dataset)
             pred = model.predict(x)
             y_, pred = super().get_y(y, pred, dataset.is_image)
             values_best = []
@@ -113,7 +120,7 @@ class FairFedDrift(Algorithm):
                 x, y, s, _ = clients_data[timestep][client]
                 cluster_identities = cluster_identities_clients[client]
                 local_model = self.clustering.get_model_cluster_identities(
-                    global_models, cluster_identities, seed, dataset
+                    self, global_models, cluster_identities, seed, dataset
                 )
                 local_model.learn(x, y)
                 for [cluster_id, weight] in cluster_identities:
