@@ -6,18 +6,18 @@ class Dataset:
     def __init__(self, name, n_features):
         self.name = name
         self.n_features = n_features
-        self.n_rounds = 10
+        self.n_rounds = 10  # number of rounds per timestep
         drift_ids = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [2, 0, 0, 0],
-            [2, 0, 1, 2],
-            [2, 2, 1, 1],
-            [2, 2, 2, 1],
-            [2, 2, 2, 0],
-            [1, 2, 2, 0],
-            [2, 0, 2, 2]
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 2
+            [0, 0, 0, 0, 1, 1, 1, 2, 2, 2],  # timestep 3
+            [1, 1, 1, 1, 1, 1, 1, 2, 2, 2],  # timestep 4
+            [1, 1, 1, 1, 1, 1, 2, 2, 2, 2],  # timestep 5
+            [2, 2, 0, 1, 1, 1, 2, 2, 2, 1],  # timestep 6
+            [2, 2, 0, 0, 2, 0, 0, 1, 1, 1],  # timestep 7
+            [0, 2, 0, 0, 2, 2, 0, 1, 1, 1],  # timestep 8
+            [0, 1, 2, 1, 2, 2, 2, 2, 0, 0],  # timestep 9
+            [1, 1, 2, 1, 2, 2, 2, 2, 0, 0],  # timestep 10
         ]
         self.drift_ids = drift_ids
         self.drift_ids_col, self.n_clients, self.n_drifts, self.n_timesteps = self.get_drift_ids_col(drift_ids)

@@ -7,6 +7,10 @@ class Clustering:
         self.name = name
 
     @abstractmethod
+    def get_model_weights_for_client(self, results_global_models):
+        raise NotImplementedError("Must implement get_model_weights_for_client")
+
+    @abstractmethod
     def calculate_cluster_identities(self, values_clusters):
         raise NotImplementedError("Must implement calculate_cluster_identities")
 

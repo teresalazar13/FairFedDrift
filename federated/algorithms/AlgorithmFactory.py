@@ -1,4 +1,4 @@
-from federated.algorithms.fair_fed_drift.fair_fed_drift import FairFedDrift
+from federated.algorithms.fair_fed_drift.fair_fed_drift_2 import FairFedDrift
 from federated.algorithms.fedavg import FedAvg
 from federated.algorithms.fedmom import FedMom
 from federated.algorithms.fair_aggregation import FairAggregation
