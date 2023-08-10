@@ -24,7 +24,7 @@ class Algorithm:
             pred = global_model.predict(x)
             y_true_original, y_pred_original, y_true, y_pred = self.get_y(y, pred, dataset.is_image)
             for client_metric in client_metrics:
-                res = client_metric.update(y_true_original, y_pred_original, y_true, y_pred)
+                res = client_metric.update(y_true_original, y_pred_original, y_true, y_pred, s)
                 print(res, client_metric.name)
 
     def get_y(self, y_true_raw, y_pred_raw, is_image):

@@ -8,7 +8,10 @@ if __name__ == '__main__':
     res_clients = []
 
     for i in range(dataset.n_clients):
-        res_client = read_results(get_metrics(dataset.is_image), "{}/client_{}/results.csv".format(folder, i+1))
+        res_client = read_results(
+            get_metrics(dataset.is_image),
+            "{}/client_{}/results.csv".format(folder, i+1)
+        )
         res_clients.append(res_client)
 
     for metric in get_metrics(dataset.is_image):
@@ -18,10 +21,13 @@ if __name__ == '__main__':
 
     main_folder, all_folders, algs = dataset.get_all_folders(varying_disc)
     res_clients_list = []
-    for folder in all_folders:
+    print(all_folders)
+    for folder_ in all_folders:
         res_clients = []
         for i in range(dataset.n_clients):
-            res_client = read_results(get_metrics(dataset.is_image), "{}/client_{}/results.csv".format(folder, i+1))
+            print(all_folders)
+            print(folder_)
+            res_client = read_results(get_metrics(dataset.is_image), "{}/client_{}/results.csv".format(folder_, i+1))
             res_clients.append(res_client)
         res_clients_list.append(res_clients)
     for metric in get_metrics(dataset.is_image):

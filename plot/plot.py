@@ -57,6 +57,7 @@ def plot_synthetic_data_drift(X, y, s, disc, right, up, ax, n_samples):
 
 def save_results(metrics, drift_ids, gm_ids_col, filename):
     df = pd.DataFrame()
+    df = df.astype('object')
     for metric in metrics:
         df[metric.name] = metric.res
     df["drift-id"] = drift_ids

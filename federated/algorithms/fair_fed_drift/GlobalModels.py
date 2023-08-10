@@ -37,8 +37,6 @@ class GlobalModels:
 
 
 def get_scales_dict(models):
-    scales_dict = {}
-
     sizes = {}
     amounts = {}
     for global_model in models:
@@ -52,7 +50,7 @@ def get_scales_dict(models):
         amount_scale = amounts[global_model.id] / sum(amounts.values())
         scales[global_model.id] = calculate_scale(size_scale, amount_scale)
 
-    return scales_dict
+    return scales
 
 
 def get_client_scales(local_amounts, local_sizes):

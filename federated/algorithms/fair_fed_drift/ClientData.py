@@ -9,5 +9,6 @@ class ClientData:
         self.s = s
 
     def get_partial_data(self, proportion):
-        size = len(self.x) * proportion
+        size = int(len(self.x) * proportion)
+
         return ClientData(self.x[:size], self.y[:size], self.s[:size])

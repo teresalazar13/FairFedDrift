@@ -1,4 +1,7 @@
 from federated.algorithms.Algorithm import Algorithm
+from federated.algorithms.fair_fed_drift.Client import Client
+from federated.algorithms.fair_fed_drift.ClientData import ClientData
+from federated.algorithms.fair_fed_drift.GlobalModels import GlobalModels, get_scales_dict, get_client_scales
 from federated.algorithms.fair_fed_drift.clustering.ClusteringFactory import get_clustering_by_name
 from federated.algorithms.fair_fed_drift.drift_detection.DriftDetectorFactory import get_detector_by_name
 from federated.model import NN_model
@@ -12,7 +15,7 @@ class FairFedDrift(Algorithm):
         self.drift_detector = None
         self.clustering = None
         self.delta = 0.8
-        name = "fair_fed_drift_old"
+        name = "fair_fed_drift"
         super().__init__(name)
 
     def set_specs(self, args):
@@ -25,200 +28,228 @@ class FairFedDrift(Algorithm):
             self.name, self.clustering.name, self.drift_detector.name, metrics_string
         ))
 
-    def merge_global_models(self, cluster_identities_clients, global_models, clients_data_timestep, dataset, seed):
-        weights_global_models = [[] for _ in range(len(global_models))]
-        total_data_global_models = [[] for _ in range(len(global_models))]
-
-        for client_id, cluster_identities_client in enumerate(cluster_identities_clients):
-            for cluster_identity in cluster_identities_client:
-                id, weight = cluster_identity
-                weights_global_models[id].append(weight)
-                total_data_global_models[id].append(clients_data_timestep[client_id])
-
-        data_global_models = []
-        sum_sizes_global_models = []
-        for weights_global_model, total_data_global_model in zip(weights_global_models, total_data_global_models):
-            sum_weights_global_model = sum(weights_global_model)
-            sum_sizes_global_model = sum([len(data[0]) for data in total_data_global_model])
-            sum_sizes_global_models.append(sum_sizes_global_model)
-            proportioned_data_global_model = []
-            for i, data_global_model in enumerate(total_data_global_model):
-                x, y, s, _ = data_global_model
-                proportion_weights = 0.5 * weights_global_model[i] / sum_weights_global_model
-                proportion_sizes = 0.5 * len(x) / sum_sizes_global_model
-                proportion = proportion_weights + proportion_sizes
-                size = len(x) * proportion
-                proportioned_data_global_model.append([x[:size], y[:size], s[:size]])
-            data_global_models.append(proportioned_data_global_model)
-
-        distances = [[0 for _ in range(len(global_models))] for _ in range(len(global_models))]
-        for i in range(len(global_models)):
-            for j in range(len(global_models)):
-                if i != j:
-                    data_clients = data_global_models[j]
-                    print("Testing global model {} on data from cluster {} with size {}".format(i, j, len(data_clients)))
-                    global_model = global_models[i]
-                    values = []
-                    for [x, y, s] in data_clients:
-                        values.append(sum(self.get_values(global_model, x, y, s, dataset.is_image)))
-                    distances[i][j] = min(values)
-
-        for i in range(len(global_models)):
-            for j in range(len(global_models)):
-                distances[i][j] = min([distances[i][j], distances[j][i]])
-
-        while True:
-            max_distance, ids = self.get_max_distance(distances) # TODO - use drift detector here
-            if max_distance > self.delta:
-                print("Merging global model {} of size {} with global model {} of size {}".format(
-                    ids[0], sum_sizes_global_models[ids[0]], ids[1], sum_sizes_global_models[ids[1]]
-                ))
-
-                scales = [sum_sizes_global_models[ids[0]], sum_sizes_global_models[ids[1]]]
-                weights = [global_models[ids[0]].get_weights(), global_models[ids[1]].get_weights()]
-                new_global_model_weights = super().average_weights(weights, scales)
-                new_global_model = NN_model(dataset.n_features, seed, dataset.is_image)
-                new_global_model.set_weights(new_global_model_weights)
-                # TODO - add avg global model and delete old, update cluster identities
-                distances[ids[0]][ids[1]] = 0
-                distances[ids[1]][ids[0]] = 0
-
-            else:
-                return cluster_identities_clients, global_models
-
-
-    def get_max_distance(self, distances):
-        max = 0
-        ids = [0, 0]
-        for i in range(len(distances)):
-            for j in range(len(distances[i])):
-                if distances[i][j] > max:
-                    max = distances[i][j]
-                    ids = [i, j]
-
-        return max, ids
-
-
-    def get_values(self, model, x, y, s, is_image):
-        values = []
-        pred = model.predict(x)
-        y_, pred = super().get_y(y, pred, is_image)
-        for client_metric in self.metrics_clustering:
-            value = client_metric.calculate(y_, pred, s)
-            print("{} - {:.2f}".format(client_metric.name, value))
-            values.append(value)
-
-        return values
-
     def perform_fl(self, seed, clients_data, dataset):
-        initial_global_model = NN_model(dataset.n_features, seed, dataset.is_image)
-        global_models = [initial_global_model]
+        global_models = GlobalModels()
+        init_model = get_init_model(dataset, seed)
+        init_clients = [Client(id, ClientData(x, y, s), 1) for id, [x, y, s, _] in enumerate(clients_data[0])]
+        global_models.create_new_global_model(init_model, init_clients)
         clients_metrics = [get_metrics(dataset.is_image) for _ in range(dataset.n_clients)]
-        client_identities = [[] for _ in range(dataset.n_clients)]
-        cluster_identities_clients = [[[0, 1]] for _ in range(dataset.n_clients)]  # first
+
+        clients_identities = [[[[0, 1]]] for _ in range(dataset.n_clients)]
 
         for timestep in range(dataset.n_timesteps):
+            print(clients_identities)
             # STEP 1 - Test each client's data on previous clustering identities
-            self.test_models(
-                global_models, clients_data[timestep], clients_metrics, seed, dataset, cluster_identities_clients
-            )
+            self.test_models(global_models, clients_data[timestep], clients_metrics, dataset, seed)
+            global_models.reset_clients()
 
-            # STEP 2 - Determine cluster identities and detect concept drift
-            cluster_identities_clients, global_models = self.get_new_cluster_identities(
-                clients_data[timestep], global_models, seed, dataset, timestep
-            )
-            print("Cluster identities timestep {} before merging - {}".format(timestep, cluster_identities_clients))
+            # STEP 2 - Recalculate Global Models (cluster identities) and detect concept drift
+            global_models = self.update_global_models(clients_data[timestep], global_models, dataset, seed, timestep)
 
             # STEP 3 - Merge Global Models
-            cluster_identities_clients, global_models = self.merge_global_models(
-                cluster_identities_clients, global_models, clients_data[timestep], dataset, seed
-            )
-            print("Cluster identities timestep {} after merging - {}".format(timestep, cluster_identities_clients))
-            [client_identities[i].append(id) for i, id in enumerate(cluster_identities_clients)]
+            global_models = self.merge_global_models(global_models, dataset, seed)
 
             # STEP 4 - Train and average models
-            self.train_and_average(timestep, dataset, clients_data, cluster_identities_clients, global_models, seed)
+            global_models = self.train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
 
-        return clients_metrics, client_identities
+            if timestep != dataset.n_timesteps - 1:
+                clients_identities = update_clients_identities(clients_identities, dataset.n_clients, global_models)
+                print(clients_identities)
 
-    def test_models(self, global_models, clients_data_timestep, clients_metrics, seed, dataset, cluster_identities_clients):
-        for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
-            x, y, s, _ = client_data
-            model = self.clustering.get_model_cluster_identities(
-                self, global_models, cluster_identities_clients[client_id], seed, dataset
-            )
-            pred = model.predict(x)
-            y, pred = super().get_y(y, pred, dataset.is_image)
-            for client_metric in client_metrics:
-                res = client_metric.update(y, pred, s)
-                print(res, client_metric.name)
-            for client_metric in self.metrics_clustering:
-                client_metric.update(y, pred, s)
+        return clients_metrics, clients_identities
 
+    def train_and_average(self, clients_data_timestep, global_models, dataset, seed, timestep):
+        for cround in range(dataset.n_rounds):
+            local_weights_list = [[] for _ in range(global_models.current_size)]
+            local_amounts_list = [[] for _ in range(global_models.current_size)]
+            local_sizes_list = [[] for _ in range(global_models.current_size)]
 
-    def get_new_cluster_identities(self, clients_data_timestep, global_models, seed, dataset, timestep):
-        cluster_identities_clients = []
-        original_size = len(global_models)
+            for client_id, client_data in enumerate(clients_data_timestep):
+                x, y, s, _ = client_data
+                local_model, global_model_amounts = self.get_model_client(client_id, global_models, dataset, seed)
+                local_model.learn(x, y)
+                print("Trained model timestep {} cround {} client {}".format(timestep, cround, client_id))
 
-        for client_id, client_data in enumerate(clients_data_timestep):
-            x, y, s, _ = client_data
+                for global_model_id, amount in global_model_amounts:
+                    local_weights_list[global_model_id].append(local_model.get_weights())
+                    local_amounts_list[global_model_id].append(amount)
+                    local_sizes_list[global_model_id].append(len(x))
 
-            # Calculate metrics on all clusters
-            values_clusters = []
-            print("Client {} - checking best cluster id".format(client_id))
-            for cluster_id, global_model in enumerate(global_models[:original_size]):
-                print("Client {} - testing on cluster id {}".format(client_id, cluster_id))
-                values = self.get_values(global_model, x, y, s, dataset.is_image)
-                values_clusters.append(values)
+            for global_model_id, (local_weights, local_amounts, local_sizes) in \
+                    enumerate(zip(local_weights_list, local_amounts_list, local_sizes_list)):
+                if len(local_weights) > 0:
+                    scales = get_client_scales(local_amounts, local_sizes)
+                    new_global_weights = super().average_weights(local_weights, scales)
+                    global_models.get_model(global_model_id).model.set_weights(new_global_weights)
+                    print("Averaged models on timestep {} cround {} of cluster {}".format(
+                        timestep, cround, global_model_id)
+                    )
+                else:
+                    print("Did not average models on timestep {} cround {} of cluster {}".format(
+                        timestep, cround, global_model_id)
+                    )
 
-            # Assign client to best cluster(s)
-            cluster_identities = self.clustering.get_cluster_identities(values_clusters)
+        return global_models
 
-            # Calculate results on best model(s)
-            model = self.clustering.get_model_cluster_identities(self, global_models, cluster_identities, seed, dataset)
-            print("Client {} - testing on best model {}".format(client_id, cluster_identities))
-            values_best = self.get_values(model, x, y, s, dataset.is_image)
+    def merge_global_models(self, global_models, dataset, seed):
+        size = global_models.current_size
+        all_distances = [[[0 for _ in range(len(self.metrics_clustering))] for _ in range(size)] for _ in range(size)]
+        scales_dict = get_scales_dict(global_models.models)
+
+        for i in range(len(global_models.models)):
+            for j in range(len(global_models.models)):
+                id_i = global_models.models[i].id
+                id_j = global_models.models[j].id
+                if i != j and len(global_models.models[i].clients) > 0 and len(global_models.models[j].clients) > 0:
+                    results_list = []
+                    for client in global_models.models[j].clients:
+                        print("Testing global model {} on data from cluster {} - client {}".format(
+                            id_i, id_j, client.id)
+                        )
+                        partial_client_data = client.client_data.get_partial_data(scales_dict[id_j])
+                        results = self.test_client_on_model(
+                            self.metrics_clustering, global_models.models[i].model, partial_client_data,
+                            dataset.is_image
+                        )
+                        results_list.append(results)
+                    all_distances[id_i][id_j] = self.drift_detector.get_worst_results(results_list)
+
+        distances = [[0 for _ in range(size)] for _ in range(size)]
+        for i in range(len(global_models.models)):
+            for j in range(len(global_models.models)):
+                id_i = global_models.models[i].id
+                id_j = global_models.models[j].id
+                results_list = [all_distances[id_i][id_j], all_distances[id_j][id_i]]
+                distances[id_i][id_j] = self.drift_detector.get_worst_results(results_list)
+
+        while True:  # While we can still merge global models
+
+            id_0, id_1 = self.drift_detector.get_next_best_results(distances)
+            if id_0 and id_1:
+                print("Merging global model {} with global model {}".format(id_0, id_1))
+                global_model_0 = global_models.get_model(id_0)
+                global_model_1 = global_models.get_model(id_1)
+                scales_two_models = get_scales_dict([global_model_0, global_model_1])
+                scales = [scales_two_models[id_0], scales_two_models[id_1]]
+                weights = [global_model_0.get_weights(), global_model_1.get_weights()]
+                new_global_model_weights = super().average_weights(weights, scales)
+                new_global_model = get_init_model(dataset, seed)
+                new_global_model.set_weights(new_global_model_weights)
+
+                # Reset Distances
+                distances[id_0][id_1] = 0
+                distances[id_1][id_0] = 0
+
+                # Create new global Model
+                clients = global_model_0.clients
+                clients.extend(global_model_1.clients)
+                global_models.create_new_global_model(new_global_model, clients)
+
+                # Reset Client old models
+                global_models.reset_clients_merged_models(id_0, id_1)
+
+            else:
+                return global_models
+
+    def update_global_models(self, clients_data_timestep, global_models, dataset, seed, timestep):
+        global_models_to_create = []
+
+        for client_id, client_data_raw in enumerate(clients_data_timestep):
+            x, y, s, _ = client_data_raw
+            client_data = ClientData(x, y, s)
+
+            # Calculate results on all global models
+            results_global_models = {}
+            print("Client {} - testing on all global models".format(client_id))
+            for global_model in global_models.models:
+                print("Client {} - testing on global model id {}".format(client_id, global_model.id))
+                results = self.test_client_on_model(
+                    self.metrics_clustering, global_model.model, client_data, dataset.is_image
+                )
+                results_global_models[global_model] = results
+
+            # Get Model for client given results_global_models and test
+            model_weights, model_id_amounts = self.clustering.get_model_weights_for_client(results_global_models)
+            model = get_init_model(dataset, seed)
+            model.set_weights(model_weights)
+            print("Client {} - testing on best model(s)".format(client_id))
+            results_model = self.test_client_on_model(self.metrics_clustering, model, client_data, dataset.is_image)
 
             # Detect Drift
-            drift_detected_metrics = self.drift_detector.drift_detected(timestep, values_best)
+            drift_detected_metrics = self.drift_detector.drift_detected(results_model, timestep)
             if sum(drift_detected_metrics) >= 1:
-                global_models.append(NN_model(dataset.n_features, seed, dataset.is_image))
-                new_cluster_identities = self.clustering.get_new_cluster_identities_drift(
-                    global_models, drift_detected_metrics, cluster_identities
-                )
-                cluster_identities_clients.append(new_cluster_identities)
+                print("Drift detected at client {}\n".format(client_id))
+                model = get_init_model(dataset, seed)
+                clients = [Client(client_id, client_data, 1)]
+                global_models_to_create.append([model, clients])
             else:
-                print("No drift detected at client {}".format(client_id))
-                cluster_identities_clients.append(cluster_identities)
+                print("No drift detected at client {}\n".format(client_id))
+                for global_model_id, amount in model_id_amounts.items():
+                    client = Client(client_id, client_data, amount)
+                    global_models.set_client_model(global_model_id, client)
 
-        return cluster_identities_clients, global_models
+        for model, clients in global_models_to_create:
+            global_models.create_new_global_model(model, clients)
 
-    def train_and_average(self, timestep, dataset, clients_data, cluster_identities_clients, global_models, seed):
-        for cround in range(dataset.n_rounds):
-            local_weights_lists = [[] for _ in range(len(global_models))]
-            client_scaling_factors_lists = [[] for _ in range(len(global_models))]
+        return global_models
 
-            for client in range(dataset.n_clients):
-                x, y, s, _ = clients_data[timestep][client]
-                cluster_identities = cluster_identities_clients[client]
-                local_model = self.clustering.get_model_cluster_identities(
-                    self, global_models, cluster_identities, seed, dataset
-                )
-                local_model.learn(x, y)
-                for [cluster_id, weight] in cluster_identities:
-                    local_weights_lists[cluster_id].append(local_model.get_weights())
-                    client_scaling_factors_lists[cluster_id].append(weight)
-                # K.clear_session()
-                print("Trained model timestep {} cround {} client {} with identities {}".format(
-                    timestep, cround, client, cluster_identities)
-                )
+    def test_client_on_model(self, metrics, model, client_data, is_image):
+        results = []
+        pred = model.predict(client_data.x)
+        y_true_original, y_pred_original, y_true, y_pred = super().get_y(client_data.y, pred, is_image)
+        for client_metric in metrics:
+            res = client_metric.calculate(y_true_original, y_pred_original, y_true, y_pred, client_data.s)
+            print("{} - {:.2f}".format(client_metric.name, res))
+            results.append(res)
 
-            for i, (weights, scales) in enumerate(zip(local_weights_lists, client_scaling_factors_lists)):
-                if len(weights) > 0:
-                    new_global_weights = super().average_weights(weights, scales)
-                    global_models[i].set_weights(new_global_weights)
-                    print("Averaged models on timestep {} cround {} of cluster identity {}".format(timestep, cround, i))
-                else:
-                    print("Did not average models on timestep {} cround {} of cluster identity {}".format(
-                        timestep, cround, i)
-                    )
+        return results
+
+    def test_models(self, global_models, clients_data_timestep, clients_metrics, dataset, seed):
+        for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
+            x, y, s, _ = client_data
+            model, _ = self.get_model_client(client_id, global_models, dataset, seed)
+            pred = model.predict(x)
+            y_true_original, y_pred_original, y_true, y_pred = super().get_y(y, pred, dataset.is_image)
+            for client_metric in client_metrics:
+                res = client_metric.update(y_true_original, y_pred_original, y_true, y_pred, s)
+                print(res, client_metric.name)
+            for client_metric in self.metrics_clustering:
+                client_metric.update(y_true_original, y_pred_original, y_true, y_pred, s)
+
+    def get_model_client(self, client_id: int, global_models: GlobalModels, dataset, seed):
+        weights = []
+        amounts = []
+        global_model_amounts = []
+        for global_model in global_models.models:
+            for client in global_model.clients:
+                if client.id == client_id:
+                    weights.append(global_model.model.get_weights())
+                    amounts.append(client.amount)
+                    global_model_amounts.append([global_model.id, client.amount])
+
+        averaged_weights = super().average_weights(weights, amounts)
+        model = get_init_model(dataset, seed)
+        model.set_weights(averaged_weights)
+
+        return model, global_model_amounts
+
+
+def get_init_model(dataset, seed):
+    model = NN_model(dataset.n_features, seed, dataset.is_image)
+    model.compile(dataset.is_image)
+
+    return model
+
+
+def update_clients_identities(clients_identities, n_clients, global_models):
+    for client_id in range(n_clients):
+        timestep_client_identities = []
+
+        for model in global_models.models:
+            for client in model.clients:
+                if client.id == client_id:
+                    timestep_client_identities.append([model.id, client.amount])
+
+        clients_identities[client_id].append(timestep_client_identities)
+
+    return clients_identities

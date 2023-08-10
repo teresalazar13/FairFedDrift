@@ -1,10 +1,8 @@
-from federated.algorithms.fair_fed_drift.clustering.MultipleClustering import MultipleClustering
-from federated.algorithms.fair_fed_drift.clustering.PartialClustering import PartialClustering
 from federated.algorithms.fair_fed_drift.clustering.SingleClustering import SingleClustering
 
 
 def get_clusterings():
-    return [SingleClustering(), MultipleClustering(), PartialClustering()]
+    return [SingleClustering()]
 
 
 def get_clustering_by_name(name):
