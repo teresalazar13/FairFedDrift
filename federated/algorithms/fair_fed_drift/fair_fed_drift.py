@@ -1,7 +1,7 @@
 from federated.algorithms.Algorithm import Algorithm
 from federated.algorithms.fair_fed_drift.Client import Client
 from federated.algorithms.fair_fed_drift.ClientData import ClientData
-from federated.algorithms.fair_fed_drift.GlobalModels import GlobalModels, get_scales_dict, get_client_scales
+from federated.algorithms.fair_fed_drift.GlobalModels import GlobalModels, get_models_proportions
 from federated.algorithms.fair_fed_drift.clustering.ClusteringFactory import get_clustering_by_name
 from federated.algorithms.fair_fed_drift.drift_detection.DriftDetectorFactory import get_detector_by_name
 from federated.model import NN_model
@@ -31,38 +31,34 @@ class FairFedDrift(Algorithm):
     def perform_fl(self, seed, clients_data, dataset):
         global_models = GlobalModels()
         init_model = get_init_model(dataset, seed)
-        init_clients = [Client(id, ClientData(x, y, s), 1) for id, [x, y, s, _] in enumerate(clients_data[0])]
+        init_clients = [Client(id, 1) for id in range(dataset.n_clients)]
         global_models.create_new_global_model(init_model, init_clients)
         clients_metrics = [get_metrics(dataset.is_image) for _ in range(dataset.n_clients)]
-
-        clients_identities = [[[[0, 1]]] for _ in range(dataset.n_clients)]
+        clients_identities = [[] for _ in range(dataset.n_clients)]
 
         for timestep in range(dataset.n_timesteps):
-            print(clients_identities)
+            clients_identities = update_clients_identities(clients_identities, dataset.n_clients, global_models)
+
             # STEP 1 - Test each client's data on previous clustering identities
             self.test_models(global_models, clients_data[timestep], clients_metrics, dataset, seed)
             global_models.reset_clients()
 
-            # STEP 2 - Recalculate Global Models (cluster identities) and detect concept drift
-            global_models = self.update_global_models(clients_data[timestep], global_models, dataset, seed, timestep)
-
-            # STEP 3 - Merge Global Models
-            global_models = self.merge_global_models(global_models, dataset, seed)
-
-            # STEP 4 - Train and average models
-            global_models = self.train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
-
             if timestep != dataset.n_timesteps - 1:
-                clients_identities = update_clients_identities(clients_identities, dataset.n_clients, global_models)
-                print(clients_identities)
+                # STEP 2 - Recalculate Global Models (cluster identities) and detect concept drift
+                global_models = self.update_global_models(clients_data[timestep], global_models, dataset, seed, timestep)
+
+                # STEP 3 - Merge Global Models
+                global_models = self.merge_global_models(global_models, dataset, seed)
+
+                # STEP 4 - Train and average models
+                global_models = self.train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
 
         return clients_metrics, clients_identities
 
     def train_and_average(self, clients_data_timestep, global_models, dataset, seed, timestep):
         for cround in range(dataset.n_rounds):
             local_weights_list = [[] for _ in range(global_models.current_size)]
-            local_amounts_list = [[] for _ in range(global_models.current_size)]
-            local_sizes_list = [[] for _ in range(global_models.current_size)]
+            local_scales_list = [[] for _ in range(global_models.current_size)]
 
             for client_id, client_data in enumerate(clients_data_timestep):
                 x, y, s, _ = client_data
@@ -71,15 +67,13 @@ class FairFedDrift(Algorithm):
                 print("Trained model timestep {} cround {} client {}".format(timestep, cround, client_id))
 
                 for global_model_id, amount in global_model_amounts:
+                    global_models.get_model(global_model_id).add_client_data(client_id, x, y, s, amount)
                     local_weights_list[global_model_id].append(local_model.get_weights())
-                    local_amounts_list[global_model_id].append(amount)
-                    local_sizes_list[global_model_id].append(len(x))
+                    local_scales_list[global_model_id].append(len(x) * amount)
 
-            for global_model_id, (local_weights, local_amounts, local_sizes) in \
-                    enumerate(zip(local_weights_list, local_amounts_list, local_sizes_list)):
+            for global_model_id, (local_weights, local_scales) in enumerate(zip(local_weights_list, local_scales_list)):
                 if len(local_weights) > 0:
-                    scales = get_client_scales(local_amounts, local_sizes)
-                    new_global_weights = super().average_weights(local_weights, scales)
+                    new_global_weights = super().average_weights(local_weights, local_scales)
                     global_models.get_model(global_model_id).model.set_weights(new_global_weights)
                     print("Averaged models on timestep {} cround {} of cluster {}".format(
                         timestep, cround, global_model_id)
@@ -94,19 +88,18 @@ class FairFedDrift(Algorithm):
     def merge_global_models(self, global_models, dataset, seed):
         size = global_models.current_size
         all_distances = [[[0 for _ in range(len(self.metrics_clustering))] for _ in range(size)] for _ in range(size)]
-        scales_dict = get_scales_dict(global_models.models)
 
         for i in range(len(global_models.models)):
             for j in range(len(global_models.models)):
                 id_i = global_models.models[i].id
                 id_j = global_models.models[j].id
-                if i != j and len(global_models.models[i].clients) > 0 and len(global_models.models[j].clients) > 0:
+                if i != j and len(global_models.models[i].clients_data) > 0 and len(global_models.models[j].clients_data) > 0:
                     results_list = []
-                    for client in global_models.models[j].clients:
+                    for client_id in global_models.models[j].clients_data.keys():
                         print("Testing global model {} on data from cluster {} - client {}".format(
-                            id_i, id_j, client.id)
+                            id_i, id_j, client_id)
                         )
-                        partial_client_data = client.client_data.get_partial_data(scales_dict[id_j])
+                        partial_client_data = global_models.models[j].get_partial_client_data(client_id)
                         results = self.test_client_on_model(
                             self.metrics_clustering, global_models.models[i].model, partial_client_data,
                             dataset.is_image
@@ -129,8 +122,10 @@ class FairFedDrift(Algorithm):
                 print("Merging global model {} with global model {}".format(id_0, id_1))
                 global_model_0 = global_models.get_model(id_0)
                 global_model_1 = global_models.get_model(id_1)
-                scales_two_models = get_scales_dict([global_model_0, global_model_1])
-                scales = [scales_two_models[id_0], scales_two_models[id_1]]
+                scales = [  # TODO - improve code
+                    get_models_proportions(global_models, id_0),
+                    get_models_proportions(global_models, id_1)
+                ]
                 weights = [global_model_0.get_weights(), global_model_1.get_weights()]
                 new_global_model_weights = super().average_weights(weights, scales)
                 new_global_model = get_init_model(dataset, seed)
@@ -180,12 +175,12 @@ class FairFedDrift(Algorithm):
             if sum(drift_detected_metrics) >= 1:
                 print("Drift detected at client {}\n".format(client_id))
                 model = get_init_model(dataset, seed)
-                clients = [Client(client_id, client_data, 1)]
+                clients = [Client(client_id, 1)]
                 global_models_to_create.append([model, clients])
             else:
                 print("No drift detected at client {}\n".format(client_id))
                 for global_model_id, amount in model_id_amounts.items():
-                    client = Client(client_id, client_data, amount)
+                    client = Client(client_id, amount)
                     global_models.set_client_model(global_model_id, client)
 
         for model, clients in global_models_to_create:
@@ -252,4 +247,24 @@ def update_clients_identities(clients_identities, n_clients, global_models):
 
         clients_identities[client_id].append(timestep_client_identities)
 
+    print_clients_identities(clients_identities)
+
     return clients_identities
+
+
+def print_clients_identities(clients_identities):
+    print("\nClients identities")
+
+    for timestep in range(len(clients_identities[0])):
+        print("\nTimestep ", timestep)
+        identities = {}
+        for client in range(len(clients_identities)):
+            client_identities_timestep = clients_identities[client][timestep]
+            for model_id, amount in client_identities_timestep:
+                if model_id in identities:
+                    identities[model_id].append([client, amount])
+                else:
+                    identities[model_id] = [[client, amount]]
+
+        for model_id, clients_amounts in identities.items():
+            print("Model id: ", model_id, ":", clients_amounts)

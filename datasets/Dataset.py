@@ -1,7 +1,4 @@
-import glob
 import os
-
-from federated.algorithms.AlgorithmFactory import get_algorithm_by_name
 
 
 class Dataset:
@@ -13,14 +10,13 @@ class Dataset:
         drift_ids = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 2
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 3  # TODO - update image (remove 10, add 0 in 3rd)
-            [0, 0, 0, 0, 1, 1, 1, 2, 2, 2],  # timestep 4
-            [1, 1, 1, 1, 1, 1, 1, 2, 2, 2],  # timestep 5
-            [1, 1, 1, 1, 1, 1, 2, 2, 2, 2],  # timestep 6
-            [2, 2, 0, 1, 1, 1, 2, 2, 2, 1],  # timestep 7
-            [2, 2, 0, 0, 2, 0, 0, 1, 1, 1],  # timestep 8
-            [0, 2, 0, 0, 2, 2, 0, 1, 1, 1],  # timestep 9
-            [0, 1, 2, 1, 2, 2, 2, 2, 0, 0],  # timestep 10
+            [0, 0, 0, 0, 1, 1, 1, 2, 2, 2],  # timestep 2
+            [1, 1, 1, 1, 1, 1, 1, 2, 2, 2],  # timestep 4
+            [1, 1, 1, 1, 1, 1, 2, 2, 2, 2],  # timestep 5
+            [2, 2, 0, 1, 1, 1, 2, 2, 2, 1],  # timestep 6
+            [2, 2, 0, 0, 2, 0, 0, 1, 1, 1],  # timestep 7
+            [0, 2, 0, 0, 2, 2, 0, 1, 1, 1],  # timestep 8
+            [0, 1, 2, 1, 2, 2, 2, 2, 0, 0],  # timestep 9  # TODO - update image
         ]
         self.drift_ids = drift_ids
         self.drift_ids_col, self.n_clients, self.n_drifts, self.n_timesteps = self.get_drift_ids_col(drift_ids)
