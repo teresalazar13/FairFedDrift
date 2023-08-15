@@ -38,7 +38,7 @@ class Algorithm:
                 if y_pred_original_i[0] > 0.5:
                     y_pred_new_i = 1
                 y_pred.append(y_pred_new_i)
-                y_true.append(y_true_raw)
+                y_true.append(y_true_original_i.argmax())
                 y_pred_original.append(y_pred_original_i[0])
             else:
                 y_pred.append(y_pred_original_i.argmax())
@@ -47,21 +47,22 @@ class Algorithm:
 
         return y_true_raw, y_pred_original, y_true, y_pred
 
-    def average_weights(self, weights_list, scaling_factors):
-        scaled_local_weights_list = []
-        global_count = sum(scaling_factors)
 
-        for local_weights, local_count in zip(weights_list, scaling_factors):
-            scale = local_count / global_count
-            scaled_local_weights = []
-            for i in range(len(local_weights)):
-                scaled_local_weights.append(scale * local_weights[i])
+def average_weights(weights_list, scaling_factors):
+    scaled_local_weights_list = []
+    global_count = sum(scaling_factors)
 
-            scaled_local_weights_list.append(scaled_local_weights)
+    for local_weights, local_count in zip(weights_list, scaling_factors):
+        scale = local_count / global_count
+        scaled_local_weights = []
+        for i in range(len(local_weights)):
+            scaled_local_weights.append(scale * local_weights[i])
 
-        global_weights = []
-        for grad_list_tuple in zip(*scaled_local_weights_list):
-            layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)
-            global_weights.append(layer_mean)
+        scaled_local_weights_list.append(scaled_local_weights)
 
-        return global_weights
+    global_weights = []
+    for grad_list_tuple in zip(*scaled_local_weights_list):
+        layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)
+        global_weights.append(layer_mean)
+
+    return global_weights

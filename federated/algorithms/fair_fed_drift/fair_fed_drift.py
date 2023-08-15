@@ -1,4 +1,4 @@
-from federated.algorithms.Algorithm import Algorithm
+from federated.algorithms.Algorithm import Algorithm, average_weights
 from federated.algorithms.fair_fed_drift.Client import Client
 from federated.algorithms.fair_fed_drift.ClientData import ClientData
 from federated.algorithms.fair_fed_drift.GlobalModels import GlobalModels, get_models_proportions
@@ -73,7 +73,7 @@ class FairFedDrift(Algorithm):
 
             for global_model_id, (local_weights, local_scales) in enumerate(zip(local_weights_list, local_scales_list)):
                 if len(local_weights) > 0:
-                    new_global_weights = super().average_weights(local_weights, local_scales)
+                    new_global_weights = average_weights(local_weights, local_scales)
                     global_models.get_model(global_model_id).model.set_weights(new_global_weights)
                     print("Averaged models on timestep {} cround {} of cluster {}".format(
                         timestep, cround, global_model_id)
@@ -127,7 +127,7 @@ class FairFedDrift(Algorithm):
                     get_models_proportions(global_models, id_1)
                 ]
                 weights = [global_model_0.get_weights(), global_model_1.get_weights()]
-                new_global_model_weights = super().average_weights(weights, scales)
+                new_global_model_weights = average_weights(weights, scales)
                 new_global_model = get_init_model(dataset, seed)
                 new_global_model.set_weights(new_global_model_weights)
 
@@ -164,7 +164,9 @@ class FairFedDrift(Algorithm):
                 results_global_models[global_model] = results
 
             # Get Model for client given results_global_models and test
-            model_weights, model_id_amounts = self.clustering.get_model_weights_for_client(results_global_models)
+            model_weights, model_id_amounts = self.clustering.get_model_weights_for_client(
+                results_global_models, timestep
+            )
             model = get_init_model(dataset, seed)
             model.set_weights(model_weights)
             print("Client {} - testing on best model(s)".format(client_id))
@@ -222,7 +224,7 @@ class FairFedDrift(Algorithm):
                     amounts.append(client.amount)
                     global_model_amounts.append([global_model.id, client.amount])
 
-        averaged_weights = super().average_weights(weights, amounts)
+        averaged_weights = average_weights(weights, amounts)
         model = get_init_model(dataset, seed)
         model.set_weights(averaged_weights)
 

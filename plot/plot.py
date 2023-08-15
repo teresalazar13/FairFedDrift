@@ -139,6 +139,7 @@ def plot_algorithms(res_clients_list, algs, filename, metric):
                 else:
                     previous_drift_id = res_clients[j]["drift-id"][i - 1]
                     current_drift_id = res_clients[j]["drift-id"][i]
+                    print(previous_drift_id, current_drift_id)
                     if current_drift_id == previous_drift_id:
                         values.append(res_clients[j][metric].values[i])
             avg.append(sum(values) / len(values))

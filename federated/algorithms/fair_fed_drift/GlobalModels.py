@@ -35,6 +35,7 @@ class GlobalModels:
             if model.id == global_model_id:
                 model.set_client(client)
 
+
 def get_models_proportions(global_models, global_model_id):
     total_data = 0
 
@@ -43,16 +44,3 @@ def get_models_proportions(global_models, global_model_id):
             total_data += len(client_data.x) * amount
 
     return total_data
-
-
-def get_client_scales(local_amounts, local_sizes):
-    scales = []
-
-    for amount, size in zip(local_amounts, local_sizes):
-        size_scale = size / sum(local_sizes)
-        amount_scale = amount / sum(local_amounts)
-        scale = calculate_scale(size_scale, amount_scale)
-        scales.append(scale)
-
-    return scales
-

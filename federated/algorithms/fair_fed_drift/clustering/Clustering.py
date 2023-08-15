@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from typing import Dict
 
 
 class Clustering:
@@ -7,5 +8,5 @@ class Clustering:
         self.name = name
 
     @abstractmethod
-    def get_model_weights_for_client(self, results_global_models):
+    def get_model_weights_for_client(self, results_global_models: Dict, timestep):
         raise NotImplementedError("Must implement get_model_weights_for_client")

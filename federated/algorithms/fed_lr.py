@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
-from tensorflow.keras import backend as K
 
-from federated.algorithms.Algorithm import Algorithm
+from federated.algorithms.Algorithm import Algorithm, average_weights
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics
 
@@ -38,7 +37,7 @@ class FedLR(Algorithm):
                     #K.clear_session()
                     print("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
 
-                new_global_weights = super().average_weights(local_weights_list, client_scaling_factors_list)
+                new_global_weights = average_weights(local_weights_list, client_scaling_factors_list)
                 global_model.set_weights(new_global_weights)
                 print("Averaged models on timestep {} cround {}".format(timestep, cround))
 

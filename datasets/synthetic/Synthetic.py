@@ -50,7 +50,7 @@ class Synthetic(Dataset):
 
         return n_samples
 
-    def generate_drift_data(self, n_drifts, algorithm_subfolders, varying_disc, n_samples):
+    def generate_drift_data(self, algorithm_subfolders, n_drifts, varying_disc, n_samples):
         drift_data = []
         up = 0
         right = 0
@@ -60,15 +60,15 @@ class Synthetic(Dataset):
             X_client, y_client, s_client = generate_synthetic_data(n_samples[i], varying_disc, right, up)
             X_client = np.append(X_client, s_client.reshape((len(s_client), 1)), axis=1)
             drift_data.append([X_client, y_client, s_client, varying_disc, right, up])
-            up += 0.1
-            right += 0.1
+            up += 0.2
+            right += 0.2
         filename = "{}/data.png".format(self.get_folder(algorithm_subfolders, varying_disc))
         plot_synthetic_data(drift_data, n_drifts, n_samples, filename)
 
         return drift_data
 
 
-def generate_synthetic_data(n_samples, disc, right, up):
+def generate_synthetic_data(n_samples, varying_disc, right, up):
     """
         Code for generating the synthetic data.
         We will have two non-sensitive features and one sensitive feature.
@@ -85,7 +85,7 @@ def generate_synthetic_data(n_samples, disc, right, up):
         y = np.ones(n_samples, dtype=float) * class_label
         return nv, X, y
 
-    n_up = int((n_samples // 4) * disc)
+    n_up = int((n_samples // 4) * varying_disc)
     n_others = (n_samples - n_up) // 3
     if n_others*3 + n_up != n_samples:
         n_up += n_samples - (n_others*3 + n_up)
