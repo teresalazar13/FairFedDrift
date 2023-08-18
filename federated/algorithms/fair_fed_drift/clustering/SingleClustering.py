@@ -21,7 +21,7 @@ class SingleClustering(Clustering):
         model_id_amounts = {}
 
         for global_model, results in results_global_models.items():
-            if sum(results) > sum(best_results):
+            if sum(results) > sum(best_results) or best_global_model is None:
                 best_results = results
                 best_global_model = global_model
                 model_id_amounts = {global_model.id: 1}

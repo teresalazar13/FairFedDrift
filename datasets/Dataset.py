@@ -39,8 +39,10 @@ class Dataset:
     def get_all_folders(self, varying_disc):
         folder = "./results/{}/disc_{}".format(self.name, varying_disc)
         folders = []
+        algs = []
         for x in os.walk(folder):
             if len(x) > 1 and "client_1" in x[1]:
                 folders.append(x[0])
+                algs.append(";".join(x[0].split("/")[4:]))
 
-        return folder, folders, folders  # TODO
+        return folder, folders, algs

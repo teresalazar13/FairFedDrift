@@ -1,8 +1,6 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import random
 import pandas as pd
-import distinctipy
 
 
 def plot_synthetic_data(drift_data, n_drifts, n_samples, filename):
@@ -77,58 +75,8 @@ def read_results(metrics, filename):
     return res
 
 
-def plot(res_clients, filename, metric):
-    plt.figure()
-    markers = [".", "+", "*", 1, 2]
-    edgecolors = distinctipy.get_colors(20)
-
-    for i in range(len(res_clients)):
-        unique_drifts_ids = res_clients[i]["drift-id"].unique()
-        for drift_id in unique_drifts_ids:
-            unique_gm_ids = res_clients[i]["gm-id"].unique()
-            for gm_id in unique_gm_ids:
-                indexes = np.where(
-                    (res_clients[i]["drift-id"].values == drift_id) & (res_clients[i]["gm-id"].values == gm_id)
-                )[0]
-                plt.scatter(
-                    indexes, res_clients[i][metric].values[indexes],
-                    marker=markers[drift_id], color=edgecolors[i],
-                    label="client-{} drift-{} gm={}".format(i + 1, drift_id, gm_id)
-                )
-
-    plt.ylim([0, 1])
-    plt.xlabel("time")
-    plt.ylabel(metric)
-    plt.savefig(filename)
-    plt.close()
-
-
-def plot_avg(res_clients, filename, metric):
-    plt.figure()
-    avg = []
-    for i in range(len(res_clients[0][metric].values)):
-        values = []
-        for j in range(len(res_clients)):
-            if i == 0:
-                values.append(res_clients[j][metric].values[i])
-            else:
-                previous_drift_id = res_clients[j]["drift-id"][i - 1]
-                current_drift_id = res_clients[j]["drift-id"][i]
-                if current_drift_id == previous_drift_id:
-                    values.append(res_clients[j][metric].values[i])
-        avg.append(sum(values) / len(values))
-
-    plt.scatter(range(0, len(res_clients[0][metric].values)), avg)
-    plt.ylim([0, 1])
-    plt.xlabel("time")
-    plt.ylabel(metric)
-    plt.legend()
-    plt.savefig(filename)
-    plt.close()
-
-
-def plot_algorithms(res_clients_list, algs, filename, metric):
-    plt.figure()
+def plot_algorithms(res_clients_list, algs, filename, metric, title):
+    fig = plt.figure()
     for res_clients, alg in zip(res_clients_list, algs):
         avg = []
         for i in range(len(res_clients[0][metric].values)):
@@ -139,41 +87,15 @@ def plot_algorithms(res_clients_list, algs, filename, metric):
                 else:
                     previous_drift_id = res_clients[j]["drift-id"][i - 1]
                     current_drift_id = res_clients[j]["drift-id"][i]
-                    print(previous_drift_id, current_drift_id)
                     if current_drift_id == previous_drift_id:
                         values.append(res_clients[j][metric].values[i])
             avg.append(sum(values) / len(values))
-        plt.scatter(range(0, len(res_clients[0][metric].values)), avg, label=alg)
+        plt.scatter(range(1, len(res_clients[0][metric].values)), avg[1:], label=alg)
     plt.ylim([0, 1])
+    plt.title(title)
     plt.xlabel("time")
     plt.ylabel(metric)
-    plt.legend(loc="lower right")
+    plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.4))
+    fig.subplots_adjust(bottom=0.25)
     plt.savefig(filename)
     plt.close()
-
-
-def plot_each_client(res_clients, filename, metric):
-    markers = [".", "+", "*", 1, 2]
-    colors = distinctipy.get_colors(20)
-
-    for i in range(len(res_clients)):
-        plt.figure()
-        unique_drifts_ids = res_clients[i]["drift-id"].unique()
-        for drift_id in unique_drifts_ids:
-            unique_gm_ids = res_clients[i]["gm-id"].unique()
-            for j, gm_id in enumerate(unique_gm_ids):
-                indexes = np.where(
-                    (res_clients[i]["drift-id"].values == drift_id) & (res_clients[i]["gm-id"].values == gm_id)
-                )[0]
-                plt.scatter(
-                    indexes, res_clients[i][metric].values[indexes],
-                    label="drift-{} gm={}".format(drift_id, gm_id), marker=markers[drift_id], color=colors[j]
-                )
-
-        plt.xlabel("time")
-        plt.ylabel(metric)
-        plt.legend()
-        plt.ylim([0, 1])
-        print(filename.replace(".png", "_client_{}.png".format(i)))
-        plt.savefig(filename.replace(".png", "_client_{}.png".format(i)))
-        plt.close()

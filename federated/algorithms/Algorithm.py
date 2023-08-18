@@ -38,7 +38,7 @@ class Algorithm:
                 if y_pred_original_i[0] > 0.5:
                     y_pred_new_i = 1
                 y_pred.append(y_pred_new_i)
-                y_true.append(y_true_original_i.argmax())
+                y_true.append(y_true_original_i)
                 y_pred_original.append(y_pred_original_i[0])
             else:
                 y_pred.append(y_pred_original_i.argmax())
