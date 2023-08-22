@@ -29,13 +29,18 @@ class BalancedAccuracy(Metric):
             df[(df["y"] == df["y_pred"]) & (df["s"] == 0)]
         )
         total_unpriv = len(df[df["s"] == 0])
-        acc_priv = correct_priv / total_priv
-        acc_unpriv = correct_unpriv / total_unpriv
-        if acc_priv != 0:
-            res = acc_unpriv / acc_priv
-        else:
-            res = 0
+
+        acc_priv = divide(correct_priv, total_priv)
+        acc_unpriv = divide(correct_unpriv, total_unpriv)
+        res = divide(acc_unpriv, acc_priv)
+
         if res > 1:
             res = 1 / res
 
         return res
+
+
+def divide(a, b):
+    if b == 0:
+        return 0
+    return a / b

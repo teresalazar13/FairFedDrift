@@ -55,23 +55,28 @@ class Synthetic(Dataset):
 
         for i in range(n_drifts):
             if i == 0:
-                up = 0
-                right = 0
-                round_up = 0
+                right_priv = 0
+                up_priv = 0
+                right_unpriv = 0
+                up_unpriv = 0
             elif i == 1:
-                up = 0.5
-                right = 0.5
-                round_up = 0
+                right_priv = 0.5
+                up_priv = 0.5
+                right_unpriv = 0
+                up_unpriv = 0
             elif i == 2:
-                up = 0
-                right = 0
-                round_up = 1
+                right_priv = 0
+                up_priv = 0
+                right_unpriv = 0.5
+                up_unpriv = 0.5
             else:
                 raise Exception("Invalid drift")
-            print("disc {} | up: {} | right: {} | round_up: {} n_samples: {}".format(
-                varying_disc, up, right, round_up, n_samples[i])
+            print("disc {} | right_priv: {} | up_priv: {} | right_unpriv: {} | up_unpriv: {} | n_samples {}".format(
+                varying_disc, right_priv, up_priv, right_unpriv, up_unpriv, n_samples[i])
             )
-            X_client, y_client, s_client = generate_synthetic_data(n_samples[i], varying_disc, right, up, round_up)
+            X_client, y_client, s_client = generate_synthetic_data(
+                n_samples[i], varying_disc, right_priv, up_priv, right_unpriv, up_unpriv
+            )
             X_client = np.append(X_client, s_client.reshape((len(s_client), 1)), axis=1)
             drift_data.append([X_client, y_client, s_client, varying_disc, right, up])
         filename = "{}/data.png".format(self.get_folder(algorithm_subfolders, varying_disc))
@@ -80,7 +85,7 @@ class Synthetic(Dataset):
         return drift_data
 
 
-def generate_synthetic_data(n_samples, varying_disc, right, up, round_up):
+def generate_synthetic_data(n_samples, varying_disc, right_priv, up_priv, right_unpriv, up_unpriv):
     """
         Code for generating the synthetic data.
         We will have two non-sensitive features and one sensitive feature.
@@ -102,16 +107,16 @@ def generate_synthetic_data(n_samples, varying_disc, right, up, round_up):
     if (n_privileged*2 + n_unprivileged*2) != n_samples:
         n_privileged = int(n_privileged + (n_samples - (n_privileged*2 + n_unprivileged*2)) / 2)
 
-    mu_pp, sigma_pp = [2.5, 2.5], [[3, 1], [1, 3]]  # privileged positive
+    mu_pp, sigma_pp = [2.5 - right_priv, 2.5 - up_priv], [[3, 1], [1, 3]]  # privileged positive
     nv_pp, X_pp, y_pp = gen_gaussian(mu_pp, sigma_pp, 1, n_privileged)
 
-    mu_pn, sigma_pn = [-2.5, -2.5], [[3, 1], [1, 3]]  # privileged negative
+    mu_pn, sigma_pn = [-2.5 + right_priv, -2.5 + up_priv], [[3, 1], [1, 3]]  # privileged negative
     nv_pn, X_pn, y_pn = gen_gaussian(mu_pn, sigma_pn, 0, n_privileged)
 
-    mu_up, sigma_up = [2 - right, 2 - up], [[3 + round_up, 1 + round_up], [1 + round_up, 3 + round_up]]  # unprivileged positive
+    mu_up, sigma_up = [2 - right_unpriv, 2 - up_unpriv], [[3, 1], [1, 3]]  # unprivileged positive
     nv_up, X_up, y_up = gen_gaussian(mu_up, sigma_up, 1, n_unprivileged)
 
-    mu_un, sigma_un = [0 + right, 0 + up], [[3 + round_up, 1 + round_up], [1 + round_up, 3 + round_up]]  # unprivileged negative
+    mu_un, sigma_un = [0 + right_unpriv, 0 + up_unpriv], [[3, 1], [1, 3]]  # unprivileged negative
     nv_un, X_un, y_un = gen_gaussian(mu_un, sigma_un, 0, n_unprivileged)
 
     X = np.vstack((X_pp, X_pn, X_up, X_un))

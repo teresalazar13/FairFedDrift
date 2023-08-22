@@ -60,7 +60,11 @@ if __name__ == '__main__':
     clients_metrics, client_gm_ids_col = algorithm.perform_fl(seed, clients_data, dataset)
 
     for i in range(len(clients_metrics)):
+        if i == len(clients_metrics) - 1:
+            drift_col = dataset.drift_ids_col[0]
+        else:
+            drift_col = dataset.drift_ids_col[i + 1]
         save_results(
-            clients_metrics[i], dataset.drift_ids_col[i], client_gm_ids_col[i],
+            clients_metrics[i], drift_col, client_gm_ids_col[i],
             "{}/client_{}/results.csv".format(dataset.get_folder(algorithm.subfolders, varying_disc), i+1)
         )

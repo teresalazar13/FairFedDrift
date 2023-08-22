@@ -1,11 +1,12 @@
-from datasets.adult.Adult import Adult
-from datasets.dutch.Dutch import Dutch
-from datasets.fairMNIST.FairMNIST import FairMNIST
+from datasets.tabular.adult.Adult import Adult
+from datasets.tabular.dutch.Dutch import Dutch
+from datasets.image.fairMNIST.FairMNIST import FairMNIST
+from datasets.image.fairFashionMNIST.FairFashionMNIST import FairFashionMNIST
 from datasets.synthetic.Synthetic import Synthetic
 
 
 def get_datasets():
-    return [FairMNIST(), Synthetic(), Dutch(), Adult()]
+    return [FairMNIST(), FairFashionMNIST(), Synthetic(), Dutch(), Adult()]
 
 
 def get_dataset_by_name(name):

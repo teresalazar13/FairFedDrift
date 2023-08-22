@@ -30,7 +30,7 @@ if __name__ == '__main__':
         res_clients_list.append(res_clients)
 
     for metric in get_metrics(dataset.is_image):
+        title = "{}-{}".format(dataset.name, str(varying_disc))
         plot_algorithms(
-            res_clients_list, algs, "{}/results_{}.png".format(main_folder, metric.name), metric.name,
-            "{}-{}".format(dataset.name, str(varying_disc))
+            res_clients_list, algs, "{}/results_{}-{}.png".format(main_folder, title, metric.name), metric.name, title
         )

@@ -8,13 +8,20 @@ from federated.model import NN_model
 from metrics.MetricFactory import get_metrics, get_metrics_by_names
 
 
+def print_matrix(matrix):
+    for d in matrix:
+        string = ""
+        for a in d:
+            string += " " + "-".join([str(b) for b in a])
+        print(string)
+
+
 class FairFedDrift(Algorithm):
     # TODO - use loss and fairness loss instead of accuracy and balanced accuracy
     def __init__(self):
         self.metrics_clustering = None
         self.drift_detector = None
         self.clustering = None
-        self.delta = 0.8
         name = "fair_fed_drift"
         super().__init__(name)
 
@@ -24,8 +31,9 @@ class FairFedDrift(Algorithm):
         self.drift_detector.set_specs(args)
         self.metrics_clustering = get_metrics_by_names(args.metrics)
         metrics_string = "-".join(args.metrics)
-        super().set_subfolders("{}/clustering-{}/drift_detector-{}/metrics-{}".format(
-            self.name, self.clustering.name, self.drift_detector.name, metrics_string
+        thresholds_string = "-".join(args.thresholds)
+        super().set_subfolders("{}/clustering-{}/drift_detector-{}-{}/metrics-{}".format(
+            self.name, self.clustering.name, self.drift_detector.name, thresholds_string, metrics_string
         ))
 
     def perform_fl(self, seed, clients_data, dataset):
@@ -105,46 +113,85 @@ class FairFedDrift(Algorithm):
                             dataset.is_image
                         )
                         results_list.append(results)
-                    all_distances[id_i][id_j] = self.drift_detector.get_worst_results(results_list)
+                    worst_results = self.drift_detector.get_worst_results(results_list)
+                    print("Distance between global model {} and {}: {}".format(id_i, id_j, worst_results))
+                    all_distances[id_i][id_j] = worst_results
 
-        distances = [[0 for _ in range(size)] for _ in range(size)]
+        distances = [[[0 for _ in range(len(self.metrics_clustering))] for _ in range(size)] for _ in range(size)]
         for i in range(len(global_models.models)):
             for j in range(len(global_models.models)):
                 id_i = global_models.models[i].id
                 id_j = global_models.models[j].id
                 results_list = [all_distances[id_i][id_j], all_distances[id_j][id_i]]
-                distances[id_i][id_j] = self.drift_detector.get_worst_results(results_list)
+                worst_results = self.drift_detector.get_worst_results(results_list)
+                print("Final distance between global model {} and {}: {}".format(id_i, id_j, worst_results))
+                distances[id_i][id_j] = worst_results
 
         while True:  # While we can still merge global models
-
+            print_matrix(distances)
             id_0, id_1 = self.drift_detector.get_next_best_results(distances)
             if id_0 and id_1:
                 print("Merging global model {} with global model {}".format(id_0, id_1))
-                global_model_0 = global_models.get_model(id_0)
-                global_model_1 = global_models.get_model(id_1)
-                scales = [  # TODO - improve code
-                    get_models_proportions(global_models, id_0),
-                    get_models_proportions(global_models, id_1)
-                ]
-                weights = [global_model_0.get_weights(), global_model_1.get_weights()]
-                new_global_model_weights = average_weights(weights, scales)
-                new_global_model = get_init_model(dataset, seed)
-                new_global_model.set_weights(new_global_model_weights)
-
-                # Reset Distances
-                distances[id_0][id_1] = 0
-                distances[id_1][id_0] = 0
-
-                # Create new global Model
-                clients = global_model_0.clients
-                clients.extend(global_model_1.clients)
-                global_models.create_new_global_model(new_global_model, clients)
-
-                # Reset Client old models
-                global_models.reset_clients_merged_models(id_0, id_1)
-
+                global_models, distances = self.merge_global_models_spec(
+                    dataset, seed, global_models, id_0, id_1, distances
+                )
             else:
                 return global_models
+
+    def merge_global_models_spec(self, dataset, seed, global_models, id_0, id_1, distances):
+        global_model_0 = global_models.get_model(id_0)
+        global_model_1 = global_models.get_model(id_1)
+        scales = [
+            get_models_proportions(global_models, id_0),
+            get_models_proportions(global_models, id_1)
+        ]
+        weights = [global_model_0.model.get_weights(), global_model_1.model.get_weights()]
+        new_global_model_weights = average_weights(weights, scales)
+        new_global_model = get_init_model(dataset, seed)
+        new_global_model.set_weights(new_global_model_weights)
+
+        # Create new global Model
+        clients = global_model_0.clients
+        clients.extend(global_model_1.clients)
+        new_global_model_created = global_models.create_new_global_model(new_global_model, clients)
+        for client_id, client_data_list in global_model_0.clients_data.items():  # add client data of global_model_0
+            for client_data, amount in client_data_list:
+                new_global_model_created.add_client_data(
+                    client_id, client_data.x, client_data.y, client_data.s, amount
+                )
+        for client_id, client_data_list in global_model_0.clients_data.items():  # add client data of global_model_1
+            for client_data, amount in client_data_list:
+                new_global_model_created.add_client_data(
+                    client_id, client_data.x, client_data.y, client_data.s, amount
+                )
+        print("Created global model {} from global models {} and {}".format(
+            new_global_model_created.id, id_0, id_1)
+        )
+
+        # Create new column and row for new model id and update distances
+        new_row = []
+        for i in range(len(distances)):
+            results_list = [distances[id_0][i], distances[id_1][i]]
+            worst_results = self.drift_detector.get_worst_results(results_list)
+            new_row.append(worst_results)
+        for i in range(len(distances)):
+            distances[i].append(new_row[i])
+        new_row.append([0 for _ in range(len(self.metrics_clustering))])
+        distances.append(new_row)
+
+        # Reset Distances of deleted models
+        distances[id_0][id_1] = [0 for _ in range(len(self.metrics_clustering))]
+        distances[id_1][id_0] = [0 for _ in range(len(self.metrics_clustering))]
+        for i in range(len(distances)):
+            distances[id_0][i] = [0 for _ in range(len(self.metrics_clustering))]
+            distances[id_1][i] = [0 for _ in range(len(self.metrics_clustering))]
+            distances[i][id_0] = [0 for _ in range(len(self.metrics_clustering))]
+            distances[i][id_1] = [0 for _ in range(len(self.metrics_clustering))]
+
+        global_models.deleted_merged_model(id_0)
+        global_models.deleted_merged_model(id_1)
+
+        return global_models, distances
 
     def update_global_models(self, clients_data_timestep, global_models, dataset, seed, timestep):
         global_models_to_create = []

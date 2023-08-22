@@ -3,10 +3,25 @@ import os
 
 class Dataset:
 
-    def __init__(self, name, n_features):
+    def __init__(self, name, is_image, n_features=None):
         self.name = name
         self.n_features = n_features
-        self.n_rounds = 10  # number of rounds per timestep
+        self.is_image = is_image
+        self.n_rounds = 1  # number of rounds per timestep
+        drift_ids = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
+            [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
+            [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
+            [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
+            [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
+            [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 6
+            [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 7
+            [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
+            [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
+            [2, 2, 2, 0, 0, 0, 0, 0, 1, 1]   # timestep 10 # TODO - update image
+        ]
+        """
         drift_ids = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 2
@@ -17,7 +32,7 @@ class Dataset:
             [2, 2, 0, 0, 2, 0, 0, 1, 1, 1],  # timestep 7
             [0, 2, 0, 0, 2, 2, 0, 1, 1, 1],  # timestep 8
             [0, 1, 2, 1, 2, 2, 2, 2, 0, 0],  # timestep 9  # TODO - update image
-        ]
+        ]"""
         self.drift_ids = drift_ids
         self.drift_ids_col, self.n_clients, self.n_drifts, self.n_timesteps = self.get_drift_ids_col(drift_ids)
 

@@ -14,7 +14,6 @@ class FixedDriftDetector(DriftDetector):
 
     def drift_detected(self, results_list, timestep=1):
         drift = []
-
         for result, threshold in zip(results_list, self.thresholds):  # for each metric m
             if timestep > 0 and result < threshold:
                 drift.append(1)
@@ -44,7 +43,7 @@ class FixedDriftDetector(DriftDetector):
     def get_next_best_results(self, results_matrix):
         best_row = None
         best_col = None
-        best_sum_results = 1000
+        best_sum_results = 0
 
         for row in range(len(results_matrix)):
             for col in range(len(results_matrix[row])):
