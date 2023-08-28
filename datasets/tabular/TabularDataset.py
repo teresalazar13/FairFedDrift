@@ -15,7 +15,7 @@ class TabularDataset(Dataset):
         self.target = target
         self.cat_columns = cat_columns
 
-    def create_batched_data(self, _, varying_disc):
+    def create_batched_data(self, varying_disc):
         drift_ids = self.drift_ids
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps

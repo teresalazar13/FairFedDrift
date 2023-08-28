@@ -95,6 +95,8 @@ class FairFedDrift(Algorithm):
 
     def merge_global_models(self, global_models, dataset, seed):
         size = global_models.current_size
+        if size > 25:
+            raise Exception("Number of global models > 25")
         all_distances = [[[0 for _ in range(len(self.metrics_clustering))] for _ in range(size)] for _ in range(size)]
 
         for i in range(len(global_models.models)):

@@ -3,25 +3,24 @@ import numpy as np
 from scipy.stats import multivariate_normal
 
 from datasets.Dataset import Dataset
-from plot.plot import plot_synthetic_data
 
 
 class Synthetic(Dataset):
 
     def __init__(self):
         name = "synthetic"
+        is_image = False
         n_features = 3
-        super().__init__(name, n_features)
+        super().__init__(name, is_image, n_features)
         self.n_samples = 1500
-        self.is_image = False
 
-    def create_batched_data(self, algorithm_subfolders, varying_disc):
+    def create_batched_data(self, varying_disc):
         drift_ids = self.drift_ids
         n_drifts = self.n_drifts
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps
         n_samples = self.get_n_samples_per_drift(drift_ids, n_drifts)
-        drift_data = self.generate_drift_data(algorithm_subfolders, n_drifts, varying_disc, n_samples)
+        drift_data = self.generate_drift_data(n_drifts, varying_disc, n_samples)
 
         batched_data = []
         for i in range(n_timesteps):
@@ -50,42 +49,29 @@ class Synthetic(Dataset):
 
         return n_samples
 
-    def generate_drift_data(self, algorithm_subfolders, n_drifts, varying_disc, n_samples):
+    def generate_drift_data(self, n_drifts, varying_disc, n_samples):
         drift_data = []
 
         for i in range(n_drifts):
             if i == 0:
-                right_priv = 0
-                up_priv = 0
-                right_unpriv = 0
-                up_unpriv = 0
+                mov_priv = 0
+                mov_unpriv = 0
             elif i == 1:
-                right_priv = 0.5
-                up_priv = 0.5
-                right_unpriv = 0
-                up_unpriv = 0
+                mov_priv = 0
+                mov_unpriv = 1
             elif i == 2:
-                right_priv = 0
-                up_priv = 0
-                right_unpriv = 0.5
-                up_unpriv = 0.5
+                mov_priv = 1
+                mov_unpriv = 0
             else:
                 raise Exception("Invalid drift")
-            print("disc {} | right_priv: {} | up_priv: {} | right_unpriv: {} | up_unpriv: {} | n_samples {}".format(
-                varying_disc, right_priv, up_priv, right_unpriv, up_unpriv, n_samples[i])
-            )
-            X_client, y_client, s_client = generate_synthetic_data(
-                n_samples[i], varying_disc, right_priv, up_priv, right_unpriv, up_unpriv
-            )
+            X_client, y_client, s_client = generate_synthetic_data(n_samples[i], mov_priv, mov_unpriv)
             X_client = np.append(X_client, s_client.reshape((len(s_client), 1)), axis=1)
-            drift_data.append([X_client, y_client, s_client, varying_disc, right, up])
-        filename = "{}/data.png".format(self.get_folder(algorithm_subfolders, varying_disc))
-        plot_synthetic_data(drift_data, n_drifts, n_samples, filename)
+            drift_data.append([X_client, y_client, s_client, varying_disc])
 
         return drift_data
 
 
-def generate_synthetic_data(n_samples, varying_disc, right_priv, up_priv, right_unpriv, up_unpriv):
+def generate_synthetic_data(n_samples, mov_priv, mov_unpriv):
     """
         Code for generating the synthetic data.
         We will have two non-sensitive features and one sensitive feature.
@@ -102,21 +88,24 @@ def generate_synthetic_data(n_samples, varying_disc, right_priv, up_priv, right_
         y = np.ones(n_samples, dtype=float) * class_label
         return nv, X, y
 
+    """
     n_privileged = int(n_samples / (2 + 2*varying_disc))
     n_unprivileged = int(n_privileged * varying_disc)
     if (n_privileged*2 + n_unprivileged*2) != n_samples:
-        n_privileged = int(n_privileged + (n_samples - (n_privileged*2 + n_unprivileged*2)) / 2)
+        n_privileged = int(n_privileged + (n_samples - (n_privileged*2 + n_unprivileged*2)) / 2)"""
+    n_privileged = int(n_samples / 4)
+    n_unprivileged = int(n_samples / 4)
 
-    mu_pp, sigma_pp = [2.5 - right_priv, 2.5 - up_priv], [[3, 1], [1, 3]]  # privileged positive
+    mu_pp, sigma_pp = [2, 2], [[2, 1], [1, 2]]  # privileged positive
     nv_pp, X_pp, y_pp = gen_gaussian(mu_pp, sigma_pp, 1, n_privileged)
 
-    mu_pn, sigma_pn = [-2.5 + right_priv, -2.5 + up_priv], [[3, 1], [1, 3]]  # privileged negative
+    mu_pn, sigma_pn = [2, -2 + mov_priv], [[2, 1], [1, 2]]  # privileged negative
     nv_pn, X_pn, y_pn = gen_gaussian(mu_pn, sigma_pn, 0, n_privileged)
 
-    mu_up, sigma_up = [2 - right_unpriv, 2 - up_unpriv], [[3, 1], [1, 3]]  # unprivileged positive
+    mu_up, sigma_up = [-2, 2], [[2, 1], [1, 2]]  # unprivileged positive
     nv_up, X_up, y_up = gen_gaussian(mu_up, sigma_up, 1, n_unprivileged)
 
-    mu_un, sigma_un = [0 + right_unpriv, 0 + up_unpriv], [[3, 1], [1, 3]]  # unprivileged negative
+    mu_un, sigma_un = [-2, -2 + mov_unpriv], [[2, 1], [1, 2]]  # unprivileged negative
     nv_un, X_un, y_un = gen_gaussian(mu_un, sigma_un, 0, n_unprivileged)
 
     X = np.vstack((X_pp, X_pn, X_up, X_un))

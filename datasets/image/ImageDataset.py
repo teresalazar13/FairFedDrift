@@ -14,7 +14,7 @@ class ImageDataset(Dataset):
         self.test_X_priv = test_X_priv
         self.test_y_priv = test_y_priv
 
-    def create_batched_data(self, _, varying_disc):
+    def create_batched_data(self, varying_disc):
         drift_ids = self.drift_ids
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps

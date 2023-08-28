@@ -1,65 +1,14 @@
 import matplotlib.pyplot as plt
-import random
 import pandas as pd
 
 
-def plot_synthetic_data(drift_data, n_drifts, n_samples, filename):
-    fig, axs = plt.subplots(nrows=n_drifts, ncols=1, figsize=(10, 5 * n_drifts))
-
-    for i in range(len(drift_data)):
-        X, y, s, disc, right, up = drift_data[i]
-        if n_drifts > 1:
-            plot_synthetic_data_drift(X, y, s, disc, right, up, axs[i], n_samples[i])
-        else:
-            plot_synthetic_data_drift(X, y, s, disc, right, up, axs, n_samples[i])
-    plt.savefig(filename)
-
-
-def plot_synthetic_data_drift(X, y, s, disc, right, up, ax, n_samples):
-    perm = list(range(0, n_samples))
-    random.Random(10).shuffle(perm)  # shuffle data to plot under specific seed
-    num_to_draw = 200  # we will only draw a small number of points to avoid clutter
-    x_draw = X[perm][:num_to_draw]
-    y_draw = y[perm][:num_to_draw]
-    s_draw = s[perm][:num_to_draw]
-
-    X_s_0 = x_draw[s_draw == 0.0]
-    X_s_1 = x_draw[s_draw == 1.0]
-    y_s_0 = y_draw[s_draw == 0.0]
-    y_s_1 = y_draw[s_draw == 1.0]
-    ax.scatter(
-        X_s_0[y_s_0 == 1.0][:, 0], X_s_0[y_s_0 == 1.0][:, 1], color='green', marker='x', s=30, linewidth=1.5,
-        label="Prot. +ve"
-    )
-    ax.scatter(
-        X_s_0[y_s_0 == 0][:, 0], X_s_0[y_s_0 == 0][:, 1], color='red', marker='x', s=30, linewidth=1.5,
-        label="Prot. -ve"
-    )
-    ax.scatter(
-        X_s_1[y_s_1 == 1.0][:, 0], X_s_1[y_s_1 == 1.0][:, 1], color='green', marker='o', facecolors='none', s=30,
-        label="Non-prot. +ve"
-    )
-    ax.scatter(
-        X_s_1[y_s_1 == 0][:, 0], X_s_1[y_s_1 == 0][:, 1], color='red', marker='o', facecolors='none', s=30,
-        label="Non-prot. -ve"
-    )
-    ax.tick_params(
-        axis='x', which='both', bottom='off', top='off', labelbottom='off'
-    )  # dont need the ticks to see the data distribution
-    ax.tick_params(axis='y', which='both', left='off', right='off', labelleft='off')
-    ax.set_title("up: {} | right: {} | disc: {}".format(up, right, disc))
-    ax.legend(fontsize=15, loc="lower right")
-    ax.set_xlim((-15, 15))
-    ax.set_ylim((-15, 15))
-
-
-def save_results(metrics, drift_ids, gm_ids_col, filename):
+def save_results(metrics, drift_ids, clients_identities, filename):
     df = pd.DataFrame()
     df = df.astype('object')
     for metric in metrics:
         df[metric.name] = metric.res
     df["drift-id"] = drift_ids
-    df["gm-id"] = gm_ids_col
+    df["gm-id"] = clients_identities
 
     df.to_csv(filename, index=False)
 
