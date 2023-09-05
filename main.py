@@ -20,11 +20,14 @@ def get_arguments():
     parser.add_argument('--metrics', nargs='+', required=False, help='metrics')
     parser.add_argument('--drift_detector', required=False, help='drift_detector')
     parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')
+    parser.add_argument('--lr', required=False, help='local_reweighing?')
+    parser.add_argument('--oversampling', required=False, help='oversampling?')
+    parser.add_argument('--boost_factor', required=False, help='boost factor')
 
     args = parser.parse_args(sys.argv[1:])
     algorithm = get_algorithm_by_name(args.fl)
     dataset = get_dataset_by_name(args.dataset)
-    if args.clustering and args.metrics and args.drift_detector:  # FairFedDrift
+    if args.metrics:  # FairFedDrift or FedVal
         algorithm.set_specs(args)
     varying_disc = float(args.varying_disc)
 

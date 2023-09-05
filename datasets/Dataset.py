@@ -3,24 +3,41 @@ import os
 
 class Dataset:
 
-    def __init__(self, name, is_image, n_features=None):
+    def __init__(self, name, is_image, input_shape):
         self.name = name
-        self.n_features = n_features
+        self.input_shape = input_shape
         self.is_image = is_image
-        self.n_rounds = 1  # number of rounds per timestep
-        drift_ids = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
-            [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
-            [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
-            [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
-            [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
-            [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 6
-            [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 7
-            [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
-            [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
-            [2, 2, 2, 0, 0, 0, 0, 0, 1, 1]   # timestep 10 # TODO - update image
-        ]
+
+        if not is_image:
+            self.n_rounds = 5  # number of rounds per timestep
+            drift_ids = [
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 6
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 7
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]   # timestep 10
+            ]
+        else:
+            self.n_rounds = 1  # number of rounds per timestep
+            drift_ids = [
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
+                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
+                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 6
+                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 7
+                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
+                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
+                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1]   # timestep 10 # TODO - update image
+            ]
         """
         drift_ids = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
@@ -56,8 +73,11 @@ class Dataset:
         folders = []
         algs = []
         for x in os.walk(folder):
-            if len(x) > 1 and "client_1" in x[1]:
-                folders.append(x[0])
-                algs.append(";".join(x[0].split("/")[4:]))
+            if len(x) > 1 and "client_1" in x[0] and "results.csv" in x[-1]:
+                f = "/".join(x[0].split("/")[:-1])
+                a = ";".join(x[0].split("/")[4:-1])
+                if f not in folders:
+                    folders.append(f)
+                    algs.append(a)
 
         return folder, folders, algs

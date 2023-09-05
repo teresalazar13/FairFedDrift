@@ -10,7 +10,7 @@ class FedAvg(Algorithm):
         super().__init__(name)
 
     def perform_fl(self, seed, clients_data, dataset):
-        global_model = NN_model(dataset.n_features, seed, dataset.is_image)
+        global_model = NN_model(dataset.input_shape, seed, dataset.is_image)
         clients_metrics = [get_metrics(dataset.is_image) for _ in range(dataset.n_clients)]
 
         for timestep in range(dataset.n_timesteps):
@@ -24,7 +24,7 @@ class FedAvg(Algorithm):
                 for client in range(dataset.n_clients):
                     x, y, s, _ = clients_data[timestep][client]
                     global_weights = global_model.get_weights()
-                    local_model = NN_model(dataset.n_features, seed, dataset.is_image)
+                    local_model = NN_model(dataset.input_shape, seed, dataset.is_image)
                     local_model.compile(dataset.is_image)
                     local_model.set_weights(global_weights)
                     local_model.learn(x, y)

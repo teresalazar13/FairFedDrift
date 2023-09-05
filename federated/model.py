@@ -2,19 +2,19 @@ import tensorflow as tf
 
 
 class NN_model:
-    def __init__(self, n_features, seed, is_image):
+    def __init__(self, input_shape, seed, is_image):
         self.batch_size = 32
         self.n_epochs = 50
         initializer = tf.keras.initializers.RandomNormal(seed=seed)
         if not is_image:
             self.model = tf.keras.models.Sequential([
-                tf.keras.layers.InputLayer(input_shape=(n_features,)),
+                tf.keras.layers.InputLayer(input_shape=(input_shape,)),
                 tf.keras.layers.Dense(10, activation='tanh', kernel_initializer=initializer),
                 tf.keras.layers.Dense(1, activation='sigmoid', kernel_initializer=initializer),
             ])
         else:
             self.model = tf.keras.models.Sequential()
-            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', input_shape=(28, 28, 1)))
+            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', input_shape=input_shape))
             self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
             self.model.add(tf.keras.layers.Flatten())
             self.model.add(tf.keras.layers.Dense(100, activation='relu', kernel_initializer='he_uniform'))

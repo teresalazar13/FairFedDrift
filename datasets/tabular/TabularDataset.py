@@ -8,9 +8,9 @@ from datasets.Dataset import Dataset
 
 class TabularDataset(Dataset):
 
-    def __init__(self, name, n_features, sensitive_attribute, target, cat_columns):
+    def __init__(self, name, input_shape, sensitive_attribute, target, cat_columns):
         is_image = False
-        super().__init__(name, is_image, n_features)
+        super().__init__(name, is_image, input_shape)
         self.sensitive_attribute = sensitive_attribute
         self.target = target
         self.cat_columns = cat_columns
@@ -30,6 +30,13 @@ class TabularDataset(Dataset):
                 drift_id = drift_ids[i][j]
                 df_round_client = df_round_clients[j]
                 df_round_client['RAND'] = [random.random() for _ in df_round_client.index]
+                if drift_id == 1:
+                    df_round_client.loc[
+                        (df_round_client[self.sensitive_attribute.name] == 0) &
+                        (df_round_client["hours-per-week"] <= 40),
+                        self.target.name
+                    ] = 0
+                """
                 if drift_id == 1:
                     df_round_client.loc[
                         (df_round_client[self.sensitive_attribute.name] == 1) &
@@ -55,7 +62,7 @@ class TabularDataset(Dataset):
                         (df_round_client[self.target.name] == 1) &
                         (df_round_client["RAND"] > varying_disc),
                         self.target.name
-                    ] = 0
+                    ] = 0"""
                 df_round_client = df_round_client.drop(columns=['RAND'])
                 df_round_client_preprocessed = self.preprocess(df_round_client)
                 df_X = df_round_client_preprocessed.copy()
@@ -73,6 +80,7 @@ class TabularDataset(Dataset):
 
     def get_dataset(self):
         df = pd.read_csv('./datasets/tabular/{}/{}.csv'.format(self.name, self.name))
+        df = pd.concat([df, df, df, df, df], ignore_index=True)  # TODO
 
         s = self.sensitive_attribute
         positive = df[s.name].isin(s.positive)

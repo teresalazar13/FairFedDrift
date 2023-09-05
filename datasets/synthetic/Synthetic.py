@@ -10,8 +10,8 @@ class Synthetic(Dataset):
     def __init__(self):
         name = "synthetic"
         is_image = False
-        n_features = 3
-        super().__init__(name, is_image, n_features)
+        input_shape = 3
+        super().__init__(name, is_image, input_shape)
         self.n_samples = 1500
 
     def create_batched_data(self, varying_disc):
@@ -54,24 +54,19 @@ class Synthetic(Dataset):
 
         for i in range(n_drifts):
             if i == 0:
-                mov_priv = 0
-                mov_unpriv = 0
+                shift = 0
             elif i == 1:
-                mov_priv = 0
-                mov_unpriv = 1
-            elif i == 2:
-                mov_priv = 1
-                mov_unpriv = 0
+                shift = 0.5
             else:
                 raise Exception("Invalid drift")
-            X_client, y_client, s_client = generate_synthetic_data(n_samples[i], mov_priv, mov_unpriv)
+            X_client, y_client, s_client = generate_synthetic_data(n_samples[i], varying_disc, shift)
             X_client = np.append(X_client, s_client.reshape((len(s_client), 1)), axis=1)
             drift_data.append([X_client, y_client, s_client, varying_disc])
 
         return drift_data
 
 
-def generate_synthetic_data(n_samples, mov_priv, mov_unpriv):
+def generate_synthetic_data(n_samples, varying_disc, shift):
     """
         Code for generating the synthetic data.
         We will have two non-sensitive features and one sensitive feature.
@@ -88,24 +83,21 @@ def generate_synthetic_data(n_samples, mov_priv, mov_unpriv):
         y = np.ones(n_samples, dtype=float) * class_label
         return nv, X, y
 
-    """
     n_privileged = int(n_samples / (2 + 2*varying_disc))
     n_unprivileged = int(n_privileged * varying_disc)
     if (n_privileged*2 + n_unprivileged*2) != n_samples:
-        n_privileged = int(n_privileged + (n_samples - (n_privileged*2 + n_unprivileged*2)) / 2)"""
-    n_privileged = int(n_samples / 4)
-    n_unprivileged = int(n_samples / 4)
+        n_privileged = int(n_privileged + (n_samples - (n_privileged*2 + n_unprivileged*2)) / 2)
 
-    mu_pp, sigma_pp = [2, 2], [[2, 1], [1, 2]]  # privileged positive
+    mu_pp, sigma_pp = [2.5, 2.5], [[2, 1], [1, 2]]  # privileged positive
     nv_pp, X_pp, y_pp = gen_gaussian(mu_pp, sigma_pp, 1, n_privileged)
 
-    mu_pn, sigma_pn = [2, -2 + mov_priv], [[2, 1], [1, 2]]  # privileged negative
+    mu_pn, sigma_pn = [-2, -2], [[2, 1], [1, 2]]  # privileged negative
     nv_pn, X_pn, y_pn = gen_gaussian(mu_pn, sigma_pn, 0, n_privileged)
 
-    mu_up, sigma_up = [-2, 2], [[2, 1], [1, 2]]  # unprivileged positive
+    mu_up, sigma_up = [2 - shift, 2 - shift], [[2, 1], [1, 2]]  # unprivileged positive
     nv_up, X_up, y_up = gen_gaussian(mu_up, sigma_up, 1, n_unprivileged)
 
-    mu_un, sigma_un = [-2, -2 + mov_unpriv], [[2, 1], [1, 2]]  # unprivileged negative
+    mu_un, sigma_un = [0.5, 0.5], [[2, 1], [1, 2]]  # unprivileged negative
     nv_un, X_un, y_un = gen_gaussian(mu_un, sigma_un, 0, n_unprivileged)
 
     X = np.vstack((X_pp, X_pn, X_up, X_un))
