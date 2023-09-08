@@ -1,6 +1,3 @@
-from typing import List
-
-from federated.algorithms.fair_fed_drift.Client import Client
 from federated.algorithms.fair_fed_drift.GlobalModel import GlobalModel
 
 
@@ -10,8 +7,8 @@ class GlobalModels:
         self.models = []
         self.current_size = 0
 
-    def create_new_global_model(self, model, clients: List[Client]):
-        new_global_model = GlobalModel(model, self.current_size, clients)
+    def create_new_global_model(self, model):
+        new_global_model = GlobalModel(model, self.current_size)
         self.current_size = self.current_size + 1
         self.models.append(new_global_model)
         return new_global_model
@@ -31,17 +28,7 @@ class GlobalModels:
             if model.id == global_model_id:
                 self.models.remove(model)
 
-    def set_client_model(self, global_model_id, client):
+    def set_client_model(self, global_model_id, client, client_data):
         for model in self.models:
             if model.id == global_model_id:
-                model.set_client(client)
-
-
-def get_models_proportions(global_models, global_model_id):
-    total_data = 0
-
-    for client_id, client_data_list in global_models.get_model(global_model_id).clients_data.items():
-        for client_data, amount in client_data_list:
-            total_data += len(client_data.x) * amount
-
-    return total_data
+                model.set_client(client, client_data)

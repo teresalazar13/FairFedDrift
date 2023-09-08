@@ -6,20 +6,18 @@ from datasets.Dataset import Dataset
 
 class ImageDataset(Dataset):
 
-    def __init__(self, name, input_shape, train_X_priv, train_y_priv, test_X_priv, test_y_priv):
+    def __init__(self, name, input_shape, X, y):
         is_image = True
         super().__init__(name, is_image, input_shape)
-        self.train_X_priv = train_X_priv
-        self.train_y_priv = train_y_priv
-        self.test_X_priv = test_X_priv
-        self.test_y_priv = test_y_priv
+        self.X = X
+        self.y = y
 
     def create_batched_data(self, varying_disc):
         drift_ids = self.drift_ids
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps
-        X_priv = np.concatenate([self.train_X_priv, self.test_X_priv], axis=0)
-        y_priv = np.concatenate([self.train_y_priv, self.test_y_priv], axis=0)
+        X_priv = self.X
+        y_priv = self.y
 
         batched_data = []
         X_priv_rounds = np.array_split(X_priv, n_timesteps)

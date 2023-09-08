@@ -22,15 +22,14 @@ class Algorithm:
         for client_data, client_metrics in zip(clients_data_timestep, clients_metrics):
             x, y, s, _ = client_data
             pred = global_model.predict(x)
-            y_true_original, y_pred_original, y_true, y_pred = self.get_y(y, pred, dataset.is_image)
+            y_true, y_pred = self.get_y(y, pred, dataset.is_image)
             for client_metric in client_metrics:
-                res = client_metric.update(y_true_original, y_pred_original, y_true, y_pred, s)
+                res = client_metric.update(y_true, y_pred, s)
                 print(res, client_metric.name)
 
     def get_y(self, y_true_raw, y_pred_raw, is_image):
         y_true = []
         y_pred = []
-        y_pred_original = []
 
         for y_true_original_i, y_pred_original_i in zip(y_true_raw, y_pred_raw):
             if not is_image:
@@ -39,13 +38,11 @@ class Algorithm:
                     y_pred_new_i = 1
                 y_pred.append(y_pred_new_i)
                 y_true.append(y_true_original_i)
-                y_pred_original.append(y_pred_original_i[0])
             else:
                 y_pred.append(y_pred_original_i.argmax())
                 y_true.append(y_true_original_i.argmax())
-                y_pred_original.append(y_pred_original_i)
 
-        return y_true_raw, y_pred_original, y_true, y_pred
+        return y_true, y_pred
 
 
 def average_weights(weights_list, scaling_factors):

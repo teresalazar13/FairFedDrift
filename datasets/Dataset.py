@@ -8,7 +8,7 @@ class Dataset:
         self.input_shape = input_shape
         self.is_image = is_image
 
-        if not is_image:
+        if self.name == "fairCeleba":   # TODO
             self.n_rounds = 5  # number of rounds per timestep
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0

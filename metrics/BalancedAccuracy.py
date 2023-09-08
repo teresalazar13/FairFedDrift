@@ -10,13 +10,13 @@ class BalancedAccuracy(Metric):
         super().__init__(name)
         self.res = []
 
-    def update(self, _, __, y_true, y_pred, s):
-        res = self.calculate(None, None, y_true, y_pred, s)
+    def update(self, y_true, y_pred, s):
+        res = self.calculate(y_true, y_pred, s)
         self.res.append(res)
 
         return res
 
-    def calculate(self, _, __, y_true, y_pred, s):
+    def calculate(self, y_true, y_pred, s):
         df = pd.DataFrame()
         df["y"] = y_true
         df["y_pred"] = y_pred

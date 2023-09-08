@@ -10,13 +10,13 @@ class Accuracy(Metric):
         super().__init__(name)
         self.res = []
 
-    def update(self, _, __, y_true, y_pred, ___):
-        res = self.calculate(None, None, y_true, y_pred, None)
+    def update(self, y_true, y_pred, _):
+        res = self.calculate(y_true, y_pred, _)
         self.res.append(res)
 
         return res
 
-    def calculate(self, _, __, y_true, y_pred, ___):
+    def calculate(self, y_true, y_pred, _):
         df = pd.DataFrame()
         df["y"] = y_true
         df["y_pred"] = y_pred

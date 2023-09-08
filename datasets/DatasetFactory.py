@@ -1,4 +1,4 @@
-from datasets.image.fairCIFAR.FairCIFAR import FairCIFAR
+from datasets.image.fairCeleba.FairCeleba import FairCeleba
 from datasets.tabular.adult.Adult import Adult
 from datasets.tabular.dutch.Dutch import Dutch
 from datasets.image.fairMNIST.FairMNIST import FairMNIST
@@ -7,7 +7,7 @@ from datasets.synthetic.Synthetic import Synthetic
 
 
 def get_datasets():
-    return [FairMNIST(), FairFashionMNIST(), FairCIFAR(), Synthetic(), Dutch(), Adult()]
+    return [FairMNIST(), FairFashionMNIST(), FairCeleba(), Synthetic(), Dutch(), Adult()]
 
 
 def get_dataset_by_name(name):

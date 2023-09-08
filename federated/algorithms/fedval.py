@@ -38,8 +38,8 @@ class FedVal(Algorithm):
 
                     # calculate fairness of each client (weights on aggregation)
                     pred = global_model.predict(x)
-                    y_true_original, y_pred_original, y_true, y_pred = super().get_y(y, pred, dataset.is_image)
-                    res = self.metric_clustering.calculate(y_true_original, y_pred_original, y_true, y_pred, s)
+                    y_true, y_pred = super().get_y(y, pred, dataset.is_image)
+                    res = self.metric_clustering.calculate(y_true, y_pred, s)
                     client_scaling_factors_list.append(res)
 
                     # K.clear_session()

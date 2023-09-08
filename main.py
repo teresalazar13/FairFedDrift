@@ -16,7 +16,6 @@ def get_arguments():
     parser.add_argument('--dataset', required=True, help='dataset')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
 
-    parser.add_argument('--clustering', required=False, help='clustering')
     parser.add_argument('--metrics', nargs='+', required=False, help='metrics')
     parser.add_argument('--drift_detector', required=False, help='drift_detector')
     parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')

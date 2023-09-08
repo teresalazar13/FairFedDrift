@@ -64,5 +64,5 @@ class Oracle(Algorithm):
             pred = model.predict(x)
             y_true_original, y_pred_original, y_true, y_pred = super().get_y(y, pred, dataset.is_image)
             for client_metric in client_metrics:
-                res = client_metric.update(y_true_original, y_pred_original, y_true, y_pred, s)
+                res = client_metric.update(y_true, y_pred, s)
                 print(res, client_metric.name)
