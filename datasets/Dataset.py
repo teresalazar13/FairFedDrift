@@ -12,6 +12,7 @@ class Dataset:
             self.n_rounds = 5  # number of rounds per timestep
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1.1
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
@@ -21,7 +22,7 @@ class Dataset:
                 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 7
                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
-                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]   # timestep 10
+                #[0, 0, 0, 0, 0, 0, 0, 0, 1, 1]   # timestep 10
             ]
         else:
             self.n_rounds = 1  # number of rounds per timestep

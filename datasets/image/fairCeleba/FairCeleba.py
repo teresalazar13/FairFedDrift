@@ -13,51 +13,38 @@ class FairCeleba(Dataset):
         input_shape = (218, 178, 3)
         super().__init__(name, is_image, input_shape)
 
-
     def create_batched_data(self, varying_disc):
         path = "./datasets/image/fairCeleba/data"
-        df = pd.read_csv(f"{path}/list_attr_celeba.csv", delimiter=',', nrows=50000)
+        df = pd.read_csv(f"{path}/list_attr_celeba.csv", delimiter=',', nrows=20000)
+        df = df.sample(frac=1).reset_index(drop=True)
         df["Smiling"] = df["Smiling"].replace(-1, 0)
         df["Male"] = df["Male"].replace(-1, 0)
-        X = [cv2.imread(f"{path}/img_align_celeba/img_align_celeba/{filename}") for filename in df["image_id"]]
-        X = np.array(X)
-        y = df["Smiling"]
-        s = np.array(df["Male"].tolist())
-        index_woman_smiling = df[(df["Male"] == 0) & (df["Smiling"] == 1)].index.tolist()
-        index_woman_not_smiling = df[(df["Male"] == 0) & (df["Smiling"] == 0)].index.tolist()
-        index_man_smiling = df[(df["Male"] == 1) & (df["Smiling"] == 1)].index.tolist()
-        index_man_not_smiling = df[(df["Male"] == 1) & (df["Smiling"] == 0)].index.tolist()
+        df["Black_Hair"] = df["Black_Hair"].replace(-1, 0)
+        df["X"] = [cv2.imread(f"{path}/img_align_celeba/img_align_celeba/{filename}") for filename in df["image_id"]]
+        df["X"] = [img.astype(np.float32) / 255.0 for img in df["X"]]  # Normalize pixel values to [0, 1]
 
+        df_timestep = np.array_split(df, self.n_timesteps)
         batched_data = []
+
         for i in range(self.n_timesteps):
             batched_data_round = []
-
+            df_timestep_clients = np.array_split(df_timestep[i], self.n_clients)
             for j in range(self.n_clients):
+                df_timestep_client = df_timestep_clients[j]
                 drift_id = self.drift_ids[i][j]
-                if drift_id == 0:
-                    iws = random.sample(index_woman_smiling, 50)
-                    iwns = random.sample(index_woman_not_smiling, 50)
-                    ims = random.sample(index_man_smiling, 50)
-                    imns = random.sample(index_man_not_smiling, 10)
-                elif drift_id == 1:
-                    iws = random.sample(index_woman_smiling, 50)
-                    iwns = random.sample(index_woman_not_smiling, 50)
-                    ims = random.sample(index_man_smiling, 10)
-                    imns = random.sample(index_man_not_smiling, 50)
-                else:
+                if drift_id == 1:
+                    df_timestep_client.loc[
+                        (df_timestep_client["Male"] == 1) &
+                        (df_timestep_client["Black_Hair"] == 1),
+                        "Smiling"
+                    ] = 1
+                elif drift_id != 0:
                     raise Exception("Drift not supported")
-                indexes = np.concatenate([iws, iwns, ims, imns])
-                np.random.shuffle(indexes)
+                X = np.array(df_timestep_client["X"].tolist())
+                y = df_timestep_client["Smiling"].to_numpy().astype(np.int32)
+                s = df_timestep_client["Male"].to_numpy().astype(np.float32)
+                batched_data_round.append([X, y, s, y])
 
-                batched_data_round.append([X[indexes], y[indexes], s[indexes], y[indexes]])
-                index_woman_smiling = [i for i in index_woman_smiling if i not in iws]
-                index_woman_not_smiling = [i for i in index_woman_not_smiling if i not in iwns]
-                index_man_smiling = [i for i in index_man_smiling if i not in ims]
-                index_man_not_smiling = [i for i in index_man_not_smiling if i not in imns]
             batched_data.append(batched_data_round)
 
         return batched_data
-
-
-if __name__ == '__main__':
-    FairCeleba()
