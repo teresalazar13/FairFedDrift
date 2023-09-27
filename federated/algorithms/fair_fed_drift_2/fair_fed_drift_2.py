@@ -7,12 +7,13 @@ from metrics.MetricFactory import get_metrics, get_metrics_by_names
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
+MAX = -1
 
 class FairFedDrift_2(Algorithm):
     def __init__(self):
         self.metrics_clustering = None
         self.drift_detector = None
-        name = "fair_fed_drift"
+        name = "fair_fed_drift_2"
         super().__init__(name)
 
     def set_specs(self, args):
@@ -58,7 +59,7 @@ class FairFedDrift_2(Algorithm):
         size = global_models.current_size
         if size > 25:
             raise Exception("Number of global models > 25")
-        distances = [[[0 for _ in range(len(self.metrics_clustering))] for _ in range(size)] for _ in range(size)]
+        distances = [[MAX for _ in range(size)] for _ in range(size)]
 
         for i in range(len(global_models.models)):
             for j in range(len(global_models.models)):
@@ -69,18 +70,61 @@ class FairFedDrift_2(Algorithm):
                     weights2 = global_models.models[j].model.get_weights()
                     flattened_weights1 = np.concatenate([w.flatten() for w in weights1])
                     flattened_weights2 = np.concatenate([w.flatten() for w in weights2])
-                    similarity = cosine_similarity([flattened_weights1], [flattened_weights2])
-                    distances[id_i][id_j] = similarity[0][0]
-                    distances[id_j][id_i] = similarity[0][0]
+                    similarity = cosine_similarity([flattened_weights1], [flattened_weights2])[0][0]
+                    distances[id_i][id_j] = similarity
+                    distances[id_j][id_i] = similarity
 
         while True:  # While we can still merge global models
             print_matrix(distances)
-            id_0, id_1 = self.drift_detector.get_next_best_results(distances)  # TODO
+            id_0, id_1 = get_next_best_distance(distances)
             if id_0 and id_1:
-                print("Merged models {} and {}".format(id_0, id_1))  # TODO
+                print("Merged models {} and {}".format(id_0, id_1))
                 global_models, distances = self.merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances)
             else:
                 return global_models
+
+
+    def merge_global_models_spec(self, dataset, seed, global_models, id_0, id_1, distances):
+        global_model_0 = global_models.get_model(id_0)
+        global_model_1 = global_models.get_model(id_1)
+        scales = [global_model_0.n_points, global_model_0.n_points]
+        weights = [global_model_0.model.get_weights(), global_model_1.model.get_weights()]
+        new_global_model_weights = average_weights(weights, scales)
+        new_global_model = get_init_model(dataset, seed)
+        new_global_model.set_weights(new_global_model_weights)
+
+        # Create new global Model
+        clients = global_model_0.clients
+        clients.update(global_model_1.clients)
+        new_global_model_created = global_models.create_new_global_model(new_global_model)
+        for client_id, client_data in clients.items():
+            new_global_model_created.set_client(client_id, client_data)
+
+        # Create new column and row for new model id and update distances
+        new_row = []
+        for i in range(len(distances)):
+            worst_distance = distances[id_0][i]
+            if distances[id_1][i] < worst_distance:
+                worst_distance = distances[id_1][i]
+            new_row.append(worst_distance)
+        for i in range(len(distances)):
+            distances[i].append(new_row[i])
+        new_row.append(MAX)
+        distances.append(new_row)
+
+        # Reset Distances of deleted models
+        distances[id_0][id_1] = MAX
+        distances[id_1][id_0] = MAX
+        for i in range(len(distances)):
+            distances[id_0][i] = MAX
+            distances[id_1][i] = MAX
+            distances[i][id_0] = MAX
+            distances[i][id_1] = MAX
+
+        global_models.deleted_merged_model(id_0)
+        global_models.deleted_merged_model(id_1)
+
+        return global_models, distances
 
 
     def train_and_average(self, clients_data_timestep, global_models, dataset, seed, timestep):
@@ -206,7 +250,7 @@ def print_matrix(matrix):
     for d in matrix:
         string = ""
         for a in d:
-            string += " " + "-".join([str(b) for b in a])
+            string += "   {:.4f}".format(a)
         print(string)
 
 
@@ -233,3 +277,18 @@ def get_model_client(client_id: int, global_models: GlobalModels, dataset, seed)
                 return model, global_model.id
 
     raise Exception("No model for client", client_id)
+
+def get_next_best_distance(distances_matrix):
+    best_row = None
+    best_col = None
+    best_results = -1
+
+    for row in range(len(distances_matrix)):
+        for col in range(len(distances_matrix[row])):
+            results = distances_matrix[row][col]
+            if results > 0.0125 and results > best_results:  # TODO - define hyperparameter
+                best_results = results
+                best_row = row
+                best_col = col
+
+    return best_row, best_col
