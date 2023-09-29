@@ -15,13 +15,10 @@ def get_arguments():
     parser.add_argument('--fl', required=True, help='algorithm')
     parser.add_argument('--dataset', required=True, help='dataset')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
-
     parser.add_argument('--metrics', nargs='+', required=False, help='metrics')
     parser.add_argument('--drift_detector', required=False, help='drift_detector')
     parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')
-    parser.add_argument('--lr', required=False, help='local_reweighing?')
-    parser.add_argument('--oversampling', required=False, help='oversampling?')
-    parser.add_argument('--boost_factor', required=False, help='boost factor')
+    parser.add_argument('--similarity', required=False, help='similarity')
 
     args = parser.parse_args(sys.argv[1:])
     algorithm = get_algorithm_by_name(args.fl)

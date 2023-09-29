@@ -20,10 +20,11 @@ class FairFedDrift_2(Algorithm):
         self.drift_detector = get_detector_by_name(args.drift_detector)
         self.drift_detector.set_specs(args)
         self.metrics_clustering = get_metrics_by_names(args.metrics)
+        self.similarity = float(args.similarity)
         metrics_string = "-".join(args.metrics)
         thresholds_string = "-".join(args.thresholds)
-        super().set_subfolders("{}/drift_detector-{}-{}/metrics-{}".format(
-            self.name, self.drift_detector.name, thresholds_string, metrics_string)
+        super().set_subfolders("{}/drift_detector-{}-{}/similarity-{}/metrics-{}".format(
+            self.name, self.drift_detector.name, thresholds_string, args.similarity, metrics_string)
         )
 
     def perform_fl(self, seed, clients_data, dataset):
@@ -76,7 +77,7 @@ class FairFedDrift_2(Algorithm):
 
         while True:  # While we can still merge global models
             print_matrix(distances)
-            id_0, id_1 = get_next_best_distance(distances)
+            id_0, id_1 = self.get_next_best_distance(distances)
             if id_0 and id_1:
                 print("Merged models {} and {}".format(id_0, id_1))
                 global_models, distances = self.merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances)
@@ -207,6 +208,20 @@ class FairFedDrift_2(Algorithm):
             for client_metric in self.metrics_clustering:
                 client_metric.update(y_true, y_pred, s)
 
+    def get_next_best_distance(self, distances_matrix):
+        best_row = None
+        best_col = None
+        best_results = -1
+
+        for row in range(len(distances_matrix)):
+            for col in range(len(distances_matrix[row])):
+                results = distances_matrix[row][col]
+                if results > self.similarity and results > best_results:  # TODO - define hyperparameter - 0.0125
+                    best_results = results
+                    best_row = row
+                    best_col = col
+
+        return best_row, best_col
 
 def get_init_model(dataset, seed):
     model = NN_model(dataset.input_shape, seed, dataset.is_image)
@@ -277,18 +292,3 @@ def get_model_client(client_id: int, global_models: GlobalModels, dataset, seed)
                 return model, global_model.id
 
     raise Exception("No model for client", client_id)
-
-def get_next_best_distance(distances_matrix):
-    best_row = None
-    best_col = None
-    best_results = -1
-
-    for row in range(len(distances_matrix)):
-        for col in range(len(distances_matrix[row])):
-            results = distances_matrix[row][col]
-            if results > 0.0125 and results > best_results:  # TODO - define hyperparameter
-                best_results = results
-                best_row = row
-                best_col = col
-
-    return best_row, best_col
