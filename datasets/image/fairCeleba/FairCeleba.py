@@ -18,7 +18,7 @@ class FairCeleba(Dataset):
 
         df["Smiling"] = df["Smiling"].replace(-1, 0)
         df["Male"] = df["Male"].replace(-1, 0)
-        df["Black_Hair"] = df["Black_Hair"].replace(-1, 0)
+        df["No_Beard"] = df["No_Beard"].replace(-1, 0)
         df["X"] = [cv2.imread(f"{path}/img_align_celeba/img_align_celeba/{filename}") for filename in df["image_id"]]
         df["X"] = [img.astype(np.float32) / 255.0 for img in df["X"]]  # Normalize pixel values to [0, 1]
 
@@ -26,8 +26,6 @@ class FairCeleba(Dataset):
         n_males = int(n_females * varying_disc)
         df_male = df.loc[df['Male'] == 1].copy().sample(n=n_males, random_state=42)
         df_female = df.loc[df['Male'] == 0].copy().sample(n=n_females, random_state=42)
-        print(len(df_male), len(df_male[df_male['Smiling'] == 1]), len(df_male[df_male['Smiling'] == 0]))
-        print(len(df_female), len(df_female[df_female['Smiling'] == 1]), len(df_female[df_female['Smiling'] == 0]))
 
         df_male.reset_index(drop=True, inplace=True)
         df_female.reset_index(drop=True, inplace=True)
@@ -49,9 +47,14 @@ class FairCeleba(Dataset):
                 if drift_id == 1:
                     df_timestep_client_male.loc[
                         (df_timestep_client_male["Male"] == 1) &
-                        (df_timestep_client_male["Black_Hair"] == 1),
+                        (df_timestep_client_male["No_Beard"] == 1),
                         "Smiling"
                     ] = 1
+                    df_timestep_client_male.loc[
+                        (df_timestep_client_male["Male"] == 1) &
+                        (df_timestep_client_male["No_Beard"] == 0),
+                        "Smiling"
+                    ] = 0
                 elif drift_id != 0:
                     raise Exception("Drift not supported")
                 df_timestep_client = pd.concat([df_timestep_client_male, df_timestep_client_female], axis=0)

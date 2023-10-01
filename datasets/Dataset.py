@@ -9,7 +9,7 @@ class Dataset:
         self.is_image = is_image
 
         if self.name == "fairCeleba":
-            self.n_rounds = 1  # number of rounds per timestep
+            self.n_rounds = 3  # number of rounds per timestep
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1.1
