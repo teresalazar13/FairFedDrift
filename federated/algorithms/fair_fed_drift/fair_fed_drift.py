@@ -1,3 +1,5 @@
+import pandas as pd
+
 from federated.algorithms.Algorithm import Algorithm, average_weights
 from federated.algorithms.fair_fed_drift.ClientData import ClientData
 from federated.algorithms.fair_fed_drift.GlobalModels import GlobalModels
@@ -34,6 +36,7 @@ class FairFedDrift(Algorithm):
         clients_identities = [[] for _ in range(dataset.n_clients)]
 
         for timestep in range(dataset.n_timesteps):
+            print(clients_identities)
             clients_identities = update_clients_identities(clients_identities, dataset.n_clients, global_models)
 
             # STEP 1 - Test each client's data on previous clustering identities
@@ -49,7 +52,7 @@ class FairFedDrift(Algorithm):
 
                 # STEP 4 - Train and average models
                 global_models = self.train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
-
+        print(clients_identities)
         return clients_metrics, clients_identities
 
     def train_and_average(self, clients_data_timestep, global_models, dataset, seed, timestep):
@@ -220,15 +223,19 @@ def get_init_model(dataset, seed):
 
 def update_clients_identities(clients_identities, n_clients, global_models):
     for client_id in range(n_clients):
-        timestep_client_identities = []
-        for model in global_models.models:
-            for client in model.clients.keys():
-                if client == client_id:
-                    timestep_client_identities.append(model.id)
+        timestep_client_identities = get_timestep_client_identity(global_models, client_id)
         clients_identities[client_id].append(timestep_client_identities)
     print_clients_identities(clients_identities)
 
     return clients_identities
+
+def get_timestep_client_identity(global_models, client_id):
+    for model in global_models.models:
+        for client in model.clients.keys():
+            if client == client_id:
+                return model.id
+
+    raise Exception("Model for client {} no found".format(client_id))
 
 
 def print_clients_identities(clients_identities):
@@ -238,12 +245,11 @@ def print_clients_identities(clients_identities):
         print("\nTimestep ", timestep)
         identities = {}
         for client in range(len(clients_identities)):
-            client_identities_timestep = clients_identities[client][timestep]
-            for model_id in client_identities_timestep:
-                if model_id in identities:
-                    identities[model_id].append(client)
-                else:
-                    identities[model_id] = [client]
+            client_identity_timestep = clients_identities[client][timestep]
+            if client_identity_timestep in identities:
+                identities[client_identity_timestep].append(client)
+            else:
+                identities[client_identity_timestep] = [client]
 
         for model_id, clients in identities.items():
             print("Model id: ", model_id, ":", clients)

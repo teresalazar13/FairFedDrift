@@ -53,3 +53,12 @@ def plot_algorithms(res_clients_list, algs, filename, metric, title):
     fig.subplots_adjust(bottom=0.25)
     plt.savefig(filename)
     plt.close()
+
+def save_clients_identities(clients_identities, folder):
+    clients_identities_reverse = [[0 for _ in range(len(clients_identities))] for _ in range(len(clients_identities[0]))]
+    for i in range(len(clients_identities)):
+        for j in range(len(clients_identities[0])):
+            clients_identities_reverse[j][i] = clients_identities[i][j]
+
+    df = pd.DataFrame(clients_identities_reverse)
+    df.to_csv("{}/clients_identities.csv".format(folder))
