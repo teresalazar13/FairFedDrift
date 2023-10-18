@@ -36,7 +36,6 @@ class FairFedDrift(Algorithm):
         clients_identities = [[] for _ in range(dataset.n_clients)]
 
         for timestep in range(dataset.n_timesteps):
-            print(clients_identities)
             clients_identities = update_clients_identities(clients_identities, dataset.n_clients, global_models)
 
             # STEP 1 - Test each client's data on previous clustering identities
@@ -52,7 +51,7 @@ class FairFedDrift(Algorithm):
 
                 # STEP 4 - Train and average models
                 global_models = self.train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
-        print(clients_identities)
+
         return clients_metrics, clients_identities
 
     def train_and_average(self, clients_data_timestep, global_models, dataset, seed, timestep):
@@ -127,7 +126,9 @@ class FairFedDrift(Algorithm):
         # Create new global Model
         clients = global_model_0.clients
         clients.update(global_model_1.clients)
-        new_global_model_created = global_models.create_new_global_model(new_global_model)
+        new_global_model_created = global_models.create_new_global_model(
+            new_global_model, global_model_0.name, global_model_1.name
+        )
         for client_id, client_data in clients.items():
             new_global_model_created.set_client(client_id, client_data)
 
@@ -233,7 +234,7 @@ def get_timestep_client_identity(global_models, client_id):
     for model in global_models.models:
         for client in model.clients.keys():
             if client == client_id:
-                return model.id
+                return model.name
 
     raise Exception("Model for client {} no found".format(client_id))
 

@@ -5,9 +5,10 @@ from federated.algorithms.fair_fed_drift.ClientData import ClientData
 
 class GlobalModel:
 
-    def __init__(self, model, id: int):
+    def __init__(self, model, id, name):
         self.model = model
         self.id = id
+        self.name = name
         self.n_points = 0
         self.clients = {}   # {client_id: ClientData}
 

@@ -2,6 +2,7 @@ from federated.algorithms.Algorithm import Algorithm, average_weights
 from federated.algorithms.fair_fed_drift.ClientData import ClientData
 from federated.algorithms.fair_fed_drift.GlobalModels import GlobalModels
 from federated.algorithms.fair_fed_drift.drift_detection.DriftDetectorFactory import get_detector_by_name
+from federated.algorithms.fair_fed_drift.fair_fed_drift import update_clients_identities
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics, get_metrics_by_names
 from sklearn.metrics.pairwise import cosine_similarity
@@ -97,7 +98,9 @@ class FairFedDrift_2(Algorithm):
         # Create new global Model
         clients = global_model_0.clients
         clients.update(global_model_1.clients)
-        new_global_model_created = global_models.create_new_global_model(new_global_model)
+        new_global_model_created = global_models.create_new_global_model(
+            new_global_model, global_model_0.name, global_model_1.name
+        )
         for client_id, client_data in clients.items():
             new_global_model_created.set_client(client_id, client_data)
 
@@ -216,7 +219,7 @@ class FairFedDrift_2(Algorithm):
         for row in range(len(distances_matrix)):
             for col in range(len(distances_matrix[row])):
                 results = distances_matrix[row][col]
-                if results > self.similarity and results > best_results:  # TODO - define hyperparameter - 0.0125
+                if results > self.similarity and results > best_results:
                     best_results = results
                     best_row = row
                     best_col = col
@@ -228,37 +231,6 @@ def get_init_model(dataset, seed):
     model.compile(dataset.is_image)
 
     return model
-
-
-def update_clients_identities(clients_identities, n_clients, global_models):
-    for client_id in range(n_clients):
-        timestep_client_identities = []
-        for model in global_models.models:
-            for client in model.clients.keys():
-                if client == client_id:
-                    timestep_client_identities.append(model.id)
-        clients_identities[client_id].append(timestep_client_identities)
-    print_clients_identities(clients_identities)
-
-    return clients_identities
-
-
-def print_clients_identities(clients_identities):
-    print("\nClients identities")
-
-    for timestep in range(len(clients_identities[0])):
-        print("\nTimestep ", timestep)
-        identities = {}
-        for client in range(len(clients_identities)):
-            client_identities_timestep = clients_identities[client][timestep]
-            for model_id in client_identities_timestep:
-                if model_id in identities:
-                    identities[model_id].append(client)
-                else:
-                    identities[model_id] = [client]
-
-        for model_id, clients in identities.items():
-            print("Model id: ", model_id, ":", clients)
 
 
 def print_matrix(matrix):

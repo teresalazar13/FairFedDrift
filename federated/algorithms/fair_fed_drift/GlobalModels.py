@@ -5,10 +5,17 @@ class GlobalModels:
 
     def __init__(self):
         self.models = []
+        self.new_models = 0
         self.current_size = 0
 
-    def create_new_global_model(self, model):
-        new_global_model = GlobalModel(model, self.current_size)
+    def create_new_global_model(self, model, name_merge_a=None, name_merge_b=None):
+        if name_merge_a and name_merge_b:  # if created from merge
+            name = "{}-{}".format(name_merge_a, name_merge_b)
+        else:
+            name = str(self.new_models)
+            self.new_models = self.new_models + 1
+        id = self.current_size
+        new_global_model = GlobalModel(model, id, name)
         self.current_size = self.current_size + 1
         self.models.append(new_global_model)
         return new_global_model
