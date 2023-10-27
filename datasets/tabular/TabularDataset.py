@@ -9,8 +9,9 @@ from datasets.Dataset import Dataset
 class TabularDataset(Dataset):
 
     def __init__(self, name, input_shape, sensitive_attribute, target, cat_columns):
-        is_image = False
-        super().__init__(name, is_image, input_shape)
+        is_large = False
+        is_binary_target = True
+        super().__init__(name, input_shape, is_large, is_binary_target)
         self.sensitive_attribute = sensitive_attribute
         self.target = target
         self.cat_columns = cat_columns

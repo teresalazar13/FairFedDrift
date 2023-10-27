@@ -18,31 +18,31 @@ class Algorithm:
     def set_specs(self, args):
         pass
 
-    def test(self, clients_data_timestep, clients_metrics, global_model, dataset):
-        for client_data, client_metrics in zip(clients_data_timestep, clients_metrics):
-            x, y, s, _ = client_data
-            pred = global_model.predict(x)
-            y_true, y_pred = self.get_y(y, pred, dataset.is_image)
-            for client_metric in client_metrics:
-                res = client_metric.update(y_true, y_pred, s)
-                print(res, client_metric.name)
+def test(clients_data_timestep, clients_metrics, global_model, dataset):
+    for client_data, client_metrics in zip(clients_data_timestep, clients_metrics):
+        x, y, s, _ = client_data
+        pred = global_model.predict(x)
+        y_true, y_pred = get_y(y, pred, dataset.is_binary_target)
+        for client_metric in client_metrics:
+            res = client_metric.update(y_true, y_pred, s)
+            print(res, client_metric.name)
 
-    def get_y(self, y_true_raw, y_pred_raw, is_image):
-        y_true = []
-        y_pred = []
+def get_y(y_true_raw, y_pred_raw, is_binary_target):
+    y_true = []
+    y_pred = []
 
-        for y_true_original_i, y_pred_original_i in zip(y_true_raw, y_pred_raw):
-            if not is_image:
-                y_pred_new_i = 0
-                if y_pred_original_i[0] > 0.5:
-                    y_pred_new_i = 1
-                y_pred.append(y_pred_new_i)
-                y_true.append(y_true_original_i)
-            else:
-                y_pred.append(y_pred_original_i.argmax())
-                y_true.append(y_true_original_i.argmax())
+    for y_true_original_i, y_pred_original_i in zip(y_true_raw, y_pred_raw):
+        if is_binary_target:
+            y_pred_new_i = 0
+            if y_pred_original_i[0] > 0.5:
+                y_pred_new_i = 1
+            y_pred.append(y_pred_new_i)
+            y_true.append(y_true_original_i)
+        else:
+            y_pred.append(y_pred_original_i.argmax())
+            y_true.append(y_true_original_i.argmax())
 
-        return y_true, y_pred
+    return y_true, y_pred
 
 
 def average_weights(weights_list, scaling_factors):

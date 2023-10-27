@@ -2,18 +2,19 @@ from metrics.Accuracy import Accuracy
 from metrics.BalancedAccuracy import BalancedAccuracy
 from metrics.EqualOdds import EqualOdds
 from metrics.EqualOpportunity import EqualOpportunity
+from metrics.Loss import Loss
 from metrics.StatisticalParity import StatisticalParity
 
 
-def get_metrics(is_image):
-    if not is_image:
-        return [Accuracy(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
+def get_metrics(is_binary_target):
+    if is_binary_target:
+        return [Accuracy(), Loss(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
     else:
-        return [Accuracy(), BalancedAccuracy()]
+        return [Accuracy(), Loss(), BalancedAccuracy()]
 
 
 def get_all_metrics():
-    return [Accuracy(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
+    return [Accuracy(), Loss(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
 
 
 def get_metrics_by_names(names):

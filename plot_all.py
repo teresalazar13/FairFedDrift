@@ -57,7 +57,7 @@ def get_metrics_values(dataset, varying_discs, alg):
         folder = "./results/{}/disc_{}/{}".format(dataset.name, varying_disc, alg)
         res_clients = []
         for i in range(dataset.n_clients):
-            res_client = read_results(get_metrics(dataset.is_image),"{}/client_{}/results.csv".format(folder, i + 1))
+            res_client = read_results(get_metrics(dataset.is_binary_target),"{}/client_{}/results.csv".format(folder, i + 1))
             res_clients.append(res_client)
         mean_value_acc = get_mean_value(res_clients, "ACC")
         mean_value_balanced_acc = get_mean_value(res_clients, "BalancedACC")

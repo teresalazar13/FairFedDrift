@@ -25,11 +25,11 @@ if __name__ == '__main__':
     for folder_ in all_folders:
         res_clients = []
         for i in range(dataset.n_clients):
-            res_client = read_results(get_metrics(dataset.is_image), "{}/client_{}/results.csv".format(folder_, i+1))
+            res_client = read_results(get_metrics(dataset.is_binary_target), "{}/client_{}/results.csv".format(folder_, i+1))
             res_clients.append(res_client)
         res_clients_list.append(res_clients)
 
-    for metric in get_metrics(dataset.is_image):
+    for metric in get_metrics(dataset.is_binary_target):
         title = "{}-{}".format(dataset.name, str(varying_disc))
         plot_algorithms(
             res_clients_list, algs, "{}/results_{}-{}.png".format(main_folder, title, metric.name), metric.name, title

@@ -6,9 +6,8 @@ from datasets.Dataset import Dataset
 
 class ImageDataset(Dataset):
 
-    def __init__(self, name, input_shape, X, y):
-        is_image = True
-        super().__init__(name, is_image, input_shape)
+    def __init__(self, name, input_shape, is_large, is_binary_target, X, y):
+        super().__init__(name, input_shape, is_large, is_binary_target)
         self.X = X
         self.y = y
 
@@ -56,7 +55,7 @@ class ImageDataset(Dataset):
         return batched_data
 
     def rotate(self, X_priv_round_client):
-        if self.name != "fairCIFAR":
+        if self.name != "CIFAR_GDrift":
             return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
         else:
             X_train_rotated_negated = np.empty_like(X_priv_round_client)
@@ -66,4 +65,3 @@ class ImageDataset(Dataset):
                     X_train_rotated_negated[i, :, :, channel] = rotated_channel * -1
 
             return X_train_rotated_negated
-

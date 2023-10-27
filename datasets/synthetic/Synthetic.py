@@ -9,9 +9,10 @@ class Synthetic(Dataset):
 
     def __init__(self):
         name = "synthetic"
-        is_image = False
         input_shape = 3
-        super().__init__(name, is_image, input_shape)
+        is_large = False
+        is_binary_target = True
+        super().__init__(name, input_shape, is_large, is_binary_target)
         self.n_samples = 1500
 
     def create_batched_data(self, varying_disc):

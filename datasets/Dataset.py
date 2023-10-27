@@ -3,13 +3,18 @@ import os
 
 class Dataset:
 
-    def __init__(self, name, is_image, input_shape):
+    def __init__(self, name, input_shape, is_large, is_binary_target):
         self.name = name
         self.input_shape = input_shape
-        self.is_image = is_image
+        self.is_large = is_large
+        self.is_binary_target = is_binary_target
 
-        if self.name == "fairCeleba":
+        if self.is_large:
             self.n_rounds = 3  # number of rounds per timestep
+        else:
+            self.n_rounds = 1  # number of rounds per timestep
+
+        if self.is_binary_target:
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1.1
@@ -25,7 +30,6 @@ class Dataset:
                 #[0, 0, 0, 0, 0, 0, 0, 0, 1, 1]   # timestep 10
             ]
         else:
-            self.n_rounds = 1  # number of rounds per timestep
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1

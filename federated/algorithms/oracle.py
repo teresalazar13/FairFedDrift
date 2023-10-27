@@ -1,4 +1,4 @@
-from federated.algorithms.Algorithm import Algorithm, average_weights
+from federated.algorithms.Algorithm import Algorithm, average_weights, get_y
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics
 
@@ -13,8 +13,8 @@ class Oracle(Algorithm):
     def perform_fl(self, seed, clients_data, dataset):
         global_models = []
         for i in range(dataset.n_drifts):
-            global_models.append(NN_model(dataset.input_shape, seed, dataset.is_image))
-        clients_metrics = [get_metrics(dataset.is_image) for _ in range(dataset.n_clients)]
+            global_models.append(NN_model(dataset, seed))
+        clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
         clients_identities = [[] for _ in range(dataset.n_clients)]
 
         for timestep in range(dataset.n_timesteps):
@@ -22,7 +22,7 @@ class Oracle(Algorithm):
                 clients_identities[client_id].append([dataset.drift_ids[timestep][client_id], 1])
 
             # STEP 1 - Test
-            self.test_models(global_models, clients_data[timestep], clients_metrics, dataset, timestep)
+            test_models(global_models, clients_data[timestep], clients_metrics, dataset, timestep)
 
             # STEP 2 - Train and average models
             for cround in range(dataset.n_rounds):
@@ -32,8 +32,8 @@ class Oracle(Algorithm):
                     x, y, s, _ = clients_data[timestep][client]
                     id = dataset.drift_ids[timestep][client]
                     global_weights = global_models[id].get_weights()
-                    local_model = NN_model(dataset.input_shape, seed, dataset.is_image)
-                    local_model.compile(dataset.is_image)
+                    local_model = NN_model(dataset, seed)
+                    local_model.compile(dataset)
                     local_model.set_weights(global_weights)
                     local_model.learn(x, y)
                     local_weights_list[id].append(local_model.get_weights())
@@ -56,13 +56,13 @@ class Oracle(Algorithm):
 
         return clients_metrics, client_identities
 
-    def test_models(self, global_models, clients_data_timestep, clients_metrics, dataset, timestep):
-        for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
-            x, y, s, _ = client_data
-            id = dataset.drift_ids[timestep][client_id]
-            model = global_models[id]
-            pred = model.predict(x)
-            y_true, y_pred = super().get_y(y, pred, dataset.is_image)
-            for client_metric in client_metrics:
-                res = client_metric.update(y_true, y_pred, s)
-                print(res, client_metric.name)
+def test_models(global_models, clients_data_timestep, clients_metrics, dataset, timestep):
+    for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
+        x, y, s, _ = client_data
+        id = dataset.drift_ids[timestep][client_id]
+        model = global_models[id]
+        pred = model.predict(x)
+        y_true, y_pred = get_y(y, pred, dataset.is_binary_target)
+        for client_metric in client_metrics:
+            res = client_metric.update(y_true, y_pred, s)
+            print(res, client_metric.name)

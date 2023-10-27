@@ -4,16 +4,17 @@ import cv2
 from datasets.Dataset import Dataset
 
 
-class FairCeleba(Dataset):
+class CelebA_GDrift(Dataset):
 
     def __init__(self):
-        name = "fairCeleba"
-        is_image = False
+        name = "CelebA-GDrift"
         input_shape = (218, 178, 3)
-        super().__init__(name, is_image, input_shape)
+        is_large = True
+        is_binary_target = True
+        super().__init__(name, input_shape, is_large, is_binary_target)
 
     def create_batched_data(self, varying_disc):
-        path = "./datasets/image/fairCeleba/data"
+        path = "./datasets/image/CelebA_GDrift/data"
         df = pd.read_csv(f"{path}/list_attr_celeba.csv", delimiter=',', nrows=60000)
 
         df["Smiling"] = df["Smiling"].replace(-1, 0)

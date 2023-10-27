@@ -1,4 +1,4 @@
-from federated.algorithms.Algorithm import Algorithm, average_weights
+from federated.algorithms.Algorithm import Algorithm, average_weights, test
 from federated.model import NN_model
 from metrics.BalancedAccuracy import divide_one
 from metrics.MetricFactory import get_metrics
@@ -13,12 +13,12 @@ class FedAvgLR(Algorithm):
         super().__init__(name)
 
     def perform_fl(self, seed, clients_data, dataset):
-        global_model = NN_model(dataset.input_shape, seed, dataset.is_image)
-        clients_metrics = [get_metrics(dataset.is_image) for _ in range(dataset.n_clients)]
+        global_model = NN_model(dataset, seed)
+        clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
 
         for timestep in range(dataset.n_timesteps):
             # STEP 1 - Test
-            super().test(clients_data[timestep], clients_metrics, global_model, dataset)
+            test(clients_data[timestep], clients_metrics, global_model, dataset)
 
             # STEP 2 - Train and average models
             for cround in range(dataset.n_rounds):
@@ -27,8 +27,8 @@ class FedAvgLR(Algorithm):
                 for client in range(dataset.n_clients):
                     x, y, s, y_original = clients_data[timestep][client]
                     global_weights = global_model.get_weights()
-                    local_model = NN_model(dataset.input_shape, seed, dataset.is_image)
-                    local_model.compile(dataset.is_image)
+                    local_model = NN_model(dataset, seed)
+                    local_model.compile(dataset)
                     local_model.set_weights(global_weights)
                     sample_weights = calculate_sample_weights(y_original, s)
                     local_model.learn(x, y, sample_weights=sample_weights)
