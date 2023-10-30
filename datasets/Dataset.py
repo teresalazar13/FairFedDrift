@@ -12,21 +12,21 @@ class Dataset:
         if self.is_large:
             self.n_rounds = 3  # number of rounds per timestep
         else:
-            self.n_rounds = 1  # number of rounds per timestep
+            self.n_rounds = 3  # number of rounds per timestep
 
         if self.is_binary_target:
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1.1
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 2
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3 -> CONCEPT DRIFT
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 6
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 5
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 6 -> CONCEPT DRIFT
                 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 7
-                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
-                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 8
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 9 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 10
                 #[0, 0, 0, 0, 0, 0, 0, 0, 1, 1]   # timestep 10
             ]
         else:

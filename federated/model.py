@@ -54,24 +54,18 @@ class NN_model:
             optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
 
         if dataset.is_binary_target:
-            loss = tf.keras.losses.BinaryCrossentropy(),
-            metrics = [tf.keras.metrics.BinaryAccuracy(threshold=0.5)]
+            loss = 'binary_crossentropy'
         else:
-            loss = 'categorical_crossentropy',
-            metrics = ['accuracy']
+            loss = 'categorical_crossentropy'
 
-        self.model.compile(loss=loss, optimizer=optimizer, metrics=metrics)
+        self.model.compile(loss=loss, optimizer=optimizer)
 
-    def learn(self, x, y, sample_weights=None):
+    def learn(self, x, y):
         tf.keras.utils.disable_interactive_logging()
-        if sample_weights is not None:
-            self.model.fit(
-                x=x, y=y, batch_size=self.batch_size, epochs=self.n_epochs, verbose=0, sample_weight=sample_weights
-            )
-        else:
-            self.model.fit(x=x, y=y, batch_size=self.batch_size, epochs=self.n_epochs, verbose=0)
+        self.model.fit(x=x, y=y, batch_size=self.batch_size, epochs=self.n_epochs, verbose=0)
 
     def predict(self, x):
-        print(self.model.evaluate(x))
-        exit()
         return self.model.predict(x)
+
+    def evaluate(self, x, y):
+        return self.model.evaluate(x, y)

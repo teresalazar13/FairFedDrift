@@ -13,7 +13,7 @@ class FedDrift(Algorithm):
 
     def __init__(self):
         self.metric_clustering = Loss()
-        self.loss_threshold = None
+        self.threshold = None
         name = "FedDrift"
         super().__init__(name)
 
@@ -37,22 +37,23 @@ class FedDrift(Algorithm):
             clients_identities = update_clients_identities(clients_identities, dataset.n_clients, global_models)
 
             # STEP 1 - Test each client's data on previous clustering identities
-            test_models(global_models, clients_data[timestep], clients_metrics, dataset, self.metric_clustering, seed)
+            test_models(global_models, clients_data[timestep], clients_metrics, dataset, seed)
             global_models.reset_clients()
 
             if timestep != dataset.n_timesteps - 1:
                 # STEP 2 - Recalculate Global Models (cluster identities) and detect concept drift
                 global_models = update_global_models(
-                    self.metric_clustering, self.loss_threshold, clients_data[timestep], global_models, dataset, seed, timestep
+                    self.metric_clustering, self.threshold, clients_data[timestep], global_models, dataset, seed, timestep
                 )
 
-                # STEP 2 - Merge Global Models
+                # STEP 3 - Merge Global Models
                 global_models = merge_global_models(self.metric_clustering, global_models, dataset, seed)
 
-                # STEP 3 - Train and average models
+                # STEP 4 - Train and average models
                 global_models = train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
 
-        # TODO - Loss
+        # TODO - calculate cross entropy and binary loss by hand
+        # TODO - check loss of each group
         # TODO - fix saving of data of clients o global model to reflect original paper
         return clients_metrics, clients_identities
 
@@ -99,18 +100,16 @@ def print_clients_identities(clients_identities):
             print("Model id: ", model_id, ":", clients)
 
 
-def test_models(global_models, clients_data_timestep, clients_metrics, dataset, metric_clustering, seed):
+def test_models(global_models, clients_data_timestep, clients_metrics, dataset, seed):
     for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
         x, y, s, _ = client_data
         model, _ = get_model_client(client_id, global_models, dataset, seed)
         pred = model.predict(x)
-        print(y)
-        print(pred)
+        metrics_evaluation = model.evaluate(x, y)
         y_true, y_pred = get_y(y, pred, dataset.is_binary_target)
         for client_metric in client_metrics:
-            res = client_metric.update(y_true, y_pred, s)
+            res = client_metric.update(y_true, y_pred, s, metrics_evaluation)
             print(res, client_metric.name)
-        metric_clustering.update(y_true, y_pred, s)
 
 
 def get_model_client(client_id, global_models, dataset, seed):
@@ -120,6 +119,7 @@ def get_model_client(client_id, global_models, dataset, seed):
                 weights = global_model.model.get_weights()
                 model = get_init_model(dataset, seed)
                 model.set_weights(weights)
+
                 return model, global_model.id
 
     raise Exception("No model for client", client_id)
@@ -146,6 +146,7 @@ def update_global_models(metric_clustering, loss_threshold, clients_data_timeste
         model.set_weights(best_model_weights)
 
         # Detect Drift
+        print("Best result is", best_result)
         if best_result > loss_threshold and timestep > 0:  # TODO - here can be > or <
             print("Drift detected at client {}".format(client_id))
             model = get_init_model(dataset, seed)
@@ -161,11 +162,12 @@ def update_global_models(metric_clustering, loss_threshold, clients_data_timeste
     return global_models
 
 
-def test_client_on_model(metric, model, client_data, is_binary_target):
+def test_client_on_model(metric_clustering, model, client_data, is_binary_target):
     pred = model.predict(client_data.x)
+    metrics_evaluation = model.evaluate(client_data.x, client_data.y)
     y_true, y_pred = get_y(client_data.y, pred, is_binary_target)
 
-    return metric.calculate(y_true, y_pred, client_data.s)
+    return metric_clustering.calculate(y_true, y_pred, client_data.s, metrics_evaluation)
 
 
 def train_and_average(clients_data_timestep, global_models, dataset, seed, timestep):
@@ -277,10 +279,7 @@ def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances
 
 def print_matrix(matrix):
     for d in matrix:
-        string = ""
-        for a in d:
-            string += " " + "-".join([str(b) for b in a])
-        print(string)
+        print(" ".join([str(a) for a in d]))
 
 
 def get_next_best_results(results_matrix):

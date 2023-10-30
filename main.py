@@ -15,15 +15,13 @@ def get_arguments():
     parser.add_argument('--fl', required=True, help='algorithm')
     parser.add_argument('--dataset', required=True, help='dataset')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
-    parser.add_argument('--metrics', nargs='+', required=False, help='metrics')
-    parser.add_argument('--drift_detector', required=False, help='drift_detector')
-    parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')
-    parser.add_argument('--similarity', required=False, help='similarity')
+    parser.add_argument('--threshold', required=False, help='threshold')
+
 
     args = parser.parse_args(sys.argv[1:])
     algorithm = get_algorithm_by_name(args.fl)
     dataset = get_dataset_by_name(args.dataset)
-    if args.metrics:  # FairFedDrift or FedVal
+    if args.threshold:
         algorithm.set_specs(args)
     varying_disc = float(args.varying_disc)
 

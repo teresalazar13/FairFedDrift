@@ -62,7 +62,8 @@ def test_models(global_models, clients_data_timestep, clients_metrics, dataset, 
         id = dataset.drift_ids[timestep][client_id]
         model = global_models[id]
         pred = model.predict(x)
+        metrics_evaluation = model.evaluate(x, y)
         y_true, y_pred = get_y(y, pred, dataset.is_binary_target)
         for client_metric in client_metrics:
-            res = client_metric.update(y_true, y_pred, s)
+            res = client_metric.update(y_true, y_pred, s, metrics_evaluation)
             print(res, client_metric.name)

@@ -8,15 +8,8 @@ class StatisticalParity(Metric):
     def __init__(self):
         name = "SP"
         super().__init__(name)
-        self.res = []
 
-    def update(self, y_true, y_pred, s):
-        res = self.calculate(y_true, y_pred, s)
-        self.res.append(res)
-
-        return res
-
-    def calculate(self, y_true, y_pred, s):
+    def calculate(self, y_true, y_pred, s, _):
         df = pd.DataFrame()
         df["y_pred"] = y_pred
         df["s"] = s
