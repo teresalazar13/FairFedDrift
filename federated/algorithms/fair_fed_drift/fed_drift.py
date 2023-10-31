@@ -47,14 +47,15 @@ class FedDrift(Algorithm):
                 )
 
                 # STEP 3 - Merge Global Models
-                global_models = merge_global_models(self.metric_clustering, global_models, dataset, seed)
+                global_models = merge_global_models(
+                    self.metric_clustering, self.threshold, global_models, dataset, seed
+                )
 
                 # STEP 4 - Train and average models
                 global_models = train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
 
-        # TODO - calculate cross entropy and binary loss by hand
-        # TODO - check loss of each group
-        # TODO - fix saving of data of clients o global model to reflect original paper
+        # TODO self.metric_clustering and self.threshold should be arrays
+        # TODO - fix saving of data of clients of global model to reflect original paper
         return clients_metrics, clients_identities
 
 
@@ -192,11 +193,11 @@ def train_and_average(clients_data_timestep, global_models, dataset, seed, times
     return global_models
 
 
-def merge_global_models(metric_clustering, global_models, dataset, seed):
+def merge_global_models(metric_clustering, loss_threshold, global_models, dataset, seed):
     size = global_models.current_size
     if size > 25:
         raise Exception("Number of global models > 25")
-    all_distances = [[0 for _ in range(size)] for _ in range(size)]
+    all_distances = [[WORST_LOSS for _ in range(size)] for _ in range(size)]
 
     for i in range(len(global_models.models)):
         for j in range(len(global_models.models)):
@@ -211,9 +212,9 @@ def merge_global_models(metric_clustering, global_models, dataset, seed):
                         dataset.is_binary_target
                     )
                     results_list.append(result)
-                all_distances[id_i][id_j] = max(results_list)  # TODO - here can be min
+                all_distances[id_i][id_j] = max(results_list)
 
-    distances = [[0 for _ in range(size)] for _ in range(size)]
+    distances = [[WORST_LOSS for _ in range(size)] for _ in range(size)]
     for i in range(len(global_models.models)):
         for j in range(len(global_models.models)):
             id_i = global_models.models[i].id
@@ -224,7 +225,7 @@ def merge_global_models(metric_clustering, global_models, dataset, seed):
 
     while True:  # While we can still merge global models
         print_matrix(distances)
-        id_0, id_1 = get_next_best_results(distances)
+        id_0, id_1 = get_next_best_results(distances, loss_threshold)
         if id_0 and id_1:
             print("Merged models {} and {}".format(id_0, id_1))
             global_models, distances = merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances)
@@ -254,7 +255,7 @@ def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances
     new_row = []
     for i in range(len(distances)):
         results_list = [distances[id_0][i], distances[id_1][i]]
-        new_row.append(max(results_list))  # TODO - here can be min
+        new_row.append(max(results_list))
     for i in range(len(distances)):
         distances[i].append(new_row[i])
     new_row.append(WORST_LOSS)
@@ -280,7 +281,7 @@ def print_matrix(matrix):
         print(" ".join([str(a) for a in d]))
 
 
-def get_next_best_results(results_matrix):
+def get_next_best_results(results_matrix, loss_threshold):
     best_row = None
     best_col = None
     best_result = WORST_LOSS
@@ -289,7 +290,7 @@ def get_next_best_results(results_matrix):
         for col in range(len(results_matrix[row])):
             result = results_matrix[row][col]
 
-            if result < best_result:  # TODO - here can be >
+            if result < best_result and result < loss_threshold:
                 best_result = result
                 best_row = row
                 best_col = col
