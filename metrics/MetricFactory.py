@@ -3,28 +3,25 @@ from metrics.BalancedAccuracy import BalancedAccuracy
 from metrics.EqualOdds import EqualOdds
 from metrics.EqualOpportunity import EqualOpportunity
 from metrics.Loss import Loss
+from metrics.LossPrivileged import LossPrivileged
+from metrics.LossUnprivileged import LossUnprivileged
 from metrics.StatisticalParity import StatisticalParity
 
 
 def get_metrics(is_binary_target):
     if is_binary_target:
-        return [Accuracy(), Loss(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
+        return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
     else:
-        return [Accuracy(), Loss(), BalancedAccuracy()]
+        return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy()]
 
 
 def get_all_metrics():
-    return [Accuracy(), Loss(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
+    return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
 
 
-def get_metrics_by_names(names):
-    metrics = []
+def get_metric_by_names(name):
     for metric in get_all_metrics():
-        for name in names:
-            if name == metric.name:
-                metrics.append(metric)
+        if name == metric.name:
+            return metric
 
-    if len(metrics) == 0:
-        raise Exception("No Metrics with the names ", names)
-
-    return metrics
+    raise Exception("No Metric with the name ", name)

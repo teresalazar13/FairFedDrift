@@ -102,13 +102,12 @@ def print_clients_identities(clients_identities):
 
 def test_models(global_models, clients_data_timestep, clients_metrics, dataset, seed):
     for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
-        x, y, s, _ = client_data
+        x, y_true_raw, s, _ = client_data
         model, _ = get_model_client(client_id, global_models, dataset, seed)
-        pred = model.predict(x)
-        metrics_evaluation = model.evaluate(x, y)
-        y_true, y_pred = get_y(y, pred, dataset.is_binary_target)
+        y_pred_raw = model.predict(x)
+        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
         for client_metric in client_metrics:
-            res = client_metric.update(y_true, y_pred, s, metrics_evaluation)
+            res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
             print(res, client_metric.name)
 
 
@@ -163,11 +162,10 @@ def update_global_models(metric_clustering, loss_threshold, clients_data_timeste
 
 
 def test_client_on_model(metric_clustering, model, client_data, is_binary_target):
-    pred = model.predict(client_data.x)
-    metrics_evaluation = model.evaluate(client_data.x, client_data.y)
-    y_true, y_pred = get_y(client_data.y, pred, is_binary_target)
+    y_pred_raw = model.predict(client_data.x)
+    y_true, y_pred = get_y(client_data.y, y_pred_raw, is_binary_target)
 
-    return metric_clustering.calculate(y_true, y_pred, client_data.s, metrics_evaluation)
+    return metric_clustering.calculate(y_true, y_pred, client_data.y, y_pred_raw, client_data.s)
 
 
 def train_and_average(clients_data_timestep, global_models, dataset, seed, timestep):

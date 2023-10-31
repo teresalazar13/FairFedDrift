@@ -20,12 +20,11 @@ class Algorithm:
 
 def test(clients_data_timestep, clients_metrics, global_model, dataset):
     for client_data, client_metrics in zip(clients_data_timestep, clients_metrics):
-        x, y, s, _ = client_data
-        pred = global_model.predict(x)
-        metrics_evaluation = global_model.evaluate(x, y)
-        y_true, y_pred = get_y(y, pred, dataset.is_binary_target)
+        x, y_true_raw, s, _ = client_data
+        y_pred_raw = global_model.predict(x)
+        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
         for client_metric in client_metrics:
-            res = client_metric.update(y_true, y_pred, s, metrics_evaluation)
+            res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
             print(res, client_metric.name)
 
 def get_y(y_true_raw, y_pred_raw, is_binary_target):

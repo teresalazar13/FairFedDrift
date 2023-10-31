@@ -58,12 +58,11 @@ class Oracle(Algorithm):
 
 def test_models(global_models, clients_data_timestep, clients_metrics, dataset, timestep):
     for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
-        x, y, s, _ = client_data
+        x, y_true_raw, s, _ = client_data
         id = dataset.drift_ids[timestep][client_id]
         model = global_models[id]
-        pred = model.predict(x)
-        metrics_evaluation = model.evaluate(x, y)
-        y_true, y_pred = get_y(y, pred, dataset.is_binary_target)
+        y_pred_raw = model.predict(x)
+        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
         for client_metric in client_metrics:
-            res = client_metric.update(y_true, y_pred, s, metrics_evaluation)
+            res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
             print(res, client_metric.name)

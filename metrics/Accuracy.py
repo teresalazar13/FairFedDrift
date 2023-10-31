@@ -9,7 +9,7 @@ class Accuracy(Metric):
         name = "ACC"
         super().__init__(name)
 
-    def calculate(self, y_true, y_pred, _, __):
+    def calculate(self, y_true, y_pred, _, __, ___):
         df = pd.DataFrame()
         df["y"] = y_true
         df["y_pred"] = y_pred

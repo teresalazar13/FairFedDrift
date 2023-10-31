@@ -33,7 +33,8 @@ class Dataset:
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 2
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3 -> CONCEPT DRIFT
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
                 [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT

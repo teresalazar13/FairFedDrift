@@ -66,6 +66,3 @@ class NN_model:
 
     def predict(self, x):
         return self.model.predict(x)
-
-    def evaluate(self, x, y):
-        return self.model.evaluate(x, y)

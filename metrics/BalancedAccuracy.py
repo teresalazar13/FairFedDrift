@@ -9,7 +9,7 @@ class BalancedAccuracy(Metric):
         name = "BalancedACC"
         super().__init__(name)
 
-    def calculate(self, y_true, y_pred, s, _):
+    def calculate(self, y_true, y_pred, _, __, s):
         df = pd.DataFrame()
         df["y"] = y_true
         df["y_pred"] = y_pred
