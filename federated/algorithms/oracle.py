@@ -7,7 +7,7 @@ from metrics.MetricFactory import get_metrics
 class Oracle(Algorithm):
 
     def __init__(self):
-        name = "oracle"
+        name = "Oracle"
         super().__init__(name)
 
     def perform_fl(self, seed, clients_data, dataset):

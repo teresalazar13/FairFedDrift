@@ -15,13 +15,12 @@ def get_arguments():
     parser.add_argument('--fl', required=True, help='algorithm')
     parser.add_argument('--dataset', required=True, help='dataset')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
-    parser.add_argument('--threshold', required=False, help='threshold')
-
+    parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')
 
     args = parser.parse_args(sys.argv[1:])
     algorithm = get_algorithm_by_name(args.fl)
     dataset = get_dataset_by_name(args.dataset)
-    if args.threshold:
+    if args.thresholds:
         algorithm.set_specs(args)
     varying_disc = float(args.varying_disc)
 

@@ -6,7 +6,7 @@ from metrics.MetricFactory import get_metrics
 class FedAvg(Algorithm):
 
     def __init__(self):
-        name = "fedavg"
+        name = "FedAvg"
         super().__init__(name)
 
     def perform_fl(self, seed, clients_data, dataset):
