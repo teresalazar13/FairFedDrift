@@ -4,6 +4,7 @@ from federated.algorithms.fair_fed_drift.GlobalModels import GlobalModels
 from federated.model import NN_model
 from metrics.Loss import Loss
 from metrics.MetricFactory import get_metrics
+import copy
 
 
 WORST_LOSS = 1000
@@ -24,39 +25,43 @@ class FedDrift(Algorithm):
         super().set_subfolders("{}/loss-{}".format(self.name, loss_threshold))
 
     def perform_fl(self, seed, clients_data, dataset):
-        global_models = GlobalModels()
-        init_model = get_init_model(dataset, seed)
-        global_model = global_models.create_new_global_model(init_model)
-        for client_id in range(dataset.n_clients):
-            cd = ClientData(clients_data[0][client_id][0], clients_data[0][client_id][1], clients_data[0][client_id][2])
-            global_model.set_client(client_id, cd)
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
-        clients_identities = [[] for _ in range(dataset.n_clients)]
+        global_models, clients_identities = setup(seed, clients_data, dataset)
 
-        for timestep in range(dataset.n_timesteps):
-            clients_identities = update_clients_identities(clients_identities, dataset.n_clients, global_models)
-
-            # STEP 1 - Test each client's data on previous clustering identities
-            test_models(global_models, clients_data[timestep], clients_metrics, dataset, seed)
-            global_models.reset_clients()
+        for timestep in range(1, dataset.n_timesteps):
+            print_clients_identities(clients_identities)
+            # STEP 1 - Test each client's data on previous clustering identities (previous timestep)
+            test_models(global_models, clients_data[timestep], clients_metrics, dataset, timestep - 1, seed)
 
             if timestep != dataset.n_timesteps - 1:
                 # STEP 2 - Recalculate Global Models (cluster identities) and detect concept drift
-                global_models = update_global_models(
+                global_models, clients_identities = update_global_models(
                     self.metrics_clustering, self.thresholds, clients_data[timestep], global_models, dataset, seed,
-                    timestep
+                    timestep, clients_identities
                 )
 
-                # STEP 3 - Merge Global Models
+                # STEP 3 - Merge Global Models from previous timestep
                 global_models = merge_global_models(
-                    self.metrics_clustering, self.thresholds, global_models, dataset, seed
+                    self.metrics_clustering, self.thresholds, global_models, dataset, seed, timestep - 1
                 )
 
                 # STEP 4 - Train and average models
                 global_models = train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
 
-        # TODO - fix saving of data of clients of global model to reflect original paper
         return clients_metrics, clients_identities
+
+
+def setup(seed, clients_data, dataset):
+    global_models = GlobalModels()
+    init_model = get_init_model(dataset, seed)
+    global_model = global_models.create_new_global_model(init_model)
+    for client_id in range(dataset.n_clients):
+        cd = ClientData(clients_data[0][client_id][0], clients_data[0][client_id][1], clients_data[0][client_id][2])
+        global_model.set_client(client_id, cd, 0)
+    global_models = train_and_average(clients_data[0], global_models, dataset, seed, 0)  # Train and average models
+    clients_identities = [[global_model.name] for _ in range(dataset.n_clients)]
+
+    return global_models, clients_identities
 
 
 def get_init_model(dataset, seed):
@@ -66,22 +71,15 @@ def get_init_model(dataset, seed):
     return model
 
 
-def update_clients_identities(clients_identities, n_clients, global_models):
-    for client_id in range(n_clients):
-        timestep_client_identities = get_timestep_client_identity(global_models, client_id)
-        clients_identities[client_id].append(timestep_client_identities)
-    print_clients_identities(clients_identities)
-
-    return clients_identities
-
-
-def get_timestep_client_identity(global_models, client_id):
-    for model in global_models.models:
-        for client in model.clients.keys():
-            if client == client_id:
-                return model.name
-
-    raise Exception("Model for client {} no found".format(client_id))
+def test_models(global_models, clients_data_timestep, clients_metrics, dataset, previous_timestep, seed):
+    for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
+        x, y_true_raw, s, _ = client_data
+        model, _ = get_model_client(client_id, global_models, dataset, previous_timestep, seed)
+        y_pred_raw = model.predict(x)
+        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
+        for client_metric in client_metrics:
+            res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
+            print(res, client_metric.name)
 
 
 def print_clients_identities(clients_identities):
@@ -101,31 +99,22 @@ def print_clients_identities(clients_identities):
             print("Model id: ", model_id, ":", clients)
 
 
-def test_models(global_models, clients_data_timestep, clients_metrics, dataset, seed):
-    for client_id, (client_data, client_metrics) in enumerate(zip(clients_data_timestep, clients_metrics)):
-        x, y_true_raw, s, _ = client_data
-        model, _ = get_model_client(client_id, global_models, dataset, seed)
-        y_pred_raw = model.predict(x)
-        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
-        for client_metric in client_metrics:
-            res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
-            print(res, client_metric.name)
-
-
-def get_model_client(client_id, global_models, dataset, seed):
+def get_model_client(client_id, global_models, dataset, timestep, seed):
     for global_model in global_models.models:
-        for client in global_model.clients:
-            if client == client_id:
-                weights = global_model.model.get_weights()
-                model = get_init_model(dataset, seed)
-                model.set_weights(weights)
+        if client_id in global_model.clients and timestep in global_model.clients[client_id]:
+            weights = global_model.model.get_weights()
+            model = get_init_model(dataset, seed)
+            model.set_weights(weights)
 
-                return model, global_model.id
+            return model, global_model.id
 
-    raise Exception("No model for client", client_id)
+    raise Exception("No model for client", client_id, "at timestep", timestep)
 
 
-def update_global_models(metrics_clustering, thresholds, clients_data_timestep, global_models, dataset, seed, timestep):
+def update_global_models(
+        metrics_clustering, thresholds, clients_data_timestep, global_models, dataset, seed, timestep,
+        clients_identities
+):
     global_models_to_create = []
 
     for client_id, client_data_raw in enumerate(clients_data_timestep):
@@ -139,14 +128,11 @@ def update_global_models(metrics_clustering, thresholds, clients_data_timestep, 
             results_global_models[global_model] = results
 
         # Get Model for client given results_global_models
-        best_global_model = get_best_model(results_global_models, thresholds, timestep)
+        best_global_model = get_best_model(results_global_models, thresholds)
         if best_global_model:
             print("No drift detected at client {}".format(client_id))
-            best_model_weights = best_global_model.model.get_weights()
-            best_global_model_id = best_global_model.id
-            model = get_init_model(dataset, seed)
-            model.set_weights(best_model_weights)
-            global_models.set_client_model(best_global_model_id, client_id, client_data)
+            best_global_model.set_client(client_id, client_data, timestep)
+            clients_identities[client_id].append(best_global_model.name)
         else:
             print("Drift detected at client {}".format(client_id))
             model = get_init_model(dataset, seed)
@@ -154,9 +140,10 @@ def update_global_models(metrics_clustering, thresholds, clients_data_timestep, 
 
     for model, client_id, client_data in global_models_to_create:
         new_global_model = global_models.create_new_global_model(model)
-        new_global_model.set_client(client_id, client_data)
+        new_global_model.set_client(client_id, client_data, timestep)
+        clients_identities[client_id].append(new_global_model.name)
 
-    return global_models
+    return global_models, clients_identities
 
 
 def test_client_on_model(metrics_clustering, model, client_data, is_binary_target):
@@ -178,7 +165,7 @@ def train_and_average(clients_data_timestep, global_models, dataset, seed, times
 
         for client_id, client_data in enumerate(clients_data_timestep):
             x, y, s, y_original = client_data
-            local_model, global_model_id = get_model_client(client_id, global_models, dataset, seed)
+            local_model, global_model_id = get_model_client(client_id, global_models, dataset, timestep, seed)
             local_model.learn(x, y)
             print("Trained model timestep {} cround {} client {}".format(timestep, cround, client_id))
             local_weights_list[global_model_id].append(local_model.get_weights())
@@ -195,7 +182,7 @@ def train_and_average(clients_data_timestep, global_models, dataset, seed, times
     return global_models
 
 
-def merge_global_models(metrics_clustering, thresholds, global_models, dataset, seed):
+def merge_global_models(metrics_clustering, thresholds, global_models, dataset, seed, limit_timestep):
     size = global_models.current_size
     if size > 25:
         raise Exception("Number of global models > 25")
@@ -205,10 +192,10 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
         for j in range(len(global_models.models)):
             id_i = global_models.models[i].id
             id_j = global_models.models[j].id
-            if i != j and len(global_models.models[i].clients.keys()) > 0 and len(global_models.models[j].clients.keys()) > 0:
+            if i != j and global_models.models[j].has_trained_with_clients(limit_timestep) and global_models.models[i].has_trained_with_clients(limit_timestep):
                 results_list = []
                 for client_id in global_models.models[j].clients.keys():
-                    partial_client_data = global_models.models[j].get_partial_client_data(client_id)
+                    partial_client_data = global_models.models[j].get_partial_client_data(client_id, limit_timestep)
                     results = test_client_on_model(
                         metrics_clustering, global_models.models[i].model, partial_client_data,
                         dataset.is_binary_target
@@ -245,13 +232,16 @@ def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances
     new_global_model.set_weights(new_global_model_weights)
 
     # Create new global Model
-    clients = global_model_0.clients
-    clients.update(global_model_1.clients)
     new_global_model_created = global_models.create_new_global_model(
         new_global_model, global_model_0.name, global_model_1.name
     )
-    for client_id, client_data in clients.items():
-        new_global_model_created.set_client(client_id, client_data)
+    clients = copy.deepcopy(global_model_0.clients)
+    for client_id, timestep_client_data in global_model_1.clients:
+        if client_id in clients:
+            clients[client_id].update(timestep_client_data)
+        else:
+            clients[client_id] = timestep_client_data
+    new_global_model_created.clients = clients
 
     # Create new column and row for new model id and update distances
     new_row = []
@@ -282,10 +272,7 @@ def print_matrix(matrix):
     for d in matrix:
         print(" ".join([str(a) for a in d]))
 
-def get_best_model(model_results_dict, thresholds, timestep):
-    if timestep == 0:
-        return list(model_results_dict.keys())[0]
-
+def get_best_model(model_results_dict, thresholds):
     best_model = None
     best_results_sum = WORST_LOSS
 

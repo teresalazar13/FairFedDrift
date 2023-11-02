@@ -1,5 +1,7 @@
 import random
 
+import numpy as np
+
 from federated.algorithms.fair_fed_drift.ClientData import ClientData
 
 
@@ -10,23 +12,34 @@ class GlobalModel:
         self.id = id
         self.name = name
         self.n_points = 0
-        self.clients = {}   # {client_id: ClientData}
+        self.clients = {}   # {client_id: ClientData} # {client_id: {timestep: ClientData}} -> when has client identity
 
-    def set_client(self, client_id, client_data):
-        self.clients[client_id] = client_data
+    def set_client(self, client_id, client_data, timestep):
+        if client_id in self.clients:
+            self.clients[client_id][timestep] = client_data
+        else:
+            self.clients[client_id] = {timestep: client_data}
         self.n_points += len(client_data.x)
 
-    def reset_clients(self):
-        self.clients = {}
+    def has_trained_with_clients(self, limit_timestep):
+        for client_id, client_data_timestep in self.clients.items():
+            for timestep, client_data in client_data_timestep.items():
+                if timestep <= limit_timestep:
+                    return True
+        return False
 
-    def get_partial_client_data(self, client_id):
-        x = self.clients[client_id].x
-        y = self.clients[client_id].y
-        s = self.clients[client_id].s
-        total_data = sum([len(data.x) for data in self.clients.values()])
-        proportion = len(x) / total_data
+    def get_partial_client_data(self, client_id, limit_timestep):
+        x = []
+        y = []
+        s = []
+        for t, client_data in self.clients[client_id].items():
+            if t <= limit_timestep:
+                x.extend(client_data.x)
+                y.extend(client_data.y)
+                s.extend(client_data.s)
+        proportion = len(x) / self.n_points
         size = int(len(x) * proportion)
         perm = list(range(0, size))
         random.shuffle(perm)
 
-        return ClientData(x[perm], y[perm], s[perm])
+        return ClientData(np.array(x)[perm], np.array(y)[perm], np.array(s)[perm])

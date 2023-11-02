@@ -18,6 +18,7 @@ class GlobalModels:
         new_global_model = GlobalModel(model, id, name)
         self.current_size = self.current_size + 1
         self.models.append(new_global_model)
+
         return new_global_model
 
     def get_model(self, global_model_id):
@@ -26,16 +27,12 @@ class GlobalModels:
                 return model
         raise Exception("No model with id ", global_model_id)
 
-    def reset_clients(self):
-        for model in self.models:
-            model.reset_clients()
-
     def deleted_merged_model(self, global_model_id):
         for model in self.models:
             if model.id == global_model_id:
                 self.models.remove(model)
 
-    def set_client_model(self, global_model_id, client, client_data):
+    def set_client_model(self, global_model_id, client, client_data, timestep):
         for model in self.models:
             if model.id == global_model_id:
-                model.set_client(client, client_data)
+                model.set_client(client, client_data, timestep)
