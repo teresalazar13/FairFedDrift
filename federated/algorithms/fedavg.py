@@ -12,35 +12,43 @@ class FedAvg(Algorithm):
     def perform_fl(self, seed, clients_data, dataset):
         global_model = NN_model(dataset, seed)
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
+        train_and_average(global_model, dataset, clients_data, 0, seed)
 
-        for timestep in range(dataset.n_timesteps):
+        for timestep in range(1, dataset.n_timesteps):
             # STEP 1 - Test
             test(clients_data[timestep], clients_metrics, global_model, dataset)
 
-            # STEP 2 - Train and average models
-            for cround in range(dataset.n_rounds):
-                local_weights_list = []
-                client_scaling_factors_list = []
-                for client in range(dataset.n_clients):
-                    x, y, s, _ = clients_data[timestep][client]
-                    global_weights = global_model.get_weights()
-                    local_model = NN_model(dataset, seed)
-                    local_model.compile(dataset)
-                    local_model.set_weights(global_weights)
-                    local_model.learn(x, y)
-                    local_weights_list.append(local_model.get_weights())
-                    client_scaling_factors_list.append(len(x))
-                    #K.clear_session()
-                    print("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
+            if timestep != dataset.n_timesteps - 1:
+                # STEP 2 - Train and average models
+                global_model = train_and_average(global_model, dataset, clients_data, timestep, seed)
 
-                new_global_weights = average_weights(local_weights_list, client_scaling_factors_list)
-                global_model.set_weights(new_global_weights)
-                print("Averaged models on timestep {} cround {}".format(timestep, cround))
-
-        # Client identity is always 0 (only one global model)
-        client_identities = [[] for _ in range(dataset.n_clients)]
+        # Clients identities are always 0 (only one global model)
+        clients_identities = [[] for _ in range(dataset.n_clients)]
         for i in range(dataset.n_clients):
-            for _ in range(dataset.n_timesteps):
-                client_identities[i].append(0)
+            for _ in range(1, dataset.n_timesteps):
+                clients_identities[i].append(0)
 
-        return clients_metrics, client_identities
+        return clients_metrics, clients_identities
+
+
+def train_and_average(global_model, dataset, clients_data, timestep, seed):
+    for cround in range(dataset.n_rounds):
+        local_weights_list = []
+        client_scaling_factors_list = []
+        for client in range(dataset.n_clients):
+            x, y, s, _ = clients_data[timestep][client]
+            global_weights = global_model.get_weights()
+            local_model = NN_model(dataset, seed)
+            local_model.compile(dataset)
+            local_model.set_weights(global_weights)
+            local_model.learn(x, y)
+            local_weights_list.append(local_model.get_weights())
+            client_scaling_factors_list.append(len(x))
+            # K.clear_session()
+            print("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
+
+        new_global_weights = average_weights(local_weights_list, client_scaling_factors_list)
+        global_model.set_weights(new_global_weights)
+        print("Averaged models on timestep {} cround {}".format(timestep, cround))
+
+        return global_model

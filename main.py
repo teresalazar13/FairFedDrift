@@ -58,6 +58,6 @@ if __name__ == '__main__':
 
     for i in range(len(clients_metrics)):
         save_results(
-            clients_metrics[i], dataset.drift_ids_col[i], clients_identities[i],
+            clients_metrics[i], dataset.drift_ids_col[i][1:], clients_identities[i],
             "{}/client_{}/results.csv".format(dataset.get_folder(algorithm.subfolders, varying_disc), i+1)
         )

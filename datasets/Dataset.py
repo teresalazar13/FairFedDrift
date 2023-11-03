@@ -27,7 +27,6 @@ class Dataset:
                 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 8
                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 9 -> CONCEPT DRIFT
                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 10
-                #[0, 0, 0, 0, 0, 0, 0, 0, 1, 1]   # timestep 10
             ]
         else:
             drift_ids = [
@@ -35,14 +34,13 @@ class Dataset:
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 2
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3 -> CONCEPT DRIFT
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
-                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
-                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 6
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 5
+                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 6 -> CONCEPT DRIFT
                 [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 7
-                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
-                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
-                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1]   # timestep 10 # TODO - update image
+                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 8
+                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 9 -> CONCEPT DRIFT
+                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 10
             ]
         self.drift_ids = drift_ids
         self.drift_ids_col, self.n_clients, self.n_drifts, self.n_timesteps = self.get_drift_ids_col(drift_ids)

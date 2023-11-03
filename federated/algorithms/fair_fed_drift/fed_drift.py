@@ -192,16 +192,19 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
         for j in range(len(global_models.models)):
             id_i = global_models.models[i].id
             id_j = global_models.models[j].id
-            if i != j and global_models.models[j].has_trained_with_clients(limit_timestep) and global_models.models[i].has_trained_with_clients(limit_timestep):
+
+            if i != j:
                 results_list = []
                 for client_id in global_models.models[j].clients.keys():
                     partial_client_data = global_models.models[j].get_partial_client_data(client_id, limit_timestep)
-                    results = test_client_on_model(
-                        metrics_clustering, global_models.models[i].model, partial_client_data,
-                        dataset.is_binary_target
-                    )
-                    results_list.append(results)
-                all_distances[id_i][id_j] = get_worst_results(results_list)
+                    if partial_client_data:
+                        results = test_client_on_model(
+                            metrics_clustering, global_models.models[i].model, partial_client_data,
+                            dataset.is_binary_target
+                        )
+                        results_list.append(results)
+                if results_list:
+                    all_distances[id_i][id_j] = get_worst_results(results_list)
 
     distances = [[[WORST_LOSS for _ in range(len(thresholds))] for _ in range(size)] for _ in range(size)]
     for i in range(len(global_models.models)):

@@ -20,14 +20,6 @@ class GlobalModel:
         else:
             self.clients[client_id] = {timestep: client_data}
         self.n_points += len(client_data.x)
-
-    def has_trained_with_clients(self, limit_timestep):
-        for client_id, client_data_timestep in self.clients.items():
-            for timestep, client_data in client_data_timestep.items():
-                if timestep <= limit_timestep:
-                    return True
-        return False
-
     def get_partial_client_data(self, client_id, limit_timestep):
         x = []
         y = []
@@ -42,4 +34,6 @@ class GlobalModel:
         perm = list(range(0, size))
         random.shuffle(perm)
 
-        return ClientData(np.array(x)[perm], np.array(y)[perm], np.array(s)[perm])
+        if x:
+            return ClientData(np.array(x)[perm], np.array(y)[perm], np.array(s)[perm])
+        return None
