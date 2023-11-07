@@ -1,5 +1,6 @@
 import random
 import numpy as np
+from matplotlib import pyplot as plt
 from tensorflow.keras.utils import to_categorical
 from datasets.Dataset import Dataset
 
@@ -55,9 +56,10 @@ class ImageDataset(Dataset):
         return batched_data
 
     def rotate(self, X_priv_round_client):
-        if self.name != "CIFAR_GDrift":
+        if self.input_shape[2] == 1:
             return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
-        else:
+
+        elif self.input_shape[2] == 3:
             X_train_rotated_negated = np.empty_like(X_priv_round_client)
             for i in range(len(X_priv_round_client)):
                 for channel in range(3):  # 3 channels for RGB
@@ -65,3 +67,6 @@ class ImageDataset(Dataset):
                     X_train_rotated_negated[i, :, :, channel] = rotated_channel * -1
 
             return X_train_rotated_negated
+
+        else:
+            raise Exception("Can't rotate for shape ", self.input_shape)

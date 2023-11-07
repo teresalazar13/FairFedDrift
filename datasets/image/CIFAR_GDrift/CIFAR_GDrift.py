@@ -8,7 +8,7 @@ class CIFAR_GDrift(ImageDataset):
     def __init__(self):
         name = "CIFAR-GDrift"
         (train_X, train_y), (test_X, test_y) = cifar10.load_data()
-        input_shape = (218, 178, 3)
+        input_shape = (32, 32, 3)
         is_large = True
         is_binary_target = False
         X = np.concatenate([train_X, test_X], axis=0)

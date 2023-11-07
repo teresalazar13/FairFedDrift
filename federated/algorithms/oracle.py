@@ -12,28 +12,25 @@ class Oracle(Algorithm):
 
     def perform_fl(self, seed, clients_data, dataset):
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
-        global_models, clients_identities = setup(seed, clients_data, dataset)
+        global_models, clients_identities = setup(seed, dataset)
 
-        for timestep in range(1, dataset.n_timesteps):
-            # STEP 1 - Test
-            test_models(global_models, clients_data, clients_metrics, dataset, timestep)
-
-            if timestep != dataset.n_timesteps - 1:
-                for client_id in range(dataset.n_clients):  # Update client identities
-                    clients_identities[client_id].append(dataset.drift_ids[timestep][client_id])
-
-                # STEP 2 - Train and average models
-                global_models = train_and_average(global_models, dataset, clients_data, timestep, seed)
+        for timestep in range(dataset.n_timesteps):
+            for client_id in range(dataset.n_clients):
+                clients_identities[client_id].append(dataset.drift_ids[timestep][client_id])
+            global_models = train_and_average(global_models, dataset, clients_data, timestep, seed)
+            timestep_to_test = timestep + 1
+            if timestep_to_test == dataset.n_timesteps:
+                timestep_to_test = 0
+            test_models(global_models, clients_data, clients_metrics, dataset, timestep_to_test)
 
         return clients_metrics, clients_identities
 
 
-def setup(seed, clients_data, dataset):
+def setup(seed, dataset):
     global_models = []
     for i in range(dataset.n_drifts):
         global_models.append(NN_model(dataset, seed))
-    global_models = train_and_average(global_models, dataset, clients_data, 0, seed)  # Train and average models
-    clients_identities = [[0] for _ in range(dataset.n_clients)]
+    clients_identities = [[] for _ in range(dataset.n_clients)]
 
     return global_models, clients_identities
 

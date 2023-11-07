@@ -40,7 +40,6 @@ def plot_algorithms(res_clients_list, algs, filename, metric, title):
                     current_drift_id = res_clients[j]["drift-id"][i]
                     if current_drift_id == previous_drift_id:
                         values.append(res_clients[j][metric].values[i])
-                #values.append(res_clients[j][metric].values[i])
             avg.append(sum(values) / len(values))
         print("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(avg[1:])/len(avg[1:]), statistics.stdev(avg[1:])))
         plt.plot(range(1, len(res_clients[0][metric].values)), avg[1:], label=alg)

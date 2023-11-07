@@ -10,37 +10,35 @@ class Dataset:
         self.is_binary_target = is_binary_target
 
         if self.is_large:
-            self.n_rounds = 3  # number of rounds per timestep
+            self.n_rounds = 100  # number of rounds per timestep
         else:
-            self.n_rounds = 3  # number of rounds per timestep
+            self.n_rounds = 10  # number of rounds per timestep
 
         if self.is_binary_target:
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 2
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 5
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 6 -> CONCEPT DRIFT
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 6
                 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 7
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 8
-                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 9 -> CONCEPT DRIFT
-                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 10
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
             ]
         else:
             drift_ids = [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 2
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
                 [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 5
-                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 6 -> CONCEPT DRIFT
+                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
+                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 6
                 [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 7
-                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 8
-                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 9 -> CONCEPT DRIFT
-                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 10
+                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
+                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
             ]
         self.drift_ids = drift_ids
         self.drift_ids_col, self.n_clients, self.n_drifts, self.n_timesteps = self.get_drift_ids_col(drift_ids)

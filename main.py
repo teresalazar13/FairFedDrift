@@ -57,7 +57,9 @@ if __name__ == '__main__':
     save_clients_identities(clients_identities, dataset.get_folder(algorithm.subfolders, varying_disc))
 
     for i in range(len(clients_metrics)):
+        drift_ids_col = dataset.drift_ids_col[i][1:]
+        drift_ids_col.append(dataset.drift_ids_col[i][0])
         save_results(
-            clients_metrics[i], dataset.drift_ids_col[i][1:], clients_identities[i],
+            clients_metrics[i], drift_ids_col, clients_identities[i],
             "{}/client_{}/results.csv".format(dataset.get_folder(algorithm.subfolders, varying_disc), i+1)
         )

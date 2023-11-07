@@ -3,14 +3,15 @@ import tensorflow as tf
 
 class NN_model:
     def __init__(self, dataset, seed):
-        self.batch_size = 32
-        self.n_epochs = 50
 
         if dataset.is_large:
+            self.batch_size = 64
+            self.n_epochs = 10  # TODO - remove
+
+            """
             self.model = tf.keras.models.Sequential()
-            self.model.add(tf.keras.layers.Conv2D(
-                32, (3, 3), activation='relu', kernel_initializer='he_uniform', input_shape=dataset.input_shape)
-            )
+            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform',
+                                                  input_shape=dataset.input_shape))
             self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
             self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform'))
             self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
@@ -18,8 +19,24 @@ class NN_model:
             self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
             self.model.add(tf.keras.layers.Flatten())
             self.model.add(tf.keras.layers.Dense(256, activation='relu', kernel_initializer='he_uniform'))
+            self.model.add(tf.keras.layers.Dense(128, activation='relu', kernel_initializer='he_uniform'))"""
+            self.model = tf.keras.models.Sequential()
+            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same',
+                             input_shape=dataset.input_shape))
+            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+            self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+            self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+            self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+            self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+            self.model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+            self.model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+            self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+            self.model.add(tf.keras.layers.Flatten())
             self.model.add(tf.keras.layers.Dense(128, activation='relu', kernel_initializer='he_uniform'))
         else:
+            self.batch_size = 32
+            self.n_epochs = 5
+
             self.model = tf.keras.models.Sequential()
             self.model.add(tf.keras.layers.Conv2D(
                 32, (3, 3), activation='relu', kernel_initializer='he_uniform', input_shape=dataset.input_shape)
@@ -49,7 +66,9 @@ class NN_model:
 
     def compile(self, dataset):
         if dataset.is_large:
-            optimizer = tf.keras.optimizers.legacy.Adam()
+            #optimizer = tf.keras.optimizers.legacy.Adam()
+            #optimizer = tf.keras.optimizers.SGD(learning_rate=0.001, momentum=0.9)
+            optimizer = tf.keras.optimizers.SGD(learning_rate=0.01, momentum=0.9)
         else:
             optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
 
