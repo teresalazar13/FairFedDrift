@@ -21,7 +21,7 @@ class Oracle(Algorithm):
             timestep_to_test = timestep + 1
             if timestep_to_test == dataset.n_timesteps:
                 timestep_to_test = 0
-            test_models(global_models, clients_data, clients_metrics, dataset, timestep_to_test)
+            test_models(global_models, clients_data, clients_metrics, dataset, timestep, timestep_to_test)
 
         return clients_metrics, clients_identities
 
@@ -62,8 +62,8 @@ def train_and_average(global_models, dataset, clients_data, timestep, seed):
 
     return global_models
 
-def test_models(global_models, clients_data, clients_metrics, dataset, timestep):
-    for client_id, (client_data, client_metrics) in enumerate(zip(clients_data[timestep], clients_metrics)):
+def test_models(global_models, clients_data, clients_metrics, dataset, timestep, timestep_to_test):
+    for client_id, (client_data, client_metrics) in enumerate(zip(clients_data[timestep_to_test], clients_metrics)):
         x, y_true_raw, s, _ = client_data
         id = dataset.drift_ids[timestep][client_id]
         model = global_models[id]

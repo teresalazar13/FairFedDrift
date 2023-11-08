@@ -20,15 +20,15 @@ class GlobalModel:
         else:
             self.clients[client_id] = {timestep: client_data}
         self.n_points += len(client_data.x)
-    def get_partial_client_data(self, client_id, limit_timestep):
+
+    def get_partial_client_data(self, client_id):
         x = []
         y = []
         s = []
         for t, client_data in self.clients[client_id].items():
-            if t <= limit_timestep:
-                x.extend(client_data.x)
-                y.extend(client_data.y)
-                s.extend(client_data.s)
+            x.extend(client_data.x)
+            y.extend(client_data.y)
+            s.extend(client_data.s)
         proportion = len(x) / self.n_points
         size = int(len(x) * proportion)
         perm = list(range(0, size))

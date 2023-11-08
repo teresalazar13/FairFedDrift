@@ -28,25 +28,30 @@ class FedDrift(Algorithm):
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
         global_models, clients_identities = setup(seed, clients_data, dataset)
 
-        for timestep in range(1, dataset.n_timesteps):
+        for timestep in range(dataset.n_timesteps):
             print_clients_identities(clients_identities)
-            # STEP 1 - Test each client's data on previous clustering identities (previous timestep)
-            test_models(global_models, clients_data[timestep], clients_metrics, dataset, timestep - 1, seed)
 
-            if timestep != dataset.n_timesteps - 1:
-                # STEP 2 - Recalculate Global Models (cluster identities) and detect concept drift
-                global_models, clients_identities = update_global_models(
-                    self.metrics_clustering, self.thresholds, clients_data[timestep], global_models, dataset, seed,
-                    timestep, clients_identities
-                )
+            # STEP 1 - Train and average models with data from this timestep
+            global_models = train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
 
-                # STEP 3 - Merge Global Models from previous timestep
-                global_models = merge_global_models(
-                    self.metrics_clustering, self.thresholds, global_models, dataset, seed, timestep - 1
-                )
+            timestep_to_test = timestep + 1
+            if timestep_to_test == dataset.n_timesteps:
+                timestep_to_test = 0
 
-                # STEP 4 - Train and average models
-                global_models = train_and_average(clients_data[timestep], global_models, dataset, seed, timestep)
+            # STEP 2 - Test each client's data on data from next timestep
+            test_models(global_models, clients_data[timestep_to_test], clients_metrics, dataset, timestep, seed)
+
+            # STEP 2 - Recalculate Global Models using data from next timestep (cluster identities for next timestep)
+            # and detect concept drift
+            global_models, clients_identities = update_global_models(
+                self.metrics_clustering, self.thresholds, clients_data[timestep_to_test], global_models, dataset, seed,
+                timestep + 1, clients_identities
+            )
+
+            # STEP 3 - Merge Global Models
+            global_models = merge_global_models(
+                self.metrics_clustering, self.thresholds, global_models, dataset, seed, timestep
+            )
 
         return clients_metrics, clients_identities
 
@@ -58,8 +63,7 @@ def setup(seed, clients_data, dataset):
     for client_id in range(dataset.n_clients):
         cd = ClientData(clients_data[0][client_id][0], clients_data[0][client_id][1], clients_data[0][client_id][2])
         global_model.set_client(client_id, cd, 0)
-    global_models = train_and_average(clients_data[0], global_models, dataset, seed, 0)  # Train and average models
-    clients_identities = [[global_model.name] for _ in range(dataset.n_clients)]
+    clients_identities = [[0] for _ in range(dataset.n_clients)]
 
     return global_models, clients_identities
 
@@ -106,6 +110,7 @@ def get_model_client(client_id, global_models, dataset, timestep, seed):
             model = get_init_model(dataset, seed)
             model.set_weights(weights)
 
+            print("Client {}: id {}, name {}".format(client_id, global_model.id, global_model.name))
             return model, global_model.id
 
     raise Exception("No model for client", client_id, "at timestep", timestep)
