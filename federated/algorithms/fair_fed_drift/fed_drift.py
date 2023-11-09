@@ -31,9 +31,11 @@ class FedDrift(Algorithm):
         init_model = get_init_model(dataset, seed)
         global_model = global_models.create_new_global_model(init_model)
         clients_identities = [[ClientIdentity(global_model.id, global_model.name)] for _ in range(dataset.n_clients)]
+        minimum_loss_clients = [[[WORST_LOSS for _ in range(len(self.metrics_clustering))]] for _ in range(dataset.n_clients)]  # used for drift detection
 
         for timestep in range(dataset.n_timesteps):
             print_clients_identities(clients_identities)
+            print_matrix(minimum_loss_clients)
 
             # STEP 4 - Train and average models with data from this timestep
             global_models = train_and_average(
@@ -50,9 +52,9 @@ class FedDrift(Algorithm):
 
             # STEP 2 - Recalculate Global Models using data from next timestep (cluster identities for next timestep)
             # and detect concept drift
-            global_models, global_models_to_create, clients_identities = update_global_models(
+            global_models, global_models_to_create, clients_identities, minimum_loss_clients = update_global_models(
                 self.metrics_clustering, self.thresholds, clients_data[timestep_to_test], global_models, dataset, seed,
-                clients_identities
+                clients_identities, minimum_loss_clients
             )
 
             # STEP 3 - Merge Global Models
@@ -111,7 +113,10 @@ def get_model_client(global_models, global_model_id, dataset, seed):
     return model
 
 
-def update_global_models(metrics_clustering, thresholds, clients_data_timestep, global_models, dataset, seed, clients_identities):
+def update_global_models(
+        metrics_clustering, thresholds, clients_data_timestep, global_models, dataset, seed, clients_identities,
+        minimum_loss_clients
+):
     global_models_to_create = []
 
     for client_id, client_data_raw in enumerate(clients_data_timestep):
@@ -125,7 +130,8 @@ def update_global_models(metrics_clustering, thresholds, clients_data_timestep, 
             results_global_models[global_model] = results
 
         # Get Model for client given results_global_models
-        best_global_model = get_best_model(results_global_models, thresholds)
+        best_global_model, best_results = get_best_model(results_global_models, minimum_loss_clients[client_id], thresholds)
+        minimum_loss_clients[client_id].append(best_results)
         if best_global_model:
             print("No drift detected at client {}".format(client_id))
             clients_identities[client_id].append(ClientIdentity(best_global_model.id, best_global_model.name))
@@ -134,7 +140,7 @@ def update_global_models(metrics_clustering, thresholds, clients_data_timestep, 
             model = get_init_model(dataset, seed)
             global_models_to_create.append([model, client_id, client_data])
 
-    return global_models, global_models_to_create, clients_identities
+    return global_models, global_models_to_create, clients_identities, minimum_loss_clients
 
 
 def set_clients(global_models, clients_identities, clients_data_timestep):
@@ -217,8 +223,8 @@ def get_distance(global_model_a, global_model_b, dataset, metrics_clustering, th
             distance_list = []
             for result_a_b, result_a_a, threshold in zip(results_a_b, results_a_a, thresholds):
                 distance = abs(result_a_b - result_a_a)
-                print(global_model_a.name, global_model_b.name, result_a_b, result_a_a, distance)
                 if distance > threshold:
+                    print(result_a_b, result_a_a, distance, "made exit")
                     return WORST_LOSS  # EXIT
                 else:
                     distance_list.append(distance)
@@ -233,7 +239,7 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
     size = global_models.current_size
     if size > 25:
         raise Exception("Number of global models > 25")
-    distances = [[WORST_LOSS for _ in range(len(thresholds)) for _ in range(size)] for _ in range(size)]
+    distances = [[WORST_LOSS for _ in range(len(thresholds)) for _ in range(size)] for _ in range(size)]  # TODO (?)
 
     for i in range(len(global_models.models) - 1):
         for j in range(i + 1, len(global_models.models)):
@@ -241,14 +247,18 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
             id_j = global_models.models[j].id
             L_1 = get_distance(global_models.models[i], global_models.models[j], dataset, metrics_clustering, thresholds)
             L_2 = get_distance(global_models.models[j], global_models.models[i], dataset, metrics_clustering, thresholds)
-            d = max(L_1 - L_2, L_2 - L_1, 0)
+            if L_1 == WORST_LOSS or L_2 == WORST_LOSS:
+                d = WORST_LOSS
+            else:
+                d = max(L_1 - L_2, L_2 - L_1, 0)
+            print(id_i, id_j, L_1, L_2, d)
             distances[id_i][id_j] = d
             distances[id_j][id_i] = d
 
     while True:  # While we can still merge global models
         print_matrix(distances)
-        id_0, id_1 = get_next_best_results(distances)
-        if id_0 and id_1:
+        id_0, id_1, found = get_next_best_results(distances)
+        if found:
             print("Merged models {} and {}".format(id_0, id_1))
             global_models, distances = merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances)
         else:
@@ -306,22 +316,29 @@ def print_matrix(matrix):
     for d in matrix:
         print(" ".join([str(a) for a in d]))
 
-def get_best_model(model_results_dict, thresholds):
-    best_model = None
-    best_results_sum = WORST_LOSS
+def get_best_model(model_results_dict, minimum_loss_client, thresholds):
+    best_model = None  # if there is not a drift
+    minimum_loss_client_new_a = None  # if there is not a drift
+    minimum_loss_client_new_b = None # if there is a drift (no models where loss < previous_loss + threshold)
 
     for model, results in model_results_dict.items():
-        results_sum = sum(results)
         drift_detected = False
-        for result, threshold in zip(results, thresholds):
-            if result > threshold:  # if drift detected
+        for loss, previous_loss, threshold in zip(results, minimum_loss_client[-1], thresholds):
+            if loss > (threshold + previous_loss):  # if drift detected
                 drift_detected = True
 
-        if not drift_detected and results_sum < best_results_sum:
-            best_model = model
-            best_results_sum = results_sum
+        if not drift_detected:
+            if not minimum_loss_client_new_a or sum(results) < sum(minimum_loss_client_new_a):
+                best_model = model
+                minimum_loss_client_new_a = results
+        else:
+            if not minimum_loss_client_new_b or sum(results) < sum(minimum_loss_client_new_b):
+                minimum_loss_client_new_b = results
 
-    return best_model
+    if minimum_loss_client_new_a:
+        return best_model, minimum_loss_client_new_a
+    else:
+        return None, minimum_loss_client_new_b
 
 
 def get_next_best_results(results_matrix):
@@ -337,4 +354,7 @@ def get_next_best_results(results_matrix):
                 best_row = row
                 best_col = col
 
-    return best_row, best_col
+    if best_result != WORST_LOSS:
+        return best_row, best_col, True
+    else:
+        return None, None, False
