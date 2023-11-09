@@ -31,8 +31,3 @@ class GlobalModels:
         for model in self.models:
             if model.id == global_model_id:
                 self.models.remove(model)
-
-    def set_client_model(self, global_model_id, client, client_data, timestep):
-        for model in self.models:
-            if model.id == global_model_id:
-                model.set_client(client, client_data, timestep)
