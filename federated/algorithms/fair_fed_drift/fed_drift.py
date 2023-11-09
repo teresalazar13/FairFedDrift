@@ -1,5 +1,3 @@
-import numpy as np
-
 from federated.algorithms.Algorithm import Algorithm, get_y, average_weights
 from federated.algorithms.fair_fed_drift.ClientData import ClientData
 from federated.algorithms.fair_fed_drift.ClientIdentity import ClientIdentity
@@ -7,8 +5,6 @@ from federated.algorithms.fair_fed_drift.GlobalModels import GlobalModels
 from federated.model import NN_model
 from metrics.Loss import Loss
 from metrics.MetricFactory import get_metrics
-import copy
-
 
 WORST_LOSS = 1000
 BEST_LOSS = 0
@@ -269,7 +265,7 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
 def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances):
     global_model_0 = global_models.get_model(id_0)
     global_model_1 = global_models.get_model(id_1)
-    scales = [global_model_0.n_points, global_model_0.n_points]
+    scales = [global_model_0.n_points, global_model_1.n_points]
     weights = [global_model_0.model.get_weights(), global_model_1.model.get_weights()]
     new_global_model_weights = average_weights(weights, scales)
     new_global_model = get_init_model(dataset, seed)
