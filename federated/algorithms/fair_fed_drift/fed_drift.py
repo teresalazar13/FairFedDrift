@@ -226,7 +226,6 @@ def get_distance(global_model_a, global_model_b, dataset, metrics_clustering, th
             for result_a_b, result_a_a, threshold in zip(results_a_b, results_a_a, thresholds):
                 distance = abs(result_a_b - result_a_a)
                 if distance > threshold:
-                    print(result_a_b, result_a_a, distance, "made exit")
                     return WORST_LOSS  # EXIT
                 else:
                     distance_list.append(distance)
@@ -280,15 +279,10 @@ def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances
     new_global_model_created = global_models.create_new_global_model(
         new_global_model, global_model_0.name, global_model_1.name
     )
-    clients = copy.deepcopy(global_model_0.clients)
+    for client_id, client_data in global_model_0.clients.items():
+        new_global_model_created.set_client(client_id, client_data)
     for client_id, client_data in global_model_1.clients.items():
-        if client_id in clients:
-            clients[client_id].x = np.append(clients[client_id].x, client_data.x)
-            clients[client_id].y = np.append(clients[client_id].y, client_data.y)
-            clients[client_id].s = np.append(clients[client_id].s, client_data.s)
-        else:
-            clients[client_id] = client_data
-    new_global_model_created.clients = clients
+        new_global_model_created.set_client(client_id, client_data)
 
     # Create new column and row for new model id and update distances
     new_row = []

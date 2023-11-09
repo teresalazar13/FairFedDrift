@@ -30,7 +30,8 @@ class GlobalModel:
 
         proportion = len(x) / self.n_points
         size = int(len(x) * proportion)
+        print(len(x), self.n_points, size)
         idx = np.random.choice(np.arange(len(x)), size, replace=False)
-        print(idx, len(x), self.n_points, size)
+        print(idx)
 
         return ClientData(x[idx], y[idx], s[idx])
