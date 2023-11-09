@@ -1,3 +1,5 @@
+import numpy as np
+
 from federated.algorithms.Algorithm import Algorithm, get_y, average_weights
 from federated.algorithms.fair_fed_drift.ClientData import ClientData
 from federated.algorithms.fair_fed_drift.ClientIdentity import ClientIdentity
@@ -279,11 +281,11 @@ def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances
         new_global_model, global_model_0.name, global_model_1.name
     )
     clients = copy.deepcopy(global_model_0.clients)
-    for client_id, client_data in global_model_1.clients:
+    for client_id, client_data in global_model_1.clients.items():
         if client_id in clients:
-            clients[client_id].x.extend(client_data.x)
-            clients[client_id].y.extend(client_data.y)
-            clients[client_id].s.extend(client_data.s)
+            clients[client_id].x = np.append(clients[client_id].x, client_data.x)
+            clients[client_id].y = np.append(clients[client_id].y, client_data.y)
+            clients[client_id].s = np.append(clients[client_id].s, client_data.s)
         else:
             clients[client_id] = client_data
     new_global_model_created.clients = clients

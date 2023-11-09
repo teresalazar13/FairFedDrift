@@ -17,13 +17,9 @@ class GlobalModel:
         if client_id not in self.clients:
             self.clients[client_id] = client_data
         else:
-            x = self.clients[client_id].x.tolist()
-            x.extend(client_data.x.tolist())
-            y = self.clients[client_id].y.tolist()
-            y.extend(client_data.y.tolist())
-            s = self.clients[client_id].s.tolist()
-            s.extend(client_data.s.tolist())
-            self.clients[client_id] = ClientData(np.array(x), np.array(y), np.array(s))
+            self.clients[client_id].x = np.append(self.clients[client_id].x, client_data.x)
+            self.clients[client_id].y = np.append(self.clients[client_id].y, client_data.y)
+            self.clients[client_id].s = np.append(self.clients[client_id].s, client_data.s)
 
         self.n_points += len(client_data.x)
 
@@ -34,7 +30,7 @@ class GlobalModel:
 
         proportion = len(x) / self.n_points
         size = int(len(x) * proportion)
-        perm = list(range(0, size))
-        random.shuffle(perm)
+        idx = np.random.choice(np.arange(len(x)), size, replace=False)
+        print(idx, len(x), self.n_points, size)
 
-        return ClientData(np.array(x)[perm], np.array(y)[perm], np.array(s)[perm])
+        return ClientData(x[idx], y[idx], s[idx])
