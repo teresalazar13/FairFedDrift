@@ -51,16 +51,18 @@ class FedDrift(Algorithm):
             )
 
             if timestep != dataset.n_timesteps - 1:
-                # STEP 2 - Recalculate Global Models using data from next timestep
-                # (cluster identities for next timestep)
-                # and detect concept drift
+                # STEP 2 - Detect Concept Drift on data from next timestep
+                # Update client identities
                 global_models, global_models_to_create, clients_identities, minimum_loss_clients = update_global_models(
                     self.metrics_clustering, self.thresholds, clients_data[timestep_to_test], global_models, dataset,
                     seed, clients_identities, minimum_loss_clients
                 )
 
                 # STEP 3 - Merge Global Models
-                global_models = merge_global_models(self.metrics_clustering, self.thresholds, global_models, dataset, seed)
+                # Update client identities
+                global_models, clients_identities = merge_global_models(
+                    self.metrics_clustering, self.thresholds, global_models, dataset, seed, clients_identities
+                )
 
                 # STEP 2.1 - create global models from drifted clients
                 # (has to be after merge - don't want to try to merge drifted clients)
@@ -245,11 +247,11 @@ def get_distance(global_model_a, global_model_b, dataset, metrics_clustering, th
     return maximum_distance
 
 
-def merge_global_models(metrics_clustering, thresholds, global_models, dataset, seed):
+def merge_global_models(metrics_clustering, thresholds, global_models, dataset, seed, clients_identities):
     size = global_models.current_size
     if size > 25:
         raise Exception("Number of global models > 25")
-    distances = [[WORST_LOSS for _ in range(len(thresholds)) for _ in range(size)] for _ in range(size)]  # TODO (?)
+    distances = [[WORST_LOSS for _ in range(len(thresholds)) for _ in range(size)] for _ in range(size)]
 
     for i in range(len(global_models.models) - 1):
         for j in range(i + 1, len(global_models.models)):
@@ -270,12 +272,14 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
         id_0, id_1, found = get_next_best_results(distances)
         if found:
             print("Merged models {} and {}".format(id_0, id_1))
-            global_models, distances = merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances)
+            global_models, distances, clients_identities = merge_global_models_spec(
+                dataset, seed, global_models, id_0, id_1, distances, clients_identities
+            )
         else:
-            return global_models
+            return global_models, clients_identities
 
 
-def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances):
+def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances, clients_identities):
     global_model_0 = global_models.get_model(id_0)
     global_model_1 = global_models.get_model(id_1)
     scales = [global_model_0.n_points, global_model_1.n_points]
@@ -314,7 +318,14 @@ def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances
     global_models.deleted_merged_model(id_0)
     global_models.deleted_merged_model(id_1)
 
-    return global_models, distances
+    # Update clients_identities
+    max_len =  max([len(_) for _ in clients_identities]) # len of clients that didn't drift and could be merged
+    for client_identities in clients_identities:
+        if len(client_identities) == max_len and \
+                (client_identities[-1].id == id_0 or client_identities[-1].id == id_1):
+            client_identities[-1] = ClientIdentity(new_global_model_created.id, new_global_model_created.name)
+
+    return global_models, distances, clients_identities
 
 
 def print_matrix(matrix):
