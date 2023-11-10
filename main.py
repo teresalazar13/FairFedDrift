@@ -53,8 +53,8 @@ if __name__ == '__main__':
     algorithm, dataset, varying_disc = get_arguments()
     generate_directories(dataset, algorithm.subfolders, varying_disc)
     clients_data = dataset.create_batched_data(varying_disc)
-    clients_metrics, clients_identities = algorithm.perform_fl(seed, clients_data, dataset)
-    save_clients_identities(clients_identities, dataset.get_folder(algorithm.subfolders, varying_disc))
+    clients_metrics, clients_identities, clients_identities_string = algorithm.perform_fl(seed, clients_data, dataset)
+    save_clients_identities(clients_identities_string, dataset.get_folder(algorithm.subfolders, varying_disc))
 
     for i in range(len(clients_metrics)):
         drift_ids_col = dataset.drift_ids_col[i][1:]

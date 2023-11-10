@@ -59,11 +59,7 @@ def plot_algorithms(res_clients_list, algs, filename, metric, title):
     plt.close()
     print("Values for drift:", to_print)
 
-def save_clients_identities(clients_identities, folder):
-    clients_identities_reverse = [[0 for _ in range(len(clients_identities))] for _ in range(len(clients_identities[0]))]
-    for i in range(len(clients_identities)):
-        for j in range(len(clients_identities[0])):
-            clients_identities_reverse[j][i] = clients_identities[i][j]
-
-    df = pd.DataFrame(clients_identities_reverse)
-    df.to_csv("{}/clients_identities.csv".format(folder))
+def save_clients_identities(clients_identities_string, folder):
+    f = open("{}/clients_identities.csv".format(folder), "w+")
+    f.write(clients_identities_string)
+    f.close()

@@ -46,24 +46,31 @@ class FedDrift(Algorithm):
                 timestep_to_test = 0
 
             # STEP 1 - Test each client's data on data from next timestep
-            test_models(global_models, clients_data[timestep_to_test], clients_metrics, dataset, clients_identities, seed)
-
-            # STEP 2 - Recalculate Global Models using data from next timestep (cluster identities for next timestep)
-            # and detect concept drift
-            global_models, global_models_to_create, clients_identities, minimum_loss_clients = update_global_models(
-                self.metrics_clustering, self.thresholds, clients_data[timestep_to_test], global_models, dataset, seed,
-                clients_identities, minimum_loss_clients
+            test_models(
+                global_models, clients_data[timestep_to_test], clients_metrics, dataset, clients_identities, seed
             )
 
-            # STEP 3 - Merge Global Models
-            global_models = merge_global_models(self.metrics_clustering, self.thresholds, global_models, dataset, seed)
+            if timestep != dataset.n_timesteps - 1:
+                # STEP 2 - Recalculate Global Models using data from next timestep
+                # (cluster identities for next timestep)
+                # and detect concept drift
+                global_models, global_models_to_create, clients_identities, minimum_loss_clients = update_global_models(
+                    self.metrics_clustering, self.thresholds, clients_data[timestep_to_test], global_models, dataset,
+                    seed, clients_identities, minimum_loss_clients
+                )
 
-            # STEP 2.1 - create global models from drifted clients (has to be after merge - don't want to try to merge drifted clients)
-            global_models, clients_identities = create_global_models_drifted_clients(
-                global_models, global_models_to_create, clients_identities
-            )
+                # STEP 3 - Merge Global Models
+                global_models = merge_global_models(self.metrics_clustering, self.thresholds, global_models, dataset, seed)
 
-        return clients_metrics, clients_identities
+                # STEP 2.1 - create global models from drifted clients
+                # (has to be after merge - don't want to try to merge drifted clients)
+                global_models, clients_identities = create_global_models_drifted_clients(
+                    global_models, global_models_to_create, clients_identities
+                )
+
+        clients_identities_string = print_clients_identities(clients_identities)
+
+        return clients_metrics, clients_identities, clients_identities_string
 
 
 def get_init_model(dataset, seed):
@@ -87,9 +94,12 @@ def test_models(global_models, clients_data_timestep, clients_metrics, dataset, 
 
 def print_clients_identities(clients_identities):
     print("\nClients identities")
+    string = "Clients identities\n"
 
     for timestep in range(len(clients_identities[0])):
         print("\nTimestep ", timestep)
+        string += "\nTimestep " + str(timestep) + "\n"
+
         identities = {}
         for client in range(len(clients_identities)):
             client_identity_timestep = clients_identities[client][timestep].name
@@ -100,6 +110,9 @@ def print_clients_identities(clients_identities):
 
         for model_id, clients in identities.items():
             print("Model id: ", model_id, ":", clients)
+            string += "Model id: " + model_id + ":" + ",".join([str(c) for c in clients]) + "\n"
+
+    return string
 
 
 def get_model_client(global_models, global_model_id, dataset, seed):
