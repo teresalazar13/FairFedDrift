@@ -28,7 +28,6 @@ def read_results(metrics, filename):
 
 def plot_algorithms(res_clients_list, algs, filename, metric, title):
     fig = plt.figure()
-    to_print = ""
     for res_clients, alg in zip(res_clients_list, algs):
         avg = []
         for i in range(len(res_clients[0][metric].values)):
@@ -41,10 +40,6 @@ def plot_algorithms(res_clients_list, algs, filename, metric, title):
                     current_drift_id = res_clients[j]["drift-id"][i]
                     if current_drift_id == previous_drift_id:
                         values.append(res_clients[j][metric].values[i])
-            if metric in ["Loss", "LossPrivileged", "LossUnprivileged"] and i == 0 and alg == "FedAvg":
-                maximum = max(values)
-                deviation = np.std(values)
-                to_print += "{}: {:.2f} {:.2f} {:.2f}\n".format(metric, maximum, maximum-0.5*deviation, maximum-deviation)
             avg.append(sum(values) / len(values))
         print("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(avg[1:])/len(avg[1:]), statistics.stdev(avg[1:])))
         plt.plot(range(1, len(res_clients[0][metric].values)), avg[1:], label=alg)
@@ -57,7 +52,6 @@ def plot_algorithms(res_clients_list, algs, filename, metric, title):
     fig.subplots_adjust(bottom=0.25)
     plt.savefig(filename)
     plt.close()
-    print("Values for drift:", to_print)
 
 def save_clients_identities(clients_identities_string, folder):
     f = open("{}/clients_identities.csv".format(folder), "w+")

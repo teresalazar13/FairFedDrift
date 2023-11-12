@@ -26,7 +26,7 @@ class FedAvg(Algorithm):
             for _ in range(dataset.n_timesteps):
                 clients_identities[i].append(0)
 
-        return clients_metrics, clients_identities
+        return clients_metrics, clients_identities, ""
 
 
 def train_and_average(global_model, dataset, clients_data, timestep, seed):

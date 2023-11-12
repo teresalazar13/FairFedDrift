@@ -23,7 +23,7 @@ class Oracle(Algorithm):
                 timestep_to_test = 0
             test_models(global_models, clients_data, clients_metrics, dataset, timestep, timestep_to_test)
 
-        return clients_metrics, clients_identities
+        return clients_metrics, clients_identities, ""
 
 
 def setup(seed, dataset):
