@@ -54,6 +54,7 @@ def plot_algorithms(res_clients_list, algs, filename, metric, title):
     plt.close()
 
 def save_clients_identities(clients_identities_string, folder):
-    f = open("{}/clients_identities.csv".format(folder), "w+")
-    f.write(clients_identities_string)
-    f.close()
+    if clients_identities_string:
+        f = open("{}/clients_identities.txt".format(folder), "w+")
+        f.write(clients_identities_string)
+        f.close()

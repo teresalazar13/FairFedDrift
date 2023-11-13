@@ -38,7 +38,11 @@ def perform_fl(self, seed, clients_data, dataset):
 
     for timestep in range(dataset.n_timesteps):
         print_clients_identities(clients_identities)
+        print("Minimum Loss Clients")
         print_matrix(minimum_loss_clients)
+        print("Current Global Models")
+        for gm in global_models.models:
+            print("id: {}, name: {}".format(gm.id, gm.name))
 
         # STEP 4 - Train and average models with data from this timestep
         global_models = train_and_average(
@@ -256,7 +260,7 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
     size = global_models.current_size
     if size > 25:
         raise Exception("Number of global models > 25")
-    distances = [[WORST_LOSS for _ in range(len(thresholds)) for _ in range(size)] for _ in range(size)]
+    distances = [[WORST_LOSS for _ in range(size)] for __ in range(size)]
 
     for i in range(len(global_models.models) - 1):
         for j in range(i + 1, len(global_models.models)):
@@ -276,7 +280,6 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
         print_matrix(distances)
         id_0, id_1, found = get_next_best_results(distances)
         if found:
-            print("Merged models {} and {}".format(id_0, id_1))
             global_models, distances, clients_identities = merge_global_models_spec(
                 dataset, seed, global_models, id_0, id_1, distances, clients_identities
             )
@@ -297,6 +300,11 @@ def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances
     new_global_model_created = global_models.create_new_global_model(
         new_global_model, global_model_0.name, global_model_1.name
     )
+    print("Created global model id:{}, name:{} from models id:{}, name:{} and id:{}, name:{}".format(
+        new_global_model_created.id, new_global_model_created.name,
+        global_model_0.id, global_model_0.name,
+        global_model_1.id, global_model_1.name
+    ))
     for client_id, client_data in global_model_0.clients.items():
         new_global_model_created.set_client(client_id, client_data)
     for client_id, client_data in global_model_1.clients.items():
@@ -324,12 +332,10 @@ def merge_global_models_spec(dataset, seed, global_models, id_0, id_1, distances
     global_models.deleted_merged_model(id_1)
 
     # Update clients_identities
-    max_len =  max([len(_) for _ in clients_identities]) # len of clients that didn't drift and could be merged
+    max_len =  max([len(_) for _ in clients_identities])  # len of clients that didn't drift and could be merged
     for client_identities in clients_identities:
-        if len(client_identities) == max_len and \
-                (client_identities[-1].id == id_0 or client_identities[-1].id == id_1):
+        if len(client_identities) == max_len and (client_identities[-1].id == id_0 or client_identities[-1].id == id_1):
             client_identities[-1] = ClientIdentity(new_global_model_created.id, new_global_model_created.name)
-
     return global_models, distances, clients_identities
 
 

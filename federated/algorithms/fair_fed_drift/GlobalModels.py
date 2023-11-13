@@ -19,6 +19,8 @@ class GlobalModels:
         self.current_size = self.current_size + 1
         self.models.append(new_global_model)
 
+        print("Created new Global Model with id: {}, name: {}".format(id, name))
+
         return new_global_model
 
     def get_model(self, global_model_id):
