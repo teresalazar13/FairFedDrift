@@ -119,9 +119,9 @@ def print_clients_identities(clients_identities):
             else:
                 identities[client_identity_timestep] = [client]
 
-        for model_id, clients in identities.items():
-            print("Model id: ", model_id, ":", clients)
-            string += "Model id: " + model_id + ":" + ",".join([str(c) for c in clients]) + "\n"
+        for model_name, clients in identities.items():
+            print("Model name", model_name, ":", clients)
+            string += "Model name " + model_name + ":" + ",".join([str(c) for c in clients]) + "\n"
 
     return string
 
