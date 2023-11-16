@@ -10,7 +10,7 @@ class Dataset:
         self.is_binary_target = is_binary_target
 
         if self.is_large:
-            self.n_rounds = 100  # number of rounds per timestep
+            self.n_rounds = 10  # number of rounds per timestep
         else:
             self.n_rounds = 10  # number of rounds per timestep
 

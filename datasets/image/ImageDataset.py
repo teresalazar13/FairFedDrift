@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from matplotlib import pyplot as plt
+from scipy.ndimage import rotate
 from tensorflow.keras.utils import to_categorical
 from datasets.Dataset import Dataset
 
@@ -19,6 +19,9 @@ class ImageDataset(Dataset):
         X_priv = self.X
         y_priv = self.y
 
+        if self.is_large:
+            X_priv, y_priv = self.augment(self.X, self.y)
+
         batched_data = []
         X_priv_rounds = np.array_split(X_priv, n_timesteps)
         y_priv_rounds = np.array_split(y_priv, n_timesteps)
@@ -32,7 +35,7 @@ class ImageDataset(Dataset):
                 X_priv_round_client = X_priv_round_clients[j]
                 y_priv_round_client = y_priv_round_clients[j]
                 size_unpriv = round(len(X_priv_round_client) * varying_disc)
-                X_unpriv_round_client = self.rotate(X_priv_round_client)
+                X_unpriv_round_client = self.negate(X_priv_round_client)
                 y_unpriv_round_client = y_priv_round_client.copy()
                 if drift_id != 0:
                     y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
@@ -55,18 +58,34 @@ class ImageDataset(Dataset):
 
         return batched_data
 
-    def rotate(self, X_priv_round_client):
+    def negate(self, X_priv_round_client):
         if self.input_shape[2] == 1:
             return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
 
         elif self.input_shape[2] == 3:
-            X_train_rotated_negated = np.empty_like(X_priv_round_client)
-            for i in range(len(X_priv_round_client)):
-                for channel in range(3):  # 3 channels for RGB
-                    rotated_channel = np.rot90(X_priv_round_client[i, :, :, channel], k=1)  # Rotate 90 degrees
-                    X_train_rotated_negated[i, :, :, channel] = rotated_channel * -1
-
-            return X_train_rotated_negated
+            return X_priv_round_client * -1
 
         else:
             raise Exception("Can't rotate for shape ", self.input_shape)
+
+    def augment(self, X, Y):
+        X_augmented = []
+        Y_augmented = []
+
+        for i in range(len(X)):
+            x = X[i]
+            y = Y[i]
+
+            angles = np.linspace(-20, 20, 10)
+            for angle in angles:
+                x_augmented = rotate(x, angle, reshape=False)
+                X_augmented.append(x_augmented)
+                Y_augmented.append(y)
+
+        X_augmented = np.array(X_augmented)
+        Y_augmented = np.array(Y_augmented)
+
+        indices = np.arange(len(X_augmented))
+        np.random.shuffle(indices)
+
+        return X_augmented[indices], Y_augmented[indices]
