@@ -30,7 +30,8 @@ if __name__ == '__main__':
         res_clients_list.append(res_clients)
 
     for metric in get_metrics(dataset.is_binary_target):
-        title = "{}-{}".format(dataset.name, str(varying_disc))
-        plot_algorithms(
-            res_clients_list, algs, "{}/results_{}-{}.png".format(main_folder, title, metric.name), metric.name, title
+        title = r'{} ($\alpha$={})'.format(dataset.name, str(varying_disc))
+        plot_algorithms(res_clients_list, algs,
+            "{}/results_{}-{}-{}.png".format(main_folder, dataset.name, str(varying_disc), metric.name),
+            metric.name, title
         )
