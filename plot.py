@@ -7,19 +7,21 @@ import sys
 
 def get_arguments():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--scenario', required=True, help='scenario')
     parser.add_argument('--dataset', required=True, help='dataset')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
 
     args = parser.parse_args(sys.argv[1:])
+    scenario = int(args.scenario)
     dataset = get_dataset_by_name(args.dataset)
     varying_disc = float(args.varying_disc)
 
-    return dataset, varying_disc
+    return scenario, dataset, varying_disc
 
 
 if __name__ == '__main__':
-    dataset, varying_disc = get_arguments()
-    main_folder, all_folders, algs = dataset.get_all_folders(varying_disc)
+    scenario, dataset, varying_disc = get_arguments()
+    main_folder, all_folders, algs = dataset.get_all_folders(scenario, varying_disc)
 
     res_clients_list = []
     for folder_ in all_folders:

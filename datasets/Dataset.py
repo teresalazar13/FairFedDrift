@@ -10,32 +10,8 @@ class Dataset:
         self.is_binary_target = is_binary_target
         self.n_rounds = 10  # number of rounds per timestep
 
-        if self.is_binary_target:
-            drift_ids = [
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 6
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # timestep 7
-                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
-                [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
-            ]
-        else:
-            drift_ids = [
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 0
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # timestep 1
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 2 -> CONCEPT DRIFT
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 3
-                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],  # timestep 4
-                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 5 -> CONCEPT DRIFT
-                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 6
-                [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],  # timestep 7
-                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 8 -> CONCEPT DRIFT
-                [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],  # timestep 9
-            ]
+    def set_drifts(self, scenario):
+        drift_ids = get_drift_ids(scenario)
         self.drift_ids = drift_ids
         self.drift_ids_col, self.n_clients, self.n_drifts, self.n_timesteps = self.get_drift_ids_col(drift_ids)
 
@@ -51,11 +27,11 @@ class Dataset:
 
         return drift_ids_col, n_clients, len(drifts), len(drift_ids)
 
-    def get_folder(self, algorithm_subfolders, varying_disc):
-        return "./results/{}/disc_{}/{}".format(self.name, varying_disc, algorithm_subfolders)
+    def get_folder(self, scenario, algorithm_subfolders, varying_disc):
+        return "./results/scenario-{}/{}/disc_{}/{}".format(scenario, self.name, varying_disc, algorithm_subfolders)
 
-    def get_all_folders(self, varying_disc):
-        folder = "./results/{}/disc_{}".format(self.name, varying_disc)
+    def get_all_folders(self, scenario, varying_disc):
+        folder = "./results/scenario-{}/{}/disc_{}".format(scenario, self.name, varying_disc)
         folders = []
         algs = []
         for x in os.walk(folder):
@@ -67,3 +43,13 @@ class Dataset:
                     algs.append(a)
 
         return folder, folders, algs
+
+
+def get_drift_ids(scenario):
+    f = open("./datasets/scenarios/{}.csv".format(scenario))
+    drift_ids = f.read().split("\n")
+    drift_ids = [d.split(",") for d in drift_ids]
+    drift_ids = [[int(a) for a in b] for b in drift_ids]
+    f.close()
+
+    return drift_ids

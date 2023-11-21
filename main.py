@@ -12,23 +12,26 @@ import tensorflow as tf
 
 def get_arguments():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--scenario', required=True, help='scenario')
     parser.add_argument('--fl', required=True, help='algorithm')
     parser.add_argument('--dataset', required=True, help='dataset')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
     parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')
 
     args = parser.parse_args(sys.argv[1:])
+    scenario = int(args.scenario)
     algorithm = get_algorithm_by_name(args.fl)
     dataset = get_dataset_by_name(args.dataset)
+    dataset.set_drifts(scenario)
     if args.thresholds:
         algorithm.set_specs(args)
     varying_disc = float(args.varying_disc)
 
-    return algorithm, dataset, varying_disc
+    return scenario, algorithm, dataset, varying_disc
 
 
-def generate_directories(dataset, algorithm_subfolders, varying_disc):
-    folder = dataset.get_folder(algorithm_subfolders, varying_disc)
+def generate_directories(scenario, dataset, algorithm_subfolders, varying_disc):
+    folder = dataset.get_folder(scenario, algorithm_subfolders, varying_disc)
     if os.path.exists(folder):
         shutil.rmtree(folder)
 
@@ -50,16 +53,16 @@ def set_seeds(seed):
 if __name__ == '__main__':
     seed = 10
     set_seeds(seed)
-    algorithm, dataset, varying_disc = get_arguments()
-    generate_directories(dataset, algorithm.subfolders, varying_disc)
+    scenario, algorithm, dataset, varying_disc = get_arguments()
+    generate_directories(scenario, dataset, algorithm.subfolders, varying_disc)
     clients_data = dataset.create_batched_data(varying_disc)
     clients_metrics, clients_identities, clients_identities_string = algorithm.perform_fl(seed, clients_data, dataset)
-    save_clients_identities(clients_identities_string, dataset.get_folder(algorithm.subfolders, varying_disc))
+    save_clients_identities(clients_identities_string, dataset.get_folder(scenario, algorithm.subfolders, varying_disc))
 
     for i in range(len(clients_metrics)):
         drift_ids_col = dataset.drift_ids_col[i][1:]
         drift_ids_col.append(dataset.drift_ids_col[i][0])
         save_results(
             clients_metrics[i], drift_ids_col, clients_identities[i],
-            "{}/client_{}/results.csv".format(dataset.get_folder(algorithm.subfolders, varying_disc), i+1)
+            "{}/client_{}/results.csv".format(dataset.get_folder(scenario, algorithm.subfolders, varying_disc), i+1)
         )
