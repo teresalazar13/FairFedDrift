@@ -41,7 +41,7 @@ def plot_algorithms(res_clients_list, algs, filename, metric, title):
             avg.append(sum(values) / len(values))
         print("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(avg)/len(avg), statistics.stdev(avg)))
         if "ignore" not in alg:
-            plt.plot(range(0, len(res_clients[0][metric].values)), avg, label=alg.split(";")[0])
+            plt.plot(range(0, len(res_clients[0][metric].values)), avg, label=alg.split(";")[1])
     plt.title(title)
     plt.xticks(range(0, 10))
     plt.xlabel("time")

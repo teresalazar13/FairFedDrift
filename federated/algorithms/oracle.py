@@ -8,7 +8,8 @@ class Oracle(Algorithm):
 
     def __init__(self):
         name = "Oracle"
-        super().__init__(name)
+        color = "red"
+        super().__init__(name, color)
 
     def perform_fl(self, seed, clients_data, dataset):
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
