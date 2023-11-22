@@ -64,7 +64,6 @@ def get_best_results_dict(all_results_dict):
                 if bacc > best_bacc:
                     best_bacc = bacc
                     best_results = results_dict
-            print(alg, scenario, best_results)
             if alg not in best_results_dict:
                 best_results_dict[alg] = {scenario: best_results}
             best_results_dict[alg][scenario] = best_results
@@ -83,9 +82,11 @@ def print_average_results(best_results_dict):
                 else:
                     avg_dict[
                         metric].append(res)
-        print(alg, avg_dict)
         for metric, res_list in avg_dict.items():
-            print("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(res_list)/len(res_list), statistics.stdev(res_list)))
+            if len(res_list) > 1:
+                print("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(res_list)/len(res_list), statistics.stdev(res_list)))
+            else:
+                print("{} - {}: {:.2f}".format(alg, metric, sum(res_list)/len(res_list)))
 
 if __name__ == '__main__':
     scenarios, datasets, varying_disc = get_arguments()
