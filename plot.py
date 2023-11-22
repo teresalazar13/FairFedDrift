@@ -14,6 +14,7 @@ def get_arguments():
     args = parser.parse_args(sys.argv[1:])
     scenario = int(args.scenario)
     dataset = get_dataset_by_name(args.dataset)
+    dataset.set_drifts(scenario)
     varying_disc = float(args.varying_disc)
 
     return scenario, dataset, varying_disc
