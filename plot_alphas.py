@@ -96,18 +96,17 @@ def plot_all(varying_discs, best_results_dict_list, dataset, scenario):
                     results_dict[metric][alg].append(res)
 
     for metric, results in results_dict.items():
-        fig = plt.figure()
+        plt.figure(figsize=(5,3.5))
         for alg, values in results.items():
             if len(values) == len(varying_discs):
                 plt.scatter(varying_discs, values, label=alg, color=get_algorithm_by_name(alg).color, s=20)
-        title = "{} - {} results across varying $\\alpha$".format(dataset.name, metric)
-        filename = "./results/scenario-{}/{}/results-{}.png".format(scenario, dataset.name, metric)
-        plt.title(title)
+        filename = "./results/scenario-{}/{}/results-{}-{}.png".format(scenario, dataset.name, dataset.name, metric)
+        plt.tight_layout()
+        plt.subplots_adjust(bottom=0.15, left=0.15)
         plt.xlabel("$\\alpha$")
         plt.ylabel(metric)
         plt.xticks(varying_discs, varying_discs)
-        plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.4))
-        fig.subplots_adjust(bottom=0.25)
+        plt.legend(loc="lower right")
         plt.savefig(filename)
         plt.close()
 
