@@ -1,12 +1,12 @@
 from matplotlib import pyplot as plt
 
 from datasets.DatasetFactory import get_dataset_by_name
+from federated.algorithms.AlgorithmFactory import get_algorithm_by_name
 from metrics.MetricFactory import get_metrics
 from plot.plot import read_results
 import argparse
 import sys
 import json
-import statistics
 
 
 def get_arguments():
@@ -71,7 +71,10 @@ def get_best_results_dict(all_results_dict):
 
 def plot_algorithms(best_results_dict, filename, metric, title):
     for alg, res_clients in best_results_dict.items():
-        plt.plot(range(0, len(res_clients[metric][1])), res_clients[metric][1], label=alg)
+        plt.plot(
+            range(0, len(res_clients[metric][1])), res_clients[metric][1], label=alg,
+            color=get_algorithm_by_name(alg).color
+        )
     plt.title(title)
     plt.xticks(range(0, 10))
     plt.xlabel("time")

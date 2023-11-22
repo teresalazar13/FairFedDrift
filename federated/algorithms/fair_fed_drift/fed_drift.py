@@ -16,7 +16,8 @@ class FedDrift(Algorithm):
         self.metrics_clustering = [Loss()]
         self.thresholds = []
         name = "FedDrift"
-        super().__init__(name)
+        color = "green"
+        super().__init__(name, color)
 
     def set_specs(self, args):
         loss_threshold = float(args.thresholds[0])

@@ -10,7 +10,8 @@ class FairFedDrift(Algorithm):
         self.metrics_clustering = [LossPrivileged(), LossUnprivileged()]
         self.thresholds = []
         name = "FairFedDrift"
-        super().__init__(name)
+        color = "orange"
+        super().__init__(name, color)
 
     def set_specs(self, args):
         threshold_p = float(args.thresholds[0])

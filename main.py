@@ -52,9 +52,9 @@ def set_seeds(seed):
 
 if __name__ == '__main__':
     os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
-    seed = 10
-    set_seeds(seed)
     scenario, algorithm, dataset, varying_disc = get_arguments()
+    seed = scenario
+    set_seeds(seed)
     generate_directories(scenario, dataset, algorithm.subfolders, varying_disc)
     clients_data = dataset.create_batched_data(varying_disc)
     clients_metrics, clients_identities, clients_identities_string = algorithm.perform_fl(seed, clients_data, dataset)
