@@ -51,6 +51,7 @@ def set_seeds(seed):
 
 
 if __name__ == '__main__':
+    os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
     seed = 10
     set_seeds(seed)
     scenario, algorithm, dataset, varying_disc = get_arguments()
