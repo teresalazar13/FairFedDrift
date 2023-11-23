@@ -4,10 +4,11 @@ import tensorflow as tf
 
 class Algorithm:
 
-    def __init__(self, name, color):
+    def __init__(self, name, color, marker):
         self.name = name
         self.subfolders = name
         self.color = color
+        self.marker = marker
 
     def set_subfolders(self, subfolders):
         self.subfolders = subfolders

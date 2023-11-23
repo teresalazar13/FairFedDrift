@@ -72,11 +72,11 @@ def get_best_results_dict(all_results_dict):
 def plot_algorithms(best_results_dict, filename, metric, title):
     plt.figure(figsize=(5, 3.5))
     for alg, res_clients in best_results_dict.items():
-        if alg == "FedAvg":
-            plt.plot(
-                range(0, len(res_clients[metric][1])), res_clients[metric][1], label=alg,
-                color=get_algorithm_by_name(alg).color
-            )
+        print(alg, metric, res_clients[metric][1])
+        plt.plot(
+            range(0, len(res_clients[metric][1])), res_clients[metric][1], label=alg,
+            color=get_algorithm_by_name(alg).color, marker=get_algorithm_by_name(alg).marker
+        )
     plt.title(title)
     plt.xticks(range(0, 10))
     plt.xlabel("timestep")

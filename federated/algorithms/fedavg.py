@@ -8,7 +8,8 @@ class FedAvg(Algorithm):
     def __init__(self):
         name = "FedAvg"
         color = "blue"
-        super().__init__(name, color)
+        marker = "+"
+        super().__init__(name, color, marker)
 
     def perform_fl(self, seed, clients_data, dataset):
         global_model = NN_model(dataset, seed)

@@ -17,7 +17,8 @@ class FedDrift(Algorithm):
         self.thresholds = []
         name = "FedDrift"
         color = "green"
-        super().__init__(name, color)
+        marker = "v"
+        super().__init__(name, color, marker)
 
     def set_specs(self, args):
         loss_threshold = float(args.thresholds[0])
