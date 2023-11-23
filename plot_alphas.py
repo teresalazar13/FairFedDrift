@@ -107,6 +107,7 @@ def plot_all(varying_discs, best_results_dict_list, dataset, scenario):
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.15, left=0.15)
         plt.xlabel("$\\alpha$")
+        metric = metric.replace("BalancedACC", "B-AAC")
         plt.ylabel(metric)
         plt.xticks(varying_discs, varying_discs)
         plt.legend(loc="lower right")
