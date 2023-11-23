@@ -99,7 +99,10 @@ def plot_all(varying_discs, best_results_dict_list, dataset, scenario):
         plt.figure(figsize=(5,3.5))
         for alg, values in results.items():
             if len(values) == len(varying_discs):
-                plt.scatter(varying_discs, values, label=alg, color=get_algorithm_by_name(alg).color, s=20)
+                plt.scatter(
+                    varying_discs, values, label=alg, s=20,
+                    color=get_algorithm_by_name(alg).color, marker=get_algorithm_by_name(alg).marker
+                )
         filename = "./results/scenario-{}/{}/results-{}-{}.png".format(scenario, dataset.name, dataset.name, metric)
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.15, left=0.15)

@@ -11,7 +11,8 @@ class FairFedDrift(Algorithm):
         self.thresholds = []
         name = "FairFedDrift"
         color = "orange"
-        super().__init__(name, color)
+        marker = "*"
+        super().__init__(name, color, marker)
 
     def set_specs(self, args):
         threshold_p = float(args.thresholds[0])
