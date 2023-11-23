@@ -75,7 +75,7 @@ def plot_algorithms(best_results_dict, filename, metric, title):
         print(alg, metric, res_clients[metric][1])
         plt.plot(
             range(0, len(res_clients[metric][1])), res_clients[metric][1], label=alg,
-            color=get_algorithm_by_name(alg).color, marker=get_algorithm_by_name(alg).marker
+            color=get_algorithm_by_name(alg).color
         )
     plt.title(title)
     plt.xticks(range(0, 10))
