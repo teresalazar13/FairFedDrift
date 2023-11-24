@@ -18,7 +18,5 @@ class Loss(Metric):
             loss = tf.keras.losses.categorical_crossentropy(y_true_raw, y_pred_raw)
 
         mean_loss = tf.reduce_mean(loss).numpy()
-        print(mean_loss)
-        exit()
 
         return mean_loss
