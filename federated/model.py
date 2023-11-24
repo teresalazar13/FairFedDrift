@@ -6,33 +6,35 @@ class NN_model:
         self.batch_size = 32
         self.n_epochs = 5
 
+        initializer = tf.keras.initializers.RandomNormal(seed=seed)
+
         if dataset.is_large:
             self.model = tf.keras.models.Sequential()
-            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same',
+            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kkernel_initializer=initializer, padding='same',
                              input_shape=dataset.input_shape))
-            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer=initializer, padding='same'))
             self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-            self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
-            self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+            self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', kernel_initializer=initializer, padding='same'))
+            self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', kernel_initializer=initializer, padding='same'))
             self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-            self.model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
-            self.model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+            self.model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', kernel_initializer=initializer, padding='same'))
+            self.model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', kernel_initializer=initializer, padding='same'))
             self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
             self.model.add(tf.keras.layers.Flatten())
-            self.model.add(tf.keras.layers.Dense(128, activation='relu', kernel_initializer='he_uniform'))
+            self.model.add(tf.keras.layers.Dense(128, activation='relu', kernel_initializer=initializer))
         else:
             self.model = tf.keras.models.Sequential()
             self.model.add(tf.keras.layers.Conv2D(
-                32, (3, 3), activation='relu', kernel_initializer='he_uniform', input_shape=dataset.input_shape)
+                32, (3, 3), activation='relu', kernel_initializer=initializer, input_shape=dataset.input_shape)
             )
             self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
             self.model.add(tf.keras.layers.Flatten())
-            self.model.add(tf.keras.layers.Dense(100, activation='relu', kernel_initializer='he_uniform'))
+            self.model.add(tf.keras.layers.Dense(100, activation='relu', kernel_initializer=initializer))
 
         if dataset.is_binary_target:
-            self.model.add(tf.keras.layers.Dense(1, activation='sigmoid', kernel_initializer='he_uniform'))
+            self.model.add(tf.keras.layers.Dense(1, activation='sigmoid', kernel_initializer=initializer))
         else:
-            self.model.add(tf.keras.layers.Dense(10, activation='softmax'))  # TODO - number of classes here
+            self.model.add(tf.keras.layers.Dense(10, activation='softmax', kernel_initializer=initializer))  # TODO - number of classes here
 
     def set_weights(self, weights):
         self.model.set_weights(weights)
