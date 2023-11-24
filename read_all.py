@@ -42,13 +42,13 @@ def avg_results(all_results_dict, scenario, res_clients_list, algs, metric):
 
         alg_main = alg.split(";")[1]
         if alg_main not in all_results_dict:
-            all_results_dict[alg_main] = {scenario: {alg: {metric: average}}}
+            all_results_dict[alg_main] = {scenario: {alg: {metric: [average, avg]}}}
         elif scenario not in all_results_dict[alg_main]:
-            all_results_dict[alg_main][scenario] = {alg: {metric: average}}
+            all_results_dict[alg_main][scenario] = {alg: {metric: [average, avg]}}
         elif alg not in all_results_dict[alg_main][scenario]:
-            all_results_dict[alg_main][scenario][alg] = {metric:average}
+            all_results_dict[alg_main][scenario][alg] = {metric: [average, avg]}
         else:
-            all_results_dict[alg_main][scenario][alg][metric] = average
+            all_results_dict[alg_main][scenario][alg][metric] = [average, avg]
 
     return all_results_dict
 
@@ -60,7 +60,7 @@ def get_best_results_dict(all_results_dict):
             best_bacc = 0
             best_results = None
             for alg_spec, results_dict in algs_results_dict.items():
-                bacc = results_dict["BalancedACC"]
+                bacc = results_dict["BalancedACC"][0]
                 if bacc > best_bacc:
                     best_bacc = bacc
                     best_results = results_dict
@@ -80,13 +80,15 @@ def print_average_results(best_results_dict):
                 if metric not in avg_dict:
                     avg_dict[metric] = [res]
                 else:
-                    avg_dict[
-                        metric].append(res)
+                    avg_dict[metric].append(res)
         for metric, res_list in avg_dict.items():
-            if len(res_list) > 1:
-                print("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(res_list)/len(res_list), statistics.stdev(res_list)))
-            else:
-                print("{} - {}: {:.2f}".format(alg, metric, sum(res_list)/len(res_list)))
+            all_results = []
+            for r in res_list:
+                all_results.extend(r[1])
+            print("{} - {}: {:.2f}+-{:.2f}".format(
+                alg, metric, sum(all_results)/len(all_results), statistics.stdev(all_results))
+            )
+
 
 if __name__ == '__main__':
     scenarios, datasets, varying_disc = get_arguments()
