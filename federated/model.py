@@ -3,12 +3,11 @@ import tensorflow as tf
 
 class NN_model:
     def __init__(self, dataset, seed):
-        self.batch_size = 32
-        self.n_epochs = 5
-
         initializer = tf.keras.initializers.RandomNormal(seed=seed)
 
         if dataset.is_large:
+            self.batch_size = 64
+            self.n_epochs = 100
             self.model = tf.keras.models.Sequential()
             self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kkernel_initializer=initializer, padding='same',
                              input_shape=dataset.input_shape))
@@ -23,6 +22,8 @@ class NN_model:
             self.model.add(tf.keras.layers.Flatten())
             self.model.add(tf.keras.layers.Dense(128, activation='relu', kernel_initializer=initializer))
         else:
+            self.batch_size = 32
+            self.n_epochs = 5
             self.model = tf.keras.models.Sequential()
             self.model.add(tf.keras.layers.Conv2D(
                 32, (3, 3), activation='relu', kernel_initializer=initializer, input_shape=dataset.input_shape)
