@@ -7,7 +7,7 @@ class NN_model:
 
         if dataset.is_large:
             self.batch_size = 64
-            self.n_epochs = 100
+            self.n_epochs = 50
             self.model = tf.keras.models.Sequential()
             self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer=initializer, padding='same',
                              input_shape=dataset.input_shape))
