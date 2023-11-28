@@ -6,8 +6,8 @@ class NN_model:
         initializer = tf.keras.initializers.RandomNormal(seed=seed)
 
         if dataset.is_large:
-            self.batch_size = 64
-            self.n_epochs = 50
+            self.batch_size = 256
+            self.n_epochs = 5
             self.model = tf.keras.models.Sequential()
             self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer=initializer, padding='same',
                              input_shape=dataset.input_shape))

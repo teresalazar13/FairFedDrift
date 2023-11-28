@@ -76,7 +76,7 @@ class ImageDataset(Dataset):
             x = X[i]
             y = Y[i]
 
-            angles = np.linspace(-20, 20, 10)
+            angles = np.linspace(-20, 20, 20)
             for angle in angles:
                 x_augmented = rotate(x, angle, reshape=False)
                 X_augmented.append(x_augmented)
