@@ -16,7 +16,11 @@ class LossPrivileged(Metric):
 
         if y_pred_raw.shape[1] == 1:
             # Binary classification problem (y_pred_raw has shape (batch_size, 1))
-            loss_s1 = tf.keras.losses.binary_crossentropy(y_true_s1, y_pred_s1)
+            y_true_s1_reshaped = tf.reshape(y_true_s1, [len(y_true_s1)])
+            y_pred_s1_reshaped = tf.reshape(y_pred_s1, [len(y_pred_s1)])
+            #print(tf.shape(y_true_s1_reshaped))
+            #print(tf.shape(y_pred_s1_reshaped))
+            loss_s1 = tf.keras.losses.binary_crossentropy(y_true_s1_reshaped, y_pred_s1_reshaped)
         else:
             # Categorical classification problem (y_pred_raw has shape (batch_size, num_classes))
             loss_s1 = tf.keras.losses.categorical_crossentropy(y_true_s1, y_pred_s1)

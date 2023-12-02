@@ -10,7 +10,8 @@ from metrics.StatisticalParity import StatisticalParity
 
 def get_metrics(is_binary_target):
     if is_binary_target:
-        return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
+        #return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
+        return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy()]
     else:
         return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy()]
 

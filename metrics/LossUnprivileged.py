@@ -16,9 +16,15 @@ class LossUnprivileged(Metric):
 
         if y_pred_raw.shape[1] == 1:
             # Binary classification problem (y_pred_raw has shape (batch_size, 1))
-            loss_s0 = tf.keras.losses.binary_crossentropy(y_true_s0, y_pred_s0)
+            y_true_s0_reshaped = tf.reshape(y_true_s0, [len(y_true_s0)])
+            y_pred_s0_reshaped = tf.reshape(y_pred_s0, [len(y_pred_s0)])
+            #print(tf.shape(y_true_s0_reshaped))
+            #print(tf.shape(y_pred_s0_reshaped))
+            loss_s0 = tf.keras.losses.binary_crossentropy(y_true_s0_reshaped, y_pred_s0_reshaped)
         else:
             # Categorical classification problem (y_pred_raw has shape (batch_size, num_classes))
+            #print(tf.shape(y_true_s0))
+            #print(tf.shape(y_pred_s0))
             loss_s0 = tf.keras.losses.categorical_crossentropy(y_true_s0, y_pred_s0)
 
         mean_loss_s0 = tf.reduce_mean(loss_s0).numpy()

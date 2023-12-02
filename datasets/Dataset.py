@@ -3,12 +3,16 @@ import os
 
 class Dataset:
 
-    def __init__(self, name, input_shape, is_large, is_binary_target):
+    def __init__(self, name, input_shape, is_large, is_binary_target, is_image=True):
         self.name = name
         self.input_shape = input_shape
         self.is_large = is_large
         self.is_binary_target = is_binary_target
-        self.n_rounds = 10  # number of rounds per timestep
+        if is_image:
+            self.n_rounds = 10  # number of rounds per timestep
+        else:
+            self.n_rounds = 1  # number of rounds per timestep
+        self.is_image = is_image
 
     def set_drifts(self, scenario):
         drift_ids = get_drift_ids(scenario)

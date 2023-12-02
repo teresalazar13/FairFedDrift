@@ -12,8 +12,9 @@ class Synthetic(Dataset):
         input_shape = 3
         is_large = False
         is_binary_target = True
-        super().__init__(name, input_shape, is_large, is_binary_target)
-        self.n_samples = 1500
+        is_image = False
+        super().__init__(name, input_shape, is_large, is_binary_target, is_image)
+        self.n_samples = 600
 
     def create_batched_data(self, varying_disc):
         drift_ids = self.drift_ids
@@ -57,7 +58,9 @@ class Synthetic(Dataset):
             if i == 0:
                 shift = 0
             elif i == 1:
-                shift = 0.5
+                shift = 2
+            elif i == 2:
+                shift = -2
             else:
                 raise Exception("Invalid drift")
             X_client, y_client, s_client = generate_synthetic_data(n_samples[i], varying_disc, shift)
@@ -84,35 +87,32 @@ def generate_synthetic_data(n_samples, varying_disc, shift):
         y = np.ones(n_samples, dtype=float) * class_label
         return nv, X, y
 
-    n_privileged = int(n_samples / (2 + 2*varying_disc))
+    n_privileged = int(n_samples / (2 + 2 * varying_disc))
     n_unprivileged = int(n_privileged * varying_disc)
-    if (n_privileged*2 + n_unprivileged*2) != n_samples:
-        n_privileged = int(n_privileged + (n_samples - (n_privileged*2 + n_unprivileged*2)) / 2)
 
-    mu_pp, sigma_pp = [2.5, 2.5], [[2, 1], [1, 2]]  # privileged positive
+    mu_pp, sigma_pp = [1, 1.5], [[2, 1], [1, 2]]  # privileged positive
     nv_pp, X_pp, y_pp = gen_gaussian(mu_pp, sigma_pp, 1, n_privileged)
 
-    mu_pn, sigma_pn = [-2, -2], [[2, 1], [1, 2]]  # privileged negative
+    mu_pn, sigma_pn = [1, -1.5], [[2, 1], [1, 2]]  # privileged negative
     nv_pn, X_pn, y_pn = gen_gaussian(mu_pn, sigma_pn, 0, n_privileged)
 
-    mu_up, sigma_up = [2 - shift, 2 - shift], [[2, 1], [1, 2]]  # unprivileged positive
+    mu_up, sigma_up = [-1, 1 - shift], [[2, 1], [1, 2]]  # unprivileged positive
     nv_up, X_up, y_up = gen_gaussian(mu_up, sigma_up, 1, n_unprivileged)
 
-    mu_un, sigma_un = [0.5, 0.5], [[2, 1], [1, 2]]  # unprivileged negative
+    mu_un, sigma_un = [-1, -1 - shift], [[2, 1], [1, 2]]  # unprivileged negative
     nv_un, X_un, y_un = gen_gaussian(mu_un, sigma_un, 0, n_unprivileged)
 
     X = np.vstack((X_pp, X_pn, X_up, X_un))
     y = np.hstack((y_pp, y_pn, y_up, y_un))
-    x_s = [0 for _ in range(len(X_pp) + len(X_pn))]
-    x_s.extend([1 for _ in range(len(X_up) + len(X_un))])
+    x_s = [1 for _ in range(len(X_pp) + len(X_pn))]
+    x_s.extend([0 for _ in range(len(X_up) + len(X_un))])
 
     # shuffle the data
-    perm = list(range(0, n_samples))
+    perm = list(range(0, n_unprivileged*2 + n_privileged*2))
     random.shuffle(perm)
     X = X[perm]
     y = y[perm]
     x_s = np.array(x_s)[perm]
-
-    print("DI Train: {:.2f}".format((len(X_up)/(len(X_up) + len(X_un)))/(len(X_pp)/(len(X_pp) + len(X_pn)))))
+    #print("DI Train: {:.2f}".format((len(X_up)/(len(X_up) + len(X_un)))/(len(X_pp)/(len(X_pp) + len(X_pn)))))
 
     return X, y, x_s

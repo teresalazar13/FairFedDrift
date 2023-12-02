@@ -57,17 +57,18 @@ def get_best_results_dict(all_results_dict):
     best_results_dict = {}
     for alg, scenarios_dict in all_results_dict.items():
         for scenario, algs_results_dict in scenarios_dict.items():
-            best_bacc = 0
+            best_value = 0
             best_results = None
             for alg_spec, results_dict in algs_results_dict.items():
                 bacc = results_dict["BalancedACC"][0]
-                if bacc > best_bacc:
-                    best_bacc = bacc
+                acc = results_dict["ACC"][0]
+                bacc_weight = 1
+                if bacc*(bacc_weight) + acc*(1-bacc_weight) > best_value:
+                    best_value = bacc*(bacc_weight) + acc*(1-bacc_weight)
                     best_results = results_dict
             if alg not in best_results_dict:
                 best_results_dict[alg] = {scenario: best_results}
             best_results_dict[alg][scenario] = best_results
-
 
     return best_results_dict
 

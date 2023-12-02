@@ -30,41 +30,26 @@ class TabularDataset(Dataset):
             for j in range(n_clients):
                 drift_id = drift_ids[i][j]
                 df_round_client = df_round_clients[j]
-                df_round_client['RAND'] = [random.random() for _ in df_round_client.index]
                 if drift_id == 1:
+                    print(len(
+                        df_round_client.loc[
+                            (df_round_client[self.sensitive_attribute.name] == 0) &
+                            (df_round_client["hours-per-week"] >= 35),
+                            self.target.name
+                        ]
+                    ))
+                    exit()
                     df_round_client.loc[
                         (df_round_client[self.sensitive_attribute.name] == 0) &
-                        (df_round_client["hours-per-week"] <= 40),
-                        self.target.name
-                    ] = 0
-                """
-                if drift_id == 1:
-                    df_round_client.loc[
-                        (df_round_client[self.sensitive_attribute.name] == 1) &
-                        (df_round_client[self.target.name] == 1) &
-                        (df_round_client["RAND"] > varying_disc),
-                        self.target.name
-                    ] = 0
-                    df_round_client.loc[
-                        (df_round_client[self.sensitive_attribute.name] == 0) &
-                        (df_round_client[self.target.name] == 0) &
-                        (df_round_client["RAND"] > varying_disc),
+                        (df_round_client["hours-per-week"] >= 35),
                         self.target.name
                     ] = 1
                 elif drift_id == 2:
                     df_round_client.loc[
-                        (df_round_client[self.sensitive_attribute.name] == 1) &
-                        (df_round_client[self.target.name] == 0) &
-                        (df_round_client["RAND"] > varying_disc),
+                        (df_round_client[self.sensitive_attribute.name] == 0) &
+                        (df_round_client["workclass"] == "Private"),
                         self.target.name
                     ] = 1
-                    df_round_client.loc[
-                        (df_round_client[self.sensitive_attribute.name] == 0) &
-                        (df_round_client[self.target.name] == 1) &
-                        (df_round_client["RAND"] > varying_disc),
-                        self.target.name
-                    ] = 0"""
-                df_round_client = df_round_client.drop(columns=['RAND'])
                 df_round_client_preprocessed = self.preprocess(df_round_client)
                 df_X = df_round_client_preprocessed.copy()
                 df_y = df_round_client_preprocessed.pop(self.target.name)
