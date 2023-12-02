@@ -1,7 +1,8 @@
-import random
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
+from imblearn.over_sampling import SMOTE
+
 
 from datasets.Dataset import Dataset
 
@@ -11,7 +12,8 @@ class TabularDataset(Dataset):
     def __init__(self, name, input_shape, sensitive_attribute, target, cat_columns):
         is_large = False
         is_binary_target = True
-        super().__init__(name, input_shape, is_large, is_binary_target)
+        is_image = False
+        super().__init__(name, input_shape, is_large, is_binary_target, is_image)
         self.sensitive_attribute = sensitive_attribute
         self.target = target
         self.cat_columns = cat_columns
@@ -21,7 +23,7 @@ class TabularDataset(Dataset):
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps
         batched_data = []
-        df = self.get_dataset()
+        df = self.get_dataset(varying_disc)
         dfs_rounds = np.array_split(df, n_timesteps)
 
         for i in range(n_timesteps):
@@ -31,28 +33,61 @@ class TabularDataset(Dataset):
                 drift_id = drift_ids[i][j]
                 df_round_client = df_round_clients[j]
                 if drift_id == 1:
+                    """
+                    print(len(df_round_client))
+                    print(len(
+                        df_round_client.loc[
+                            (df_round_client[self.sensitive_attribute.name] == 1),
+                            self.target.name
+                        ]
+                    ))
+                    print(len(
+                        df_round_client.loc[
+                            (df_round_client[self.sensitive_attribute.name] == 0),
+                            self.target.name
+                        ]
+                    ))
                     print(len(
                         df_round_client.loc[
                             (df_round_client[self.sensitive_attribute.name] == 0) &
                             (df_round_client["hours-per-week"] >= 35),
                             self.target.name
                         ]
-                    ))
-                    exit()
+                    ))"""
                     df_round_client.loc[
                         (df_round_client[self.sensitive_attribute.name] == 0) &
                         (df_round_client["hours-per-week"] >= 35),
                         self.target.name
                     ] = 1
                 elif drift_id == 2:
+                    """
+                    print(len(df_round_client))
+                    print(len(
+                        df_round_client.loc[
+                            (df_round_client[self.sensitive_attribute.name] == 1),
+                            self.target.name
+                        ]
+                    ))
+                    print(len(
+                        df_round_client.loc[
+                            (df_round_client[self.sensitive_attribute.name] == 0),
+                            self.target.name
+                        ]
+                    ))
+                    print(len(
+                        df_round_client.loc[
+                            (df_round_client[self.sensitive_attribute.name] == 0) &
+                            (df_round_client["workclass"] == "Private"),
+                            self.target.name
+                        ]
+                    )) """
                     df_round_client.loc[
                         (df_round_client[self.sensitive_attribute.name] == 0) &
                         (df_round_client["workclass"] == "Private"),
                         self.target.name
                     ] = 1
-                df_round_client_preprocessed = self.preprocess(df_round_client)
-                df_X = df_round_client_preprocessed.copy()
-                df_y = df_round_client_preprocessed.pop(self.target.name)
+                df_X = df_round_client.copy()
+                df_y = df_round_client.pop(self.target.name)
                 df_X = df_X.drop(columns=[self.target.name])
 
                 X = df_X.to_numpy().astype(np.float32)
@@ -64,9 +99,8 @@ class TabularDataset(Dataset):
 
         return batched_data
 
-    def get_dataset(self):
-        df = pd.read_csv('./datasets/tabular/{}/{}.csv'.format(self.name, self.name))
-        df = pd.concat([df, df, df, df, df], ignore_index=True)  # TODO
+    def get_dataset(self, varying_disc):
+        df = pd.read_csv('./datasets/tabular/{}/{}.csv'.format(self.name.replace("-", "_"), self.name))
 
         s = self.sensitive_attribute
         positive = df[s.name].isin(s.positive)
@@ -81,9 +115,6 @@ class TabularDataset(Dataset):
 
         df = df.sample(frac=1).reset_index(drop=True)
 
-        return df
-
-    def preprocess(self, df):
         df[self.cat_columns] = df[self.cat_columns].astype('category')
         df[self.cat_columns] = df[self.cat_columns].apply(lambda x: x.cat.codes)
 
@@ -94,4 +125,54 @@ class TabularDataset(Dataset):
         df = pd.DataFrame(x_scaled)
         df.columns = columns
 
+        """
+        size_priv = len(
+            df.loc[
+                (df[self.sensitive_attribute.name] == 1),
+                self.target.name
+            ]
+        )
+        size_unpriv = len(
+            df.loc[
+                (df[self.sensitive_attribute.name] == 0),
+                self.target.name
+            ]
+        )
+        print(size_priv, size_unpriv, size_unpriv/size_priv)
+
+        if size_unpriv < size_priv * varying_disc:
+            n = int(size_priv * varying_disc) - size_unpriv
+            print("Adding Unprivileged Instances", n)
+            sampling_strategy = {0: size_unpriv + n, 1: size_priv}
+            df = self.oversample(df, sampling_strategy)
+        else:
+            n = int(size_unpriv / varying_disc) - size_priv
+            print("Adding Privileged Instances", n)
+            sampling_strategy = {0: size_unpriv, 1: size_priv + n}
+            df = self.oversample(df, sampling_strategy)
+
+        new_size_priv = len(
+            df.loc[
+                (df[self.sensitive_attribute.name] == 1),
+                self.target.name
+            ]
+        )
+        new_size_unpriv = len(
+            df.loc[
+                (df[self.sensitive_attribute.name] == 0),
+                self.target.name
+            ]
+        )
+        print(new_size_priv, new_size_unpriv, new_size_unpriv/new_size_priv)"""
+
         return df
+
+
+    def oversample(self, df, sampling_strategy):
+        X = df.drop(self.sensitive_attribute.name, axis=1)
+        y = df[self.sensitive_attribute.name]
+        smote = SMOTE(sampling_strategy=sampling_strategy, random_state=42)
+        X_resampled, y_resampled = smote.fit_resample(X, y)
+        X_resampled[self.sensitive_attribute.name] = y_resampled
+
+        return X_resampled

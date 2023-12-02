@@ -2,10 +2,10 @@ from datasets.Feature import Feature
 from datasets.tabular.TabularDataset import TabularDataset
 
 
-class Adult(TabularDataset):
+class Adult_GDrift(TabularDataset):
 
     def __init__(self):
-        name = "adult"
+        name = "Adult-GDrift"
         input_shape = 14
         sensitive_attribute = Feature("race", ["White"], ["Asian-Pac-Islander", "Amer-Indian-Eskimo", "Other", "Black"])
         # self.sensitive_attribute = Feature("gender", ["Male"], ["Female"])
