@@ -9,7 +9,7 @@ def save_results(metrics, drift_ids, clients_identities, filename):
     for metric in metrics:
         df[metric.name] = metric.res
     df["drift-id"] = drift_ids
-    df["gm-id"] = clients_identities
+    df["gm-id"] = [ci.name for ci in clients_identities]
 
     df.to_csv(filename, index=False)
 

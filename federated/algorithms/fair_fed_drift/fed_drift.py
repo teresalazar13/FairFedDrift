@@ -260,8 +260,8 @@ def get_distance(global_model_a, global_model_b, dataset, metrics_clustering, th
 
 def merge_global_models(metrics_clustering, thresholds, global_models, dataset, seed, clients_identities):
     size = global_models.current_size
-    #if size > 25:
-        #raise Exception("Number of global models > 25")
+    if size > 30:
+        raise Exception("Number of global models > 30")
     distances = [[WORST_LOSS for _ in range(size)] for __ in range(size)]
 
     for i in range(len(global_models.models) - 1):
