@@ -23,6 +23,13 @@ class GlobalModel:
 
         self.n_points += len(client_data.x)
 
+    def get_client_data(self, client_id):
+        x = self.clients[client_id].x
+        y = self.clients[client_id].y
+        s = self.clients[client_id].s
+
+        return ClientData(x, y, s)
+
     def get_partial_client_data(self, client_id):
         x = self.clients[client_id].x
         y = self.clients[client_id].y

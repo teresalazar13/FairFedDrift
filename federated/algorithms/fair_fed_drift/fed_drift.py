@@ -226,10 +226,10 @@ def train_and_average(clients_data_timestep, global_models, dataset, seed, times
 def get_results_list(global_model_model, global_model_data, dataset, metrics_clustering):
     results_list = []
     for client_id in global_model_data.clients.keys():
-        partial_client_data = global_model_data.get_partial_client_data(client_id)
+        #partial_client_data = global_model_data.get_partial_client_data(client_id)
+        client_data = global_model_data.get_client_data(client_id)
         results = test_client_on_model(
-            metrics_clustering, global_model_model.model, partial_client_data,
-            dataset.is_binary_target
+            metrics_clustering, global_model_model.model, client_data, dataset.is_binary_target
         )
         results_list.append(results)
 
@@ -268,12 +268,14 @@ def merge_global_models(metrics_clustering, thresholds, global_models, dataset, 
         for j in range(i + 1, len(global_models.models)):
             id_i = global_models.models[i].id
             id_j = global_models.models[j].id
+            # L_1 = Li,j − Li,i
             L_1 = get_distance(global_models.models[i], global_models.models[j], dataset, metrics_clustering, thresholds)
+            # L_2 = Lj,i − Lj,j
             L_2 = get_distance(global_models.models[j], global_models.models[i], dataset, metrics_clustering, thresholds)
             if L_1 == WORST_LOSS or L_2 == WORST_LOSS:
                 d = WORST_LOSS
             else:
-                d = max(L_1 - L_2, L_2 - L_1, 0)
+                d = max(L_1, L_2, 0)
             print(id_i, id_j, L_1, L_2, d)
             distances[id_i][id_j] = d
             distances[id_j][id_i] = d
