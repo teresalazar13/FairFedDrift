@@ -1,10 +1,4 @@
-#FairFedDrift
-
-by
-Teresa Salazar,
-Joao Gama,
-Helder Araujo,
-Pedro Henriques Abreu
+## FairFedDrift
 
 ## General Structure
 
