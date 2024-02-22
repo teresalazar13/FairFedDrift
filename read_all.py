@@ -73,7 +73,7 @@ def get_best_results_dict(all_results_dict):
     return best_results_dict
 
 
-def print_average_results(best_results_dict):
+def print_average_results(best_results_dict, n_scenarios):
     for alg, scenarios_results in best_results_dict.items():
         avg_dict = {}
         for scenario, results_dict in scenarios_results.items():
@@ -86,9 +86,12 @@ def print_average_results(best_results_dict):
             all_results = []
             for r in res_list:
                 all_results.extend(r[1])
-            print("{} - {}: {:.2f}+-{:.2f}".format(
-                alg, metric, sum(all_results)/len(all_results), statistics.stdev(all_results))
-            )
+            if n_scenarios == len(res_list):
+                print("{} - {}: {:.2f}+-{:.2f}".format(
+                    alg, metric, sum(all_results)/len(all_results), statistics.stdev(all_results))
+                )
+            else:
+                print("Not all scenarios for", alg)
 
 
 if __name__ == '__main__':
@@ -115,4 +118,4 @@ if __name__ == '__main__':
     best_results_dict = get_best_results_dict(all_results_dict)
     print(json.dumps((best_results_dict), sort_keys=True, indent=4))
 
-    print_average_results(best_results_dict)
+    print_average_results(best_results_dict, len(scenarios))
