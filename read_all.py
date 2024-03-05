@@ -5,7 +5,6 @@ import argparse
 import sys
 import json
 import statistics
-import logging
 
 
 def get_arguments():
@@ -39,7 +38,7 @@ def avg_results(all_results_dict, scenario, res_clients_list, algs, metric):
                         values.append(res_clients[j][metric].values[i])
             avg.append(sum(values) / len(values))
         average = sum(avg)/len(avg)
-        logging.info("{} - {}: {:.2f}".format(alg, metric, average))
+        print("{} - {}: {:.2f}".format(alg, metric, average))
 
         alg_main = alg.split(";")[1]
         if alg_main not in all_results_dict:
@@ -88,11 +87,11 @@ def print_average_results(best_results_dict, n_scenarios):
             for r in res_list:
                 all_results.extend(r[1])
             if n_scenarios == len(res_list):
-                logging.info("{} - {}: {:.2f}+-{:.2f}".format(
+                print("{} - {}: {:.2f}+-{:.2f}".format(
                     alg, metric, sum(all_results)/len(all_results), statistics.stdev(all_results))
                 )
             else:
-                logging.info("Not all scenarios for", alg)
+                print("Not all scenarios for", alg)
 
 
 if __name__ == '__main__':
@@ -100,7 +99,7 @@ if __name__ == '__main__':
     all_results_dict = {}
 
     for dataset, scenario in zip(datasets, scenarios):
-        logging.info("\n\nScenario ", scenario)
+        print("\n\nScenario {}".format(scenario))
         main_folder, all_folders, algs = dataset.get_all_folders(scenario, varying_disc)
 
         res_clients_list = []
@@ -114,9 +113,9 @@ if __name__ == '__main__':
         for metric in get_metrics(dataset.is_binary_target):
             all_results_dict = avg_results(all_results_dict, scenario, res_clients_list, algs, metric.name)
 
-    logging.info(json.dumps((all_results_dict), sort_keys=True, indent=4))
+    print(json.dumps((all_results_dict), sort_keys=True, indent=4))
 
     best_results_dict = get_best_results_dict(all_results_dict)
-    logging.info(json.dumps((best_results_dict), sort_keys=True, indent=4))
+    print(json.dumps((best_results_dict), sort_keys=True, indent=4))
 
     print_average_results(best_results_dict, len(scenarios))
