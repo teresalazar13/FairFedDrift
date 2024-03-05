@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
@@ -33,20 +34,20 @@ class TabularDataset(Dataset):
                 drift_id = drift_ids[i][j]
                 df_round_client = df_round_clients[j]
                 if drift_id == 1:
-                    #print(len(df_round_client))
-                    #print(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1),self.target.name]))
-                    #print(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0),self.target.name]))
-                    #print("oi", len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0) & (df_round_client["hours-per-week"] >= 0.35),self.target.name]))
+                    #logging.info(len(df_round_client))
+                    #logging.info(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1),self.target.name]))
+                    #logging.info(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0),self.target.name]))
+                    #logging.info("oi", len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0) & (df_round_client["hours-per-week"] >= 0.35),self.target.name]))
                     df_round_client.loc[
                         (df_round_client[self.sensitive_attribute.name] == 0) &
                         (df_round_client["hours-per-week"] >= 0.35),
                         self.target.name
                     ] = 1
                 elif drift_id == 2:
-                    #print(len(df_round_client))
-                    #print(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1),self.target.name]))
-                    #print(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0),self.target.name]))
-                    #print("hey", len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0) & (df_round_client["workclass"] == 0.5), self.target.name]))
+                    #logging.info(len(df_round_client))
+                    #logging.info(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1),self.target.name]))
+                    #logging.info(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0),self.target.name]))
+                    #logging.info("hey", len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0) & (df_round_client["workclass"] == 0.5), self.target.name]))
                     df_round_client.loc[
                         (df_round_client[self.sensitive_attribute.name] == 0) &
                         (df_round_client["workclass"] == 0.5),
@@ -101,17 +102,17 @@ class TabularDataset(Dataset):
                 self.target.name
             ]
         )
-        print(size_priv, size_unpriv, size_unpriv/size_priv)
+        logging.info("Size priv {}, size unpriv {}, div {}".format(size_priv, size_unpriv, size_unpriv/size_priv))
 
         if varying_disc != 0.0:
             if size_unpriv < size_priv * varying_disc:
                 n = int(size_priv * varying_disc) - size_unpriv
-                print("Adding Unprivileged Instances", n)
+                logging.info("Adding Unprivileged Instances: {}".format(n))
                 sampling_strategy = {0: size_unpriv + n, 1: size_priv}
                 df = self.oversample(df, sampling_strategy)
             else:
                 n = int(size_unpriv / varying_disc) - size_priv
-                print("Adding Privileged Instances", n)
+                logging.info("Adding Privileged Instances: {}".format(n))
                 sampling_strategy = {0: size_unpriv, 1: size_priv + n}
                 df = self.oversample(df, sampling_strategy)
 
@@ -127,7 +128,7 @@ class TabularDataset(Dataset):
                 self.target.name
             ]
         )
-        print(new_size_priv, new_size_unpriv, new_size_unpriv/new_size_priv)
+        logging.info("New size priv {}, new size unpriv {}, div {}".format(new_size_priv, new_size_unpriv, new_size_unpriv/new_size_priv))
 
         df = df.sample(frac=1).reset_index(drop=True)
 

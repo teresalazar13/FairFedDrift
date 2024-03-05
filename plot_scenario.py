@@ -39,7 +39,7 @@ def avg_results(all_results_dict, res_clients_list, algs, metric):
                         values.append(res_clients[j][metric].values[i])
             avg.append(sum(values) / len(values))
         average = sum(avg)/len(avg)
-        print("{} - {}: {:.2f}".format(alg, metric, average))
+        logging.info("{} - {}: {:.2f}".format(alg, metric, average))
 
         alg_main = alg.split(";")[1]
         if alg_main not in all_results_dict:
@@ -62,8 +62,8 @@ def get_best_results_dict(all_results_dict):
             if bacc > best_bacc:
                 best_bacc = bacc
                 best_results = results_dict
-        print(alg)
-        print(json.dumps((best_results), sort_keys=True, indent=4))
+        logging.info(alg)
+        logging.info(json.dumps((best_results), sort_keys=True, indent=4))
         best_results_dict[alg] = best_results
 
     return best_results_dict
@@ -72,7 +72,7 @@ def get_best_results_dict(all_results_dict):
 def plot_algorithms(best_results_dict, filename, metric, title):
     plt.figure(figsize=(5, 3.5))
     for alg, res_clients in best_results_dict.items():
-        print(alg, metric, res_clients[metric][1])
+        logging.info(alg, metric, res_clients[metric][1])
         plt.plot(
             range(0, len(res_clients[metric][1])), res_clients[metric][1], label=alg,
             color=get_algorithm_by_name(alg).color
@@ -105,8 +105,8 @@ if __name__ == '__main__':
     for metric in get_metrics(dataset.is_binary_target):
         all_results_dict = avg_results(all_results_dict, res_clients_list, algs, metric.name)
 
-    #print(json.dumps((all_results_dict), sort_keys=True, indent=4))
-    #print("\n\n\nBEST Results")
+    #logging.info(json.dumps((all_results_dict), sort_keys=True, indent=4))
+    #logging.info("\n\n\nBEST Results")
     best_results_dict = get_best_results_dict(all_results_dict)
 
     for metric in get_metrics(dataset.is_binary_target):

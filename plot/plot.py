@@ -8,8 +8,9 @@ def save_results(metrics, drift_ids, clients_identities, filename):
     df = df.astype('object')
     for metric in metrics:
         df[metric.name] = metric.res
-    df["drift-id"] = drift_ids
-    df["gm-id"] = [ci.name for ci in clients_identities]
+    df["drift-id"] = drift_ids[1:]
+    df["gm-id"] = [ci.id for ci in clients_identities]
+    df["gm-name"] = [ci.name for ci in clients_identities]
 
     df.to_csv(filename, index=False)
 
@@ -39,7 +40,7 @@ def plot_algorithms(res_clients_list, algs, filename, metric, title):
                     if current_drift_id == previous_drift_id:
                         values.append(res_clients[j][metric].values[i])
             avg.append(sum(values) / len(values))
-        print("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(avg)/len(avg), statistics.stdev(avg)))
+        logging.info("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(avg)/len(avg), statistics.stdev(avg)))
         if "ignore" not in alg:
             plt.plot(range(0, len(res_clients[0][metric].values)), avg, label=alg.split(";")[1])
     plt.title(title)

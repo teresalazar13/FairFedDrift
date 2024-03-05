@@ -40,7 +40,7 @@ def avg_results(all_results_dict, res_clients_list, algs, metric):
                         values.append(res_clients[j][metric].values[i])
             avg.append(sum(values) / len(values))
         average = sum(avg)/len(avg)
-        print("{} - {}: {:.2f}".format(alg, metric, average))
+        logging.info("{} - {}: {:.2f}".format(alg, metric, average))
 
         alg_main = alg.split(";")[1]
         if alg_main not in all_results_dict:
@@ -78,9 +78,9 @@ def print_average_results(best_results_dict):
                 else:
                     avg_dict[
                         metric].append(res)
-        print(alg, avg_dict)
+        logging.info(alg, avg_dict)
         for metric, res_list in avg_dict.items():
-            print("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(res_list)/len(res_list), statistics.stdev(res_list)))
+            logging.info("{} - {}: {:.2f}+-{:.2f}".format(alg, metric, sum(res_list)/len(res_list), statistics.stdev(res_list)))
 
 
 def plot_all(varying_discs, best_results_dict_list, dataset, scenario):
@@ -133,10 +133,10 @@ if __name__ == '__main__':
         for metric in get_metrics(dataset.is_binary_target):
             all_results_dict = avg_results(all_results_dict, res_clients_list, algs, metric.name)
 
-        print("\n\n\nVarying DISC", varying_disc)
-        print(json.dumps((all_results_dict), sort_keys=True, indent=4))
+        logging.info("\n\n\nVarying DISC", varying_disc)
+        logging.info(json.dumps((all_results_dict), sort_keys=True, indent=4))
         best_results_dict = get_best_results_dict(all_results_dict)
-        print(json.dumps((best_results_dict), sort_keys=True, indent=4))
+        logging.info(json.dumps((best_results_dict), sort_keys=True, indent=4))
         best_results_dict_list.append(best_results_dict)
 
     for metric in get_metrics(dataset.is_binary_target):

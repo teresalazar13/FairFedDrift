@@ -1,6 +1,8 @@
 from federated.algorithms.Algorithm import Algorithm, average_weights, test
+from federated.algorithms.Identity import Identity
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics
+import logging
 
 
 class FedAvg(Algorithm):
@@ -14,21 +16,20 @@ class FedAvg(Algorithm):
     def perform_fl(self, seed, clients_data, dataset):
         global_model = NN_model(dataset, seed)
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
+        # Train with data from first timestep
+        global_model = train_and_average(global_model, dataset, clients_data, 0, seed)
 
-        for timestep in range(dataset.n_timesteps):
+        for timestep in range(1, dataset.n_timesteps):
+            test(clients_data[timestep], clients_metrics, global_model, dataset)
             global_model = train_and_average(global_model, dataset, clients_data, timestep, seed)
-            timestep_to_test = timestep + 1
-            if timestep_to_test == dataset.n_timesteps:
-                timestep_to_test = 0
-            test(clients_data[timestep_to_test], clients_metrics, global_model, dataset)
 
         # Clients identities are always 0 (only one global model)
         clients_identities = [[] for _ in range(dataset.n_clients)]
         for i in range(dataset.n_clients):
-            for _ in range(dataset.n_timesteps):
-                clients_identities[i].append(0)
+            for _ in range(1, dataset.n_timesteps):
+                clients_identities[i].append(Identity(0, 0))
 
-        return clients_metrics, clients_identities, ""
+        return clients_metrics, clients_identities
 
 
 def train_and_average(global_model, dataset, clients_data, timestep, seed):
@@ -45,12 +46,10 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             local_weights_list.append(local_model.get_weights())
             client_scaling_factors_list.append(len(x))
             # K.clear_session()
-            print("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
+            logging.info("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
 
         new_global_weights = average_weights(local_weights_list, client_scaling_factors_list)
         global_model.set_weights(new_global_weights)
-        #clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]  # TODO - remove
-        #test(clients_data[timestep + 1], clients_metrics, global_model, dataset)  # TODO - remove
-        print("Averaged models on timestep {} cround {}".format(timestep, cround))
+        logging.info("Averaged models on timestep {} cround {}".format(timestep, cround))
 
     return global_model

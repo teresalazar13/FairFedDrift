@@ -113,6 +113,6 @@ def generate_synthetic_data(n_samples, varying_disc, shift):
     X = X[perm]
     y = y[perm]
     x_s = np.array(x_s)[perm]
-    #print("DI Train: {:.2f}".format((len(X_up)/(len(X_up) + len(X_un)))/(len(X_pp)/(len(X_pp) + len(X_pn)))))
+    #logging.info("DI Train: {:.2f}".format((len(X_up)/(len(X_up) + len(X_un)))/(len(X_pp)/(len(X_pp) + len(X_pn)))))
 
     return X, y, x_s

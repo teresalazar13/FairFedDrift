@@ -8,6 +8,7 @@ import sys
 import numpy as np
 import random
 import tensorflow as tf
+import logging
 
 
 def get_arguments():
@@ -57,14 +58,16 @@ if __name__ == '__main__':
     seed = scenario
     set_seeds(seed)
     generate_directories(scenario, dataset, algorithm.subfolders, varying_disc)
+    logging.basicConfig(
+        filename="{}/output.txt".format(dataset.get_folder(scenario, algorithm.subfolders, varying_disc)),
+        level=logging.DEBUG
+    )
+    logging.getLogger().addHandler(logging.StreamHandler())
     clients_data = dataset.create_batched_data(varying_disc)
-    clients_metrics, clients_identities, clients_identities_string = algorithm.perform_fl(seed, clients_data, dataset)
-    save_clients_identities(clients_identities_string, dataset.get_folder(scenario, algorithm.subfolders, varying_disc))
+    clients_metrics, clients_identities = algorithm.perform_fl(seed, clients_data, dataset)
 
     for i in range(len(clients_metrics)):
-        drift_ids_col = dataset.drift_ids_col[i][1:]
-        drift_ids_col.append(dataset.drift_ids_col[i][0])
         save_results(
-            clients_metrics[i], drift_ids_col, clients_identities[i],
+            clients_metrics[i], dataset.drift_ids_col[i], clients_identities[i],
             "{}/client_{}/results.csv".format(dataset.get_folder(scenario, algorithm.subfolders, varying_disc), i+1)
         )

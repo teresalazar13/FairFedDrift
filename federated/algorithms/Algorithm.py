@@ -1,5 +1,6 @@
 from abc import abstractmethod
 import tensorflow as tf
+import logging
 
 
 class Algorithm:
@@ -27,7 +28,7 @@ def test(clients_data_timestep, clients_metrics, global_model, dataset):
         y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
         for client_metric in client_metrics:
             res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
-            print(res, client_metric.name)
+            logging.info("{}-{}".format(res, client_metric.name))
 
 def get_y(y_true_raw, y_pred_raw, is_binary_target):
     y_true = []
