@@ -8,7 +8,7 @@ from datasets.Dataset import Dataset
 class Synthetic(Dataset):
 
     def __init__(self):
-        name = "synthetic"
+        name = "Synthetic"
         input_shape = 3
         is_large = False
         is_binary_target = True
