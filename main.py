@@ -66,17 +66,6 @@ def save_results(metrics, drift_ids, clients_identities, filename):
     df.to_csv(filename, index=False)
 
 
-def read_results(metrics, filename):
-    df = pd.read_csv(filename)
-    res = {}
-    for metric in metrics:
-        res[metric.name] = df[metric.name]
-    res["drift-id"] = df["drift-id"]
-    res["gm-id"] = df["gm-id"]
-
-    return res
-
-
 if __name__ == '__main__':
     os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
     scenario, algorithm, dataset, varying_disc = get_arguments()

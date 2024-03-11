@@ -1,12 +1,12 @@
-import math
-
 from datasets.DatasetFactory import get_dataset_by_name
 from metrics.MetricFactory import get_metrics
-from plot.plot import read_results
+
+import math
 import argparse
 import sys
 import json
 import statistics
+import pandas as pd
 
 
 def get_arguments():
@@ -46,10 +46,12 @@ def avg_results(all_results_dict, scenario, window, res_clients_list, algs, metr
         average = sum(avg)/len(avg)
         print("{} - {}: {:.2f}".format(alg, metric, average))
 
-        if "window" in alg and alg.split(";")[2] == "window-{}".format(window):  # check if window matches
-            alg_main = "{}-{}".format(alg.split(";")[1], alg.split(";")[2])
-        else:
+        alg_main = None
+        if "FedDrift" not in alg and "FairFedDrift" not in alg:
             alg_main = alg.split(";")[1]
+        elif "window" in alg and alg.split(";")[2] == "window-{}".format(window):  # check if window matches
+            alg_main = "{}-{}".format(alg.split(";")[1], alg.split(";")[2])
+
         if alg_main:
             if alg_main not in all_results_dict:
                 all_results_dict[alg_main] = {scenario: {alg: {metric: [average, avg]}}}
@@ -102,6 +104,16 @@ def print_average_results(best_results_dict, n_scenarios):
                 )
             else:
                 print("Not all scenarios for", alg)
+
+def read_results(metrics, filename):
+    df = pd.read_csv(filename)
+    res = {}
+    for metric in metrics:
+        res[metric.name] = df[metric.name]
+    res["drift-id"] = df["drift-id"]
+    res["gm-id"] = df["gm-id"]
+
+    return res
 
 
 if __name__ == '__main__':
