@@ -1,6 +1,7 @@
+import pandas as pd
+
 from datasets.DatasetFactory import get_dataset_by_name
 from federated.algorithms.AlgorithmFactory import get_algorithm_by_name
-from plot.plot import save_results, save_clients_identities
 import shutil
 import os
 import argparse
@@ -18,6 +19,7 @@ def get_arguments():
     parser.add_argument('--dataset', required=True, help='dataset')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
     parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')
+    parser.add_argument('--window', required=False, help='window')
 
     args = parser.parse_args(sys.argv[1:])
     scenario = int(args.scenario)
@@ -50,6 +52,29 @@ def set_seeds(seed):
     session_conf = tf.compat.v1.ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
     sess = tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(), config=session_conf)
     tf.compat.v1.keras.backend.set_session(sess)
+
+
+def save_results(metrics, drift_ids, clients_identities, filename):
+    df = pd.DataFrame()
+    df = df.astype('object')
+    for metric in metrics:
+        df[metric.name] = metric.res
+    df["drift-id"] = drift_ids[1:]
+    df["gm-id"] = [ci.id for ci in clients_identities]
+    df["gm-name"] = [ci.name for ci in clients_identities]
+
+    df.to_csv(filename, index=False)
+
+
+def read_results(metrics, filename):
+    df = pd.read_csv(filename)
+    res = {}
+    for metric in metrics:
+        res[metric.name] = df[metric.name]
+    res["drift-id"] = df["drift-id"]
+    res["gm-id"] = df["gm-id"]
+
+    return res
 
 
 if __name__ == '__main__':

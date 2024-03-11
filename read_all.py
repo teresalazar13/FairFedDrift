@@ -1,3 +1,5 @@
+import math
+
 from datasets.DatasetFactory import get_dataset_by_name
 from metrics.MetricFactory import get_metrics
 from plot.plot import read_results
@@ -12,6 +14,7 @@ def get_arguments():
     parser.add_argument('--scenarios', nargs='+', required=True, help='scenario')
     parser.add_argument('--dataset', required=True, help='dataset')
     parser.add_argument('--varying_disc', required=True, help='varying_disc')
+    parser.add_argument('--window', required=False, help='window')
 
     args = parser.parse_args(sys.argv[1:])
     scenarios = [int(a) for a in args.scenarios]
@@ -19,11 +22,14 @@ def get_arguments():
     for d, scenario in zip(datasets, scenarios):
         d.set_drifts(scenario)
     varying_disc = float(args.varying_disc)
+    window = math.inf
+    if args.window:
+        window = args.window
 
-    return scenarios, datasets, varying_disc
+    return scenarios, datasets, varying_disc, window
 
 
-def avg_results(all_results_dict, scenario, res_clients_list, algs, metric):
+def avg_results(all_results_dict, scenario, window, res_clients_list, algs, metric):
     for res_clients, alg in zip(res_clients_list, algs):
         avg = []
         for i in range(len(res_clients[0][metric].values)):
@@ -40,15 +46,19 @@ def avg_results(all_results_dict, scenario, res_clients_list, algs, metric):
         average = sum(avg)/len(avg)
         print("{} - {}: {:.2f}".format(alg, metric, average))
 
-        alg_main = alg.split(";")[1]
-        if alg_main not in all_results_dict:
-            all_results_dict[alg_main] = {scenario: {alg: {metric: [average, avg]}}}
-        elif scenario not in all_results_dict[alg_main]:
-            all_results_dict[alg_main][scenario] = {alg: {metric: [average, avg]}}
-        elif alg not in all_results_dict[alg_main][scenario]:
-            all_results_dict[alg_main][scenario][alg] = {metric: [average, avg]}
+        if "window" in alg and alg.split(";")[2] == "window-{}".format(window):  # check if window matches
+            alg_main = "{}-{}".format(alg.split(";")[1], alg.split(";")[2])
         else:
-            all_results_dict[alg_main][scenario][alg][metric] = [average, avg]
+            alg_main = alg.split(";")[1]
+        if alg_main:
+            if alg_main not in all_results_dict:
+                all_results_dict[alg_main] = {scenario: {alg: {metric: [average, avg]}}}
+            elif scenario not in all_results_dict[alg_main]:
+                all_results_dict[alg_main][scenario] = {alg: {metric: [average, avg]}}
+            elif alg not in all_results_dict[alg_main][scenario]:
+                all_results_dict[alg_main][scenario][alg] = {metric: [average, avg]}
+            else:
+                all_results_dict[alg_main][scenario][alg][metric] = [average, avg]
 
     return all_results_dict
 
@@ -95,7 +105,7 @@ def print_average_results(best_results_dict, n_scenarios):
 
 
 if __name__ == '__main__':
-    scenarios, datasets, varying_disc = get_arguments()
+    scenarios, datasets, varying_disc, window = get_arguments()
     all_results_dict = {}
 
     for dataset, scenario in zip(datasets, scenarios):
@@ -111,11 +121,13 @@ if __name__ == '__main__':
             res_clients_list.append(res_clients)
 
         for metric in get_metrics(dataset.is_binary_target):
-            all_results_dict = avg_results(all_results_dict, scenario, res_clients_list, algs, metric.name)
+            all_results_dict = avg_results(all_results_dict, scenario, window, res_clients_list, algs, metric.name)
 
+    print("all results dict")
     print(json.dumps((all_results_dict), sort_keys=True, indent=4))
 
     best_results_dict = get_best_results_dict(all_results_dict)
+    print("best results dict")
     print(json.dumps((best_results_dict), sort_keys=True, indent=4))
 
     print_average_results(best_results_dict, len(scenarios))

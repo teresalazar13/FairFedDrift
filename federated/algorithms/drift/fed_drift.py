@@ -1,3 +1,4 @@
+import math
 import numpy as np
 
 from federated.algorithms.Algorithm import Algorithm, get_y, average_weights
@@ -17,6 +18,7 @@ class FedDrift(Algorithm):
     def __init__(self):
         self.metrics_clustering = [Loss()]
         self.thresholds = []
+        self.window = None
         name = "FedDrift"
         color = "green"
         marker = "v"
@@ -25,7 +27,11 @@ class FedDrift(Algorithm):
     def set_specs(self, args):
         loss_threshold = float(args.thresholds[0])
         self.thresholds = [loss_threshold]
-        super().set_subfolders("{}/loss-{}".format(self.name, loss_threshold))
+        window = math.inf
+        if args.window:
+            window = args.window
+        self.window = window
+        super().set_subfolders("{}/window-{}/loss-{}".format(self.name, window, loss_threshold))
 
     def perform_fl(self, seed, clients_data, dataset):
         return perform_fl(self, seed, clients_data, dataset)
@@ -51,27 +57,38 @@ def perform_fl(self, seed, clients_data, dataset):
             logging.info("id: {}, name: {}".format(gm.identity.id, gm.identity.name))
 
         # STEP 1 - Test each client's data using previous identities
+        logging.info("STEP 1 - test (timestep: {})".format(timestep))
         test_models(global_models, clients_data[timestep], clients_metrics, dataset, clients_identities, seed)
 
         # STEP 2 - Select best Models or create new for each client
-        global_models, clients_identities, previous_loss_clients = update(
-            self.metrics_clustering, self.thresholds, clients_data[timestep], global_models, dataset, seed,
-            clients_identities, previous_loss_clients
+        logging.info("STEP 2 - Update (timestep: {})".format(timestep))
+        global_models, clients_identities, previous_loss_clients, clients_new_models = update(
+            self.metrics_clustering, self.thresholds, clients_data[timestep], global_models, dataset, clients_identities,
+            previous_loss_clients
         )
-        # STEP 3 - Merge Global Models
+
+        # STEP 3 - Add models from drifted clients
+        logging.info("STEP 3 - Add models from drifted clients (timestep: {})".format(timestep))
+        for client_id in clients_new_models:
+            new_global_model = global_models.create_new_global_model(get_init_model(dataset, seed))
+            clients_identities[client_id].append(Identity(new_global_model.identity.id, new_global_model.identity.name))
+
+        # STEP 4 - Merge Global Models
+        logging.info("STEP 4 - Merge (timestep: {})".format(timestep))
         global_models, clients_identities = merge(
             self.metrics_clustering, self.thresholds, clients_data, global_models, dataset, seed, clients_identities
         )
 
-        # STEP 4 - Train and average models with data from this timestep
+        # STEP 5 - Train and average models with data from this timestep
+        logging.info("STEP 5 - Train and average (timestep: {})".format(timestep))
         global_models = train_and_average(clients_data, global_models, dataset, seed, timestep, clients_identities)
         for client_id in range(dataset.n_clients):
             clients_identities_printing[client_id].append(clients_identities[client_id][-1])
 
-        logging.info("Clients identities (for model)")
+        logging.info("Clients identities (for model) (timestep: {})".format(timestep))
         print_clients_identities(clients_identities)
         # since clients identities change when merging we want to print originals
-        logging.info("Clients identities (for printing)")
+        logging.info("Clients identities (for printing) (timestep: {})".format(timestep))
         print_clients_identities(clients_identities_printing)
 
     # test on data from last timestep
@@ -100,9 +117,10 @@ def test_models(global_models, clients_data_timestep, clients_metrics, dataset, 
 
 
 def update(
-    metrics_clustering, thresholds, clients_data_timestep, global_models, dataset, seed, clients_identities,
+    metrics_clustering, thresholds, clients_data_timestep, global_models, dataset, clients_identities,
     previous_loss_clients
 ):
+    clients_new_models = []
     for client_id, client_data in enumerate(clients_data_timestep):
         # Calculate results on all global models
         results_global_models = {}
@@ -114,14 +132,15 @@ def update(
         best_global_model, best_results = get_best_model(results_global_models, previous_loss_clients[client_id], thresholds)
         previous_loss_clients[client_id].append(best_results)
         if best_global_model:
-            logging.info("No drift detected at client {}".format(client_id))
+            logging.info("No drift detected at client {}. Best global model id:{}, name{}".format(
+                client_id, best_global_model.identity.id, best_global_model.identity.name
+            ))
             clients_identities[client_id].append(Identity(best_global_model.identity.id, best_global_model.identity.name))
         else:
             logging.info("Drift detected at client {}".format(client_id))
-            new_global_model = global_models.create_new_global_model(get_init_model(dataset, seed))
-            clients_identities[client_id].append(Identity(new_global_model.identity.id, new_global_model.identity.name))
+            clients_new_models.append(client_id)
 
-    return global_models, clients_identities, previous_loss_clients
+    return global_models, clients_identities, previous_loss_clients, clients_new_models
 
 
 def get_best_model(model_results_dict, previous_loss_client, thresholds):
@@ -248,7 +267,7 @@ def get_clients_data_from_models(global_models, clients_identities, clients_data
             for timestep, client_identity in enumerate(client_identities):
                 if client_identity.id == global_model.identity.id:
                     logging.info("Getting data of client {} for model {} on timestep {}".format(
-                        client_id, global_model.identity.id, timestep
+                        client_id, global_model.identity.name, timestep
                     ))
                     has_trained_model = True
                     x, y, s, _ = clients_data[timestep][client_id]

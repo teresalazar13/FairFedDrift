@@ -34,22 +34,30 @@ class TabularDataset(Dataset):
                 drift_id = drift_ids[i][j]
                 df_round_client = df_round_clients[j]
                 if drift_id == 1:
-                    #logging.info(len(df_round_client))
-                    #logging.info(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1),self.target.name]))
-                    #logging.info(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0),self.target.name]))
-                    #logging.info("oi", len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0) & (df_round_client["hours-per-week"] >= 0.35),self.target.name]))
+                    print("oi % changing : {:.2f}".format(
+                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0)
+                                                & (df_round_client["workclass"] == 0.5)
+                                                & (df_round_client[self.target.name] == 0),
+                                                self.target.name]) /
+                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0) & (
+                                    df_round_client["workclass"] == 0.5), self.target.name]))
+                    )
                     df_round_client.loc[
                         (df_round_client[self.sensitive_attribute.name] == 0) &
-                        (df_round_client["hours-per-week"] >= 0.35),
+                        (df_round_client["workclass"] == 0.5),
                         self.target.name
                     ] = 1
                 elif drift_id == 2:
-                    #logging.info(len(df_round_client))
-                    #logging.info(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1),self.target.name]))
-                    #logging.info(len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0),self.target.name]))
-                    #logging.info("hey", len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0) & (df_round_client["workclass"] == 0.5), self.target.name]))
+                    print("hey % changing : {:.2f}".format(
+                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1)
+                                                & (df_round_client["workclass"] == 0.5)
+                                                & (df_round_client[self.target.name] == 0),
+                                                self.target.name]) /
+                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1) & (
+                                    df_round_client["workclass"] == 0.5), self.target.name]))
+                    )
                     df_round_client.loc[
-                        (df_round_client[self.sensitive_attribute.name] == 0) &
+                        (df_round_client[self.sensitive_attribute.name] == 1) &
                         (df_round_client["workclass"] == 0.5),
                         self.target.name
                     ] = 1
