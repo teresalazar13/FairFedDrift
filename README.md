@@ -19,7 +19,13 @@ You can install all required dependencies by running:
 
 To build and test the software and produce all results run this in the top level of the repository:
 
-    python3 main.py --scenario SCENARIO --fl ALGORITHM --dataset DATASET --varying_disc ALPHA
+    python3 main.py --scenario SCENARIO --fl ALGORITHM --dataset DATASET --varying_disc ALPHA [--thresholds THRESHOLDS] [--window WINDOW]
+
+## Reproducing the Results
+
+To build and test the software and produce all results, run the following command in the top level of the repository:
+
+    python3 read_all.py --scenarios 1 2 3 4 5 --dataset DATASET --varying_disc ALPHA [--window WINDOW]
 
 ## License
 
