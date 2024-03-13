@@ -76,12 +76,15 @@ def perform_fl(self, seed, clients_data, dataset):
         # STEP 4 - Merge Global Models
         logging.info("STEP 4 - Merge (timestep: {})".format(timestep))
         global_models, clients_identities = merge(
-            self.metrics_clustering, self.thresholds, clients_data, global_models, dataset, seed, clients_identities
+            self.metrics_clustering, self.thresholds, clients_data, global_models, dataset, seed, clients_identities,
+            self.window
         )
 
         # STEP 5 - Train and average models with data from this timestep
         logging.info("STEP 5 - Train and average (timestep: {})".format(timestep))
-        global_models = train_and_average(clients_data, global_models, dataset, seed, timestep, clients_identities)
+        global_models = train_and_average(
+            clients_data, global_models, dataset, seed, timestep, clients_identities, self.window
+        )
         for client_id in range(dataset.n_clients):
             clients_identities_printing[client_id].append(clients_identities[client_id][-1])
 
@@ -181,15 +184,15 @@ def test_client_on_model(metrics_clustering, model, is_binary_target, client_dat
     return results
 
 
-def merge(metrics_clustering, thresholds, clients_data, global_models, dataset, seed, clients_identities):
+def merge(metrics_clustering, thresholds, clients_data, global_models, dataset, seed, clients_identities, window):
     size = global_models.n_models
     if size > 30:
         logging.info("Number of global models > 30")
         raise Exception("Number of global models > 30")
     distances = [[WORST_LOSS for _ in range(size)] for __ in range(size)]
     clients_data_models, n_clients_data_models = get_clients_data_from_models(
-        global_models, [c[:-1] for c in clients_identities], clients_data  # do not include data from current timestep, (hence [:-1])
-    )
+        global_models, [c[:-1] for c in clients_identities], clients_data, window
+    )  # do not include data from current timestep, (hence [:-1])
     model_ids = list(n_clients_data_models.keys())
 
     for i in range(len(model_ids)):
@@ -220,7 +223,7 @@ def merge(metrics_clustering, thresholds, clients_data, global_models, dataset, 
         id_0, id_1, found = get_next_best_results(distances)
         if found:
             global_models, distances, clients_identities, n_clients_data_models = merge_global_models(
-                dataset, seed, global_models, id_0, id_1, distances, clients_identities, n_clients_data_models
+                dataset, seed, global_models, id_0, id_1, distances, clients_identities, n_clients_data_models, window
             )
         else:
             return global_models, clients_identities
@@ -246,7 +249,7 @@ def calculate_maximum_distance(L1, L2, thresholds):
 
 
 # Get clients data that belong to models (and number of points they have trained)
-def get_clients_data_from_models(global_models, clients_identities, clients_data):
+def get_clients_data_from_models(global_models, clients_identities, clients_data, window):
     clients_data_models = {}
     n_clients_data_models = {}
 
@@ -264,8 +267,8 @@ def get_clients_data_from_models(global_models, clients_identities, clients_data
             client_data_y = np.empty(y_shape, dtype=np.float32)
             client_data_s = np.empty(s_shape, dtype=np.float32)
             has_trained_model = False
-            for timestep, client_identity in enumerate(client_identities):
-                if client_identity.id == global_model.identity.id:
+            for timestep in range(get_start_window(clients_identities, window), len(client_identities)):
+                if client_identities[timestep].id == global_model.identity.id:
                     logging.info("Getting data of client {} for model {} on timestep {}".format(
                         client_id, global_model.identity.name, timestep
                     ))
@@ -313,7 +316,7 @@ def get_model_copy(global_models, global_model_id, dataset, seed):
 
 
 def merge_global_models(
-    dataset, seed, global_models, id_0, id_1, distances, clients_identities, n_clients_data_models
+    dataset, seed, global_models, id_0, id_1, distances, clients_identities, n_clients_data_models, window
 ):
     global_model_0 = global_models.get_model(id_0)
     global_model_1 = global_models.get_model(id_1)
@@ -334,12 +337,12 @@ def merge_global_models(
     ))
 
     for client_id, client_identities in enumerate(clients_identities):
-        for timestep, identity in enumerate(client_identities):
-            if identity.id == id_0 or identity.id == id_1:
+        for timestep in range(get_start_window(clients_identities, window), len(client_identities)):
+            if clients_identities[client_id][timestep].id == id_0 or clients_identities[client_id][timestep].id == id_1:
                 clients_identities[client_id][timestep] = new_global_model_created.identity
                 logging.info("Changed identity of client {} timestep {} to [id:{},name:{}] (previous[id:{},name:{}])".format(
                     client_id, timestep, new_global_model_created.identity.id, new_global_model_created.identity.name,
-                    identity.id, identity.name,
+                    clients_identities[client_id][timestep].id, clients_identities[client_id][timestep].name,
                 ))
 
     # Create new column and row for new model id and update distances
@@ -393,17 +396,17 @@ def get_next_best_results(results_matrix):
         return None, None, False
 
 
-def train_and_average(clients_data, global_models, dataset, seed, timestep, clients_identities):
+def train_and_average(clients_data, global_models, dataset, seed, timestep, clients_identities, window):
     clients_data_models, n_clients_data_models = get_clients_data_from_models(
-        global_models, clients_identities, clients_data
+        global_models, clients_identities, clients_data, window
     )
 
     for cround in range(dataset.n_rounds):
         local_weights_list = [[] for _ in range(global_models.n_models)]
         local_scales_list = [[] for _ in range(global_models.n_models)]
 
-        for global_model_id, clients_data in clients_data_models.items():
-            for client_id, client_data in clients_data.items():
+        for global_model_id, clients_data_model in clients_data_models.items():
+            for client_id, client_data in clients_data_model.items():
                 x, y, _ = client_data
                 local_model = get_model_copy(global_models, global_model_id, dataset, seed)
                 local_model.learn(x, y)
@@ -417,9 +420,13 @@ def train_and_average(clients_data, global_models, dataset, seed, timestep, clie
             if len(local_weights) > 0:
                 new_global_weights = average_weights(local_weights, local_scales)
                 global_models.get_model(global_model_id).model.set_weights(new_global_weights)
-                logging.info("Averaged models on timestep {} cround {} of cluster {}".format(timestep, cround, global_model_id))
+                logging.info("Averaged models on timestep {} cround {} of cluster {}".format(
+                    timestep, cround, global_model_id)
+                )
             else:
-                logging.info("Did not average models on timestep {} cround {} of cluster {}".format(timestep, cround, global_model_id))
+                logging.info("Did not average models on timestep {} cround {} of cluster {}".format(
+                    timestep, cround, global_model_id)
+                )
 
     return global_models
 
@@ -453,3 +460,7 @@ def print_clients_identities(clients_identities):
             string += "Model name " + model_name + ":" + ",".join([str(c) for c in clients]) + "\n"
 
     return string
+
+
+def get_start_window(list, window):
+    return max(len(list) - window, 0)
