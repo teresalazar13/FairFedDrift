@@ -185,7 +185,7 @@ def merge(metrics_clustering, thresholds, clients_data, global_models, dataset, 
     size = global_models.n_models
     if size > 30:
         logging.info("Number of global models > 30")
-        raise Exception("Number of global models > 30")
+        exit(1)
     distances = [[WORST_LOSS for _ in range(size)] for __ in range(size)]
     clients_data_models, n_clients_data_models = get_clients_data_from_models(
         global_models, [c[:-1] for c in clients_identities], clients_data  # do not include data from current timestep, (hence [:-1])
