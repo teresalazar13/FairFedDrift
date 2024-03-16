@@ -1,0 +1,143 @@
+INFO:root:Size priv 41762, size unpriv 7080, div 0.16953211053110484
+INFO:root:Adding Unprivileged Instances: 13801
+INFO:root:New size priv 41762, new size unpriv 20881, div 0.5
+INFO:root:Getting data of client 0 until timestep 0 (inclusive)
+INFO:root:Getting data of client 0, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 0
+INFO:root:Did not train timestep 0 model 1 cround 0 client 0
+INFO:root:Did not train timestep 0 model 2 cround 0 client 0
+INFO:root:Getting data of client 1 until timestep 0 (inclusive)
+INFO:root:Getting data of client 1, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 1
+INFO:root:Did not train timestep 0 model 1 cround 0 client 1
+INFO:root:Did not train timestep 0 model 2 cround 0 client 1
+INFO:root:Getting data of client 2 until timestep 0 (inclusive)
+INFO:root:Getting data of client 2, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 2
+INFO:root:Did not train timestep 0 model 1 cround 0 client 2
+INFO:root:Did not train timestep 0 model 2 cround 0 client 2
+INFO:root:Getting data of client 3 until timestep 0 (inclusive)
+INFO:root:Getting data of client 3, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 3
+INFO:root:Did not train timestep 0 model 1 cround 0 client 3
+INFO:root:Did not train timestep 0 model 2 cround 0 client 3
+INFO:root:Getting data of client 4 until timestep 0 (inclusive)
+INFO:root:Getting data of client 4, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 4
+INFO:root:Did not train timestep 0 model 1 cround 0 client 4
+INFO:root:Did not train timestep 0 model 2 cround 0 client 4
+INFO:root:Getting data of client 5 until timestep 0 (inclusive)
+INFO:root:Getting data of client 5, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 5
+INFO:root:Did not train timestep 0 model 1 cround 0 client 5
+INFO:root:Did not train timestep 0 model 2 cround 0 client 5
+INFO:root:Getting data of client 6 until timestep 0 (inclusive)
+INFO:root:Getting data of client 6, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 6
+INFO:root:Did not train timestep 0 model 1 cround 0 client 6
+INFO:root:Did not train timestep 0 model 2 cround 0 client 6
+INFO:root:Getting data of client 7 until timestep 0 (inclusive)
+INFO:root:Getting data of client 7, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 7
+INFO:root:Did not train timestep 0 model 1 cround 0 client 7
+INFO:root:Did not train timestep 0 model 2 cround 0 client 7
+INFO:root:Getting data of client 8 until timestep 0 (inclusive)
+INFO:root:Getting data of client 8, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 8
+INFO:root:Did not train timestep 0 model 1 cround 0 client 8
+INFO:root:Did not train timestep 0 model 2 cround 0 client 8
+INFO:root:Getting data of client 9 until timestep 0 (inclusive)
+INFO:root:Getting data of client 9, timestep 0, identity 0
+INFO:root:Trained timestep 0 model 0 cround 0 client 9
+INFO:root:Did not train timestep 0 model 1 cround 0 client 9
+INFO:root:Did not train timestep 0 model 2 cround 0 client 9
+INFO:root:
+INFO:root:Averaged models on timestep 0 cround 0 of model 0
+INFO:root:Did not average models on timestep 0 cround 0 of model 1
+INFO:root:Did not average models on timestep 0 cround 0 of model 2
+INFO:root:
+INFO:absl:20/20 - 0s - 128ms/epoch - 6ms/step
+
+INFO:root:Client 0, timestep 1: 0.7910685805422647 - ACC
+INFO:root:Client 0, timestep 1: 0.4281294047832489 - Loss
+INFO:root:Client 0, timestep 1: 0.4815691411495209 - LossPrivileged
+INFO:root:Client 0, timestep 1: 0.3212498128414154 - LossUnprivileged
+INFO:root:Client 0, timestep 1: 0.855191256830601 - BalancedACC
+INFO:absl:20/20 - 0s - 72ms/epoch - 4ms/step
+
+INFO:root:Client 1, timestep 1: 0.7990430622009569 - ACC
+INFO:root:Client 1, timestep 1: 0.42710697650909424 - Loss
+INFO:root:Client 1, timestep 1: 0.4706479609012604 - LossPrivileged
+INFO:root:Client 1, timestep 1: 0.3393971025943756 - LossUnprivileged
+INFO:root:Client 1, timestep 1: 0.8776487031738288 - BalancedACC
+INFO:absl:20/20 - 0s - 62ms/epoch - 3ms/step
+
+INFO:root:Client 2, timestep 1: 0.7767145135566188 - ACC
+INFO:root:Client 2, timestep 1: 0.4489993453025818 - Loss
+INFO:root:Client 2, timestep 1: 0.5084647536277771 - LossPrivileged
+INFO:root:Client 2, timestep 1: 0.33423665165901184 - LossUnprivileged
+INFO:root:Client 2, timestep 1: 0.8760049763889073 - BalancedACC
+INFO:absl:20/20 - 0s - 61ms/epoch - 3ms/step
+
+INFO:root:Client 3, timestep 1: 0.8197767145135566 - ACC
+INFO:root:Client 3, timestep 1: 0.3938809633255005 - Loss
+INFO:root:Client 3, timestep 1: 0.45979416370391846 - LossPrivileged
+INFO:root:Client 3, timestep 1: 0.26846277713775635 - LossUnprivileged
+INFO:root:Client 3, timestep 1: 0.8668823839265559 - BalancedACC
+INFO:absl:20/20 - 0s - 58ms/epoch - 3ms/step
+
+INFO:root:Client 4, timestep 1: 0.8022328548644339 - ACC
+INFO:root:Client 4, timestep 1: 0.3837945759296417 - Loss
+INFO:root:Client 4, timestep 1: 0.42352038621902466 - LossPrivileged
+INFO:root:Client 4, timestep 1: 0.3049103915691376 - LossUnprivileged
+INFO:root:Client 4, timestep 1: 0.8730841413825462 - BalancedACC
+INFO:absl:20/20 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:Client 5, timestep 1: 0.8003194888178914 - ACC
+INFO:root:Client 5, timestep 1: 0.4298393428325653 - Loss
+INFO:root:Client 5, timestep 1: 0.47882333397865295 - LossPrivileged
+INFO:root:Client 5, timestep 1: 0.3277692496776581 - LossUnprivileged
+INFO:root:Client 5, timestep 1: 0.8939952718676124 - BalancedACC
+INFO:absl:20/20 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Client 6, timestep 1: 0.7715654952076677 - ACC
+INFO:root:Client 6, timestep 1: 0.4483157992362976 - Loss
+INFO:root:Client 6, timestep 1: 0.5005050897598267 - LossPrivileged
+INFO:root:Client 6, timestep 1: 0.3426764905452728 - LossUnprivileged
+INFO:root:Client 6, timestep 1: 0.8390288129491607 - BalancedACC
+INFO:absl:20/20 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Client 7, timestep 1: 0.7955271565495208 - ACC
+INFO:root:Client 7, timestep 1: 0.42140084505081177 - Loss
+INFO:root:Client 7, timestep 1: 0.4648749530315399 - LossPrivileged
+INFO:root:Client 7, timestep 1: 0.33589500188827515 - LossUnprivileged
+INFO:root:Client 7, timestep 1: 0.8904612926845504 - BalancedACC
+INFO:absl:20/20 - 0s - 62ms/epoch - 3ms/step
+
+INFO:root:Client 8, timestep 1: 0.8003194888178914 - ACC
+INFO:root:Client 8, timestep 1: 0.4129101037979126 - Loss
+INFO:root:Client 8, timestep 1: 0.45993727445602417 - LossPrivileged
+INFO:root:Client 8, timestep 1: 0.32364559173583984 - LossUnprivileged
+INFO:root:Client 8, timestep 1: 0.8771146860404775 - BalancedACC
+INFO:absl:20/20 - 0s - 62ms/epoch - 3ms/step
+
+INFO:root:Client 9, timestep 1: 0.7795527156549521 - ACC
+INFO:root:Client 9, timestep 1: 0.45869874954223633 - Loss
+INFO:root:Client 9, timestep 1: 0.4918871223926544 - LossPrivileged
+INFO:root:Client 9, timestep 1: 0.39103302359580994 - LossUnprivileged
+INFO:root:Client 9, timestep 1: 0.8772517006802723 - BalancedACC
+INFO:root:Getting data of client 0 until timestep 1 (inclusive)
+INFO:root:Getting data of client 0, timestep 0, identity 0
+INFO:root:Getting data of client 0, timestep 1, identity 0
+INFO:root:Trained timestep 1 model 0 cround 0 client 0
+INFO:root:Did not train timestep 1 model 1 cround 0 client 0
+INFO:root:Did not train timestep 1 model 2 cround 0 client 0
+INFO:root:Getting data of client 1 until timestep 1 (inclusive)
+INFO:root:Getting data of client 1, timestep 0, identity 0
+INFO:root:Getting data of client 1, timestep 1, identity 0
+INFO:root:Trained timestep 1 model 0 cround 0 client 1
+INFO:root:Did not train timestep 1 model 1 cround 0 client 1
+INFO:root:Did not train timestep 1 model 2 cround 0 client 1
+INFO:root:Getting data of client 2 until timestep 1 (inclusive)
+INFO:root:Getting data of client 2, timestep 0, identity 0
+INFO:root:Getting data of client 2, timestep 1, identity 0
