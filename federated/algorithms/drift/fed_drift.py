@@ -47,7 +47,7 @@ def perform_fl(self, seed, clients_data, dataset):
     previous_loss_clients = [[[WORST_LOSS for _ in range(len(self.metrics_clustering))]] for _ in range(dataset.n_clients)]  # used for drift detection
 
     # Train with data from first timestep
-    global_models = train_and_average(clients_data, global_models, dataset, seed, 0, clients_identities)
+    global_models = train_and_average(clients_data, global_models, dataset, seed, 0, clients_identities, self.window)
 
     for timestep in range(1, dataset.n_timesteps - 1):
         logging.info("Minimum Loss Clients")
