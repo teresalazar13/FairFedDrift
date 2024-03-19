@@ -30,7 +30,7 @@ class FedDrift(Algorithm):
         window = math.inf
         if args.window:
             window = args.window
-        self.window = window
+        self.window = int(window)
         super().set_subfolders("{}/window-{}/loss-{}".format(self.name, window, loss_threshold))
 
     def perform_fl(self, seed, clients_data, dataset):
@@ -267,7 +267,7 @@ def get_clients_data_from_models(global_models, clients_identities, clients_data
             client_data_y = np.empty(y_shape, dtype=np.float32)
             client_data_s = np.empty(s_shape, dtype=np.float32)
             has_trained_model = False
-            for timestep in range(get_start_window(clients_identities, window), len(client_identities)):
+            for timestep in range(get_start_window(client_identities, window), len(client_identities)):
                 if client_identities[timestep].id == global_model.identity.id:
                     logging.info("Getting data of client {} for model {} on timestep {}".format(
                         client_id, global_model.identity.name, timestep
@@ -337,7 +337,7 @@ def merge_global_models(
     ))
 
     for client_id, client_identities in enumerate(clients_identities):
-        for timestep in range(get_start_window(clients_identities, window), len(client_identities)):
+        for timestep in range(get_start_window(client_identities, window), len(client_identities)):
             if clients_identities[client_id][timestep].id == id_0 or clients_identities[client_id][timestep].id == id_1:
                 clients_identities[client_id][timestep] = new_global_model_created.identity
                 logging.info("Changed identity of client {} timestep {} to [id:{},name:{}] (previous[id:{},name:{}])".format(
