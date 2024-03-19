@@ -27,10 +27,10 @@ class FedDrift(Algorithm):
     def set_specs(self, args):
         loss_threshold = float(args.thresholds[0])
         self.thresholds = [loss_threshold]
-        window = math.inf
+        self.window = math.inf
         if args.window:
             window = args.window
-        self.window = int(window)
+            self.window = int(window)
         super().set_subfolders("{}/window-{}/loss-{}".format(self.name, window, loss_threshold))
 
     def perform_fl(self, seed, clients_data, dataset):
