@@ -1,6 +1,6 @@
 INFO:root:Size priv 41762, size unpriv 7080, div 0.16953211053110484
-INFO:root:Adding Privileged Instances: 29038
-INFO:root:New size priv 70800, new size unpriv 7080, div 0.1
+INFO:root:Adding Privileged Instances: 99838
+INFO:root:New size priv 141600, new size unpriv 7080, div 0.05
 INFO:root:Getting data of client 0 until timestep 0 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Trained timestep 0 model 0 cround 0 client 0
@@ -56,119 +56,76 @@ INFO:root:Averaged models on timestep 0 cround 0 of model 0
 INFO:root:Did not average models on timestep 0 cround 0 of model 1
 INFO:root:Did not average models on timestep 0 cround 0 of model 2
 INFO:root:
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 118ms/epoch - 5ms/step
-=======
-INFO:absl:25/25 - 0s - 101ms/epoch - 4ms/step
->>>>>>> Stashed changes
+INFO:absl:47/47 - 0s - 185ms/epoch - 4ms/step
 
-INFO:root:Client 0, timestep 1: 0.8061617458279846 - ACC
-INFO:root:Client 0, timestep 1: 0.45237988233566284 - Loss
-INFO:root:Client 0, timestep 1: 0.46073079109191895 - LossPrivileged
-INFO:root:Client 0, timestep 1: 0.37282076478004456 - LossUnprivileged
-INFO:root:Client 0, timestep 1: 0.9249999999999999 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 46ms/epoch - 2ms/step
-=======
-INFO:absl:25/25 - 0s - 42ms/epoch - 2ms/step
->>>>>>> Stashed changes
+INFO:root:Client 0, timestep 1: 0.8110289172831204 - ACC
+INFO:root:Client 0, timestep 1: 0.4248823821544647 - Loss
+INFO:root:Client 0, timestep 1: 0.43081995844841003 - LossPrivileged
+INFO:root:Client 0, timestep 1: 0.3388496935367584 - LossUnprivileged
+INFO:root:Client 0, timestep 1: 0.9585430146177809 - BalancedACC
+INFO:absl:47/47 - 0s - 106ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 1: 0.8331193838254172 - ACC
-INFO:root:Client 1, timestep 1: 0.40981221199035645 - Loss
-INFO:root:Client 1, timestep 1: 0.4246898889541626 - LossPrivileged
-INFO:root:Client 1, timestep 1: 0.2779849171638489 - LossUnprivileged
-INFO:root:Client 1, timestep 1: 0.8904892367906067 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 44ms/epoch - 2ms/step
-=======
-INFO:absl:25/25 - 0s - 45ms/epoch - 2ms/step
->>>>>>> Stashed changes
+INFO:root:Client 1, timestep 1: 0.7915265635507733 - ACC
+INFO:root:Client 1, timestep 1: 0.42773327231407166 - Loss
+INFO:root:Client 1, timestep 1: 0.4343511462211609 - LossPrivileged
+INFO:root:Client 1, timestep 1: 0.3013681471347809 - LossUnprivileged
+INFO:root:Client 1, timestep 1: 0.8959442539060373 - BalancedACC
+INFO:absl:47/47 - 0s - 91ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 1: 0.7907573812580231 - ACC
-INFO:root:Client 2, timestep 1: 0.45402422547340393 - Loss
-INFO:root:Client 2, timestep 1: 0.47185176610946655 - LossPrivileged
-INFO:root:Client 2, timestep 1: 0.28911951184272766 - LossUnprivileged
-INFO:root:Client 2, timestep 1: 0.8570309439874657 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 53ms/epoch - 2ms/step
-=======
-INFO:absl:25/25 - 0s - 45ms/epoch - 2ms/step
->>>>>>> Stashed changes
+INFO:root:Client 2, timestep 1: 0.816408876933423 - ACC
+INFO:root:Client 2, timestep 1: 0.41567060351371765 - Loss
+INFO:root:Client 2, timestep 1: 0.4162367284297943 - LossPrivileged
+INFO:root:Client 2, timestep 1: 0.40146780014038086 - LossUnprivileged
+INFO:root:Client 2, timestep 1: 0.9476951619808763 - BalancedACC
+INFO:absl:47/47 - 0s - 104ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 1: 0.803594351732991 - ACC
-INFO:root:Client 3, timestep 1: 0.42303991317749023 - Loss
-INFO:root:Client 3, timestep 1: 0.43500563502311707 - LossPrivileged
-INFO:root:Client 3, timestep 1: 0.29377391934394836 - LossUnprivileged
-INFO:root:Client 3, timestep 1: 0.9240422233704879 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 110ms/epoch - 4ms/step
-=======
-INFO:absl:25/25 - 0s - 49ms/epoch - 2ms/step
->>>>>>> Stashed changes
+INFO:root:Client 3, timestep 1: 0.7975790181573639 - ACC
+INFO:root:Client 3, timestep 1: 0.4368075132369995 - Loss
+INFO:root:Client 3, timestep 1: 0.44574174284935 - LossPrivileged
+INFO:root:Client 3, timestep 1: 0.26122650504112244 - LossUnprivileged
+INFO:root:Client 3, timestep 1: 0.8775428105463441 - BalancedACC
+INFO:absl:47/47 - 0s - 103ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 1: 0.7984595635430038 - ACC
-INFO:root:Client 4, timestep 1: 0.4225737750530243 - Loss
-INFO:root:Client 4, timestep 1: 0.4288754463195801 - LossPrivileged
-INFO:root:Client 4, timestep 1: 0.36593934893608093 - LossUnprivileged
-INFO:root:Client 4, timestep 1: 0.9217109885664404 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 47ms/epoch - 2ms/step
+INFO:root:Client 4, timestep 1: 0.7955615332885003 - ACC
+INFO:root:Client 4, timestep 1: 0.4312857985496521 - Loss
+INFO:root:Client 4, timestep 1: 0.4411660134792328 - LossPrivileged
+INFO:root:Client 4, timestep 1: 0.22823989391326904 - LossUnprivileged
+INFO:root:Client 4, timestep 1: 0.8507911671368124 - BalancedACC
+INFO:absl:47/47 - 0s - 99ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 1: 0.803594351732991 - ACC
-INFO:root:Client 5, timestep 1: 0.43886131048202515 - Loss
-INFO:root:Client 5, timestep 1: 0.44333282113075256 - LossPrivileged
-INFO:root:Client 5, timestep 1: 0.39284947514533997 - LossUnprivileged
-INFO:root:Client 5, timestep 1: 0.9517241379310347 - BalancedACC
-INFO:absl:25/25 - 0s - 46ms/epoch - 2ms/step
-=======
-INFO:absl:25/25 - 0s - 48ms/epoch - 2ms/step
+INFO:root:Client 5, timestep 1: 0.8049764626765299 - ACC
+INFO:root:Client 5, timestep 1: 0.4261750876903534 - Loss
+INFO:root:Client 5, timestep 1: 0.4279478192329407 - LossPrivileged
+INFO:root:Client 5, timestep 1: 0.38675981760025024 - LossUnprivileged
+INFO:root:Client 5, timestep 1: 0.9707898540155663 - BalancedACC
+INFO:absl:47/47 - 0s - 97ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 1: 0.803594351732991 - ACC
-INFO:root:Client 5, timestep 1: 0.43886125087738037 - Loss
-INFO:root:Client 5, timestep 1: 0.44333282113075256 - LossPrivileged
-INFO:root:Client 5, timestep 1: 0.39284947514533997 - LossUnprivileged
-INFO:root:Client 5, timestep 1: 0.9517241379310347 - BalancedACC
-INFO:absl:25/25 - 0s - 43ms/epoch - 2ms/step
->>>>>>> Stashed changes
+INFO:root:Client 6, timestep 1: 0.7975790181573639 - ACC
+INFO:root:Client 6, timestep 1: 0.4229621887207031 - Loss
+INFO:root:Client 6, timestep 1: 0.4252109229564667 - LossPrivileged
+INFO:root:Client 6, timestep 1: 0.3665464520454407 - LossUnprivileged
+INFO:root:Client 6, timestep 1: 0.9659723255467936 - BalancedACC
+INFO:absl:47/47 - 0s - 105ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 1: 0.803594351732991 - ACC
-INFO:root:Client 6, timestep 1: 0.42238280177116394 - Loss
-INFO:root:Client 6, timestep 1: 0.435131311416626 - LossPrivileged
-INFO:root:Client 6, timestep 1: 0.29908955097198486 - LossUnprivileged
-INFO:root:Client 6, timestep 1: 0.9079762747875353 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 44ms/epoch - 2ms/step
-=======
-INFO:absl:25/25 - 0s - 37ms/epoch - 1ms/step
->>>>>>> Stashed changes
+INFO:root:Client 7, timestep 1: 0.8029589778076665 - ACC
+INFO:root:Client 7, timestep 1: 0.4351445436477661 - Loss
+INFO:root:Client 7, timestep 1: 0.4409388303756714 - LossPrivileged
+INFO:root:Client 7, timestep 1: 0.32904183864593506 - LossUnprivileged
+INFO:root:Client 7, timestep 1: 0.8903792784458834 - BalancedACC
+INFO:absl:47/47 - 0s - 104ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 1: 0.7881899871630296 - ACC
-INFO:root:Client 7, timestep 1: 0.44526705145835876 - Loss
-INFO:root:Client 7, timestep 1: 0.45195114612579346 - LossPrivileged
-INFO:root:Client 7, timestep 1: 0.38519540429115295 - LossUnprivileged
-INFO:root:Client 7, timestep 1: 0.9238749837893918 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 45ms/epoch - 2ms/step
-=======
-INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
->>>>>>> Stashed changes
+INFO:root:Client 8, timestep 1: 0.8021534320323015 - ACC
+INFO:root:Client 8, timestep 1: 0.42683133482933044 - Loss
+INFO:root:Client 8, timestep 1: 0.4330090880393982 - LossPrivileged
+INFO:root:Client 8, timestep 1: 0.30725350975990295 - LossUnprivileged
+INFO:root:Client 8, timestep 1: 0.941602173367121 - BalancedACC
+INFO:absl:47/47 - 0s - 110ms/epoch - 2ms/step
 
-INFO:root:Client 8, timestep 1: 0.7892030848329049 - ACC
-INFO:root:Client 8, timestep 1: 0.4616281986236572 - Loss
-INFO:root:Client 8, timestep 1: 0.4712895154953003 - LossPrivileged
-INFO:root:Client 8, timestep 1: 0.3639107942581177 - LossUnprivileged
-INFO:root:Client 8, timestep 1: 0.9129001883239171 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 45ms/epoch - 2ms/step
-=======
-INFO:absl:25/25 - 0s - 43ms/epoch - 2ms/step
->>>>>>> Stashed changes
-
-INFO:root:Client 9, timestep 1: 0.7866323907455013 - ACC
-INFO:root:Client 9, timestep 1: 0.44737082719802856 - Loss
-INFO:root:Client 9, timestep 1: 0.46086618304252625 - LossPrivileged
-INFO:root:Client 9, timestep 1: 0.3129875361919403 - LossUnprivileged
-INFO:root:Client 9, timestep 1: 0.8598833097595473 - BalancedACC
+INFO:root:Client 9, timestep 1: 0.7886944818304172 - ACC
+INFO:root:Client 9, timestep 1: 0.44160595536231995 - Loss
+INFO:root:Client 9, timestep 1: 0.44520556926727295 - LossPrivileged
+INFO:root:Client 9, timestep 1: 0.3665432035923004 - LossUnprivileged
+INFO:root:Client 9, timestep 1: 0.9556719725972195 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 1 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -234,131 +191,76 @@ INFO:root:Averaged models on timestep 1 cround 0 of model 0
 INFO:root:Did not average models on timestep 1 cround 0 of model 1
 INFO:root:Did not average models on timestep 1 cround 0 of model 2
 INFO:root:
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+INFO:absl:47/47 - 0s - 91ms/epoch - 2ms/step
 
-INFO:root:Client 0, timestep 2: 0.8267008985879333 - ACC
-INFO:root:Client 0, timestep 2: 0.3867427706718445 - Loss
-INFO:root:Client 0, timestep 2: 0.39864349365234375 - LossPrivileged
-INFO:root:Client 0, timestep 2: 0.2581789791584015 - LossUnprivileged
-INFO:root:Client 0, timestep 2: 0.9009817671809257 - BalancedACC
-INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
-=======
-INFO:absl:25/25 - 0s - 51ms/epoch - 2ms/step
+INFO:root:Client 0, timestep 2: 0.8110289172831204 - ACC
+INFO:root:Client 0, timestep 2: 0.4016408920288086 - Loss
+INFO:root:Client 0, timestep 2: 0.40773412585258484 - LossPrivileged
+INFO:root:Client 0, timestep 2: 0.2782958447933197 - LossUnprivileged
+INFO:root:Client 0, timestep 2: 0.8962597035991531 - BalancedACC
+INFO:absl:47/47 - 0s - 75ms/epoch - 2ms/step
 
-INFO:root:Client 0, timestep 2: 0.8267008985879333 - ACC
-INFO:root:Client 0, timestep 2: 0.38674280047416687 - Loss
-INFO:root:Client 0, timestep 2: 0.39864349365234375 - LossPrivileged
-INFO:root:Client 0, timestep 2: 0.2581789791584015 - LossUnprivileged
-INFO:root:Client 0, timestep 2: 0.9009817671809257 - BalancedACC
-INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
->>>>>>> Stashed changes
+INFO:root:Client 1, timestep 2: 0.8170813718897109 - ACC
+INFO:root:Client 1, timestep 2: 0.4089371860027313 - Loss
+INFO:root:Client 1, timestep 2: 0.4152645766735077 - LossPrivileged
+INFO:root:Client 1, timestep 2: 0.2930721640586853 - LossUnprivileged
+INFO:root:Client 1, timestep 2: 0.950709219858156 - BalancedACC
+INFO:absl:47/47 - 0s - 93ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 2: 0.8267008985879333 - ACC
-INFO:root:Client 1, timestep 2: 0.3991051912307739 - Loss
-INFO:root:Client 1, timestep 2: 0.40534013509750366 - LossPrivileged
-INFO:root:Client 1, timestep 2: 0.3430705964565277 - LossUnprivileged
-INFO:root:Client 1, timestep 2: 0.9425190903750944 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+INFO:root:Client 2, timestep 2: 0.8063214525891056 - ACC
+INFO:root:Client 2, timestep 2: 0.4130604863166809 - Loss
+INFO:root:Client 2, timestep 2: 0.42208507657051086 - LossPrivileged
+INFO:root:Client 2, timestep 2: 0.23570293188095093 - LossUnprivileged
+INFO:root:Client 2, timestep 2: 0.8877194889915738 - BalancedACC
+INFO:absl:47/47 - 0s - 71ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 2: 0.8164313222079589 - ACC
-INFO:root:Client 2, timestep 2: 0.4072931110858917 - Loss
-INFO:root:Client 2, timestep 2: 0.4177896976470947 - LossPrivileged
-INFO:root:Client 2, timestep 2: 0.3026231825351715 - LossUnprivileged
-INFO:root:Client 2, timestep 2: 0.9284217240750867 - BalancedACC
-INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
-=======
-INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+INFO:root:Client 3, timestep 2: 0.808338937457969 - ACC
+INFO:root:Client 3, timestep 2: 0.3891591727733612 - Loss
+INFO:root:Client 3, timestep 2: 0.39661705493927 - LossPrivileged
+INFO:root:Client 3, timestep 2: 0.2404213696718216 - LossUnprivileged
+INFO:root:Client 3, timestep 2: 0.8770860495436766 - BalancedACC
+INFO:absl:47/47 - 0s - 73ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 2: 0.8164313222079589 - ACC
-INFO:root:Client 2, timestep 2: 0.4072931706905365 - Loss
-INFO:root:Client 2, timestep 2: 0.4177896976470947 - LossPrivileged
-INFO:root:Client 2, timestep 2: 0.3026232123374939 - LossUnprivileged
-INFO:root:Client 2, timestep 2: 0.9284217240750867 - BalancedACC
-INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
->>>>>>> Stashed changes
+INFO:root:Client 4, timestep 2: 0.8029589778076665 - ACC
+INFO:root:Client 4, timestep 2: 0.4084346294403076 - Loss
+INFO:root:Client 4, timestep 2: 0.41602623462677 - LossPrivileged
+INFO:root:Client 4, timestep 2: 0.23096507787704468 - LossUnprivileged
+INFO:root:Client 4, timestep 2: 0.8692897214986977 - BalancedACC
+INFO:absl:47/47 - 0s - 71ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 2: 0.8074454428754814 - ACC
-INFO:root:Client 3, timestep 2: 0.40855488181114197 - Loss
-INFO:root:Client 3, timestep 2: 0.42115870118141174 - LossPrivileged
-INFO:root:Client 3, timestep 2: 0.2788638770580292 - LossUnprivileged
-INFO:root:Client 3, timestep 2: 0.9049180327868852 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
-=======
-INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
->>>>>>> Stashed changes
+INFO:root:Client 5, timestep 2: 0.7874915938130465 - ACC
+INFO:root:Client 5, timestep 2: 0.454257607460022 - Loss
+INFO:root:Client 5, timestep 2: 0.4250406324863434 - LossPrivileged
+INFO:root:Client 5, timestep 2: 1.0833101272583008 - LossUnprivileged
+INFO:root:Client 5, timestep 2: 0.7417683906199807 - BalancedACC
+INFO:absl:47/47 - 0s - 76ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 2: 0.7766367137355584 - ACC
-INFO:root:Client 4, timestep 2: 0.453304260969162 - Loss
-INFO:root:Client 4, timestep 2: 0.46515020728111267 - LossPrivileged
-<<<<<<< Updated upstream
-INFO:root:Client 4, timestep 2: 0.3526138663291931 - LossUnprivileged
-INFO:root:Client 4, timestep 2: 0.9138959931798807 - BalancedACC
-INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
-=======
-INFO:root:Client 4, timestep 2: 0.3526139259338379 - LossUnprivileged
-INFO:root:Client 4, timestep 2: 0.9138959931798807 - BalancedACC
-INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
->>>>>>> Stashed changes
+INFO:root:Client 6, timestep 2: 0.788836583725622 - ACC
+INFO:root:Client 6, timestep 2: 0.45471832156181335 - Loss
+INFO:root:Client 6, timestep 2: 0.40657058358192444 - LossPrivileged
+INFO:root:Client 6, timestep 2: 1.3015162944793701 - LossUnprivileged
+INFO:root:Client 6, timestep 2: 0.5888325991189427 - BalancedACC
+INFO:absl:47/47 - 0s - 73ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 2: 0.7894736842105263 - ACC
-INFO:root:Client 5, timestep 2: 0.5174772143363953 - Loss
-INFO:root:Client 5, timestep 2: 0.4396444261074066 - LossPrivileged
-<<<<<<< Updated upstream
-INFO:root:Client 5, timestep 2: 1.258992075920105 - LossUnprivileged
-INFO:root:Client 5, timestep 2: 0.6450591216216216 - BalancedACC
-INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
-=======
-INFO:root:Client 5, timestep 2: 1.2589918375015259 - LossUnprivileged
-INFO:root:Client 5, timestep 2: 0.6450591216216216 - BalancedACC
-INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
->>>>>>> Stashed changes
+INFO:root:Client 7, timestep 2: 0.7700067249495629 - ACC
+INFO:root:Client 7, timestep 2: 0.4775748550891876 - Loss
+INFO:root:Client 7, timestep 2: 0.45667168498039246 - LossPrivileged
+INFO:root:Client 7, timestep 2: 0.9423427581787109 - LossUnprivileged
+INFO:root:Client 7, timestep 2: 0.6804399189918992 - BalancedACC
+INFO:absl:47/47 - 0s - 82ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 2: 0.7715019255455713 - ACC
-INFO:root:Client 6, timestep 2: 0.4943927228450775 - Loss
-INFO:root:Client 6, timestep 2: 0.4323897659778595 - LossPrivileged
-INFO:root:Client 6, timestep 2: 1.0850969552993774 - LossUnprivileged
-INFO:root:Client 6, timestep 2: 0.6430320195861936 - BalancedACC
-<<<<<<< Updated upstream
-INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
-=======
-INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
->>>>>>> Stashed changes
+INFO:root:Client 8, timestep 2: 0.7839838492597577 - ACC
+INFO:root:Client 8, timestep 2: 0.4565886855125427 - Loss
+INFO:root:Client 8, timestep 2: 0.4206499457359314 - LossPrivileged
+INFO:root:Client 8, timestep 2: 1.0882127285003662 - LossUnprivileged
+INFO:root:Client 8, timestep 2: 0.7224754244861483 - BalancedACC
+INFO:absl:47/47 - 0s - 94ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 2: 0.7406931964056482 - ACC
-INFO:root:Client 7, timestep 2: 0.5239769816398621 - Loss
-INFO:root:Client 7, timestep 2: 0.44712933897972107 - LossPrivileged
-<<<<<<< Updated upstream
-INFO:root:Client 7, timestep 2: 1.1683858633041382 - LossUnprivileged
-INFO:root:Client 7, timestep 2: 0.5745649263721553 - BalancedACC
-INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
-
-INFO:root:Client 8, timestep 2: 0.7686375321336761 - ACC
-INFO:root:Client 8, timestep 2: 0.4998812675476074 - Loss
-INFO:root:Client 8, timestep 2: 0.42438170313835144 - LossPrivileged
-INFO:root:Client 8, timestep 2: 1.2881860733032227 - LossUnprivileged
-INFO:root:Client 8, timestep 2: 0.5128998968008256 - BalancedACC
-INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
-=======
-INFO:root:Client 7, timestep 2: 1.1683857440948486 - LossUnprivileged
-INFO:root:Client 7, timestep 2: 0.5745649263721553 - BalancedACC
-INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
-
-INFO:root:Client 8, timestep 2: 0.7686375321336761 - ACC
-INFO:root:Client 8, timestep 2: 0.4998812675476074 - Loss
-INFO:root:Client 8, timestep 2: 0.42438164353370667 - LossPrivileged
-INFO:root:Client 8, timestep 2: 1.288185954093933 - LossUnprivileged
-INFO:root:Client 8, timestep 2: 0.5128998968008256 - BalancedACC
-INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
->>>>>>> Stashed changes
-
-INFO:root:Client 9, timestep 2: 0.8020565552699229 - ACC
-INFO:root:Client 9, timestep 2: 0.44111981987953186 - Loss
-INFO:root:Client 9, timestep 2: 0.38078439235687256 - LossPrivileged
-INFO:root:Client 9, timestep 2: 1.0610883235931396 - LossUnprivileged
-INFO:root:Client 9, timestep 2: 0.6105902905932433 - BalancedACC
+INFO:root:Client 9, timestep 2: 0.7934051144010767 - ACC
+INFO:root:Client 9, timestep 2: 0.4570678770542145 - Loss
+INFO:root:Client 9, timestep 2: 0.42329996824264526 - LossPrivileged
+INFO:root:Client 9, timestep 2: 1.1106860637664795 - LossUnprivileged
+INFO:root:Client 9, timestep 2: 0.6797599432330691 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 2 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -399,7 +301,6 @@ INFO:root:Getting data of client 5, timestep 0, identity 0
 INFO:root:Getting data of client 5, timestep 1, identity 0
 INFO:root:Getting data of client 5, timestep 2, identity 1
 INFO:root:Trained timestep 2 model 0 cround 0 client 5
-<<<<<<< Updated upstream
 INFO:root:Trained timestep 2 model 1 cround 0 client 5
 INFO:root:Did not train timestep 2 model 2 cround 0 client 5
 INFO:root:Getting data of client 6 until timestep 2 (inclusive)
@@ -435,76 +336,76 @@ INFO:root:Averaged models on timestep 2 cround 0 of model 0
 INFO:root:Averaged models on timestep 2 cround 0 of model 1
 INFO:root:Did not average models on timestep 2 cround 0 of model 2
 INFO:root:
-INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+INFO:absl:47/47 - 0s - 78ms/epoch - 2ms/step
 
-INFO:root:Client 0, timestep 3: 0.810012836970475 - ACC
-INFO:root:Client 0, timestep 3: 0.4016951322555542 - Loss
-INFO:root:Client 0, timestep 3: 0.4100953936576843 - LossPrivileged
-INFO:root:Client 0, timestep 3: 0.3062249422073364 - LossUnprivileged
-INFO:root:Client 0, timestep 3: 0.9595762622536101 - BalancedACC
-INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+INFO:root:Client 0, timestep 3: 0.8231338264963013 - ACC
+INFO:root:Client 0, timestep 3: 0.35278376936912537 - Loss
+INFO:root:Client 0, timestep 3: 0.35692960023880005 - LossPrivileged
+INFO:root:Client 0, timestep 3: 0.26886099576950073 - LossUnprivileged
+INFO:root:Client 0, timestep 3: 0.9103740296400846 - BalancedACC
+INFO:absl:47/47 - 0s - 78ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 3: 0.8010269576379975 - ACC
-INFO:root:Client 1, timestep 3: 0.4146956205368042 - Loss
-INFO:root:Client 1, timestep 3: 0.424077570438385 - LossPrivileged
-INFO:root:Client 1, timestep 3: 0.29356813430786133 - LossUnprivileged
-INFO:root:Client 1, timestep 3: 0.950884317706954 - BalancedACC
-INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+INFO:root:Client 1, timestep 3: 0.8170813718897109 - ACC
+INFO:root:Client 1, timestep 3: 0.3725636899471283 - Loss
+INFO:root:Client 1, timestep 3: 0.37993621826171875 - LossPrivileged
+INFO:root:Client 1, timestep 3: 0.2031143605709076 - LossUnprivileged
+INFO:root:Client 1, timestep 3: 0.8839150507848569 - BalancedACC
+INFO:absl:47/47 - 0s - 71ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 3: 0.8112965340179717 - ACC
-INFO:root:Client 2, timestep 3: 0.3928146958351135 - Loss
-INFO:root:Client 2, timestep 3: 0.4018574655056 - LossPrivileged
-INFO:root:Client 2, timestep 3: 0.31154611706733704 - LossUnprivileged
-INFO:root:Client 2, timestep 3: 0.9228832759922799 - BalancedACC
-INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+INFO:root:Client 2, timestep 3: 0.8117014122394082 - ACC
+INFO:root:Client 2, timestep 3: 0.3689565658569336 - Loss
+INFO:root:Client 2, timestep 3: 0.3762015998363495 - LossPrivileged
+INFO:root:Client 2, timestep 3: 0.2398303598165512 - LossUnprivileged
+INFO:root:Client 2, timestep 3: 0.9113534902597403 - BalancedACC
+INFO:absl:47/47 - 0s - 87ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 3: 0.810012836970475 - ACC
-INFO:root:Client 3, timestep 3: 0.41581669449806213 - Loss
-INFO:root:Client 3, timestep 3: 0.43160176277160645 - LossPrivileged
-INFO:root:Client 3, timestep 3: 0.2559366524219513 - LossUnprivileged
-INFO:root:Client 3, timestep 3: 0.8451938282685815 - BalancedACC
-INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+INFO:root:Client 3, timestep 3: 0.796906523201076 - ACC
+INFO:root:Client 3, timestep 3: 0.41599157452583313 - Loss
+INFO:root:Client 3, timestep 3: 0.4162045419216156 - LossPrivileged
+INFO:root:Client 3, timestep 3: 0.41101306676864624 - LossUnprivileged
+INFO:root:Client 3, timestep 3: 0.9511591452850424 - BalancedACC
+INFO:absl:47/47 - 0s - 83ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 3: 0.7830551989730423 - ACC
-INFO:root:Client 4, timestep 3: 0.42842069268226624 - Loss
-INFO:root:Client 4, timestep 3: 0.4456971287727356 - LossPrivileged
-INFO:root:Client 4, timestep 3: 0.2587752342224121 - LossUnprivileged
-INFO:root:Client 4, timestep 3: 0.9165487977369167 - BalancedACC
-INFO:absl:25/25 - 0s - 92ms/epoch - 4ms/step
+INFO:root:Client 4, timestep 3: 0.8197713517148622 - ACC
+INFO:root:Client 4, timestep 3: 0.35866355895996094 - Loss
+INFO:root:Client 4, timestep 3: 0.3628946542739868 - LossPrivileged
+INFO:root:Client 4, timestep 3: 0.2730140686035156 - LossUnprivileged
+INFO:root:Client 4, timestep 3: 0.9712570123081709 - BalancedACC
+INFO:absl:47/47 - 0s - 109ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 3: 0.7715019255455713 - ACC
-INFO:root:Client 5, timestep 3: 0.4754065275192261 - Loss
-INFO:root:Client 5, timestep 3: 0.4860653281211853 - LossPrivileged
-INFO:root:Client 5, timestep 3: 0.37681224942207336 - LossUnprivileged
-INFO:root:Client 5, timestep 3: 0.8763308763308763 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 5, timestep 3: 0.8002689979825152 - ACC
+INFO:root:Client 5, timestep 3: 0.4392043948173523 - Loss
+INFO:root:Client 5, timestep 3: 0.4386489689350128 - LossPrivileged
+INFO:root:Client 5, timestep 3: 0.45135411620140076 - LossUnprivileged
+INFO:root:Client 5, timestep 3: 0.9806146007483482 - BalancedACC
+INFO:absl:47/47 - 0s - 91ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 3: 0.7445442875481386 - ACC
-INFO:root:Client 6, timestep 3: 0.4965009093284607 - Loss
-INFO:root:Client 6, timestep 3: 0.5086976289749146 - LossPrivileged
-INFO:root:Client 6, timestep 3: 0.3767359256744385 - LossUnprivileged
-INFO:root:Client 6, timestep 3: 0.8357243887654072 - BalancedACC
-INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+INFO:root:Client 6, timestep 3: 0.8016139878950908 - ACC
+INFO:root:Client 6, timestep 3: 0.44344449043273926 - Loss
+INFO:root:Client 6, timestep 3: 0.4424879252910614 - LossPrivileged
+INFO:root:Client 6, timestep 3: 0.46280866861343384 - LossUnprivileged
+INFO:root:Client 6, timestep 3: 0.9233583959899749 - BalancedACC
+INFO:absl:47/47 - 0s - 80ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 3: 0.7612323491655969 - ACC
-INFO:root:Client 7, timestep 3: 0.47808703780174255 - Loss
-INFO:root:Client 7, timestep 3: 0.4912843406200409 - LossPrivileged
-INFO:root:Client 7, timestep 3: 0.3674207627773285 - LossUnprivileged
-INFO:root:Client 7, timestep 3: 0.8112333635813673 - BalancedACC
-INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+INFO:root:Client 7, timestep 3: 0.7921990585070612 - ACC
+INFO:root:Client 7, timestep 3: 0.4419079124927521 - Loss
+INFO:root:Client 7, timestep 3: 0.4429571330547333 - LossPrivileged
+INFO:root:Client 7, timestep 3: 0.42098262906074524 - LossUnprivileged
+INFO:root:Client 7, timestep 3: 0.9682446912137153 - BalancedACC
+INFO:absl:47/47 - 0s - 79ms/epoch - 2ms/step
 
-INFO:root:Client 8, timestep 3: 0.7904884318766067 - ACC
-INFO:root:Client 8, timestep 3: 0.4370832145214081 - Loss
-INFO:root:Client 8, timestep 3: 0.4430268704891205 - LossPrivileged
-INFO:root:Client 8, timestep 3: 0.3750251233577728 - LossUnprivileged
-INFO:root:Client 8, timestep 3: 0.8859154929577465 - BalancedACC
-INFO:absl:25/25 - 0s - 55ms/epoch - 2ms/step
+INFO:root:Client 8, timestep 3: 0.806864064602961 - ACC
+INFO:root:Client 8, timestep 3: 0.4242044687271118 - Loss
+INFO:root:Client 8, timestep 3: 0.42477118968963623 - LossPrivileged
+INFO:root:Client 8, timestep 3: 0.41220220923423767 - LossUnprivileged
+INFO:root:Client 8, timestep 3: 0.963719420114769 - BalancedACC
+INFO:absl:47/47 - 0s - 89ms/epoch - 2ms/step
 
-INFO:root:Client 9, timestep 3: 0.7712082262210797 - ACC
-INFO:root:Client 9, timestep 3: 0.46050524711608887 - Loss
-INFO:root:Client 9, timestep 3: 0.4684213399887085 - LossPrivileged
-INFO:root:Client 9, timestep 3: 0.3816784620285034 - LossUnprivileged
-INFO:root:Client 9, timestep 3: 0.8265694701338266 - BalancedACC
+INFO:root:Client 9, timestep 3: 0.8028263795423957 - ACC
+INFO:root:Client 9, timestep 3: 0.4269210398197174 - Loss
+INFO:root:Client 9, timestep 3: 0.42315587401390076 - LossPrivileged
+INFO:root:Client 9, timestep 3: 0.4977557361125946 - LossUnprivileged
+INFO:root:Client 9, timestep 3: 0.8746549707602339 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 3 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -590,76 +491,76 @@ INFO:root:Averaged models on timestep 3 cround 0 of model 0
 INFO:root:Averaged models on timestep 3 cround 0 of model 1
 INFO:root:Did not average models on timestep 3 cround 0 of model 2
 INFO:root:
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:absl:47/47 - 0s - 86ms/epoch - 2ms/step
 
-INFO:root:Client 0, timestep 4: 0.8292682926829268 - ACC
-INFO:root:Client 0, timestep 4: 0.3603810966014862 - Loss
-INFO:root:Client 0, timestep 4: 0.3681606650352478 - LossPrivileged
-INFO:root:Client 0, timestep 4: 0.29240742325782776 - LossUnprivileged
-INFO:root:Client 0, timestep 4: 0.9570608115112685 - BalancedACC
-INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+INFO:root:Client 0, timestep 4: 0.8224613315400134 - ACC
+INFO:root:Client 0, timestep 4: 0.38180011510849 - Loss
+INFO:root:Client 0, timestep 4: 0.3877154290676117 - LossPrivileged
+INFO:root:Client 0, timestep 4: 0.2583602964878082 - LossUnprivileged
+INFO:root:Client 0, timestep 4: 0.9454258788117677 - BalancedACC
+INFO:absl:47/47 - 0s - 99ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 4: 0.7997432605905006 - ACC
-INFO:root:Client 1, timestep 4: 0.40960073471069336 - Loss
-INFO:root:Client 1, timestep 4: 0.4199124872684479 - LossPrivileged
-INFO:root:Client 1, timestep 4: 0.3067737817764282 - LossUnprivileged
-INFO:root:Client 1, timestep 4: 0.891399874450722 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 1, timestep 4: 0.8291862811028917 - ACC
+INFO:root:Client 1, timestep 4: 0.35208743810653687 - Loss
+INFO:root:Client 1, timestep 4: 0.35763368010520935 - LossPrivileged
+INFO:root:Client 1, timestep 4: 0.2505267858505249 - LossUnprivileged
+INFO:root:Client 1, timestep 4: 0.9355965790571549 - BalancedACC
+INFO:absl:47/47 - 0s - 91ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 4: 0.834403080872914 - ACC
-INFO:root:Client 2, timestep 4: 0.39836061000823975 - Loss
-INFO:root:Client 2, timestep 4: 0.4101927578449249 - LossPrivileged
-INFO:root:Client 2, timestep 4: 0.29639944434165955 - LossUnprivileged
-INFO:root:Client 2, timestep 4: 0.9463456959522175 - BalancedACC
-INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+INFO:root:Client 2, timestep 4: 0.8211163416274377 - ACC
+INFO:root:Client 2, timestep 4: 0.3681066930294037 - Loss
+INFO:root:Client 2, timestep 4: 0.36774858832359314 - LossPrivileged
+INFO:root:Client 2, timestep 4: 0.37633761763572693 - LossUnprivileged
+INFO:root:Client 2, timestep 4: 0.998142414860681 - BalancedACC
+INFO:absl:47/47 - 0s - 85ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 4: 0.8356867779204108 - ACC
-INFO:root:Client 3, timestep 4: 0.3710407018661499 - Loss
-INFO:root:Client 3, timestep 4: 0.37914472818374634 - LossPrivileged
-INFO:root:Client 3, timestep 4: 0.27732178568840027 - LossUnprivileged
-INFO:root:Client 3, timestep 4: 0.9756585353017024 - BalancedACC
-INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+INFO:root:Client 3, timestep 4: 0.8143913920645595 - ACC
+INFO:root:Client 3, timestep 4: 0.3779439628124237 - Loss
+INFO:root:Client 3, timestep 4: 0.38494470715522766 - LossPrivileged
+INFO:root:Client 3, timestep 4: 0.24796973168849945 - LossUnprivileged
+INFO:root:Client 3, timestep 4: 0.9196822408157653 - BalancedACC
+INFO:absl:47/47 - 0s - 95ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 4: 0.8254172015404364 - ACC
-INFO:root:Client 4, timestep 4: 0.38341841101646423 - Loss
-INFO:root:Client 4, timestep 4: 0.3952700197696686 - LossPrivileged
-INFO:root:Client 4, timestep 4: 0.2652363181114197 - LossUnprivileged
-INFO:root:Client 4, timestep 4: 0.9567935537649349 - BalancedACC
-INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+INFO:root:Client 4, timestep 4: 0.8312037659717552 - ACC
+INFO:root:Client 4, timestep 4: 0.3555032014846802 - Loss
+INFO:root:Client 4, timestep 4: 0.3655564486980438 - LossPrivileged
+INFO:root:Client 4, timestep 4: 0.1635410189628601 - LossUnprivileged
+INFO:root:Client 4, timestep 4: 0.9137539478826674 - BalancedACC
+INFO:absl:47/47 - 0s - 74ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 4: 0.8395378690629012 - ACC
-INFO:root:Client 5, timestep 4: 0.37623101472854614 - Loss
-INFO:root:Client 5, timestep 4: 0.39109113812446594 - LossPrivileged
-INFO:root:Client 5, timestep 4: 0.21021601557731628 - LossUnprivileged
-INFO:root:Client 5, timestep 4: 0.8701593488478734 - BalancedACC
-INFO:absl:25/25 - 0s - 54ms/epoch - 2ms/step
+INFO:root:Client 5, timestep 4: 0.7989240080699395 - ACC
+INFO:root:Client 5, timestep 4: 0.4114609360694885 - Loss
+INFO:root:Client 5, timestep 4: 0.41821688413619995 - LossPrivileged
+INFO:root:Client 5, timestep 4: 0.29570311307907104 - LossUnprivileged
+INFO:root:Client 5, timestep 4: 0.8539426858962352 - BalancedACC
+INFO:absl:47/47 - 0s - 84ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 4: 0.8408215661103979 - ACC
-INFO:root:Client 6, timestep 4: 0.38313713669776917 - Loss
-INFO:root:Client 6, timestep 4: 0.3964218199253082 - LossPrivileged
-INFO:root:Client 6, timestep 4: 0.23215661942958832 - LossUnprivileged
-INFO:root:Client 6, timestep 4: 0.8888362844427611 - BalancedACC
-INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+INFO:root:Client 6, timestep 4: 0.8029589778076665 - ACC
+INFO:root:Client 6, timestep 4: 0.42190805077552795 - Loss
+INFO:root:Client 6, timestep 4: 0.4294455051422119 - LossPrivileged
+INFO:root:Client 6, timestep 4: 0.275909960269928 - LossUnprivileged
+INFO:root:Client 6, timestep 4: 0.8684054972661446 - BalancedACC
+INFO:absl:47/47 - 0s - 87ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 4: 0.8061617458279846 - ACC
-INFO:root:Client 7, timestep 4: 0.40956932306289673 - Loss
-INFO:root:Client 7, timestep 4: 0.42890894412994385 - LossPrivileged
-INFO:root:Client 7, timestep 4: 0.2136867642402649 - LossUnprivileged
-INFO:root:Client 7, timestep 4: 0.813075582842446 - BalancedACC
-INFO:absl:25/25 - 0s - 56ms/epoch - 2ms/step
+INFO:root:Client 7, timestep 4: 0.8264963012777404 - ACC
+INFO:root:Client 7, timestep 4: 0.37943384051322937 - Loss
+INFO:root:Client 7, timestep 4: 0.3854583203792572 - LossPrivileged
+INFO:root:Client 7, timestep 4: 0.2660137712955475 - LossUnprivileged
+INFO:root:Client 7, timestep 4: 0.8663168814587241 - BalancedACC
+INFO:absl:47/47 - 0s - 79ms/epoch - 2ms/step
 
-INFO:root:Client 8, timestep 4: 0.8213367609254498 - ACC
-INFO:root:Client 8, timestep 4: 0.39872193336486816 - Loss
-INFO:root:Client 8, timestep 4: 0.4159618020057678 - LossPrivileged
-INFO:root:Client 8, timestep 4: 0.2581655979156494 - LossUnprivileged
-INFO:root:Client 8, timestep 4: 0.8821733821733823 - BalancedACC
-INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+INFO:root:Client 8, timestep 4: 0.8162853297442799 - ACC
+INFO:root:Client 8, timestep 4: 0.4021707773208618 - Loss
+INFO:root:Client 8, timestep 4: 0.40993794798851013 - LossPrivileged
+INFO:root:Client 8, timestep 4: 0.24020293354988098 - LossUnprivileged
+INFO:root:Client 8, timestep 4: 0.8753666017417779 - BalancedACC
+INFO:absl:47/47 - 0s - 83ms/epoch - 2ms/step
 
-INFO:root:Client 9, timestep 4: 0.8136246786632391 - ACC
-INFO:root:Client 9, timestep 4: 0.40441152453422546 - Loss
-INFO:root:Client 9, timestep 4: 0.41944390535354614 - LossPrivileged
-INFO:root:Client 9, timestep 4: 0.2277199774980545 - LossUnprivileged
-INFO:root:Client 9, timestep 4: 0.8434328860674266 - BalancedACC
+INFO:root:Client 9, timestep 4: 0.8216689098250336 - ACC
+INFO:root:Client 9, timestep 4: 0.3829428553581238 - Loss
+INFO:root:Client 9, timestep 4: 0.3858027458190918 - LossPrivileged
+INFO:root:Client 9, timestep 4: 0.3250909447669983 - LossUnprivileged
+INFO:root:Client 9, timestep 4: 0.8791829639287265 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 4 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -755,76 +656,76 @@ INFO:root:Averaged models on timestep 4 cround 0 of model 0
 INFO:root:Averaged models on timestep 4 cround 0 of model 1
 INFO:root:Did not average models on timestep 4 cround 0 of model 2
 INFO:root:
-INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+INFO:absl:47/47 - 0s - 79ms/epoch - 2ms/step
 
-INFO:root:Client 0, timestep 5: 0.785622593068036 - ACC
-INFO:root:Client 0, timestep 5: 0.58118736743927 - Loss
-INFO:root:Client 0, timestep 5: 0.3503289520740509 - LossPrivileged
-INFO:root:Client 0, timestep 5: 3.160308837890625 - LossUnprivileged
-INFO:root:Client 0, timestep 5: 0.2424613939899833 - BalancedACC
-INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+INFO:root:Client 0, timestep 5: 0.7975790181573639 - ACC
+INFO:root:Client 0, timestep 5: 0.5024964213371277 - Loss
+INFO:root:Client 0, timestep 5: 0.33997851610183716 - LossPrivileged
+INFO:root:Client 0, timestep 5: 3.287102699279785 - LossUnprivileged
+INFO:root:Client 0, timestep 5: 0.23431311236189287 - BalancedACC
+INFO:absl:47/47 - 0s - 88ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 5: 0.785622593068036 - ACC
-INFO:root:Client 1, timestep 5: 0.5774918794631958 - Loss
-INFO:root:Client 1, timestep 5: 0.3710431456565857 - LossPrivileged
-INFO:root:Client 1, timestep 5: 2.9649713039398193 - LossUnprivileged
-INFO:root:Client 1, timestep 5: 0.37053255725398465 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 1, timestep 5: 0.8130464021519839 - ACC
+INFO:root:Client 1, timestep 5: 0.5077982544898987 - Loss
+INFO:root:Client 1, timestep 5: 0.34037771821022034 - LossPrivileged
+INFO:root:Client 1, timestep 5: 3.6160919666290283 - LossUnprivileged
+INFO:root:Client 1, timestep 5: 0.3600448211591373 - BalancedACC
+INFO:absl:47/47 - 0s - 82ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 5: 0.7702182284980744 - ACC
-INFO:root:Client 2, timestep 5: 0.6087910532951355 - Loss
-INFO:root:Client 2, timestep 5: 0.34951651096343994 - LossPrivileged
-INFO:root:Client 2, timestep 5: 3.607175827026367 - LossUnprivileged
-INFO:root:Client 2, timestep 5: 0.11681329423264906 - BalancedACC
-INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+INFO:root:Client 2, timestep 5: 0.8150638870208473 - ACC
+INFO:root:Client 2, timestep 5: 0.47917982935905457 - Loss
+INFO:root:Client 2, timestep 5: 0.3501043915748596 - LossPrivileged
+INFO:root:Client 2, timestep 5: 3.2148072719573975 - LossUnprivileged
+INFO:root:Client 2, timestep 5: 0.28353217191633806 - BalancedACC
+INFO:absl:47/47 - 0s - 86ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 5: 0.7637997432605905 - ACC
-INFO:root:Client 3, timestep 5: 0.6376500129699707 - Loss
-INFO:root:Client 3, timestep 5: 0.38713669776916504 - LossPrivileged
-INFO:root:Client 3, timestep 5: 3.060421943664551 - LossUnprivileged
-INFO:root:Client 3, timestep 5: 0.21602410205714823 - BalancedACC
-INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+INFO:root:Client 3, timestep 5: 0.8157363819771352 - ACC
+INFO:root:Client 3, timestep 5: 0.4605366587638855 - Loss
+INFO:root:Client 3, timestep 5: 0.3453422784805298 - LossPrivileged
+INFO:root:Client 3, timestep 5: 2.5414199829101562 - LossUnprivileged
+INFO:root:Client 3, timestep 5: 0.44244845807345806 - BalancedACC
+INFO:absl:47/47 - 0s - 86ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 5: 0.7869062901155327 - ACC
-INFO:root:Client 4, timestep 5: 0.5941731929779053 - Loss
-INFO:root:Client 4, timestep 5: 0.36379653215408325 - LossPrivileged
-INFO:root:Client 4, timestep 5: 2.7566423416137695 - LossUnprivileged
-INFO:root:Client 4, timestep 5: 0.30024691358024697 - BalancedACC
-INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+INFO:root:Client 4, timestep 5: 0.8110289172831204 - ACC
+INFO:root:Client 4, timestep 5: 0.5203431844711304 - Loss
+INFO:root:Client 4, timestep 5: 0.3352515995502472 - LossPrivileged
+INFO:root:Client 4, timestep 5: 3.909681558609009 - LossUnprivileged
+INFO:root:Client 4, timestep 5: 0.15310776180341396 - BalancedACC
+INFO:absl:47/47 - 0s - 87ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 5: 0.8241335044929397 - ACC
-INFO:root:Client 5, timestep 5: 0.37026968598365784 - Loss
-INFO:root:Client 5, timestep 5: 0.388695627450943 - LossPrivileged
-INFO:root:Client 5, timestep 5: 0.15338775515556335 - LossUnprivileged
-INFO:root:Client 5, timestep 5: 0.8395023842122658 - BalancedACC
-INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+INFO:root:Client 5, timestep 5: 0.8016139878950908 - ACC
+INFO:root:Client 5, timestep 5: 0.3949359655380249 - Loss
+INFO:root:Client 5, timestep 5: 0.40330785512924194 - LossPrivileged
+INFO:root:Client 5, timestep 5: 0.23040539026260376 - LossUnprivileged
+INFO:root:Client 5, timestep 5: 0.8281456444922415 - BalancedACC
+INFO:absl:47/47 - 0s - 81ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 5: 0.8536585365853658 - ACC
-INFO:root:Client 6, timestep 5: 0.3357376158237457 - Loss
-INFO:root:Client 6, timestep 5: 0.35423919558525085 - LossPrivileged
-INFO:root:Client 6, timestep 5: 0.14228732883930206 - LossUnprivileged
-INFO:root:Client 6, timestep 5: 0.8680049439543109 - BalancedACC
-INFO:absl:25/25 - 0s - 56ms/epoch - 2ms/step
+INFO:root:Client 6, timestep 5: 0.8224613315400134 - ACC
+INFO:root:Client 6, timestep 5: 0.38882678747177124 - Loss
+INFO:root:Client 6, timestep 5: 0.39680346846580505 - LossPrivileged
+INFO:root:Client 6, timestep 5: 0.20235560834407806 - LossUnprivileged
+INFO:root:Client 6, timestep 5: 0.8291608228143993 - BalancedACC
+INFO:absl:47/47 - 0s - 88ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 5: 0.8177150192554558 - ACC
-INFO:root:Client 7, timestep 5: 0.3869726061820984 - Loss
-INFO:root:Client 7, timestep 5: 0.41234827041625977 - LossPrivileged
-INFO:root:Client 7, timestep 5: 0.16525238752365112 - LossUnprivileged
-INFO:root:Client 7, timestep 5: 0.8323579139029783 - BalancedACC
-INFO:absl:25/25 - 0s - 52ms/epoch - 2ms/step
+INFO:root:Client 7, timestep 5: 0.808338937457969 - ACC
+INFO:root:Client 7, timestep 5: 0.38202646374702454 - Loss
+INFO:root:Client 7, timestep 5: 0.393155574798584 - LossPrivileged
+INFO:root:Client 7, timestep 5: 0.18367540836334229 - LossUnprivileged
+INFO:root:Client 7, timestep 5: 0.8197590761511216 - BalancedACC
+INFO:absl:47/47 - 0s - 81ms/epoch - 2ms/step
 
-INFO:root:Client 8, timestep 5: 0.8161953727506427 - ACC
-INFO:root:Client 8, timestep 5: 0.3974286615848541 - Loss
-INFO:root:Client 8, timestep 5: 0.4233447015285492 - LossPrivileged
-INFO:root:Client 8, timestep 5: 0.14714327454566956 - LossUnprivileged
-INFO:root:Client 8, timestep 5: 0.8096729708431838 - BalancedACC
-INFO:absl:25/25 - 0s - 55ms/epoch - 2ms/step
+INFO:root:Client 8, timestep 5: 0.8250336473755047 - ACC
+INFO:root:Client 8, timestep 5: 0.3753441572189331 - Loss
+INFO:root:Client 8, timestep 5: 0.383745014667511 - LossPrivileged
+INFO:root:Client 8, timestep 5: 0.2001609057188034 - LossUnprivileged
+INFO:root:Client 8, timestep 5: 0.8565476836280784 - BalancedACC
+INFO:absl:47/47 - 0s - 78ms/epoch - 2ms/step
 
-INFO:root:Client 9, timestep 5: 0.8187660668380463 - ACC
-INFO:root:Client 9, timestep 5: 0.3931520879268646 - Loss
-INFO:root:Client 9, timestep 5: 0.4115602374076843 - LossPrivileged
-INFO:root:Client 9, timestep 5: 0.18423403799533844 - LossUnprivileged
-INFO:root:Client 9, timestep 5: 0.8320073369253698 - BalancedACC
+INFO:root:Client 9, timestep 5: 0.8088829071332436 - ACC
+INFO:root:Client 9, timestep 5: 0.380344033241272 - Loss
+INFO:root:Client 9, timestep 5: 0.3894813060760498 - LossPrivileged
+INFO:root:Client 9, timestep 5: 0.170480415225029 - LossUnprivileged
+INFO:root:Client 9, timestep 5: 0.8434821938678346 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 5 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -930,76 +831,76 @@ INFO:root:Averaged models on timestep 5 cround 0 of model 0
 INFO:root:Averaged models on timestep 5 cround 0 of model 1
 INFO:root:Averaged models on timestep 5 cround 0 of model 2
 INFO:root:
-INFO:absl:25/25 - 0s - 91ms/epoch - 4ms/step
+INFO:absl:47/47 - 0s - 123ms/epoch - 3ms/step
 
-INFO:root:Client 0, timestep 6: 0.7971758664955071 - ACC
-INFO:root:Client 0, timestep 6: 0.4659275412559509 - Loss
-INFO:root:Client 0, timestep 6: 0.4546371102333069 - LossPrivileged
-INFO:root:Client 0, timestep 6: 0.5632202625274658 - LossUnprivileged
-INFO:root:Client 0, timestep 6: 0.9437257711107366 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 0, timestep 6: 0.8056489576328177 - ACC
+INFO:root:Client 0, timestep 6: 0.43334102630615234 - Loss
+INFO:root:Client 0, timestep 6: 0.42854607105255127 - LossPrivileged
+INFO:root:Client 0, timestep 6: 0.5236145853996277 - LossUnprivileged
+INFO:root:Client 0, timestep 6: 0.9411517351274789 - BalancedACC
+INFO:absl:47/47 - 0s - 87ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 6: 0.7689345314505777 - ACC
-INFO:root:Client 1, timestep 6: 0.48600274324417114 - Loss
-INFO:root:Client 1, timestep 6: 0.46342605352401733 - LossPrivileged
-INFO:root:Client 1, timestep 6: 0.6889030933380127 - LossUnprivileged
-INFO:root:Client 1, timestep 6: 0.9813615210121371 - BalancedACC
-INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+INFO:root:Client 1, timestep 6: 0.808338937457969 - ACC
+INFO:root:Client 1, timestep 6: 0.43022453784942627 - Loss
+INFO:root:Client 1, timestep 6: 0.42005160450935364 - LossPrivileged
+INFO:root:Client 1, timestep 6: 0.6139888167381287 - LossUnprivileged
+INFO:root:Client 1, timestep 6: 0.9991558046869724 - BalancedACC
+INFO:absl:47/47 - 0s - 93ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 6: 0.79204107830552 - ACC
-INFO:root:Client 2, timestep 6: 0.46031755208969116 - Loss
-INFO:root:Client 2, timestep 6: 0.4491206109523773 - LossPrivileged
-INFO:root:Client 2, timestep 6: 0.5921111702919006 - LossUnprivileged
-INFO:root:Client 2, timestep 6: 0.9848217838667501 - BalancedACC
-INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+INFO:root:Client 2, timestep 6: 0.8002689979825152 - ACC
+INFO:root:Client 2, timestep 6: 0.4352400600910187 - Loss
+INFO:root:Client 2, timestep 6: 0.4301253855228424 - LossPrivileged
+INFO:root:Client 2, timestep 6: 0.5508492588996887 - LossUnprivileged
+INFO:root:Client 2, timestep 6: 0.9491069535721857 - BalancedACC
+INFO:absl:47/47 - 0s - 91ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 6: 0.810012836970475 - ACC
-INFO:root:Client 3, timestep 6: 0.433809757232666 - Loss
-INFO:root:Client 3, timestep 6: 0.42987537384033203 - LossPrivileged
-INFO:root:Client 3, timestep 6: 0.47852379083633423 - LossUnprivileged
-INFO:root:Client 3, timestep 6: 0.9214829862874556 - BalancedACC
-INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+INFO:root:Client 3, timestep 6: 0.7780766644250168 - ACC
+INFO:root:Client 3, timestep 6: 0.4529954195022583 - Loss
+INFO:root:Client 3, timestep 6: 0.44073039293289185 - LossPrivileged
+INFO:root:Client 3, timestep 6: 0.7129402160644531 - LossUnprivileged
+INFO:root:Client 3, timestep 6: 0.9828328461334042 - BalancedACC
+INFO:absl:47/47 - 0s - 86ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 6: 0.7946084724005135 - ACC
-INFO:root:Client 4, timestep 6: 0.4620584547519684 - Loss
-INFO:root:Client 4, timestep 6: 0.4444805979728699 - LossPrivileged
-INFO:root:Client 4, timestep 6: 0.6519527435302734 - LossUnprivileged
-INFO:root:Client 4, timestep 6: 0.9885416391013259 - BalancedACC
-INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+INFO:root:Client 4, timestep 6: 0.8143913920645595 - ACC
+INFO:root:Client 4, timestep 6: 0.41405192017555237 - Loss
+INFO:root:Client 4, timestep 6: 0.40200620889663696 - LossPrivileged
+INFO:root:Client 4, timestep 6: 0.6346290111541748 - LossUnprivileged
+INFO:root:Client 4, timestep 6: 0.9951142631993695 - BalancedACC
+INFO:absl:47/47 - 0s - 85ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 6: 0.8267008985879333 - ACC
-INFO:root:Client 5, timestep 6: 0.35834622383117676 - Loss
-INFO:root:Client 5, timestep 6: 0.375833660364151 - LossPrivileged
-INFO:root:Client 5, timestep 6: 0.14878816902637482 - LossUnprivileged
-INFO:root:Client 5, timestep 6: 0.8593807188346388 - BalancedACC
-INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+INFO:root:Client 5, timestep 6: 0.85137861466039 - ACC
+INFO:root:Client 5, timestep 6: 0.3346989154815674 - Loss
+INFO:root:Client 5, timestep 6: 0.3471541702747345 - LossPrivileged
+INFO:root:Client 5, timestep 6: 0.08256890624761581 - LossUnprivileged
+INFO:root:Client 5, timestep 6: 0.8440366972477065 - BalancedACC
+INFO:absl:47/47 - 0s - 90ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 6: 0.8356867779204108 - ACC
-INFO:root:Client 6, timestep 6: 0.3532973527908325 - Loss
-INFO:root:Client 6, timestep 6: 0.3785277307033539 - LossPrivileged
-INFO:root:Client 6, timestep 6: 0.15769067406654358 - LossUnprivileged
-INFO:root:Client 6, timestep 6: 0.8706521739130435 - BalancedACC
-INFO:absl:25/25 - 0s - 55ms/epoch - 2ms/step
+INFO:root:Client 6, timestep 6: 0.8419636852723604 - ACC
+INFO:root:Client 6, timestep 6: 0.33852288126945496 - Loss
+INFO:root:Client 6, timestep 6: 0.3505290448665619 - LossPrivileged
+INFO:root:Client 6, timestep 6: 0.10256815701723099 - LossUnprivileged
+INFO:root:Client 6, timestep 6: 0.8592024230186774 - BalancedACC
+INFO:absl:47/47 - 0s - 87ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 6: 0.8112965340179717 - ACC
-INFO:root:Client 7, timestep 6: 0.38890790939331055 - Loss
-INFO:root:Client 7, timestep 6: 0.4066152274608612 - LossPrivileged
-INFO:root:Client 7, timestep 6: 0.17281794548034668 - LossUnprivileged
-INFO:root:Client 7, timestep 6: 0.8596717171717173 - BalancedACC
-INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+INFO:root:Client 7, timestep 6: 0.8365837256220578 - ACC
+INFO:root:Client 7, timestep 6: 0.34598052501678467 - Loss
+INFO:root:Client 7, timestep 6: 0.3632587194442749 - LossPrivileged
+INFO:root:Client 7, timestep 6: 0.08993185311555862 - LossUnprivileged
+INFO:root:Client 7, timestep 6: 0.8449701925777959 - BalancedACC
+INFO:absl:47/47 - 0s - 88ms/epoch - 2ms/step
 
-INFO:root:Client 8, timestep 6: 0.8226221079691517 - ACC
-INFO:root:Client 8, timestep 6: 0.3591904044151306 - Loss
-INFO:root:Client 8, timestep 6: 0.37637630105018616 - LossPrivileged
-INFO:root:Client 8, timestep 6: 0.17379175126552582 - LossUnprivileged
-INFO:root:Client 8, timestep 6: 0.8641718013773106 - BalancedACC
-INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+INFO:root:Client 8, timestep 6: 0.8203230148048453 - ACC
+INFO:root:Client 8, timestep 6: 0.3552541732788086 - Loss
+INFO:root:Client 8, timestep 6: 0.36748939752578735 - LossPrivileged
+INFO:root:Client 8, timestep 6: 0.08777330815792084 - LossUnprivileged
+INFO:root:Client 8, timestep 6: 0.8255080049261082 - BalancedACC
+INFO:absl:47/47 - 0s - 86ms/epoch - 2ms/step
 
-INFO:root:Client 9, timestep 6: 0.8110539845758354 - ACC
-INFO:root:Client 9, timestep 6: 0.3850332200527191 - Loss
-INFO:root:Client 9, timestep 6: 0.411441445350647 - LossPrivileged
-INFO:root:Client 9, timestep 6: 0.13379818201065063 - LossUnprivileged
-INFO:root:Client 9, timestep 6: 0.8160905934343434 - BalancedACC
+INFO:root:Client 9, timestep 6: 0.8384925975773889 - ACC
+INFO:root:Client 9, timestep 6: 0.34195655584335327 - Loss
+INFO:root:Client 9, timestep 6: 0.3514026403427124 - LossPrivileged
+INFO:root:Client 9, timestep 6: 0.13872294127941132 - LossUnprivileged
+INFO:root:Client 9, timestep 6: 0.8727699530516432 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 6 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -1115,76 +1016,76 @@ INFO:root:Averaged models on timestep 6 cround 0 of model 0
 INFO:root:Averaged models on timestep 6 cround 0 of model 1
 INFO:root:Averaged models on timestep 6 cround 0 of model 2
 INFO:root:
-INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+INFO:absl:47/47 - 0s - 88ms/epoch - 2ms/step
 
-INFO:root:Client 0, timestep 7: 0.7933247753530167 - ACC
-INFO:root:Client 0, timestep 7: 0.4213292896747589 - Loss
-INFO:root:Client 0, timestep 7: 0.4280663728713989 - LossPrivileged
-INFO:root:Client 0, timestep 7: 0.3405970633029938 - LossUnprivileged
-INFO:root:Client 0, timestep 7: 0.871580899397311 - BalancedACC
-INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+INFO:root:Client 0, timestep 7: 0.8143913920645595 - ACC
+INFO:root:Client 0, timestep 7: 0.41657474637031555 - Loss
+INFO:root:Client 0, timestep 7: 0.4141826629638672 - LossPrivileged
+INFO:root:Client 0, timestep 7: 0.46358564496040344 - LossUnprivileged
+INFO:root:Client 0, timestep 7: 0.9935197939749656 - BalancedACC
+INFO:absl:47/47 - 0s - 85ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 7: 0.7753530166880617 - ACC
-INFO:root:Client 1, timestep 7: 0.44591885805130005 - Loss
-INFO:root:Client 1, timestep 7: 0.44682276248931885 - LossPrivileged
-INFO:root:Client 1, timestep 7: 0.43646758794784546 - LossUnprivileged
-INFO:root:Client 1, timestep 7: 0.9003346428051796 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 1, timestep 7: 0.7854741089441829 - ACC
+INFO:root:Client 1, timestep 7: 0.4430526793003082 - Loss
+INFO:root:Client 1, timestep 7: 0.4409677982330322 - LossPrivileged
+INFO:root:Client 1, timestep 7: 0.47924214601516724 - LossUnprivileged
+INFO:root:Client 1, timestep 7: 0.946699645442772 - BalancedACC
+INFO:absl:47/47 - 0s - 87ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 7: 0.7894736842105263 - ACC
-INFO:root:Client 2, timestep 7: 0.42757144570350647 - Loss
-INFO:root:Client 2, timestep 7: 0.42695891857147217 - LossPrivileged
-INFO:root:Client 2, timestep 7: 0.43453288078308105 - LossUnprivileged
-INFO:root:Client 2, timestep 7: 0.9330135975545483 - BalancedACC
-INFO:absl:25/25 - 0s - 56ms/epoch - 2ms/step
+INFO:root:Client 2, timestep 7: 0.8157363819771352 - ACC
+INFO:root:Client 2, timestep 7: 0.41078701615333557 - Loss
+INFO:root:Client 2, timestep 7: 0.4061336815357208 - LossPrivileged
+INFO:root:Client 2, timestep 7: 0.4856674373149872 - LossUnprivileged
+INFO:root:Client 2, timestep 7: 0.9704500978473581 - BalancedACC
+INFO:absl:47/47 - 0s - 84ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 7: 0.8074454428754814 - ACC
-INFO:root:Client 3, timestep 7: 0.4371269643306732 - Loss
-INFO:root:Client 3, timestep 7: 0.4192514419555664 - LossPrivileged
-INFO:root:Client 3, timestep 7: 0.6074284911155701 - LossUnprivileged
-INFO:root:Client 3, timestep 7: 0.9493715743715745 - BalancedACC
-INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+INFO:root:Client 3, timestep 7: 0.7955615332885003 - ACC
+INFO:root:Client 3, timestep 7: 0.4377540647983551 - Loss
+INFO:root:Client 3, timestep 7: 0.4412151575088501 - LossPrivileged
+INFO:root:Client 3, timestep 7: 0.3643999993801117 - LossUnprivileged
+INFO:root:Client 3, timestep 7: 0.8988780138457865 - BalancedACC
+INFO:absl:47/47 - 0s - 79ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 7: 0.8112965340179717 - ACC
-INFO:root:Client 4, timestep 7: 0.41418468952178955 - Loss
-INFO:root:Client 4, timestep 7: 0.4157552719116211 - LossPrivileged
-INFO:root:Client 4, timestep 7: 0.39802324771881104 - LossUnprivileged
-INFO:root:Client 4, timestep 7: 0.9264788732394368 - BalancedACC
-INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+INFO:root:Client 4, timestep 7: 0.8036314727639543 - ACC
+INFO:root:Client 4, timestep 7: 0.4269472062587738 - Loss
+INFO:root:Client 4, timestep 7: 0.4206268787384033 - LossPrivileged
+INFO:root:Client 4, timestep 7: 0.5698068737983704 - LossUnprivileged
+INFO:root:Client 4, timestep 7: 0.9459044297753976 - BalancedACC
+INFO:absl:47/47 - 0s - 79ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 7: 0.8549422336328626 - ACC
-INFO:root:Client 5, timestep 7: 0.337923139333725 - Loss
-INFO:root:Client 5, timestep 7: 0.35612615942955017 - LossPrivileged
-INFO:root:Client 5, timestep 7: 0.14448244869709015 - LossUnprivileged
-INFO:root:Client 5, timestep 7: 0.9006821829855537 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 5, timestep 7: 0.8386012104909213 - ACC
+INFO:root:Client 5, timestep 7: 0.34217149019241333 - Loss
+INFO:root:Client 5, timestep 7: 0.35380709171295166 - LossPrivileged
+INFO:root:Client 5, timestep 7: 0.09165474772453308 - LossUnprivileged
+INFO:root:Client 5, timestep 7: 0.844605640664754 - BalancedACC
+INFO:absl:47/47 - 0s - 79ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 7: 0.834403080872914 - ACC
-INFO:root:Client 6, timestep 7: 0.35285669565200806 - Loss
-INFO:root:Client 6, timestep 7: 0.37349042296409607 - LossPrivileged
-INFO:root:Client 6, timestep 7: 0.13358472287654877 - LossUnprivileged
-INFO:root:Client 6, timestep 7: 0.8616134129213482 - BalancedACC
-INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+INFO:root:Client 6, timestep 7: 0.8453261600537996 - ACC
+INFO:root:Client 6, timestep 7: 0.3362870514392853 - Loss
+INFO:root:Client 6, timestep 7: 0.34343475103378296 - LossPrivileged
+INFO:root:Client 6, timestep 7: 0.17472617328166962 - LossUnprivileged
+INFO:root:Client 6, timestep 7: 0.9145801046106161 - BalancedACC
+INFO:absl:47/47 - 0s - 81ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 7: 0.8395378690629012 - ACC
-INFO:root:Client 7, timestep 7: 0.3465149998664856 - Loss
-INFO:root:Client 7, timestep 7: 0.3649301528930664 - LossPrivileged
-INFO:root:Client 7, timestep 7: 0.15081995725631714 - LossUnprivileged
-INFO:root:Client 7, timestep 7: 0.8827581594435526 - BalancedACC
-INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+INFO:root:Client 7, timestep 7: 0.8473436449226631 - ACC
+INFO:root:Client 7, timestep 7: 0.33054670691490173 - Loss
+INFO:root:Client 7, timestep 7: 0.340115487575531 - LossPrivileged
+INFO:root:Client 7, timestep 7: 0.1068577915430069 - LossUnprivileged
+INFO:root:Client 7, timestep 7: 0.855539971949509 - BalancedACC
+INFO:absl:47/47 - 0s - 85ms/epoch - 2ms/step
 
-INFO:root:Client 8, timestep 7: 0.8483290488431876 - ACC
-INFO:root:Client 8, timestep 7: 0.3306216299533844 - Loss
-INFO:root:Client 8, timestep 7: 0.3524012267589569 - LossPrivileged
-INFO:root:Client 8, timestep 7: 0.09171605855226517 - LossUnprivileged
-INFO:root:Client 8, timestep 7: 0.8792924037460979 - BalancedACC
-INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+INFO:root:Client 8, timestep 7: 0.8283983849259757 - ACC
+INFO:root:Client 8, timestep 7: 0.3398085832595825 - Loss
+INFO:root:Client 8, timestep 7: 0.3499056398868561 - LossPrivileged
+INFO:root:Client 8, timestep 7: 0.10790301859378815 - LossUnprivileged
+INFO:root:Client 8, timestep 7: 0.8497425093632959 - BalancedACC
+INFO:absl:47/47 - 0s - 85ms/epoch - 2ms/step
 
-INFO:root:Client 9, timestep 7: 0.8663239074550129 - ACC
-INFO:root:Client 9, timestep 7: 0.3280399739742279 - Loss
-INFO:root:Client 9, timestep 7: 0.3506758213043213 - LossPrivileged
-INFO:root:Client 9, timestep 7: 0.091695137321949 - LossUnprivileged
-INFO:root:Client 9, timestep 7: 0.8676897204120243 - BalancedACC
+INFO:root:Client 9, timestep 7: 0.8243606998654105 - ACC
+INFO:root:Client 9, timestep 7: 0.35602009296417236 - Loss
+INFO:root:Client 9, timestep 7: 0.37086212635040283 - LossPrivileged
+INFO:root:Client 9, timestep 7: 0.06453854590654373 - LossUnprivileged
+INFO:root:Client 9, timestep 7: 0.8276191804291093 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 7 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -1310,76 +1211,76 @@ INFO:root:Averaged models on timestep 7 cround 0 of model 0
 INFO:root:Averaged models on timestep 7 cround 0 of model 1
 INFO:root:Averaged models on timestep 7 cround 0 of model 2
 INFO:root:
-INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+INFO:absl:47/47 - 0s - 89ms/epoch - 2ms/step
 
-INFO:root:Client 0, timestep 8: 0.82798459563543 - ACC
-INFO:root:Client 0, timestep 8: 0.36638930439949036 - Loss
-INFO:root:Client 0, timestep 8: 0.37490275502204895 - LossPrivileged
-INFO:root:Client 0, timestep 8: 0.2759184241294861 - LossUnprivileged
-INFO:root:Client 0, timestep 8: 0.9174859550561798 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 0, timestep 8: 0.8298587760591796 - ACC
+INFO:root:Client 0, timestep 8: 0.3538150489330292 - Loss
+INFO:root:Client 0, timestep 8: 0.36075639724731445 - LossPrivileged
+INFO:root:Client 0, timestep 8: 0.23488157987594604 - LossUnprivileged
+INFO:root:Client 0, timestep 8: 0.9419137999209174 - BalancedACC
+INFO:absl:47/47 - 0s - 87ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 8: 0.7804878048780488 - ACC
-INFO:root:Client 1, timestep 8: 0.43838921189308167 - Loss
-INFO:root:Client 1, timestep 8: 0.4544796347618103 - LossPrivileged
-INFO:root:Client 1, timestep 8: 0.2779390513896942 - LossUnprivileged
-INFO:root:Client 1, timestep 8: 0.883132859486058 - BalancedACC
-INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+INFO:root:Client 1, timestep 8: 0.8285137861466039 - ACC
+INFO:root:Client 1, timestep 8: 0.36569732427597046 - Loss
+INFO:root:Client 1, timestep 8: 0.36343178153038025 - LossPrivileged
+INFO:root:Client 1, timestep 8: 0.4169050455093384 - LossUnprivileged
+INFO:root:Client 1, timestep 8: 0.9362261669953978 - BalancedACC
+INFO:absl:47/47 - 0s - 86ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 8: 0.8074454428754814 - ACC
-INFO:root:Client 2, timestep 8: 0.4049158990383148 - Loss
-INFO:root:Client 2, timestep 8: 0.4075031280517578 - LossPrivileged
-INFO:root:Client 2, timestep 8: 0.3749958872795105 - LossUnprivileged
-INFO:root:Client 2, timestep 8: 0.9800092980009297 - BalancedACC
-INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+INFO:root:Client 2, timestep 8: 0.8258238063214526 - ACC
+INFO:root:Client 2, timestep 8: 0.35631999373435974 - Loss
+INFO:root:Client 2, timestep 8: 0.3640143573284149 - LossPrivileged
+INFO:root:Client 2, timestep 8: 0.17645001411437988 - LossUnprivileged
+INFO:root:Client 2, timestep 8: 0.895261470647165 - BalancedACC
+INFO:absl:47/47 - 0s - 89ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 8: 0.754813863928113 - ACC
-INFO:root:Client 3, timestep 8: 0.5639739036560059 - Loss
-INFO:root:Client 3, timestep 8: 0.4027771055698395 - LossPrivileged
-INFO:root:Client 3, timestep 8: 2.5311217308044434 - LossUnprivileged
-INFO:root:Client 3, timestep 8: 0.16832261835184104 - BalancedACC
-INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+INFO:root:Client 3, timestep 8: 0.7942165433759247 - ACC
+INFO:root:Client 3, timestep 8: 0.47276127338409424 - Loss
+INFO:root:Client 3, timestep 8: 0.36614400148391724 - LossPrivileged
+INFO:root:Client 3, timestep 8: 2.663823127746582 - LossUnprivileged
+INFO:root:Client 3, timestep 8: 0.1754972215002661 - BalancedACC
+INFO:absl:47/47 - 0s - 84ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 8: 0.7612323491655969 - ACC
-INFO:root:Client 4, timestep 8: 0.5594751238822937 - Loss
-INFO:root:Client 4, timestep 8: 0.4048009514808655 - LossPrivileged
-INFO:root:Client 4, timestep 8: 2.230426073074341 - LossUnprivileged
-INFO:root:Client 4, timestep 8: 0.31883943602693604 - BalancedACC
-INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+INFO:root:Client 4, timestep 8: 0.7646267652992602 - ACC
+INFO:root:Client 4, timestep 8: 0.4935827851295471 - Loss
+INFO:root:Client 4, timestep 8: 0.37481582164764404 - LossPrivileged
+INFO:root:Client 4, timestep 8: 2.668407440185547 - LossUnprivileged
+INFO:root:Client 4, timestep 8: 0.09714423507526955 - BalancedACC
+INFO:absl:47/47 - 0s - 87ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 8: 0.8382541720154044 - ACC
-INFO:root:Client 5, timestep 8: 0.4848731458187103 - Loss
-INFO:root:Client 5, timestep 8: 0.353067010641098 - LossPrivileged
-INFO:root:Client 5, timestep 8: 1.9087786674499512 - LossUnprivileged
-INFO:root:Client 5, timestep 8: 0.7425978277042107 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 5, timestep 8: 0.831876260928043 - ACC
+INFO:root:Client 5, timestep 8: 0.4267967641353607 - Loss
+INFO:root:Client 5, timestep 8: 0.3399997353553772 - LossPrivileged
+INFO:root:Client 5, timestep 8: 2.6043357849121094 - LossUnprivileged
+INFO:root:Client 5, timestep 8: 0.6235555749356821 - BalancedACC
+INFO:absl:47/47 - 0s - 85ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 8: 0.8010269576379975 - ACC
-INFO:root:Client 6, timestep 8: 0.5691030621528625 - Loss
-INFO:root:Client 6, timestep 8: 0.36219432950019836 - LossPrivileged
-INFO:root:Client 6, timestep 8: 2.428628921508789 - LossUnprivileged
-INFO:root:Client 6, timestep 8: 0.6651440928549363 - BalancedACC
-INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+INFO:root:Client 6, timestep 8: 0.8332212508406187 - ACC
+INFO:root:Client 6, timestep 8: 0.41672149300575256 - Loss
+INFO:root:Client 6, timestep 8: 0.34357571601867676 - LossPrivileged
+INFO:root:Client 6, timestep 8: 2.0430727005004883 - LossUnprivileged
+INFO:root:Client 6, timestep 8: 0.7417639699749792 - BalancedACC
+INFO:absl:47/47 - 0s - 84ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 8: 0.8087291399229781 - ACC
-INFO:root:Client 7, timestep 8: 0.5327931046485901 - Loss
-INFO:root:Client 7, timestep 8: 0.35715967416763306 - LossPrivileged
-INFO:root:Client 7, timestep 8: 2.3691954612731934 - LossUnprivileged
-INFO:root:Client 7, timestep 8: 0.6523906358496181 - BalancedACC
-INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+INFO:root:Client 7, timestep 8: 0.8150638870208473 - ACC
+INFO:root:Client 7, timestep 8: 0.47161346673965454 - Loss
+INFO:root:Client 7, timestep 8: 0.344651997089386 - LossPrivileged
+INFO:root:Client 7, timestep 8: 2.8958911895751953 - LossUnprivileged
+INFO:root:Client 7, timestep 8: 0.5344543016298742 - BalancedACC
+INFO:absl:47/47 - 0s - 83ms/epoch - 2ms/step
 
-INFO:root:Client 8, timestep 8: 0.8419023136246787 - ACC
-INFO:root:Client 8, timestep 8: 0.33265843987464905 - Loss
-INFO:root:Client 8, timestep 8: 0.35978764295578003 - LossPrivileged
-INFO:root:Client 8, timestep 8: 0.053895484656095505 - LossUnprivileged
-INFO:root:Client 8, timestep 8: 0.8401020492823363 - BalancedACC
-INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+INFO:root:Client 8, timestep 8: 0.8378196500672948 - ACC
+INFO:root:Client 8, timestep 8: 0.35537394881248474 - Loss
+INFO:root:Client 8, timestep 8: 0.36343711614608765 - LossPrivileged
+INFO:root:Client 8, timestep 8: 0.14947380125522614 - LossUnprivileged
+INFO:root:Client 8, timestep 8: 0.8807494392400054 - BalancedACC
+INFO:absl:47/47 - 0s - 84ms/epoch - 2ms/step
 
-INFO:root:Client 9, timestep 8: 0.8380462724935732 - ACC
-INFO:root:Client 9, timestep 8: 0.3184930086135864 - Loss
-INFO:root:Client 9, timestep 8: 0.34207165241241455 - LossPrivileged
-INFO:root:Client 9, timestep 8: 0.10070070624351501 - LossUnprivileged
-INFO:root:Client 9, timestep 8: 0.8586816532022011 - BalancedACC
+INFO:root:Client 9, timestep 8: 0.8472409152086138 - ACC
+INFO:root:Client 9, timestep 8: 0.3329799771308899 - Loss
+INFO:root:Client 9, timestep 8: 0.3424586355686188 - LossPrivileged
+INFO:root:Client 9, timestep 8: 0.1257620006799698 - LossUnprivileged
+INFO:root:Client 9, timestep 8: 0.8831241061496901 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 8 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -1515,76 +1416,76 @@ INFO:root:Averaged models on timestep 8 cround 0 of model 0
 INFO:root:Averaged models on timestep 8 cround 0 of model 1
 INFO:root:Averaged models on timestep 8 cround 0 of model 2
 INFO:root:
-INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+INFO:absl:47/47 - 0s - 85ms/epoch - 2ms/step
 
-INFO:root:Client 0, timestep 9: 0.8254172015404364 - ACC
-INFO:root:Client 0, timestep 9: 0.37980473041534424 - Loss
-INFO:root:Client 0, timestep 9: 0.3933018445968628 - LossPrivileged
-INFO:root:Client 0, timestep 9: 0.21509507298469543 - LossUnprivileged
-INFO:root:Client 0, timestep 9: 0.9313301282051283 - BalancedACC
-INFO:absl:25/25 - 0s - 53ms/epoch - 2ms/step
+INFO:root:Client 0, timestep 9: 0.8291862811028917 - ACC
+INFO:root:Client 0, timestep 9: 0.35571157932281494 - Loss
+INFO:root:Client 0, timestep 9: 0.36221081018447876 - LossPrivileged
+INFO:root:Client 0, timestep 9: 0.2088078111410141 - LossUnprivileged
+INFO:root:Client 0, timestep 9: 0.9475740551583248 - BalancedACC
+INFO:absl:47/47 - 0s - 78ms/epoch - 2ms/step
 
-INFO:root:Client 1, timestep 9: 0.82798459563543 - ACC
-INFO:root:Client 1, timestep 9: 0.3633744418621063 - Loss
-INFO:root:Client 1, timestep 9: 0.37121516466140747 - LossPrivileged
-INFO:root:Client 1, timestep 9: 0.2839597165584564 - LossUnprivileged
-INFO:root:Client 1, timestep 9: 0.9441888619854721 - BalancedACC
-INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+INFO:root:Client 1, timestep 9: 0.8325487558843309 - ACC
+INFO:root:Client 1, timestep 9: 0.3523573875427246 - Loss
+INFO:root:Client 1, timestep 9: 0.36081746220588684 - LossPrivileged
+INFO:root:Client 1, timestep 9: 0.1758144348859787 - LossUnprivileged
+INFO:root:Client 1, timestep 9: 0.8937660100450797 - BalancedACC
+INFO:absl:47/47 - 0s - 77ms/epoch - 2ms/step
 
-INFO:root:Client 2, timestep 9: 0.8177150192554558 - ACC
-INFO:root:Client 2, timestep 9: 0.3625256419181824 - Loss
-INFO:root:Client 2, timestep 9: 0.37020355463027954 - LossPrivileged
-INFO:root:Client 2, timestep 9: 0.2737332284450531 - LossUnprivileged
-INFO:root:Client 2, timestep 9: 0.9728033472803346 - BalancedACC
-INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+INFO:root:Client 2, timestep 9: 0.8426361802286483 - ACC
+INFO:root:Client 2, timestep 9: 0.34537920355796814 - Loss
+INFO:root:Client 2, timestep 9: 0.35038772225379944 - LossPrivileged
+INFO:root:Client 2, timestep 9: 0.24245010316371918 - LossUnprivileged
+INFO:root:Client 2, timestep 9: 0.9974410284397549 - BalancedACC
+INFO:absl:47/47 - 0s - 74ms/epoch - 2ms/step
 
-INFO:root:Client 3, timestep 9: 0.8356867779204108 - ACC
-INFO:root:Client 3, timestep 9: 0.3396747410297394 - Loss
-INFO:root:Client 3, timestep 9: 0.3422468304634094 - LossPrivileged
-INFO:root:Client 3, timestep 9: 0.3123416006565094 - LossUnprivileged
-INFO:root:Client 3, timestep 9: 0.9806671341280176 - BalancedACC
-INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+INFO:root:Client 3, timestep 9: 0.8453261600537996 - ACC
+INFO:root:Client 3, timestep 9: 0.3261859118938446 - Loss
+INFO:root:Client 3, timestep 9: 0.3269888162612915 - LossPrivileged
+INFO:root:Client 3, timestep 9: 0.30889996886253357 - LossUnprivileged
+INFO:root:Client 3, timestep 9: 0.9851636161952302 - BalancedACC
+INFO:absl:47/47 - 0s - 73ms/epoch - 2ms/step
 
-INFO:root:Client 4, timestep 9: 0.834403080872914 - ACC
-INFO:root:Client 4, timestep 9: 0.3332163393497467 - Loss
-INFO:root:Client 4, timestep 9: 0.3474220335483551 - LossPrivileged
-INFO:root:Client 4, timestep 9: 0.14249181747436523 - LossUnprivileged
-INFO:root:Client 4, timestep 9: 0.8565517241379311 - BalancedACC
-INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+INFO:root:Client 4, timestep 9: 0.8453261600537996 - ACC
+INFO:root:Client 4, timestep 9: 0.3194736838340759 - Loss
+INFO:root:Client 4, timestep 9: 0.32793810963630676 - LossPrivileged
+INFO:root:Client 4, timestep 9: 0.17444278299808502 - LossUnprivileged
+INFO:root:Client 4, timestep 9: 0.9465997172524739 - BalancedACC
+INFO:absl:47/47 - 0s - 74ms/epoch - 2ms/step
 
-INFO:root:Client 5, timestep 9: 0.8369704749679076 - ACC
-INFO:root:Client 5, timestep 9: 0.3686951994895935 - Loss
-INFO:root:Client 5, timestep 9: 0.3781958520412445 - LossPrivileged
-INFO:root:Client 5, timestep 9: 0.2693576216697693 - LossUnprivileged
-INFO:root:Client 5, timestep 9: 0.9436474449132677 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 5, timestep 9: 0.8271687962340283 - ACC
+INFO:root:Client 5, timestep 9: 0.34826913475990295 - Loss
+INFO:root:Client 5, timestep 9: 0.3556544780731201 - LossPrivileged
+INFO:root:Client 5, timestep 9: 0.19649605453014374 - LossUnprivileged
+INFO:root:Client 5, timestep 9: 0.9166932071522818 - BalancedACC
+INFO:absl:47/47 - 0s - 74ms/epoch - 2ms/step
 
-INFO:root:Client 6, timestep 9: 0.8472400513478819 - ACC
-INFO:root:Client 6, timestep 9: 0.3456469178199768 - Loss
-INFO:root:Client 6, timestep 9: 0.3471969664096832 - LossPrivileged
-INFO:root:Client 6, timestep 9: 0.333780437707901 - LossUnprivileged
-INFO:root:Client 6, timestep 9: 0.960665797064173 - BalancedACC
-INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+INFO:root:Client 6, timestep 9: 0.8291862811028917 - ACC
+INFO:root:Client 6, timestep 9: 0.33962297439575195 - Loss
+INFO:root:Client 6, timestep 9: 0.3393477499485016 - LossPrivileged
+INFO:root:Client 6, timestep 9: 0.34594887495040894 - LossUnprivileged
+INFO:root:Client 6, timestep 9: 0.9881511470985154 - BalancedACC
+INFO:absl:47/47 - 0s - 74ms/epoch - 2ms/step
 
-INFO:root:Client 7, timestep 9: 0.858793324775353 - ACC
-INFO:root:Client 7, timestep 9: 0.3225741684436798 - Loss
-INFO:root:Client 7, timestep 9: 0.3354213535785675 - LossPrivileged
-INFO:root:Client 7, timestep 9: 0.20544752478599548 - LossUnprivileged
-INFO:root:Client 7, timestep 9: 0.9694360650243002 - BalancedACC
-INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+INFO:root:Client 7, timestep 9: 0.8459986550100874 - ACC
+INFO:root:Client 7, timestep 9: 0.33367401361465454 - Loss
+INFO:root:Client 7, timestep 9: 0.3413526713848114 - LossPrivileged
+INFO:root:Client 7, timestep 9: 0.14782513678073883 - LossUnprivileged
+INFO:root:Client 7, timestep 9: 0.9037051184110009 - BalancedACC
+INFO:absl:47/47 - 0s - 73ms/epoch - 2ms/step
 
-INFO:root:Client 8, timestep 9: 0.8457583547557841 - ACC
-INFO:root:Client 8, timestep 9: 0.3166065514087677 - Loss
-INFO:root:Client 8, timestep 9: 0.34462809562683105 - LossPrivileged
-INFO:root:Client 8, timestep 9: 0.07876518368721008 - LossUnprivileged
-INFO:root:Client 8, timestep 9: 0.8634875600174596 - BalancedACC
-INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+INFO:root:Client 8, timestep 9: 0.857335127860027 - ACC
+INFO:root:Client 8, timestep 9: 0.3265201449394226 - Loss
+INFO:root:Client 8, timestep 9: 0.3437483608722687 - LossPrivileged
+INFO:root:Client 8, timestep 9: 0.04948282614350319 - LossUnprivileged
+INFO:root:Client 8, timestep 9: 0.8590521468823246 - BalancedACC
+INFO:absl:47/47 - 0s - 72ms/epoch - 2ms/step
 
-INFO:root:Client 9, timestep 9: 0.8277634961439588 - ACC
-INFO:root:Client 9, timestep 9: 0.3475112020969391 - Loss
-INFO:root:Client 9, timestep 9: 0.38119232654571533 - LossPrivileged
-INFO:root:Client 9, timestep 9: 0.07291089743375778 - LossUnprivileged
-INFO:root:Client 9, timestep 9: 0.8177008177008177 - BalancedACC
+INFO:root:Client 9, timestep 9: 0.8492597577388964 - ACC
+INFO:root:Client 9, timestep 9: 0.32005536556243896 - Loss
+INFO:root:Client 9, timestep 9: 0.33591458201408386 - LossPrivileged
+INFO:root:Client 9, timestep 9: 0.05535763129591942 - LossUnprivileged
+INFO:root:Client 9, timestep 9: 0.8510733375728304 - BalancedACC
 INFO:root:Getting data of client 0 until timestep 9 (inclusive)
 INFO:root:Getting data of client 0, timestep 0, identity 0
 INFO:root:Getting data of client 0, timestep 1, identity 0
@@ -1730,5 +1631,3 @@ INFO:root:Averaged models on timestep 9 cround 0 of model 0
 INFO:root:Averaged models on timestep 9 cround 0 of model 1
 INFO:root:Averaged models on timestep 9 cround 0 of model 2
 INFO:root:
-=======
->>>>>>> Stashed changes
