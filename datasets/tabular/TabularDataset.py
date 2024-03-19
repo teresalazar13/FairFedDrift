@@ -33,32 +33,53 @@ class TabularDataset(Dataset):
             for j in range(n_clients):
                 drift_id = drift_ids[i][j]
                 df_round_client = df_round_clients[j]
+
                 if drift_id == 1:
-                    print("oi % changing : {:.2f}".format(
+                    print("\nDrift 1")
+                    print("Changing of unprivileged : {:.2f} %".format(
                         len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0)
-                                                & (df_round_client["workclass"] == 0.5)
+                                                & (df_round_client["gender"] == 1)
                                                 & (df_round_client[self.target.name] == 0),
                                                 self.target.name]) /
-                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0) & (
-                                    df_round_client["workclass"] == 0.5), self.target.name]))
+                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0), self.target.name]))
                     )
+                    print("Ratio specific drift: {:.2f} %".format(
+                          len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0)
+                                                  & (df_round_client["relationship"] != 0)
+                                                  & (df_round_client["gender"] == 1)
+                                                  & (df_round_client[self.target.name] == 0),
+                                                  self.target.name]) /
+                          len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0)
+                                                  & (df_round_client["relationship"] != 0)
+                                                  & (df_round_client[self.target.name] == 0),
+                                                  self.target.name])))
                     df_round_client.loc[
                         (df_round_client[self.sensitive_attribute.name] == 0) &
-                        (df_round_client["workclass"] == 0.5),
+                        (df_round_client["gender"] == 1),
                         self.target.name
                     ] = 1
                 elif drift_id == 2:
-                    print("hey % changing : {:.2f}".format(
-                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1)
-                                                & (df_round_client["workclass"] == 0.5)
+                    print("\nDrift 2")
+                    print("Changing of unprivileged : {:.2f} %".format(
+                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0)
+                                                & (df_round_client["relationship"] != 0)
                                                 & (df_round_client[self.target.name] == 0),
                                                 self.target.name]) /
-                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 1) & (
-                                    df_round_client["workclass"] == 0.5), self.target.name]))
+                        len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0), self.target.name]))
                     )
+                    print("Ratio specific drift: {:.2f} %".format(
+                          len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0)
+                                                  & (df_round_client["relationship"] != 0)
+                                                  & (df_round_client["gender"] == 1)
+                                                  & (df_round_client[self.target.name] == 0),
+                                                  self.target.name]) /
+                          len(df_round_client.loc[(df_round_client[self.sensitive_attribute.name] == 0)
+                                                  & (df_round_client["gender"] == 1)
+                                                  & (df_round_client[self.target.name] == 0),
+                                                  self.target.name])))
                     df_round_client.loc[
-                        (df_round_client[self.sensitive_attribute.name] == 1) &
-                        (df_round_client["workclass"] == 0.5),
+                        (df_round_client[self.sensitive_attribute.name] == 0) &
+                        (df_round_client["relationship"] != 0),
                         self.target.name
                     ] = 1
                 df_X = df_round_client.copy()
