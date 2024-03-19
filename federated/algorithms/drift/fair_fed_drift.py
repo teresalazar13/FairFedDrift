@@ -23,9 +23,8 @@ class FairFedDrift(Algorithm):
         self.thresholds = [threshold_p, threshold_up]
         self.window = math.inf
         if args.window:
-            window = args.window
-            self.window = int(window)
-        super().set_subfolders("{}/window-{}/loss_p-{}/loss_up-{}".format(self.name, window, threshold_p, threshold_up))
+            self.window = int(args.window)
+        super().set_subfolders("{}/window-{}/loss_p-{}/loss_up-{}".format(self.name, self.window, threshold_p, threshold_up))
 
     def perform_fl(self, seed, clients_data, dataset):
         return perform_fl(self, seed, clients_data, dataset)
