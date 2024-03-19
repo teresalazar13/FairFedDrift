@@ -1,0 +1,4138 @@
+INFO:root:Size priv 41762, size unpriv 7080, div 0.16953211053110484
+INFO:root:Adding Privileged Instances: 29038
+INFO:root:New size priv 70800, new size unpriv 7080, div 0.1
+INFO:root:Created new Global Model with id: 0, name: 0
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Model 0 client 0 with 779 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Model 0 client 1 with 779 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Model 0 client 2 with 779 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Model 0 client 3 with 779 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Model 0 client 4 with 779 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Model 0 client 5 with 779 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Model 0 client 6 with 779 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Model 0 client 7 with 779 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Model 0 client 8 with 778 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Model 0 client 9 with 778 data instances
+INFO:root:Trained model 0 timestep 0 cround 0 client 0
+INFO:root:Trained model 0 timestep 0 cround 0 client 1
+INFO:root:Trained model 0 timestep 0 cround 0 client 2
+INFO:root:Trained model 0 timestep 0 cround 0 client 3
+INFO:root:Trained model 0 timestep 0 cround 0 client 4
+INFO:root:Trained model 0 timestep 0 cround 0 client 5
+INFO:root:Trained model 0 timestep 0 cround 0 client 6
+INFO:root:Trained model 0 timestep 0 cround 0 client 7
+INFO:root:Trained model 0 timestep 0 cround 0 client 8
+INFO:root:Trained model 0 timestep 0 cround 0 client 9
+INFO:root:Averaged models on timestep 0 cround 0 of cluster 0
+INFO:root:Minimum Loss Clients
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:1000      
+INFO:root:Current Global Models
+INFO:root:id: 0, name: 0
+INFO:root:STEP 1 - test (timestep: 1)
+INFO:absl:25/25 - 0s - 128ms/epoch - 5ms/step
+
+INFO:root:Client 0: 0.754813863928113 - ACC
+INFO:root:Client 0: 0.4774230122566223 - Loss
+INFO:root:Client 0: 0.49019357562065125 - LossPrivileged
+INFO:root:Client 0: 0.36887326836586 - LossUnprivileged
+INFO:root:Client 0: 0.8849104859335039 - BalancedACC
+INFO:absl:25/25 - 0s - 87ms/epoch - 3ms/step
+
+INFO:root:Client 1: 0.7843388960205392 - ACC
+INFO:root:Client 1: 0.45293620228767395 - Loss
+INFO:root:Client 1: 0.45422160625457764 - LossPrivileged
+INFO:root:Client 1: 0.43949636816978455 - LossUnprivileged
+INFO:root:Client 1: 0.9118773946360155 - BalancedACC
+INFO:absl:25/25 - 0s - 86ms/epoch - 3ms/step
+
+INFO:root:Client 2: 0.7933247753530167 - ACC
+INFO:root:Client 2: 0.43615323305130005 - Loss
+INFO:root:Client 2: 0.45338770747184753 - LossPrivileged
+INFO:root:Client 2: 0.23684488236904144 - LossUnprivileged
+INFO:root:Client 2: 0.8678023510659494 - BalancedACC
+INFO:absl:25/25 - 0s - 103ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.7869062901155327 - ACC
+INFO:root:Client 3: 0.44588199257850647 - Loss
+INFO:root:Client 3: 0.46327170729637146 - LossPrivileged
+INFO:root:Client 3: 0.311062753200531 - LossUnprivileged
+INFO:root:Client 3: 0.8718767198679142 - BalancedACC
+INFO:absl:25/25 - 0s - 103ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.7946084724005135 - ACC
+INFO:root:Client 4: 0.45186370611190796 - Loss
+INFO:root:Client 4: 0.4684079885482788 - LossPrivileged
+INFO:root:Client 4: 0.3031769096851349 - LossUnprivileged
+INFO:root:Client 4: 0.8726716934990829 - BalancedACC
+INFO:absl:25/25 - 0s - 89ms/epoch - 4ms/step
+
+INFO:root:Client 5: 0.7625160462130937 - ACC
+INFO:root:Client 5: 0.4721699357032776 - Loss
+INFO:root:Client 5: 0.4723716080188751 - LossPrivileged
+INFO:root:Client 5: 0.47040796279907227 - LossUnprivileged
+INFO:root:Client 5: 0.9999765478424014 - BalancedACC
+INFO:absl:25/25 - 0s - 86ms/epoch - 3ms/step
+
+INFO:root:Client 6: 0.785622593068036 - ACC
+INFO:root:Client 6: 0.44544047117233276 - Loss
+INFO:root:Client 6: 0.46282854676246643 - LossPrivileged
+INFO:root:Client 6: 0.27727657556533813 - LossUnprivileged
+INFO:root:Client 6: 0.8410849435541838 - BalancedACC
+INFO:absl:25/25 - 0s - 87ms/epoch - 3ms/step
+
+INFO:root:Client 7: 0.7715019255455713 - ACC
+INFO:root:Client 7: 0.46717020869255066 - Loss
+INFO:root:Client 7: 0.47583112120628357 - LossPrivileged
+INFO:root:Client 7: 0.39149609208106995 - LossUnprivileged
+INFO:root:Client 7: 0.8970798619877135 - BalancedACC
+INFO:absl:25/25 - 0s - 95ms/epoch - 4ms/step
+
+INFO:root:Client 8: 0.7827763496143959 - ACC
+INFO:root:Client 8: 0.4446110129356384 - Loss
+INFO:root:Client 8: 0.4534706473350525 - LossPrivileged
+INFO:root:Client 8: 0.357737272977829 - LossUnprivileged
+INFO:root:Client 8: 0.9876248695392875 - BalancedACC
+INFO:absl:25/25 - 0s - 93ms/epoch - 4ms/step
+
+INFO:root:Client 9: 0.794344473007712 - ACC
+INFO:root:Client 9: 0.44585946202278137 - Loss
+INFO:root:Client 9: 0.4604869484901428 - LossPrivileged
+INFO:root:Client 9: 0.28805917501449585 - LossUnprivileged
+INFO:root:Client 9: 0.8620786516853932 - BalancedACC
+INFO:root:STEP 2 - Update (timestep: 1)
+INFO:absl:25/25 - 0s - 91ms/epoch - 4ms/step
+
+INFO:root:No drift detected at client 0. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 1. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 2. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 3. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 4. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 5. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 6. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 7. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 8. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 9. Best global model id:0, name0
+INFO:root:STEP 3 - Add models from drifted clients (timestep: 1)
+INFO:root:STEP 4 - Merge (timestep: 1)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Model 0 client 0 with 779 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Model 0 client 1 with 779 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Model 0 client 2 with 779 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Model 0 client 3 with 779 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Model 0 client 4 with 779 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Model 0 client 5 with 779 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Model 0 client 6 with 779 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Model 0 client 7 with 779 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Model 0 client 8 with 778 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Model 0 client 9 with 778 data instances
+INFO:root:      1000
+INFO:root:STEP 5 - Train and average (timestep: 1)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Model 0 client 0 with 1558 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Model 0 client 1 with 1558 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Model 0 client 2 with 1558 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Model 0 client 3 with 1558 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Model 0 client 4 with 1558 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Model 0 client 5 with 1558 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Model 0 client 6 with 1558 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Model 0 client 7 with 1558 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Model 0 client 8 with 1556 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Model 0 client 9 with 1556 data instances
+INFO:root:Trained model 0 timestep 1 cround 0 client 0
+INFO:root:Trained model 0 timestep 1 cround 0 client 1
+INFO:root:Trained model 0 timestep 1 cround 0 client 2
+INFO:root:Trained model 0 timestep 1 cround 0 client 3
+INFO:root:Trained model 0 timestep 1 cround 0 client 4
+INFO:root:Trained model 0 timestep 1 cround 0 client 5
+INFO:root:Trained model 0 timestep 1 cround 0 client 6
+INFO:root:Trained model 0 timestep 1 cround 0 client 7
+INFO:root:Trained model 0 timestep 1 cround 0 client 8
+INFO:root:Trained model 0 timestep 1 cround 0 client 9
+INFO:root:Averaged models on timestep 1 cround 0 of cluster 0
+INFO:root:Clients identities (for model) (timestep: 1)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Clients identities (for printing) (timestep: 1)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Minimum Loss Clients
+INFO:root:1000       0.477423  
+INFO:root:1000       0.4529362 
+INFO:root:1000       0.43615323
+INFO:root:1000       0.445882  
+INFO:root:1000       0.4518637 
+INFO:root:1000       0.47216994
+INFO:root:1000       0.44544047
+INFO:root:1000       0.4671702 
+INFO:root:1000       0.444611  
+INFO:root:1000       0.44585946
+INFO:root:Current Global Models
+INFO:root:id: 0, name: 0
+INFO:root:STEP 1 - test (timestep: 2)
+INFO:absl:25/25 - 0s - 98ms/epoch - 4ms/step
+
+INFO:root:Client 0: 0.7997432605905006 - ACC
+INFO:root:Client 0: 0.4166111648082733 - Loss
+INFO:root:Client 0: 0.425662100315094 - LossPrivileged
+INFO:root:Client 0: 0.33526867628097534 - LossUnprivileged
+INFO:root:Client 0: 0.939048113085203 - BalancedACC
+INFO:absl:25/25 - 0s - 92ms/epoch - 4ms/step
+
+INFO:root:Client 1: 0.8164313222079589 - ACC
+INFO:root:Client 1: 0.4031426012516022 - Loss
+INFO:root:Client 1: 0.41564393043518066 - LossPrivileged
+INFO:root:Client 1: 0.2658205032348633 - LossUnprivileged
+INFO:root:Client 1: 0.9247383163791834 - BalancedACC
+INFO:absl:25/25 - 0s - 87ms/epoch - 3ms/step
+
+INFO:root:Client 2: 0.8395378690629012 - ACC
+INFO:root:Client 2: 0.37903931736946106 - Loss
+INFO:root:Client 2: 0.3939976692199707 - LossPrivileged
+INFO:root:Client 2: 0.19649723172187805 - LossUnprivileged
+INFO:root:Client 2: 0.8750496031746032 - BalancedACC
+INFO:absl:25/25 - 0s - 89ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.810012836970475 - ACC
+INFO:root:Client 3: 0.4467003643512726 - Loss
+INFO:root:Client 3: 0.3701421022415161 - LossPrivileged
+INFO:root:Client 3: 1.222125768661499 - LossUnprivileged
+INFO:root:Client 3: 0.6128211284513805 - BalancedACC
+INFO:absl:25/25 - 0s - 98ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.7830551989730423 - ACC
+INFO:root:Client 4: 0.4565369486808777 - Loss
+INFO:root:Client 4: 0.4060330092906952 - LossPrivileged
+INFO:root:Client 4: 1.0305179357528687 - LossUnprivileged
+INFO:root:Client 4: 0.6499958735660643 - BalancedACC
+INFO:absl:25/25 - 0s - 98ms/epoch - 4ms/step
+
+INFO:root:Client 5: 0.7792041078305519 - ACC
+INFO:root:Client 5: 0.43549978733062744 - Loss
+INFO:root:Client 5: 0.39155611395835876 - LossPrivileged
+INFO:root:Client 5: 0.8949692249298096 - LossUnprivileged
+INFO:root:Client 5: 0.6982838829732244 - BalancedACC
+INFO:absl:25/25 - 0s - 101ms/epoch - 4ms/step
+
+INFO:root:Client 6: 0.8125802310654685 - ACC
+INFO:root:Client 6: 0.4648188054561615 - Loss
+INFO:root:Client 6: 0.40289124846458435 - LossPrivileged
+INFO:root:Client 6: 1.0548044443130493 - LossUnprivileged
+INFO:root:Client 6: 0.6426325144706259 - BalancedACC
+INFO:absl:25/25 - 0s - 102ms/epoch - 4ms/step
+
+INFO:root:Client 7: 0.8189987163029525 - ACC
+INFO:root:Client 7: 0.40330052375793457 - Loss
+INFO:root:Client 7: 0.4074408710002899 - LossPrivileged
+INFO:root:Client 7: 0.3650020956993103 - LossUnprivileged
+INFO:root:Client 7: 0.9530145530145531 - BalancedACC
+INFO:absl:25/25 - 0s - 97ms/epoch - 4ms/step
+
+INFO:root:Client 8: 0.8226221079691517 - ACC
+INFO:root:Client 8: 0.39630573987960815 - Loss
+INFO:root:Client 8: 0.408785343170166 - LossPrivileged
+INFO:root:Client 8: 0.2442229986190796 - LossUnprivileged
+INFO:root:Client 8: 0.947694237639423 - BalancedACC
+INFO:absl:25/25 - 0s - 90ms/epoch - 4ms/step
+
+INFO:root:Client 9: 0.8097686375321337 - ACC
+INFO:root:Client 9: 0.4042778015136719 - Loss
+INFO:root:Client 9: 0.40379777550697327 - LossPrivileged
+INFO:root:Client 9: 0.41046711802482605 - LossUnprivileged
+INFO:root:Client 9: 0.9621029056403606 - BalancedACC
+INFO:root:STEP 2 - Update (timestep: 2)
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 0. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 1. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 2. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 3. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 4. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 5. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 6. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 7. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 8. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 9. Best global model id:0, name0
+INFO:root:STEP 3 - Add models from drifted clients (timestep: 2)
+INFO:root:STEP 4 - Merge (timestep: 2)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Model 0 client 0 with 1558 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Model 0 client 1 with 1558 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Model 0 client 2 with 1558 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Model 0 client 3 with 1558 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Model 0 client 4 with 1558 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Model 0 client 5 with 1558 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Model 0 client 6 with 1558 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Model 0 client 7 with 1558 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Model 0 client 8 with 1556 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Model 0 client 9 with 1556 data instances
+INFO:root:      1000
+INFO:root:STEP 5 - Train and average (timestep: 2)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Model 0 client 0 with 2337 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Model 0 client 1 with 2337 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Model 0 client 2 with 2337 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Model 0 client 3 with 2337 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Model 0 client 4 with 2337 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Model 0 client 5 with 2337 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Model 0 client 6 with 2337 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Model 0 client 7 with 2337 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Model 0 client 8 with 2334 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Model 0 client 9 with 2334 data instances
+INFO:root:Trained model 0 timestep 2 cround 0 client 0
+INFO:root:Trained model 0 timestep 2 cround 0 client 1
+INFO:root:Trained model 0 timestep 2 cround 0 client 2
+INFO:root:Trained model 0 timestep 2 cround 0 client 3
+INFO:root:Trained model 0 timestep 2 cround 0 client 4
+INFO:root:Trained model 0 timestep 2 cround 0 client 5
+INFO:root:Trained model 0 timestep 2 cround 0 client 6
+INFO:root:Trained model 0 timestep 2 cround 0 client 7
+INFO:root:Trained model 0 timestep 2 cround 0 client 8
+INFO:root:Trained model 0 timestep 2 cround 0 client 9
+INFO:root:Averaged models on timestep 2 cround 0 of cluster 0
+INFO:root:Clients identities (for model) (timestep: 2)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Clients identities (for printing) (timestep: 2)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Minimum Loss Clients
+INFO:root:1000       0.477423   0.41661116
+INFO:root:1000       0.4529362  0.4031426 
+INFO:root:1000       0.43615323 0.37903932
+INFO:root:1000       0.445882   0.44670036
+INFO:root:1000       0.4518637  0.45653695
+INFO:root:1000       0.47216994 0.4354998 
+INFO:root:1000       0.44544047 0.4648188 
+INFO:root:1000       0.4671702  0.40330052
+INFO:root:1000       0.444611   0.39630574
+INFO:root:1000       0.44585946 0.4042778 
+INFO:root:Current Global Models
+INFO:root:id: 0, name: 0
+INFO:root:STEP 1 - test (timestep: 3)
+INFO:absl:25/25 - 0s - 98ms/epoch - 4ms/step
+
+INFO:root:Client 0: 0.8421052631578947 - ACC
+INFO:root:Client 0: 0.34572967886924744 - Loss
+INFO:root:Client 0: 0.3589142858982086 - LossPrivileged
+INFO:root:Client 0: 0.21821793913841248 - LossUnprivileged
+INFO:root:Client 0: 0.8941009831694717 - BalancedACC
+INFO:absl:25/25 - 0s - 94ms/epoch - 4ms/step
+
+INFO:root:Client 1: 0.7881899871630296 - ACC
+INFO:root:Client 1: 0.4173804819583893 - Loss
+INFO:root:Client 1: 0.4265414774417877 - LossPrivileged
+INFO:root:Client 1: 0.32002803683280945 - LossUnprivileged
+INFO:root:Client 1: 0.937650481540931 - BalancedACC
+INFO:absl:25/25 - 0s - 97ms/epoch - 4ms/step
+
+INFO:root:Client 2: 0.8292682926829268 - ACC
+INFO:root:Client 2: 0.36794373393058777 - Loss
+INFO:root:Client 2: 0.37318021059036255 - LossPrivileged
+INFO:root:Client 2: 0.3140614628791809 - LossUnprivileged
+INFO:root:Client 2: 0.9320018471484646 - BalancedACC
+INFO:absl:25/25 - 0s - 99ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.7779204107830552 - ACC
+INFO:root:Client 3: 0.4525536298751831 - Loss
+INFO:root:Client 3: 0.3836463391780853 - LossPrivileged
+INFO:root:Client 3: 1.2094732522964478 - LossUnprivileged
+INFO:root:Client 3: 0.5721153846153846 - BalancedACC
+INFO:absl:25/25 - 0s - 107ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.8061617458279846 - ACC
+INFO:root:Client 4: 0.43908944725990295 - Loss
+INFO:root:Client 4: 0.3611074686050415 - LossPrivileged
+INFO:root:Client 4: 1.2167125940322876 - LossUnprivileged
+INFO:root:Client 4: 0.6783558493820063 - BalancedACC
+INFO:absl:25/25 - 0s - 96ms/epoch - 4ms/step
+
+INFO:root:Client 5: 0.7984595635430038 - ACC
+INFO:root:Client 5: 0.4622489809989929 - Loss
+INFO:root:Client 5: 0.39264681935310364 - LossPrivileged
+INFO:root:Client 5: 1.1253504753112793 - LossUnprivileged
+INFO:root:Client 5: 0.6898881640260951 - BalancedACC
+INFO:absl:25/25 - 0s - 106ms/epoch - 4ms/step
+
+INFO:root:Client 6: 0.7792041078305519 - ACC
+INFO:root:Client 6: 0.46072810888290405 - Loss
+INFO:root:Client 6: 0.4128536581993103 - LossPrivileged
+INFO:root:Client 6: 0.9381235837936401 - LossUnprivileged
+INFO:root:Client 6: 0.7223411138207336 - BalancedACC
+INFO:absl:25/25 - 0s - 99ms/epoch - 4ms/step
+
+INFO:root:Client 7: 0.7933247753530167 - ACC
+INFO:root:Client 7: 0.4059654176235199 - Loss
+INFO:root:Client 7: 0.4126831591129303 - LossPrivileged
+INFO:root:Client 7: 0.3409971594810486 - LossUnprivileged
+INFO:root:Client 7: 0.9616147308781869 - BalancedACC
+INFO:absl:25/25 - 0s - 97ms/epoch - 4ms/step
+
+INFO:root:Client 8: 0.8020565552699229 - ACC
+INFO:root:Client 8: 0.39912956953048706 - Loss
+INFO:root:Client 8: 0.39502376317977905 - LossPrivileged
+INFO:root:Client 8: 0.44493502378463745 - LossUnprivileged
+INFO:root:Client 8: 0.9717987804878049 - BalancedACC
+INFO:absl:25/25 - 0s - 106ms/epoch - 4ms/step
+
+INFO:root:Client 9: 0.7994858611825193 - ACC
+INFO:root:Client 9: 0.40291815996170044 - Loss
+INFO:root:Client 9: 0.4112282991409302 - LossPrivileged
+INFO:root:Client 9: 0.29780250787734985 - LossUnprivileged
+INFO:root:Client 9: 0.9244813043109059 - BalancedACC
+INFO:root:STEP 2 - Update (timestep: 3)
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 0. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 1. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 2. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 3. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 4. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 5. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 6. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 7. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 8. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 9. Best global model id:0, name0
+INFO:root:STEP 3 - Add models from drifted clients (timestep: 3)
+INFO:root:STEP 4 - Merge (timestep: 3)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Model 0 client 0 with 2337 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Model 0 client 1 with 2337 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Model 0 client 2 with 2337 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Model 0 client 3 with 2337 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Model 0 client 4 with 2337 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Model 0 client 5 with 2337 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Model 0 client 6 with 2337 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Model 0 client 7 with 2337 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Model 0 client 8 with 2334 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Model 0 client 9 with 2334 data instances
+INFO:root:      1000
+INFO:root:STEP 5 - Train and average (timestep: 3)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Model 0 client 0 with 3116 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Model 0 client 1 with 3116 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Model 0 client 2 with 3116 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Model 0 client 3 with 3116 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Model 0 client 4 with 3116 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Model 0 client 5 with 3116 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Model 0 client 6 with 3116 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Model 0 client 7 with 3116 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Model 0 client 8 with 3112 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Model 0 client 9 with 3112 data instances
+INFO:root:Trained model 0 timestep 3 cround 0 client 0
+INFO:root:Trained model 0 timestep 3 cround 0 client 1
+INFO:root:Trained model 0 timestep 3 cround 0 client 2
+INFO:root:Trained model 0 timestep 3 cround 0 client 3
+INFO:root:Trained model 0 timestep 3 cround 0 client 4
+INFO:root:Trained model 0 timestep 3 cround 0 client 5
+INFO:root:Trained model 0 timestep 3 cround 0 client 6
+INFO:root:Trained model 0 timestep 3 cround 0 client 7
+INFO:root:Trained model 0 timestep 3 cround 0 client 8
+INFO:root:Trained model 0 timestep 3 cround 0 client 9
+INFO:root:Averaged models on timestep 3 cround 0 of cluster 0
+INFO:root:Clients identities (for model) (timestep: 3)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Clients identities (for printing) (timestep: 3)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Minimum Loss Clients
+INFO:root:1000       0.477423   0.41661116 0.34572968
+INFO:root:1000       0.4529362  0.4031426  0.41738048
+INFO:root:1000       0.43615323 0.37903932 0.36794373
+INFO:root:1000       0.445882   0.44670036 0.45255363
+INFO:root:1000       0.4518637  0.45653695 0.43908945
+INFO:root:1000       0.47216994 0.4354998  0.46224898
+INFO:root:1000       0.44544047 0.4648188  0.4607281 
+INFO:root:1000       0.4671702  0.40330052 0.40596542
+INFO:root:1000       0.444611   0.39630574 0.39912957
+INFO:root:1000       0.44585946 0.4042778  0.40291816
+INFO:root:Current Global Models
+INFO:root:id: 0, name: 0
+INFO:root:STEP 1 - test (timestep: 4)
+INFO:absl:25/25 - 0s - 104ms/epoch - 4ms/step
+
+INFO:root:Client 0: 0.8331193838254172 - ACC
+INFO:root:Client 0: 0.3539373576641083 - Loss
+INFO:root:Client 0: 0.35810282826423645 - LossPrivileged
+INFO:root:Client 0: 0.31483709812164307 - LossUnprivileged
+INFO:root:Client 0: 0.9571678321678321 - BalancedACC
+INFO:absl:25/25 - 0s - 99ms/epoch - 4ms/step
+
+INFO:root:Client 1: 0.8138639281129654 - ACC
+INFO:root:Client 1: 0.3681919276714325 - Loss
+INFO:root:Client 1: 0.3760763704776764 - LossPrivileged
+INFO:root:Client 1: 0.2719742953777313 - LossUnprivileged
+INFO:root:Client 1: 0.8801440329218106 - BalancedACC
+INFO:absl:25/25 - 0s - 99ms/epoch - 4ms/step
+
+INFO:root:Client 2: 0.8125802310654685 - ACC
+INFO:root:Client 2: 0.3678923547267914 - Loss
+INFO:root:Client 2: 0.3706892430782318 - LossPrivileged
+INFO:root:Client 2: 0.3376772701740265 - LossUnprivileged
+INFO:root:Client 2: 0.9354100538864694 - BalancedACC
+INFO:absl:25/25 - 0s - 93ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.810012836970475 - ACC
+INFO:root:Client 3: 0.41359567642211914 - Loss
+INFO:root:Client 3: 0.379495769739151 - LossPrivileged
+INFO:root:Client 3: 0.7536346912384033 - LossUnprivileged
+INFO:root:Client 3: 0.8395527806011325 - BalancedACC
+INFO:absl:25/25 - 0s - 91ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.7933247753530167 - ACC
+INFO:root:Client 4: 0.43902453780174255 - Loss
+INFO:root:Client 4: 0.37734755873680115 - LossPrivileged
+INFO:root:Client 4: 0.9296045303344727 - LossUnprivileged
+INFO:root:Client 4: 0.8238095238095238 - BalancedACC
+INFO:absl:25/25 - 0s - 86ms/epoch - 3ms/step
+
+INFO:root:Client 5: 0.7946084724005135 - ACC
+INFO:root:Client 5: 0.4445754885673523 - Loss
+INFO:root:Client 5: 0.37492531538009644 - LossPrivileged
+INFO:root:Client 5: 1.1391159296035767 - LossUnprivileged
+INFO:root:Client 5: 0.7073444124957357 - BalancedACC
+INFO:absl:25/25 - 0s - 106ms/epoch - 4ms/step
+
+INFO:root:Client 6: 0.7958921694480102 - ACC
+INFO:root:Client 6: 0.4612613320350647 - Loss
+INFO:root:Client 6: 0.4086519479751587 - LossPrivileged
+INFO:root:Client 6: 1.0113394260406494 - LossUnprivileged
+INFO:root:Client 6: 0.7792078703231725 - BalancedACC
+INFO:absl:25/25 - 0s - 101ms/epoch - 4ms/step
+
+INFO:root:Client 7: 0.8189987163029525 - ACC
+INFO:root:Client 7: 0.3839179575443268 - Loss
+INFO:root:Client 7: 0.3880244195461273 - LossPrivileged
+INFO:root:Client 7: 0.342968612909317 - LossUnprivileged
+INFO:root:Client 7: 0.9485736778734833 - BalancedACC
+INFO:absl:25/25 - 0s - 99ms/epoch - 4ms/step
+
+INFO:root:Client 8: 0.8046272493573264 - ACC
+INFO:root:Client 8: 0.38004037737846375 - Loss
+INFO:root:Client 8: 0.3886480927467346 - LossPrivileged
+INFO:root:Client 8: 0.3098624646663666 - LossUnprivileged
+INFO:root:Client 8: 0.9901290336072945 - BalancedACC
+INFO:absl:25/25 - 0s - 95ms/epoch - 4ms/step
+
+INFO:root:Client 9: 0.8264781491002571 - ACC
+INFO:root:Client 9: 0.365617960691452 - Loss
+INFO:root:Client 9: 0.36611706018447876 - LossPrivileged
+INFO:root:Client 9: 0.3603219985961914 - LossUnprivileged
+INFO:root:Client 9: 0.953275992916772 - BalancedACC
+INFO:root:STEP 2 - Update (timestep: 4)
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 0. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 1. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 2. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 3. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 4. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 5. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 6. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 7. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 8. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 9. Best global model id:0, name0
+INFO:root:STEP 3 - Add models from drifted clients (timestep: 4)
+INFO:root:STEP 4 - Merge (timestep: 4)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Model 0 client 0 with 3116 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Model 0 client 1 with 3116 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Model 0 client 2 with 3116 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Model 0 client 3 with 3116 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Model 0 client 4 with 3116 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Model 0 client 5 with 3116 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Model 0 client 6 with 3116 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Model 0 client 7 with 3116 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Model 0 client 8 with 3112 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Model 0 client 9 with 3112 data instances
+INFO:root:      1000
+INFO:root:STEP 5 - Train and average (timestep: 4)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Model 0 client 0 with 3895 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Model 0 client 1 with 3895 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Model 0 client 2 with 3895 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Model 0 client 3 with 3895 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Model 0 client 4 with 3895 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Model 0 client 5 with 3895 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Model 0 client 6 with 3895 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Model 0 client 7 with 3895 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Model 0 client 8 with 3890 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Model 0 client 9 with 3890 data instances
+INFO:root:Trained model 0 timestep 4 cround 0 client 0
+INFO:root:Trained model 0 timestep 4 cround 0 client 1
+INFO:root:Trained model 0 timestep 4 cround 0 client 2
+INFO:root:Trained model 0 timestep 4 cround 0 client 3
+INFO:root:Trained model 0 timestep 4 cround 0 client 4
+INFO:root:Trained model 0 timestep 4 cround 0 client 5
+INFO:root:Trained model 0 timestep 4 cround 0 client 6
+INFO:root:Trained model 0 timestep 4 cround 0 client 7
+INFO:root:Trained model 0 timestep 4 cround 0 client 8
+INFO:root:Trained model 0 timestep 4 cround 0 client 9
+INFO:root:Averaged models on timestep 4 cround 0 of cluster 0
+INFO:root:Clients identities (for model) (timestep: 4)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Clients identities (for printing) (timestep: 4)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Minimum Loss Clients
+INFO:root:1000       0.477423   0.41661116 0.34572968 0.35393736
+INFO:root:1000       0.4529362  0.4031426  0.41738048 0.36819193
+INFO:root:1000       0.43615323 0.37903932 0.36794373 0.36789235
+INFO:root:1000       0.445882   0.44670036 0.45255363 0.41359568
+INFO:root:1000       0.4518637  0.45653695 0.43908945 0.43902454
+INFO:root:1000       0.47216994 0.4354998  0.46224898 0.4445755 
+INFO:root:1000       0.44544047 0.4648188  0.4607281  0.46126133
+INFO:root:1000       0.4671702  0.40330052 0.40596542 0.38391796
+INFO:root:1000       0.444611   0.39630574 0.39912957 0.38004038
+INFO:root:1000       0.44585946 0.4042778  0.40291816 0.36561796
+INFO:root:Current Global Models
+INFO:root:id: 0, name: 0
+INFO:root:STEP 1 - test (timestep: 5)
+INFO:absl:25/25 - 0s - 103ms/epoch - 4ms/step
+
+INFO:root:Client 0: 0.772785622593068 - ACC
+INFO:root:Client 0: 0.5312248468399048 - Loss
+INFO:root:Client 0: 0.39493343234062195 - LossPrivileged
+INFO:root:Client 0: 2.1073691844940186 - LossUnprivileged
+INFO:root:Client 0: 0.39740605254406386 - BalancedACC
+INFO:absl:25/25 - 0s - 96ms/epoch - 4ms/step
+
+INFO:root:Client 1: 0.7599486521181001 - ACC
+INFO:root:Client 1: 0.5522405505180359 - Loss
+INFO:root:Client 1: 0.3640746772289276 - LossPrivileged
+INFO:root:Client 1: 2.1963398456573486 - LossUnprivileged
+INFO:root:Client 1: 0.27399825783972126 - BalancedACC
+INFO:absl:25/25 - 0s - 98ms/epoch - 4ms/step
+
+INFO:root:Client 2: 0.7625160462130937 - ACC
+INFO:root:Client 2: 0.5342759490013123 - Loss
+INFO:root:Client 2: 0.38430556654930115 - LossPrivileged
+INFO:root:Client 2: 2.209726333618164 - LossUnprivileged
+INFO:root:Client 2: 0.2894268134715026 - BalancedACC
+INFO:absl:25/25 - 0s - 91ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.7779204107830552 - ACC
+INFO:root:Client 3: 0.5397574305534363 - Loss
+INFO:root:Client 3: 0.3498641848564148 - LossPrivileged
+INFO:root:Client 3: 2.557727336883545 - LossUnprivileged
+INFO:root:Client 3: 0.12418707796576382 - BalancedACC
+INFO:absl:25/25 - 0s - 93ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.7458279845956355 - ACC
+INFO:root:Client 4: 0.5591704845428467 - Loss
+INFO:root:Client 4: 0.3797737956047058 - LossPrivileged
+INFO:root:Client 4: 2.2185895442962646 - LossUnprivileged
+INFO:root:Client 4: 0.24514134275618374 - BalancedACC
+INFO:absl:25/25 - 0s - 105ms/epoch - 4ms/step
+
+INFO:root:Client 5: 0.8177150192554558 - ACC
+INFO:root:Client 5: 0.38651084899902344 - Loss
+INFO:root:Client 5: 0.3444012701511383 - LossPrivileged
+INFO:root:Client 5: 0.9099763631820679 - LossUnprivileged
+INFO:root:Client 5: 0.81071964017991 - BalancedACC
+INFO:absl:25/25 - 0s - 90ms/epoch - 4ms/step
+
+INFO:root:Client 6: 0.8202824133504493 - ACC
+INFO:root:Client 6: 0.4083436131477356 - Loss
+INFO:root:Client 6: 0.37640565633773804 - LossPrivileged
+INFO:root:Client 6: 0.759170413017273 - LossUnprivileged
+INFO:root:Client 6: 0.8123076923076923 - BalancedACC
+INFO:absl:25/25 - 0s - 93ms/epoch - 4ms/step
+
+INFO:root:Client 7: 0.8151476251604621 - ACC
+INFO:root:Client 7: 0.38720789551734924 - Loss
+INFO:root:Client 7: 0.3913475573062897 - LossPrivileged
+INFO:root:Client 7: 0.34321603178977966 - LossUnprivileged
+INFO:root:Client 7: 0.9361439364587371 - BalancedACC
+INFO:absl:25/25 - 0s - 98ms/epoch - 4ms/step
+
+INFO:root:Client 8: 0.8367609254498715 - ACC
+INFO:root:Client 8: 0.3597078323364258 - Loss
+INFO:root:Client 8: 0.36125248670578003 - LossPrivileged
+INFO:root:Client 8: 0.34247517585754395 - LossUnprivileged
+INFO:root:Client 8: 0.94828125 - BalancedACC
+INFO:absl:25/25 - 0s - 91ms/epoch - 4ms/step
+
+INFO:root:Client 9: 0.8097686375321337 - ACC
+INFO:root:Client 9: 0.3944095969200134 - Loss
+INFO:root:Client 9: 0.39660152792930603 - LossPrivileged
+INFO:root:Client 9: 0.3661501109600067 - LossUnprivileged
+INFO:root:Client 9: 0.9917582417582418 - BalancedACC
+INFO:root:STEP 2 - Update (timestep: 5)
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:Drift detected at client 0
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:root:Drift detected at client 1
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:Drift detected at client 2
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Drift detected at client 3
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Drift detected at client 4
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 5. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 6. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 7. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 8. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 9. Best global model id:0, name0
+INFO:root:STEP 3 - Add models from drifted clients (timestep: 5)
+INFO:root:Created new Global Model with id: 1, name: 1
+INFO:root:Created new Global Model with id: 2, name: 2
+INFO:root:Created new Global Model with id: 3, name: 3
+INFO:root:Created new Global Model with id: 4, name: 4
+INFO:root:Created new Global Model with id: 5, name: 5
+INFO:root:STEP 4 - Merge (timestep: 5)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Model 0 client 0 with 3895 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Model 0 client 1 with 3895 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Model 0 client 2 with 3895 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Model 0 client 3 with 3895 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Model 0 client 4 with 3895 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Model 0 client 5 with 3895 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Model 0 client 6 with 3895 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Model 0 client 7 with 3895 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Model 0 client 8 with 3890 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Model 0 client 9 with 3890 data instances
+INFO:root:      1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000
+INFO:root:STEP 5 - Train and average (timestep: 5)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Model 0 client 0 with 3895 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Model 0 client 1 with 3895 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Model 0 client 2 with 3895 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Model 0 client 3 with 3895 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Model 0 client 4 with 3895 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Getting data of client 5 for model 0 on timestep 5
+INFO:root:Model 0 client 5 with 4674 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Getting data of client 6 for model 0 on timestep 5
+INFO:root:Model 0 client 6 with 4674 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Getting data of client 7 for model 0 on timestep 5
+INFO:root:Model 0 client 7 with 4674 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Getting data of client 8 for model 0 on timestep 5
+INFO:root:Model 0 client 8 with 4668 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Getting data of client 9 for model 0 on timestep 5
+INFO:root:Model 0 client 9 with 4668 data instances
+INFO:root:Getting data of client 0 for model 1 on timestep 5
+INFO:root:Model 1 client 0 with 779 data instances
+INFO:root:Getting data of client 1 for model 2 on timestep 5
+INFO:root:Model 2 client 1 with 779 data instances
+INFO:root:Getting data of client 2 for model 3 on timestep 5
+INFO:root:Model 3 client 2 with 779 data instances
+INFO:root:Getting data of client 3 for model 4 on timestep 5
+INFO:root:Model 4 client 3 with 779 data instances
+INFO:root:Getting data of client 4 for model 5 on timestep 5
+INFO:root:Model 5 client 4 with 779 data instances
+INFO:root:Trained model 0 timestep 5 cround 0 client 0
+INFO:root:Trained model 0 timestep 5 cround 0 client 1
+INFO:root:Trained model 0 timestep 5 cround 0 client 2
+INFO:root:Trained model 0 timestep 5 cround 0 client 3
+INFO:root:Trained model 0 timestep 5 cround 0 client 4
+INFO:root:Trained model 0 timestep 5 cround 0 client 5
+INFO:root:Trained model 0 timestep 5 cround 0 client 6
+INFO:root:Trained model 0 timestep 5 cround 0 client 7
+INFO:root:Trained model 0 timestep 5 cround 0 client 8
+INFO:root:Trained model 0 timestep 5 cround 0 client 9
+INFO:root:Trained model 1 timestep 5 cround 0 client 0
+INFO:root:Trained model 2 timestep 5 cround 0 client 1
+INFO:root:Trained model 3 timestep 5 cround 0 client 2
+INFO:root:Trained model 4 timestep 5 cround 0 client 3
+INFO:root:Trained model 5 timestep 5 cround 0 client 4
+INFO:root:Averaged models on timestep 5 cround 0 of cluster 0
+INFO:root:Averaged models on timestep 5 cround 0 of cluster 1
+INFO:root:Averaged models on timestep 5 cround 0 of cluster 2
+INFO:root:Averaged models on timestep 5 cround 0 of cluster 3
+INFO:root:Averaged models on timestep 5 cround 0 of cluster 4
+INFO:root:Averaged models on timestep 5 cround 0 of cluster 5
+INFO:root:Clients identities (for model) (timestep: 5)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 5
+INFO:root:Model name 1: [0]
+INFO:root:Model name 2: [1]
+INFO:root:Model name 3: [2]
+INFO:root:Model name 4: [3]
+INFO:root:Model name 5: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Clients identities (for printing) (timestep: 5)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 5
+INFO:root:Model name 1: [0]
+INFO:root:Model name 2: [1]
+INFO:root:Model name 3: [2]
+INFO:root:Model name 4: [3]
+INFO:root:Model name 5: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Minimum Loss Clients
+INFO:root:1000       0.477423   0.41661116 0.34572968 0.35393736 0.53122485
+INFO:root:1000       0.4529362  0.4031426  0.41738048 0.36819193 0.55224055
+INFO:root:1000       0.43615323 0.37903932 0.36794373 0.36789235 0.53427595
+INFO:root:1000       0.445882   0.44670036 0.45255363 0.41359568 0.53975743
+INFO:root:1000       0.4518637  0.45653695 0.43908945 0.43902454 0.5591705 
+INFO:root:1000       0.47216994 0.4354998  0.46224898 0.4445755  0.38651085
+INFO:root:1000       0.44544047 0.4648188  0.4607281  0.46126133 0.4083436 
+INFO:root:1000       0.4671702  0.40330052 0.40596542 0.38391796 0.3872079 
+INFO:root:1000       0.444611   0.39630574 0.39912957 0.38004038 0.35970783
+INFO:root:1000       0.44585946 0.4042778  0.40291816 0.36561796 0.3944096 
+INFO:root:Current Global Models
+INFO:root:id: 0, name: 0
+INFO:root:id: 1, name: 1
+INFO:root:id: 2, name: 2
+INFO:root:id: 3, name: 3
+INFO:root:id: 4, name: 4
+INFO:root:id: 5, name: 5
+INFO:root:STEP 1 - test (timestep: 6)
+INFO:absl:25/25 - 0s - 97ms/epoch - 4ms/step
+
+INFO:root:Client 0: 0.7573812580231065 - ACC
+INFO:root:Client 0: 0.4752248525619507 - Loss
+INFO:root:Client 0: 0.4570983946323395 - LossPrivileged
+INFO:root:Client 0: 0.6453723311424255 - LossUnprivileged
+INFO:root:Client 0: 0.9456716417910448 - BalancedACC
+INFO:absl:25/25 - 0s - 96ms/epoch - 4ms/step
+
+INFO:root:Client 1: 0.7817715019255456 - ACC
+INFO:root:Client 1: 0.4536969065666199 - Loss
+INFO:root:Client 1: 0.45368748903274536 - LossPrivileged
+INFO:root:Client 1: 0.4537891149520874 - LossUnprivileged
+INFO:root:Client 1: 0.8672206506364922 - BalancedACC
+INFO:absl:25/25 - 0s - 90ms/epoch - 4ms/step
+
+INFO:root:Client 2: 0.766367137355584 - ACC
+INFO:root:Client 2: 0.4906785786151886 - Loss
+INFO:root:Client 2: 0.4834789037704468 - LossPrivileged
+INFO:root:Client 2: 0.5457963943481445 - LossUnprivileged
+INFO:root:Client 2: 0.937630474978627 - BalancedACC
+INFO:absl:25/25 - 0s - 92ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.803594351732991 - ACC
+INFO:root:Client 3: 0.442213773727417 - Loss
+INFO:root:Client 3: 0.4420531094074249 - LossPrivileged
+INFO:root:Client 3: 0.4439207911491394 - LossUnprivileged
+INFO:root:Client 3: 0.9393603390498719 - BalancedACC
+INFO:absl:25/25 - 0s - 93ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.7406931964056482 - ACC
+INFO:root:Client 4: 0.5560791492462158 - Loss
+INFO:root:Client 4: 0.5098407864570618 - LossPrivileged
+INFO:root:Client 4: 0.9056615233421326 - LossUnprivileged
+INFO:root:Client 4: 0.9932342167636287 - BalancedACC
+INFO:absl:25/25 - 0s - 90ms/epoch - 4ms/step
+
+INFO:root:Client 5: 0.7971758664955071 - ACC
+INFO:root:Client 5: 0.41798436641693115 - Loss
+INFO:root:Client 5: 0.3758057951927185 - LossPrivileged
+INFO:root:Client 5: 0.9144470691680908 - LossUnprivileged
+INFO:root:Client 5: 0.8975764979969885 - BalancedACC
+INFO:absl:25/25 - 0s - 94ms/epoch - 4ms/step
+
+INFO:root:Client 6: 0.8318356867779204 - ACC
+INFO:root:Client 6: 0.3845691680908203 - Loss
+INFO:root:Client 6: 0.33337023854255676 - LossPrivileged
+INFO:root:Client 6: 0.9198992848396301 - LossUnprivileged
+INFO:root:Client 6: 0.7431453573164803 - BalancedACC
+INFO:absl:25/25 - 0s - 102ms/epoch - 4ms/step
+
+INFO:root:Client 7: 0.8164313222079589 - ACC
+INFO:root:Client 7: 0.3960188031196594 - Loss
+INFO:root:Client 7: 0.3993978798389435 - LossPrivileged
+INFO:root:Client 7: 0.3576163053512573 - LossUnprivileged
+INFO:root:Client 7: 0.9908017908017908 - BalancedACC
+INFO:absl:25/25 - 0s - 100ms/epoch - 4ms/step
+
+INFO:root:Client 8: 0.8354755784061697 - ACC
+INFO:root:Client 8: 0.33707818388938904 - Loss
+INFO:root:Client 8: 0.33041226863861084 - LossPrivileged
+INFO:root:Client 8: 0.40557289123535156 - LossUnprivileged
+INFO:root:Client 8: 0.9309892033848848 - BalancedACC
+INFO:absl:25/25 - 0s - 92ms/epoch - 4ms/step
+
+INFO:root:Client 9: 0.8534704370179949 - ACC
+INFO:root:Client 9: 0.3353642225265503 - Loss
+INFO:root:Client 9: 0.3377270996570587 - LossPrivileged
+INFO:root:Client 9: 0.31659698486328125 - LossUnprivileged
+INFO:root:Client 9: 0.9810568489021141 - BalancedACC
+INFO:root:STEP 2 - Update (timestep: 6)
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 87ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 89ms/epoch - 4ms/step
+
+INFO:absl:25/25 - 0s - 92ms/epoch - 4ms/step
+
+INFO:absl:25/25 - 0s - 89ms/epoch - 4ms/step
+
+INFO:absl:25/25 - 0s - 88ms/epoch - 4ms/step
+
+INFO:root:No drift detected at client 0. Best global model id:4, name4
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 1. Best global model id:4, name4
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 2. Best global model id:4, name4
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 3. Best global model id:4, name4
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 73ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 4. Best global model id:1, name1
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 5. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 73ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 6. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 7. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 8. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 9. Best global model id:0, name0
+INFO:root:STEP 3 - Add models from drifted clients (timestep: 6)
+INFO:root:STEP 4 - Merge (timestep: 6)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Model 0 client 0 with 3895 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Model 0 client 1 with 3895 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Model 0 client 2 with 3895 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Model 0 client 3 with 3895 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Model 0 client 4 with 3895 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Getting data of client 5 for model 0 on timestep 5
+INFO:root:Model 0 client 5 with 4674 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Getting data of client 6 for model 0 on timestep 5
+INFO:root:Model 0 client 6 with 4674 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Getting data of client 7 for model 0 on timestep 5
+INFO:root:Model 0 client 7 with 4674 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Getting data of client 8 for model 0 on timestep 5
+INFO:root:Model 0 client 8 with 4668 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Getting data of client 9 for model 0 on timestep 5
+INFO:root:Model 0 client 9 with 4668 data instances
+INFO:root:Getting data of client 0 for model 1 on timestep 5
+INFO:root:Model 1 client 0 with 779 data instances
+INFO:root:Getting data of client 1 for model 2 on timestep 5
+INFO:root:Model 2 client 1 with 779 data instances
+INFO:root:Getting data of client 2 for model 3 on timestep 5
+INFO:root:Model 3 client 2 with 779 data instances
+INFO:root:Getting data of client 3 for model 4 on timestep 5
+INFO:root:Model 4 client 3 with 779 data instances
+INFO:root:Getting data of client 4 for model 5 on timestep 5
+INFO:root:Model 5 client 4 with 779 data instances
+INFO:root:Models [id:0,name:0] and [id:1,name:1] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:root:Results: [0.52855027]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 221ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35606137]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 226ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36408156]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 227ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34770074]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 230ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38158548]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 222ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38525185]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 267ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38366348]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 261ms/epoch - 2ms/step
+
+INFO:root:Results: [0.40006074]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 268ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36962542]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 271ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36099]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 271ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36133754]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 227ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5239875]
+INFO:root:Getting losses model 1 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 227ms/epoch - 2ms/step
+
+INFO:root:Results: [0.51324844]
+INFO:root:Getting losses model 1 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 232ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5110175]
+INFO:root:Getting losses model 1 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 232ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4819649]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 222ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49615207]
+INFO:root:Getting losses model 1 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 266ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49149844]
+INFO:root:Getting losses model 1 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 237ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49712354]
+INFO:root:Getting losses model 1 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 256ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5318631]
+INFO:root:Getting losses model 1 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 267ms/epoch - 2ms/step
+
+INFO:root:Results: [0.51540583]
+INFO:root:Getting losses model 1 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 274ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5160154]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Results: [0.50080967]
+INFO:root:Distances between models 0 and 1 are: 1000
+INFO:root:Models [id:0,name:0] and [id:2,name:2] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5525971]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 219ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35606137]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 210ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36408156]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 205ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34770074]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 211ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38158548]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 232ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38525185]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 274ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38366348]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 275ms/epoch - 2ms/step
+
+INFO:root:Results: [0.40006074]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 278ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36962542]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 284ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36099]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 246ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36133754]
+INFO:root:Getting losses model 2 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 202ms/epoch - 2ms/step
+
+INFO:root:Results: [0.55066496]
+INFO:root:Getting losses model 2 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 221ms/epoch - 2ms/step
+
+INFO:root:Results: [0.539031]
+INFO:root:Getting losses model 2 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 225ms/epoch - 2ms/step
+
+INFO:root:Results: [0.53306186]
+INFO:root:Getting losses model 2 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 228ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49780452]
+INFO:root:Getting losses model 2 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 230ms/epoch - 2ms/step
+
+INFO:root:Results: [0.516512]
+INFO:root:Getting losses model 2 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 275ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5113056]
+INFO:root:Getting losses model 2 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 241ms/epoch - 2ms/step
+
+INFO:root:Results: [0.51978546]
+INFO:root:Getting losses model 2 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 239ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5588157]
+INFO:root:Getting losses model 2 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 260ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5401013]
+INFO:root:Getting losses model 2 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 251ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5342825]
+INFO:root:Getting losses model 2 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+
+INFO:root:Results: [0.47212777]
+INFO:root:Distances between models 0 and 2 are: 1000
+INFO:root:Models [id:0,name:0] and [id:3,name:3] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.53088546]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 202ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35606137]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 206ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36408156]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 203ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34770074]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 191ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38158548]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 179ms/epoch - 1ms/step
+
+INFO:root:Results: [0.38525185]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 240ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38366348]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 242ms/epoch - 2ms/step
+
+INFO:root:Results: [0.40006074]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 259ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36962542]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 253ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36099]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 239ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36133754]
+INFO:root:Getting losses model 3 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 208ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5439681]
+INFO:root:Getting losses model 3 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 209ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5345918]
+INFO:root:Getting losses model 3 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 221ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5324097]
+INFO:root:Getting losses model 3 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 226ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49466962]
+INFO:root:Getting losses model 3 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 205ms/epoch - 2ms/step
+
+INFO:root:Results: [0.51075184]
+INFO:root:Getting losses model 3 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 236ms/epoch - 2ms/step
+
+INFO:root:Results: [0.50440717]
+INFO:root:Getting losses model 3 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 255ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5102877]
+INFO:root:Getting losses model 3 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 252ms/epoch - 2ms/step
+
+INFO:root:Results: [0.55270445]
+INFO:root:Getting losses model 3 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 269ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5358048]
+INFO:root:Getting losses model 3 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 241ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5351302]
+INFO:root:Getting losses model 3 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4661793]
+INFO:root:Distances between models 0 and 3 are: 1000
+INFO:root:Models [id:0,name:0] and [id:4,name:4] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5382595]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 237ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35606137]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 232ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36408156]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 205ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34770074]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 211ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38158548]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 227ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38525185]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 247ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38366348]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 243ms/epoch - 2ms/step
+
+INFO:root:Results: [0.40006074]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 265ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36962542]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 255ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36099]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 265ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36133754]
+INFO:root:Getting losses model 4 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 230ms/epoch - 2ms/step
+
+INFO:root:Results: [0.55619115]
+INFO:root:Getting losses model 4 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 208ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5421353]
+INFO:root:Getting losses model 4 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 210ms/epoch - 2ms/step
+
+INFO:root:Results: [0.53693056]
+INFO:root:Getting losses model 4 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 216ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49399167]
+INFO:root:Getting losses model 4 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 229ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5090149]
+INFO:root:Getting losses model 4 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 272ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49545273]
+INFO:root:Getting losses model 4 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 268ms/epoch - 2ms/step
+
+INFO:root:Results: [0.504307]
+INFO:root:Getting losses model 4 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 266ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5617269]
+INFO:root:Getting losses model 4 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 262ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54355145]
+INFO:root:Getting losses model 4 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 258ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54281294]
+INFO:root:Getting losses model 4 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:root:Results: [0.42920148]
+INFO:root:Distances between models 0 and 4 are: 1000
+INFO:root:Models [id:0,name:0] and [id:5,name:5] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5574746]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 215ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35606137]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 207ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36408156]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 212ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34770074]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 208ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38158548]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 206ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38525185]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 250ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38366348]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 264ms/epoch - 2ms/step
+
+INFO:root:Results: [0.40006074]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 261ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36962542]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 258ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36099]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 257ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36133754]
+INFO:root:Getting losses model 5 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 217ms/epoch - 2ms/step
+
+INFO:root:Results: [0.64889556]
+INFO:root:Getting losses model 5 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 214ms/epoch - 2ms/step
+
+INFO:root:Results: [0.6347788]
+INFO:root:Getting losses model 5 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 211ms/epoch - 2ms/step
+
+INFO:root:Results: [0.630523]
+INFO:root:Getting losses model 5 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 212ms/epoch - 2ms/step
+
+INFO:root:Results: [0.57151824]
+INFO:root:Getting losses model 5 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 224ms/epoch - 2ms/step
+
+INFO:root:Results: [0.58616114]
+INFO:root:Getting losses model 5 on data of client 5 trained on model 0 
+INFO:absl:147/147 - 0s - 261ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5630186]
+INFO:root:Getting losses model 5 on data of client 6 trained on model 0 
+INFO:absl:147/147 - 0s - 274ms/epoch - 2ms/step
+
+INFO:root:Results: [0.57237816]
+INFO:root:Getting losses model 5 on data of client 7 trained on model 0 
+INFO:absl:147/147 - 0s - 252ms/epoch - 2ms/step
+
+INFO:root:Results: [0.65618175]
+INFO:root:Getting losses model 5 on data of client 8 trained on model 0 
+INFO:absl:146/146 - 0s - 253ms/epoch - 2ms/step
+
+INFO:root:Results: [0.6364001]
+INFO:root:Getting losses model 5 on data of client 9 trained on model 0 
+INFO:absl:146/146 - 0s - 237ms/epoch - 2ms/step
+
+INFO:root:Results: [0.64232475]
+INFO:root:Getting losses model 5 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.47176877]
+INFO:root:Distances between models 0 and 5 are: 1000
+INFO:root:Models [id:1,name:1] and [id:2,name:2] have been trained. Checking distances
+INFO:root:Getting losses model 1 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Results: [0.46244204]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.50080967]
+INFO:root:Getting losses model 2 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5355371]
+INFO:root:Getting losses model 2 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.47212777]
+INFO:root:Distances between models 1 and 2 are: 1000
+INFO:root:Models [id:1,name:1] and [id:3,name:3] have been trained. Checking distances
+INFO:root:Getting losses model 1 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:Results: [0.46955496]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:root:Results: [0.50080967]
+INFO:root:Getting losses model 3 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5032458]
+INFO:root:Getting losses model 3 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4661793]
+INFO:root:Distances between models 1 and 3 are: 0.03706645965576172
+INFO:root:Models [id:1,name:1] and [id:4,name:4] have been trained. Checking distances
+INFO:root:Getting losses model 1 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 73ms/epoch - 3ms/step
+
+INFO:root:Results: [0.44618857]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:Results: [0.50080967]
+INFO:root:Getting losses model 4 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4996233]
+INFO:root:Getting losses model 4 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:Results: [0.42920148]
+INFO:root:Distances between models 1 and 4 are: 1000
+INFO:root:Models [id:1,name:1] and [id:5,name:5] have been trained. Checking distances
+INFO:root:Getting losses model 1 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4645723]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:root:Results: [0.50080967]
+INFO:root:Getting losses model 5 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5304996]
+INFO:root:Getting losses model 5 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:Results: [0.47176877]
+INFO:root:Distances between models 1 and 5 are: 1000
+INFO:root:Models [id:2,name:2] and [id:3,name:3] have been trained. Checking distances
+INFO:root:Getting losses model 2 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:Results: [0.48476723]
+INFO:root:Getting losses model 2 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:Results: [0.47212777]
+INFO:root:Getting losses model 3 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.46388122]
+INFO:root:Getting losses model 3 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4661793]
+INFO:root:Distances between models 2 and 3 are: 0.012639462947845459
+INFO:root:Models [id:2,name:2] and [id:4,name:4] have been trained. Checking distances
+INFO:root:Getting losses model 2 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4564792]
+INFO:root:Getting losses model 2 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.47212777]
+INFO:root:Getting losses model 4 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4545178]
+INFO:root:Getting losses model 4 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:root:Results: [0.42920148]
+INFO:root:Distances between models 2 and 4 are: 0.025316327810287476
+INFO:root:Models [id:2,name:2] and [id:5,name:5] have been trained. Checking distances
+INFO:root:Getting losses model 2 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:root:Results: [0.48005432]
+INFO:root:Getting losses model 2 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.47212777]
+INFO:root:Getting losses model 5 on data of client 1 trained on model 2 
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:root:Results: [0.50054795]
+INFO:root:Getting losses model 5 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:root:Results: [0.47176877]
+INFO:root:Distances between models 2 and 5 are: 0.028779178857803345
+INFO:root:Models [id:3,name:3] and [id:4,name:4] have been trained. Checking distances
+INFO:root:Getting losses model 3 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.45139968]
+INFO:root:Getting losses model 3 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4661793]
+INFO:root:Getting losses model 4 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Results: [0.46899265]
+INFO:root:Getting losses model 4 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:Results: [0.42920148]
+INFO:root:Distances between models 3 and 4 are: 0.03979116678237915
+INFO:root:Models [id:3,name:3] and [id:5,name:5] have been trained. Checking distances
+INFO:root:Getting losses model 3 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Results: [0.46480343]
+INFO:root:Getting losses model 3 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4661793]
+INFO:root:Getting losses model 5 on data of client 2 trained on model 3 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5171251]
+INFO:root:Getting losses model 5 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.47176877]
+INFO:root:Distances between models 3 and 5 are: 0.04535636305809021
+INFO:root:Models [id:4,name:4] and [id:5,name:5] have been trained. Checking distances
+INFO:root:Getting losses model 4 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4457353]
+INFO:root:Getting losses model 4 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.42920148]
+INFO:root:Getting losses model 5 on data of client 3 trained on model 4 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4846814]
+INFO:root:Getting losses model 5 on data of client 4 trained on model 5 
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:root:Results: [0.47176877]
+INFO:root:Distances between models 4 and 5 are: 0.01653382182121277
+INFO:root:      1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000 0.03706645965576172       1000       1000
+INFO:root:      1000       1000       1000 0.012639462947845459 0.025316327810287476 0.028779178857803345
+INFO:root:      1000 0.03706645965576172 0.012639462947845459       1000 0.03979116678237915 0.04535636305809021
+INFO:root:      1000       1000 0.025316327810287476 0.03979116678237915       1000 0.01653382182121277
+INFO:root:      1000       1000 0.028779178857803345 0.04535636305809021 0.01653382182121277       1000
+INFO:root:Created new Global Model with id: 6, name: 2-3
+INFO:root:Created global model id:6, name:2-3 from models [id:2, name:2] and [id:3, name:3]
+INFO:root:Changed identity of client 1 timestep 5 to [id:6,name:2-3] (previous[id:6,name:2-3])
+INFO:root:Changed identity of client 2 timestep 5 to [id:6,name:2-3] (previous[id:6,name:2-3])
+INFO:root:Updating Distances
+INFO:root:Old n_clients_data_models: {0: 42833, 1: 779, 2: 779, 3: 779, 4: 779, 5: 779}
+INFO:root:New n_clients_data_models: {0: 42833, 1: 779, 2: 0, 3: 0, 4: 779, 5: 779, 6: 1558}
+INFO:root:      1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000 0.01653382182121277 0.03979116678237915
+INFO:root:      1000       1000       1000       1000 0.01653382182121277       1000 0.04535636305809021
+INFO:root:      1000       1000       1000       1000 0.03979116678237915 0.04535636305809021       1000
+INFO:root:Created new Global Model with id: 7, name: 4-5
+INFO:root:Created global model id:7, name:4-5 from models [id:4, name:4] and [id:5, name:5]
+INFO:root:Changed identity of client 0 timestep 6 to [id:7,name:4-5] (previous[id:7,name:4-5])
+INFO:root:Changed identity of client 1 timestep 6 to [id:7,name:4-5] (previous[id:7,name:4-5])
+INFO:root:Changed identity of client 2 timestep 6 to [id:7,name:4-5] (previous[id:7,name:4-5])
+INFO:root:Changed identity of client 3 timestep 5 to [id:7,name:4-5] (previous[id:7,name:4-5])
+INFO:root:Changed identity of client 3 timestep 6 to [id:7,name:4-5] (previous[id:7,name:4-5])
+INFO:root:Changed identity of client 4 timestep 5 to [id:7,name:4-5] (previous[id:7,name:4-5])
+INFO:root:Updating Distances
+INFO:root:Old n_clients_data_models: {0: 42833, 1: 779, 2: 0, 3: 0, 4: 779, 5: 779, 6: 1558}
+INFO:root:New n_clients_data_models: {0: 42833, 1: 779, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1558, 7: 1558}
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000 0.04535636305809021
+INFO:root:      1000       1000       1000       1000       1000       1000 0.04535636305809021       1000
+INFO:root:Created new Global Model with id: 8, name: 2-3-4-5
+INFO:root:Created global model id:8, name:2-3-4-5 from models [id:6, name:2-3] and [id:7, name:4-5]
+INFO:root:Changed identity of client 0 timestep 6 to [id:8,name:2-3-4-5] (previous[id:8,name:2-3-4-5])
+INFO:root:Changed identity of client 1 timestep 5 to [id:8,name:2-3-4-5] (previous[id:8,name:2-3-4-5])
+INFO:root:Changed identity of client 1 timestep 6 to [id:8,name:2-3-4-5] (previous[id:8,name:2-3-4-5])
+INFO:root:Changed identity of client 2 timestep 5 to [id:8,name:2-3-4-5] (previous[id:8,name:2-3-4-5])
+INFO:root:Changed identity of client 2 timestep 6 to [id:8,name:2-3-4-5] (previous[id:8,name:2-3-4-5])
+INFO:root:Changed identity of client 3 timestep 5 to [id:8,name:2-3-4-5] (previous[id:8,name:2-3-4-5])
+INFO:root:Changed identity of client 3 timestep 6 to [id:8,name:2-3-4-5] (previous[id:8,name:2-3-4-5])
+INFO:root:Changed identity of client 4 timestep 5 to [id:8,name:2-3-4-5] (previous[id:8,name:2-3-4-5])
+INFO:root:Updating Distances
+INFO:root:Old n_clients_data_models: {0: 42833, 1: 779, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1558, 7: 1558}
+INFO:root:New n_clients_data_models: {0: 42833, 1: 779, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 3116}
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:STEP 5 - Train and average (timestep: 6)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Model 0 client 0 with 3895 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Model 0 client 1 with 3895 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Model 0 client 2 with 3895 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Model 0 client 3 with 3895 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Model 0 client 4 with 3895 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Getting data of client 5 for model 0 on timestep 5
+INFO:root:Getting data of client 5 for model 0 on timestep 6
+INFO:root:Model 0 client 5 with 5453 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Getting data of client 6 for model 0 on timestep 5
+INFO:root:Getting data of client 6 for model 0 on timestep 6
+INFO:root:Model 0 client 6 with 5453 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Getting data of client 7 for model 0 on timestep 5
+INFO:root:Getting data of client 7 for model 0 on timestep 6
+INFO:root:Model 0 client 7 with 5453 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Getting data of client 8 for model 0 on timestep 5
+INFO:root:Getting data of client 8 for model 0 on timestep 6
+INFO:root:Model 0 client 8 with 5446 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Getting data of client 9 for model 0 on timestep 5
+INFO:root:Getting data of client 9 for model 0 on timestep 6
+INFO:root:Model 0 client 9 with 5446 data instances
+INFO:root:Getting data of client 0 for model 1 on timestep 5
+INFO:root:Model 1 client 0 with 779 data instances
+INFO:root:Getting data of client 4 for model 1 on timestep 6
+INFO:root:Model 1 client 4 with 779 data instances
+INFO:root:Getting data of client 0 for model 2-3-4-5 on timestep 6
+INFO:root:Model 8 client 0 with 779 data instances
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 6
+INFO:root:Model 8 client 1 with 1558 data instances
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 6
+INFO:root:Model 8 client 2 with 1558 data instances
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 6
+INFO:root:Model 8 client 3 with 1558 data instances
+INFO:root:Getting data of client 4 for model 2-3-4-5 on timestep 5
+INFO:root:Model 8 client 4 with 779 data instances
+INFO:root:Trained model 0 timestep 6 cround 0 client 0
+INFO:root:Trained model 0 timestep 6 cround 0 client 1
+INFO:root:Trained model 0 timestep 6 cround 0 client 2
+INFO:root:Trained model 0 timestep 6 cround 0 client 3
+INFO:root:Trained model 0 timestep 6 cround 0 client 4
+INFO:root:Trained model 0 timestep 6 cround 0 client 5
+INFO:root:Trained model 0 timestep 6 cround 0 client 6
+INFO:root:Trained model 0 timestep 6 cround 0 client 7
+INFO:root:Trained model 0 timestep 6 cround 0 client 8
+INFO:root:Trained model 0 timestep 6 cround 0 client 9
+INFO:root:Trained model 1 timestep 6 cround 0 client 0
+INFO:root:Trained model 1 timestep 6 cround 0 client 4
+INFO:root:Trained model 8 timestep 6 cround 0 client 0
+INFO:root:Trained model 8 timestep 6 cround 0 client 1
+INFO:root:Trained model 8 timestep 6 cround 0 client 2
+INFO:root:Trained model 8 timestep 6 cround 0 client 3
+INFO:root:Trained model 8 timestep 6 cround 0 client 4
+INFO:root:Averaged models on timestep 6 cround 0 of cluster 0
+INFO:root:Averaged models on timestep 6 cround 0 of cluster 1
+INFO:root:Did not average models on timestep 6 cround 0 of cluster 2
+INFO:root:Did not average models on timestep 6 cround 0 of cluster 3
+INFO:root:Did not average models on timestep 6 cround 0 of cluster 4
+INFO:root:Did not average models on timestep 6 cround 0 of cluster 5
+INFO:root:Did not average models on timestep 6 cround 0 of cluster 6
+INFO:root:Did not average models on timestep 6 cround 0 of cluster 7
+INFO:root:Averaged models on timestep 6 cround 0 of cluster 8
+INFO:root:Clients identities (for model) (timestep: 6)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 5
+INFO:root:Model name 1: [0]
+INFO:root:Model name 2-3-4-5: [1, 2, 3, 4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 6
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3]
+INFO:root:Model name 1: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Clients identities (for printing) (timestep: 6)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 5
+INFO:root:Model name 1: [0]
+INFO:root:Model name 2: [1]
+INFO:root:Model name 3: [2]
+INFO:root:Model name 4: [3]
+INFO:root:Model name 5: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 6
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3]
+INFO:root:Model name 1: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Minimum Loss Clients
+INFO:root:1000       0.477423   0.41661116 0.34572968 0.35393736 0.53122485 0.46687886
+INFO:root:1000       0.4529362  0.4031426  0.41738048 0.36819193 0.55224055 0.4326674 
+INFO:root:1000       0.43615323 0.37903932 0.36794373 0.36789235 0.53427595 0.48311195
+INFO:root:1000       0.445882   0.44670036 0.45255363 0.41359568 0.53975743 0.44221377
+INFO:root:1000       0.4518637  0.45653695 0.43908945 0.43902454 0.5591705  0.4840563 
+INFO:root:1000       0.47216994 0.4354998  0.46224898 0.4445755  0.38651085 0.41798437
+INFO:root:1000       0.44544047 0.4648188  0.4607281  0.46126133 0.4083436  0.38456917
+INFO:root:1000       0.4671702  0.40330052 0.40596542 0.38391796 0.3872079  0.3960188 
+INFO:root:1000       0.444611   0.39630574 0.39912957 0.38004038 0.35970783 0.33707818
+INFO:root:1000       0.44585946 0.4042778  0.40291816 0.36561796 0.3944096  0.33536422
+INFO:root:Current Global Models
+INFO:root:id: 0, name: 0
+INFO:root:id: 1, name: 1
+INFO:root:id: 8, name: 2-3-4-5
+INFO:root:STEP 1 - test (timestep: 7)
+INFO:absl:25/25 - 0s - 90ms/epoch - 4ms/step
+
+INFO:root:Client 0: 0.8112965340179717 - ACC
+INFO:root:Client 0: 0.4344733655452728 - Loss
+INFO:root:Client 0: 0.4160168468952179 - LossPrivileged
+INFO:root:Client 0: 0.6157065033912659 - LossUnprivileged
+INFO:root:Client 0: 0.9734057971014493 - BalancedACC
+INFO:absl:25/25 - 0s - 101ms/epoch - 4ms/step
+
+INFO:root:Client 1: 0.7830551989730423 - ACC
+INFO:root:Client 1: 0.4451422393321991 - Loss
+INFO:root:Client 1: 0.45263418555259705 - LossPrivileged
+INFO:root:Client 1: 0.37043455243110657 - LossUnprivileged
+INFO:root:Client 1: 0.8707066630795445 - BalancedACC
+INFO:absl:25/25 - 0s - 94ms/epoch - 4ms/step
+
+INFO:root:Client 2: 0.8087291399229781 - ACC
+INFO:root:Client 2: 0.425815612077713 - Loss
+INFO:root:Client 2: 0.42774316668510437 - LossPrivileged
+INFO:root:Client 2: 0.4084923267364502 - LossUnprivileged
+INFO:root:Client 2: 0.9196106402618109 - BalancedACC
+INFO:absl:25/25 - 0s - 89ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.8202824133504493 - ACC
+INFO:root:Client 3: 0.41417160630226135 - Loss
+INFO:root:Client 3: 0.41357046365737915 - LossPrivileged
+INFO:root:Client 3: 0.4192808270454407 - LossUnprivileged
+INFO:root:Client 3: 0.9411764705882353 - BalancedACC
+INFO:absl:25/25 - 0s - 93ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.8074454428754814 - ACC
+INFO:root:Client 4: 0.4387948513031006 - Loss
+INFO:root:Client 4: 0.4305187165737152 - LossPrivileged
+INFO:root:Client 4: 0.5397925972938538 - LossUnprivileged
+INFO:root:Client 4: 0.9403296958439749 - BalancedACC
+INFO:absl:25/25 - 0s - 94ms/epoch - 4ms/step
+
+INFO:root:Client 5: 0.8061617458279846 - ACC
+INFO:root:Client 5: 0.4178984761238098 - Loss
+INFO:root:Client 5: 0.36170023679733276 - LossPrivileged
+INFO:root:Client 5: 1.0151090621948242 - LossUnprivileged
+INFO:root:Client 5: 0.8399240908857772 - BalancedACC
+INFO:absl:25/25 - 0s - 92ms/epoch - 4ms/step
+
+INFO:root:Client 6: 0.8369704749679076 - ACC
+INFO:root:Client 6: 0.3550136387348175 - Loss
+INFO:root:Client 6: 0.3275976777076721 - LossPrivileged
+INFO:root:Client 6: 0.6511892676353455 - LossUnprivileged
+INFO:root:Client 6: 0.8778581838283331 - BalancedACC
+INFO:absl:25/25 - 0s - 91ms/epoch - 4ms/step
+
+INFO:root:Client 7: 0.8395378690629012 - ACC
+INFO:root:Client 7: 0.3437076807022095 - Loss
+INFO:root:Client 7: 0.33721375465393066 - LossPrivileged
+INFO:root:Client 7: 0.41504111886024475 - LossUnprivileged
+INFO:root:Client 7: 0.9886153846153847 - BalancedACC
+INFO:absl:25/25 - 0s - 96ms/epoch - 4ms/step
+
+INFO:root:Client 8: 0.8161953727506427 - ACC
+INFO:root:Client 8: 0.3886508047580719 - Loss
+INFO:root:Client 8: 0.3915654122829437 - LossPrivileged
+INFO:root:Client 8: 0.36519870162010193 - LossUnprivileged
+INFO:root:Client 8: 0.9491483786439567 - BalancedACC
+INFO:absl:25/25 - 0s - 100ms/epoch - 4ms/step
+
+INFO:root:Client 9: 0.8213367609254498 - ACC
+INFO:root:Client 9: 0.3633899688720703 - Loss
+INFO:root:Client 9: 0.36932092905044556 - LossPrivileged
+INFO:root:Client 9: 0.30340275168418884 - LossUnprivileged
+INFO:root:Client 9: 0.9905743740795286 - BalancedACC
+INFO:root:STEP 2 - Update (timestep: 7)
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 95ms/epoch - 4ms/step
+
+INFO:root:No drift detected at client 0. Best global model id:8, name2-3-4-5
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 75ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 1. Best global model id:8, name2-3-4-5
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 2. Best global model id:8, name2-3-4-5
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 3. Best global model id:8, name2-3-4-5
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 4. Best global model id:8, name2-3-4-5
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 5. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 57ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 6. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 7. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Drift detected at client 8
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 9. Best global model id:0, name0
+INFO:root:STEP 3 - Add models from drifted clients (timestep: 7)
+INFO:root:Created new Global Model with id: 9, name: 9
+INFO:root:STEP 4 - Merge (timestep: 7)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Model 0 client 0 with 3895 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Model 0 client 1 with 3895 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Model 0 client 2 with 3895 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Model 0 client 3 with 3895 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Model 0 client 4 with 3895 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Getting data of client 5 for model 0 on timestep 5
+INFO:root:Getting data of client 5 for model 0 on timestep 6
+INFO:root:Model 0 client 5 with 5453 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Getting data of client 6 for model 0 on timestep 5
+INFO:root:Getting data of client 6 for model 0 on timestep 6
+INFO:root:Model 0 client 6 with 5453 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Getting data of client 7 for model 0 on timestep 5
+INFO:root:Getting data of client 7 for model 0 on timestep 6
+INFO:root:Model 0 client 7 with 5453 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Getting data of client 8 for model 0 on timestep 5
+INFO:root:Getting data of client 8 for model 0 on timestep 6
+INFO:root:Model 0 client 8 with 5446 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Getting data of client 9 for model 0 on timestep 5
+INFO:root:Getting data of client 9 for model 0 on timestep 6
+INFO:root:Model 0 client 9 with 5446 data instances
+INFO:root:Getting data of client 0 for model 1 on timestep 5
+INFO:root:Model 1 client 0 with 779 data instances
+INFO:root:Getting data of client 4 for model 1 on timestep 6
+INFO:root:Model 1 client 4 with 779 data instances
+INFO:root:Getting data of client 0 for model 2-3-4-5 on timestep 6
+INFO:root:Model 8 client 0 with 779 data instances
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 6
+INFO:root:Model 8 client 1 with 1558 data instances
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 6
+INFO:root:Model 8 client 2 with 1558 data instances
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 6
+INFO:root:Model 8 client 3 with 1558 data instances
+INFO:root:Getting data of client 4 for model 2-3-4-5 on timestep 5
+INFO:root:Model 8 client 4 with 779 data instances
+INFO:root:Models [id:0,name:0] and [id:1,name:1] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:Results: [0.537946]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5450129]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 237ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35084456]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 230ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35990942]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 229ms/epoch - 2ms/step
+
+INFO:root:Results: [0.33858174]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 212ms/epoch - 2ms/step
+
+INFO:root:Results: [0.37635437]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 216ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38087755]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:171/171 - 0s - 287ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38367218]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:171/171 - 0s - 316ms/epoch - 2ms/step
+
+INFO:root:Results: [0.39356202]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:171/171 - 0s - 318ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36702886]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 307ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35135168]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:171/171 - 0s - 311ms/epoch - 2ms/step
+
+INFO:root:Results: [0.3490963]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 235ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5312054]
+INFO:root:Getting losses model 1 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 236ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5184986]
+INFO:root:Getting losses model 1 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 219ms/epoch - 2ms/step
+
+INFO:root:Results: [0.51747286]
+INFO:root:Getting losses model 1 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 231ms/epoch - 2ms/step
+
+INFO:root:Results: [0.48101285]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 227ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49722514]
+INFO:root:Getting losses model 1 on data of client 5 trained on model 0 
+INFO:absl:171/171 - 0s - 286ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4902245]
+INFO:root:Getting losses model 1 on data of client 6 trained on model 0 
+INFO:absl:171/171 - 0s - 289ms/epoch - 2ms/step
+
+INFO:root:Results: [0.48880723]
+INFO:root:Getting losses model 1 on data of client 7 trained on model 0 
+INFO:absl:171/171 - 0s - 296ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54053247]
+INFO:root:Getting losses model 1 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 292ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5179596]
+INFO:root:Getting losses model 1 on data of client 9 trained on model 0 
+INFO:absl:171/171 - 0s - 293ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5247811]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:Results: [0.47043097]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4613547]
+INFO:root:Distances between models 0 and 1 are: 1000
+INFO:root:Models [id:0,name:0] and [id:8,name:2-3-4-5] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 0 trained on model 8 
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5445926]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 8 
+INFO:absl:49/49 - 0s - 100ms/epoch - 2ms/step
+
+INFO:root:Results: [0.55336905]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 8 
+INFO:absl:49/49 - 0s - 97ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5489526]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 8 
+INFO:absl:49/49 - 0s - 97ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5443773]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 8 
+INFO:absl:25/25 - 0s - 58ms/epoch - 2ms/step
+
+INFO:root:Results: [0.56343997]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 203ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35084456]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 217ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35990942]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 216ms/epoch - 2ms/step
+
+INFO:root:Results: [0.33858174]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 199ms/epoch - 2ms/step
+
+INFO:root:Results: [0.37635437]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 211ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38087755]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:171/171 - 0s - 305ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38367218]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:171/171 - 0s - 309ms/epoch - 2ms/step
+
+INFO:root:Results: [0.39356202]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:171/171 - 0s - 310ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36702886]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 308ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35135168]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:171/171 - 0s - 300ms/epoch - 2ms/step
+
+INFO:root:Results: [0.3490963]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 222ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5609377]
+INFO:root:Getting losses model 8 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 229ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54588354]
+INFO:root:Getting losses model 8 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 222ms/epoch - 2ms/step
+
+INFO:root:Results: [0.53945917]
+INFO:root:Getting losses model 8 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 238ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49234542]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 227ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5104924]
+INFO:root:Getting losses model 8 on data of client 5 trained on model 0 
+INFO:absl:171/171 - 0s - 313ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49485788]
+INFO:root:Getting losses model 8 on data of client 6 trained on model 0 
+INFO:absl:171/171 - 0s - 314ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49605402]
+INFO:root:Getting losses model 8 on data of client 7 trained on model 0 
+INFO:absl:171/171 - 0s - 311ms/epoch - 2ms/step
+
+INFO:root:Results: [0.56686926]
+INFO:root:Getting losses model 8 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 306ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54294175]
+INFO:root:Getting losses model 8 on data of client 9 trained on model 0 
+INFO:absl:171/171 - 0s - 286ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54629725]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 8 
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:Results: [0.43142137]
+INFO:root:Getting losses model 8 on data of client 1 trained on model 8 
+INFO:absl:49/49 - 0s - 108ms/epoch - 2ms/step
+
+INFO:root:Results: [0.42079556]
+INFO:root:Getting losses model 8 on data of client 2 trained on model 8 
+INFO:absl:49/49 - 0s - 107ms/epoch - 2ms/step
+
+INFO:root:Results: [0.45038292]
+INFO:root:Getting losses model 8 on data of client 3 trained on model 8 
+INFO:absl:49/49 - 0s - 107ms/epoch - 2ms/step
+
+INFO:root:Results: [0.40889752]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 8 
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4267299]
+INFO:root:Distances between models 0 and 8 are: 1000
+INFO:root:Models [id:1,name:1] and [id:8,name:2-3-4-5] have been trained. Checking distances
+INFO:root:Getting losses model 1 on data of client 0 trained on model 8 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4422443]
+INFO:root:Getting losses model 1 on data of client 1 trained on model 8 
+INFO:absl:49/49 - 0s - 111ms/epoch - 2ms/step
+
+INFO:root:Results: [0.43804392]
+INFO:root:Getting losses model 1 on data of client 2 trained on model 8 
+INFO:absl:49/49 - 0s - 107ms/epoch - 2ms/step
+
+INFO:root:Results: [0.45631307]
+INFO:root:Getting losses model 1 on data of client 3 trained on model 8 
+INFO:absl:49/49 - 0s - 110ms/epoch - 2ms/step
+
+INFO:root:Results: [0.42633346]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 8 
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Results: [0.44477922]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.47043097]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4613547]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:root:Results: [0.46731094]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Results: [0.46974102]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 8 
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:root:Results: [0.43142137]
+INFO:root:Getting losses model 8 on data of client 1 trained on model 8 
+INFO:absl:49/49 - 0s - 102ms/epoch - 2ms/step
+
+INFO:root:Results: [0.42079556]
+INFO:root:Getting losses model 8 on data of client 2 trained on model 8 
+INFO:absl:49/49 - 0s - 105ms/epoch - 2ms/step
+
+INFO:root:Results: [0.45038292]
+INFO:root:Getting losses model 8 on data of client 3 trained on model 8 
+INFO:absl:49/49 - 0s - 106ms/epoch - 2ms/step
+
+INFO:root:Results: [0.40889752]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 8 
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4267299]
+INFO:root:Distances between models 1 and 8 are: 1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:STEP 5 - Train and average (timestep: 7)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Model 0 client 0 with 3895 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Model 0 client 1 with 3895 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Model 0 client 2 with 3895 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Model 0 client 3 with 3895 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Model 0 client 4 with 3895 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Getting data of client 5 for model 0 on timestep 5
+INFO:root:Getting data of client 5 for model 0 on timestep 6
+INFO:root:Getting data of client 5 for model 0 on timestep 7
+INFO:root:Model 0 client 5 with 6232 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Getting data of client 6 for model 0 on timestep 5
+INFO:root:Getting data of client 6 for model 0 on timestep 6
+INFO:root:Getting data of client 6 for model 0 on timestep 7
+INFO:root:Model 0 client 6 with 6232 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Getting data of client 7 for model 0 on timestep 5
+INFO:root:Getting data of client 7 for model 0 on timestep 6
+INFO:root:Getting data of client 7 for model 0 on timestep 7
+INFO:root:Model 0 client 7 with 6232 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Getting data of client 8 for model 0 on timestep 5
+INFO:root:Getting data of client 8 for model 0 on timestep 6
+INFO:root:Model 0 client 8 with 5446 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Getting data of client 9 for model 0 on timestep 5
+INFO:root:Getting data of client 9 for model 0 on timestep 6
+INFO:root:Getting data of client 9 for model 0 on timestep 7
+INFO:root:Model 0 client 9 with 6224 data instances
+INFO:root:Getting data of client 0 for model 1 on timestep 5
+INFO:root:Model 1 client 0 with 779 data instances
+INFO:root:Getting data of client 4 for model 1 on timestep 6
+INFO:root:Model 1 client 4 with 779 data instances
+INFO:root:Getting data of client 0 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 0 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 0 with 1558 data instances
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 1 with 2337 data instances
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 2 with 2337 data instances
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 3 with 2337 data instances
+INFO:root:Getting data of client 4 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 4 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 4 with 1558 data instances
+INFO:root:Getting data of client 8 for model 9 on timestep 7
+INFO:root:Model 9 client 8 with 778 data instances
+INFO:root:Trained model 0 timestep 7 cround 0 client 0
+INFO:root:Trained model 0 timestep 7 cround 0 client 1
+INFO:root:Trained model 0 timestep 7 cround 0 client 2
+INFO:root:Trained model 0 timestep 7 cround 0 client 3
+INFO:root:Trained model 0 timestep 7 cround 0 client 4
+INFO:root:Trained model 0 timestep 7 cround 0 client 5
+INFO:root:Trained model 0 timestep 7 cround 0 client 6
+INFO:root:Trained model 0 timestep 7 cround 0 client 7
+INFO:root:Trained model 0 timestep 7 cround 0 client 8
+INFO:root:Trained model 0 timestep 7 cround 0 client 9
+INFO:root:Trained model 1 timestep 7 cround 0 client 0
+INFO:root:Trained model 1 timestep 7 cround 0 client 4
+INFO:root:Trained model 8 timestep 7 cround 0 client 0
+INFO:root:Trained model 8 timestep 7 cround 0 client 1
+INFO:root:Trained model 8 timestep 7 cround 0 client 2
+INFO:root:Trained model 8 timestep 7 cround 0 client 3
+INFO:root:Trained model 8 timestep 7 cround 0 client 4
+INFO:root:Trained model 9 timestep 7 cround 0 client 8
+INFO:root:Averaged models on timestep 7 cround 0 of cluster 0
+INFO:root:Averaged models on timestep 7 cround 0 of cluster 1
+INFO:root:Did not average models on timestep 7 cround 0 of cluster 2
+INFO:root:Did not average models on timestep 7 cround 0 of cluster 3
+INFO:root:Did not average models on timestep 7 cround 0 of cluster 4
+INFO:root:Did not average models on timestep 7 cround 0 of cluster 5
+INFO:root:Did not average models on timestep 7 cround 0 of cluster 6
+INFO:root:Did not average models on timestep 7 cround 0 of cluster 7
+INFO:root:Averaged models on timestep 7 cround 0 of cluster 8
+INFO:root:Averaged models on timestep 7 cround 0 of cluster 9
+INFO:root:Clients identities (for model) (timestep: 7)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 5
+INFO:root:Model name 1: [0]
+INFO:root:Model name 2-3-4-5: [1, 2, 3, 4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 6
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3]
+INFO:root:Model name 1: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 7
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3, 4]
+INFO:root:Model name 0: [5, 6, 7, 9]
+INFO:root:Model name 9: [8]
+INFO:root:Clients identities (for printing) (timestep: 7)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 5
+INFO:root:Model name 1: [0]
+INFO:root:Model name 2: [1]
+INFO:root:Model name 3: [2]
+INFO:root:Model name 4: [3]
+INFO:root:Model name 5: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 6
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3]
+INFO:root:Model name 1: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 7
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3, 4]
+INFO:root:Model name 0: [5, 6, 7, 9]
+INFO:root:Model name 9: [8]
+INFO:root:Minimum Loss Clients
+INFO:root:1000       0.477423   0.41661116 0.34572968 0.35393736 0.53122485 0.46687886 0.43447337
+INFO:root:1000       0.4529362  0.4031426  0.41738048 0.36819193 0.55224055 0.4326674  0.44514224
+INFO:root:1000       0.43615323 0.37903932 0.36794373 0.36789235 0.53427595 0.48311195 0.4258156 
+INFO:root:1000       0.445882   0.44670036 0.45255363 0.41359568 0.53975743 0.44221377 0.4141716 
+INFO:root:1000       0.4518637  0.45653695 0.43908945 0.43902454 0.5591705  0.4840563  0.42602602
+INFO:root:1000       0.47216994 0.4354998  0.46224898 0.4445755  0.38651085 0.41798437 0.41789848
+INFO:root:1000       0.44544047 0.4648188  0.4607281  0.46126133 0.4083436  0.38456917 0.35501364
+INFO:root:1000       0.4671702  0.40330052 0.40596542 0.38391796 0.3872079  0.3960188  0.34370768
+INFO:root:1000       0.444611   0.39630574 0.39912957 0.38004038 0.35970783 0.33707818 0.3886508 
+INFO:root:1000       0.44585946 0.4042778  0.40291816 0.36561796 0.3944096  0.33536422 0.36338997
+INFO:root:Current Global Models
+INFO:root:id: 0, name: 0
+INFO:root:id: 1, name: 1
+INFO:root:id: 8, name: 2-3-4-5
+INFO:root:id: 9, name: 9
+INFO:root:STEP 1 - test (timestep: 8)
+INFO:absl:25/25 - 0s - 97ms/epoch - 4ms/step
+
+INFO:root:Client 0: 0.7368421052631579 - ACC
+INFO:root:Client 0: 0.5842204689979553 - Loss
+INFO:root:Client 0: 0.4129231870174408 - LossPrivileged
+INFO:root:Client 0: 2.168720245361328 - LossUnprivileged
+INFO:root:Client 0: 0.14734513274336283 - BalancedACC
+INFO:absl:25/25 - 0s - 99ms/epoch - 4ms/step
+
+INFO:root:Client 1: 0.7894736842105263 - ACC
+INFO:root:Client 1: 0.4753389358520508 - Loss
+INFO:root:Client 1: 0.35879001021385193 - LossPrivileged
+INFO:root:Client 1: 2.17462158203125 - LossUnprivileged
+INFO:root:Client 1: 0.16786184210526317 - BalancedACC
+INFO:absl:25/25 - 0s - 96ms/epoch - 4ms/step
+
+INFO:root:Client 2: 0.7188703465982028 - ACC
+INFO:root:Client 2: 0.6031613945960999 - Loss
+INFO:root:Client 2: 0.42205214500427246 - LossPrivileged
+INFO:root:Client 2: 2.043708086013794 - LossUnprivileged
+INFO:root:Client 2: 0.1593702238134121 - BalancedACC
+INFO:absl:25/25 - 0s - 101ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.8061617458279846 - ACC
+INFO:root:Client 3: 0.4521375894546509 - Loss
+INFO:root:Client 3: 0.38019368052482605 - LossPrivileged
+INFO:root:Client 3: 1.1274511814117432 - LossUnprivileged
+INFO:root:Client 3: 0.7593344807802639 - BalancedACC
+INFO:absl:25/25 - 0s - 104ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.7933247753530167 - ACC
+INFO:root:Client 4: 0.48335182666778564 - Loss
+INFO:root:Client 4: 0.4107862114906311 - LossPrivileged
+INFO:root:Client 4: 1.2804570198059082 - LossUnprivileged
+INFO:root:Client 4: 0.7196816976127322 - BalancedACC
+INFO:absl:25/25 - 0s - 106ms/epoch - 4ms/step
+
+INFO:root:Client 5: 0.8575096277278562 - ACC
+INFO:root:Client 5: 0.3339994251728058 - Loss
+INFO:root:Client 5: 0.3318413197994232 - LossPrivileged
+INFO:root:Client 5: 0.3569328784942627 - LossUnprivileged
+INFO:root:Client 5: 0.9534708188259357 - BalancedACC
+INFO:absl:25/25 - 0s - 96ms/epoch - 4ms/step
+
+INFO:root:Client 6: 0.8215661103979461 - ACC
+INFO:root:Client 6: 0.36620649695396423 - Loss
+INFO:root:Client 6: 0.3780609667301178 - LossPrivileged
+INFO:root:Client 6: 0.2565527856349945 - LossUnprivileged
+INFO:root:Client 6: 0.9402129402129401 - BalancedACC
+INFO:absl:25/25 - 0s - 100ms/epoch - 4ms/step
+
+INFO:root:Client 7: 0.8254172015404364 - ACC
+INFO:root:Client 7: 0.35825881361961365 - Loss
+INFO:root:Client 7: 0.35379666090011597 - LossPrivileged
+INFO:root:Client 7: 0.4034535884857178 - LossUnprivileged
+INFO:root:Client 7: 0.9662691652470188 - BalancedACC
+INFO:absl:25/25 - 0s - 99ms/epoch - 4ms/step
+
+INFO:root:Client 8: 0.7107969151670951 - ACC
+INFO:root:Client 8: 0.5517957806587219 - Loss
+INFO:root:Client 8: 0.5075544118881226 - LossPrivileged
+INFO:root:Client 8: 1.1449583768844604 - LossUnprivileged
+INFO:root:Client 8: 0.6082755723587482 - BalancedACC
+INFO:absl:25/25 - 0s - 95ms/epoch - 4ms/step
+
+INFO:root:Client 9: 0.8290488431876607 - ACC
+INFO:root:Client 9: 0.37161004543304443 - Loss
+INFO:root:Client 9: 0.31264999508857727 - LossPrivileged
+INFO:root:Client 9: 0.9587187170982361 - LossUnprivileged
+INFO:root:Client 9: 0.8006228324722203 - BalancedACC
+INFO:root:STEP 2 - Update (timestep: 8)
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 63ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 106ms/epoch - 4ms/step
+
+INFO:root:No drift detected at client 0. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 65ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 1. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 2. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 3. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 4. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 5. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:No drift detected at client 6. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 71ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 72ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 7. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 8. Best global model id:0, name0
+INFO:absl:25/25 - 0s - 60ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 61ms/epoch - 2ms/step
+
+INFO:absl:25/25 - 0s - 66ms/epoch - 3ms/step
+
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:No drift detected at client 9. Best global model id:0, name0
+INFO:root:STEP 3 - Add models from drifted clients (timestep: 8)
+INFO:root:STEP 4 - Merge (timestep: 8)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Model 0 client 0 with 3895 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Model 0 client 1 with 3895 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Model 0 client 2 with 3895 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Model 0 client 3 with 3895 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Model 0 client 4 with 3895 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Getting data of client 5 for model 0 on timestep 5
+INFO:root:Getting data of client 5 for model 0 on timestep 6
+INFO:root:Getting data of client 5 for model 0 on timestep 7
+INFO:root:Model 0 client 5 with 6232 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Getting data of client 6 for model 0 on timestep 5
+INFO:root:Getting data of client 6 for model 0 on timestep 6
+INFO:root:Getting data of client 6 for model 0 on timestep 7
+INFO:root:Model 0 client 6 with 6232 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Getting data of client 7 for model 0 on timestep 5
+INFO:root:Getting data of client 7 for model 0 on timestep 6
+INFO:root:Getting data of client 7 for model 0 on timestep 7
+INFO:root:Model 0 client 7 with 6232 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Getting data of client 8 for model 0 on timestep 5
+INFO:root:Getting data of client 8 for model 0 on timestep 6
+INFO:root:Model 0 client 8 with 5446 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Getting data of client 9 for model 0 on timestep 5
+INFO:root:Getting data of client 9 for model 0 on timestep 6
+INFO:root:Getting data of client 9 for model 0 on timestep 7
+INFO:root:Model 0 client 9 with 6224 data instances
+INFO:root:Getting data of client 0 for model 1 on timestep 5
+INFO:root:Model 1 client 0 with 779 data instances
+INFO:root:Getting data of client 4 for model 1 on timestep 6
+INFO:root:Model 1 client 4 with 779 data instances
+INFO:root:Getting data of client 0 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 0 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 0 with 1558 data instances
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 1 with 2337 data instances
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 2 with 2337 data instances
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 3 with 2337 data instances
+INFO:root:Getting data of client 4 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 4 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 4 with 1558 data instances
+INFO:root:Getting data of client 8 for model 9 on timestep 7
+INFO:root:Model 9 client 8 with 778 data instances
+INFO:root:Models [id:0,name:0] and [id:1,name:1] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.5325869]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:root:Results: [0.53466403]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 255ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34493262]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 249ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35202405]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 255ms/epoch - 2ms/step
+
+INFO:root:Results: [0.32923862]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 220ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36835223]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 220ms/epoch - 2ms/step
+
+INFO:root:Results: [0.3726411]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:195/195 - 0s - 330ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38037172]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:195/195 - 0s - 375ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38021332]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:195/195 - 0s - 372ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35651433]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 261ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34473458]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:195/195 - 0s - 351ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34267932]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 248ms/epoch - 2ms/step
+
+INFO:root:Results: [0.53061485]
+INFO:root:Getting losses model 1 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 247ms/epoch - 2ms/step
+
+INFO:root:Results: [0.51601857]
+INFO:root:Getting losses model 1 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 241ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5149358]
+INFO:root:Getting losses model 1 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 242ms/epoch - 2ms/step
+
+INFO:root:Results: [0.48212275]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 254ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49933398]
+INFO:root:Getting losses model 1 on data of client 5 trained on model 0 
+INFO:absl:195/195 - 0s - 376ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49541232]
+INFO:root:Getting losses model 1 on data of client 6 trained on model 0 
+INFO:absl:195/195 - 0s - 381ms/epoch - 2ms/step
+
+INFO:root:Results: [0.48795605]
+INFO:root:Getting losses model 1 on data of client 7 trained on model 0 
+INFO:absl:195/195 - 0s - 379ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5343124]
+INFO:root:Getting losses model 1 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 338ms/epoch - 2ms/step
+
+INFO:root:Results: [0.51666117]
+INFO:root:Getting losses model 1 on data of client 9 trained on model 0 
+INFO:absl:195/195 - 0s - 337ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5280502]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 62ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4589709]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:root:Results: [0.44569403]
+INFO:root:Distances between models 0 and 1 are: 1000
+INFO:root:Models [id:0,name:0] and [id:8,name:2-3-4-5] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 0 trained on model 8 
+INFO:absl:49/49 - 0s - 113ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54435503]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 8 
+INFO:absl:74/74 - 0s - 158ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54751563]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 8 
+INFO:absl:74/74 - 0s - 141ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5414924]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 8 
+INFO:absl:74/74 - 0s - 148ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54282886]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 8 
+INFO:absl:49/49 - 0s - 100ms/epoch - 2ms/step
+
+INFO:root:Results: [0.53114533]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 238ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34493262]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 251ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35202405]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 246ms/epoch - 2ms/step
+
+INFO:root:Results: [0.32923862]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 224ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36835223]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 213ms/epoch - 2ms/step
+
+INFO:root:Results: [0.3726411]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:195/195 - 0s - 383ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38037172]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:195/195 - 0s - 369ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38021332]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:195/195 - 0s - 383ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35651433]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 339ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34473458]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:195/195 - 0s - 377ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34267932]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 250ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5569003]
+INFO:root:Getting losses model 8 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 246ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5334027]
+INFO:root:Getting losses model 8 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 222ms/epoch - 2ms/step
+
+INFO:root:Results: [0.52931297]
+INFO:root:Getting losses model 8 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 217ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49608636]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 245ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5088542]
+INFO:root:Getting losses model 8 on data of client 5 trained on model 0 
+INFO:absl:195/195 - 0s - 380ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5017385]
+INFO:root:Getting losses model 8 on data of client 6 trained on model 0 
+INFO:absl:195/195 - 0s - 389ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49618942]
+INFO:root:Getting losses model 8 on data of client 7 trained on model 0 
+INFO:absl:195/195 - 0s - 392ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5529167]
+INFO:root:Getting losses model 8 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 337ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5367579]
+INFO:root:Getting losses model 8 on data of client 9 trained on model 0 
+INFO:absl:195/195 - 0s - 384ms/epoch - 2ms/step
+
+INFO:root:Results: [0.54398257]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 8 
+INFO:absl:49/49 - 0s - 110ms/epoch - 2ms/step
+
+INFO:root:Results: [0.39829147]
+INFO:root:Getting losses model 8 on data of client 1 trained on model 8 
+INFO:absl:74/74 - 0s - 154ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4014462]
+INFO:root:Getting losses model 8 on data of client 2 trained on model 8 
+INFO:absl:74/74 - 0s - 138ms/epoch - 2ms/step
+
+INFO:root:Results: [0.41088313]
+INFO:root:Getting losses model 8 on data of client 3 trained on model 8 
+INFO:absl:74/74 - 0s - 134ms/epoch - 2ms/step
+
+INFO:root:Results: [0.3822916]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 8 
+INFO:absl:49/49 - 0s - 94ms/epoch - 2ms/step
+
+INFO:root:Results: [0.39686877]
+INFO:root:Distances between models 0 and 8 are: 1000
+INFO:root:Models [id:0,name:0] and [id:9,name:9] have been trained. Checking distances
+INFO:root:Getting losses model 0 on data of client 8 trained on model 9 
+INFO:absl:25/25 - 0s - 64ms/epoch - 3ms/step
+
+INFO:root:Results: [0.37978837]
+INFO:root:Getting losses model 0 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 218ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34493262]
+INFO:root:Getting losses model 0 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 255ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35202405]
+INFO:root:Getting losses model 0 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 248ms/epoch - 2ms/step
+
+INFO:root:Results: [0.32923862]
+INFO:root:Getting losses model 0 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 258ms/epoch - 2ms/step
+
+INFO:root:Results: [0.36835223]
+INFO:root:Getting losses model 0 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 219ms/epoch - 2ms/step
+
+INFO:root:Results: [0.3726411]
+INFO:root:Getting losses model 0 on data of client 5 trained on model 0 
+INFO:absl:195/195 - 0s - 340ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38037172]
+INFO:root:Getting losses model 0 on data of client 6 trained on model 0 
+INFO:absl:195/195 - 0s - 385ms/epoch - 2ms/step
+
+INFO:root:Results: [0.38021332]
+INFO:root:Getting losses model 0 on data of client 7 trained on model 0 
+INFO:absl:195/195 - 0s - 389ms/epoch - 2ms/step
+
+INFO:root:Results: [0.35651433]
+INFO:root:Getting losses model 0 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 347ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34473458]
+INFO:root:Getting losses model 0 on data of client 9 trained on model 0 
+INFO:absl:195/195 - 0s - 341ms/epoch - 2ms/step
+
+INFO:root:Results: [0.34267932]
+INFO:root:Getting losses model 9 on data of client 0 trained on model 0 
+INFO:absl:122/122 - 0s - 220ms/epoch - 2ms/step
+
+INFO:root:Results: [0.46875876]
+INFO:root:Getting losses model 9 on data of client 1 trained on model 0 
+INFO:absl:122/122 - 0s - 241ms/epoch - 2ms/step
+
+INFO:root:Results: [0.46552548]
+INFO:root:Getting losses model 9 on data of client 2 trained on model 0 
+INFO:absl:122/122 - 0s - 251ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4536892]
+INFO:root:Getting losses model 9 on data of client 3 trained on model 0 
+INFO:absl:122/122 - 0s - 245ms/epoch - 2ms/step
+
+INFO:root:Results: [0.49784645]
+INFO:root:Getting losses model 9 on data of client 4 trained on model 0 
+INFO:absl:122/122 - 0s - 244ms/epoch - 2ms/step
+
+INFO:root:Results: [0.50556695]
+INFO:root:Getting losses model 9 on data of client 5 trained on model 0 
+INFO:absl:195/195 - 0s - 392ms/epoch - 2ms/step
+
+INFO:root:Results: [0.5216919]
+INFO:root:Getting losses model 9 on data of client 6 trained on model 0 
+INFO:absl:195/195 - 0s - 342ms/epoch - 2ms/step
+
+INFO:root:Results: [0.50987625]
+INFO:root:Getting losses model 9 on data of client 7 trained on model 0 
+INFO:absl:195/195 - 0s - 358ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4668707]
+INFO:root:Getting losses model 9 on data of client 8 trained on model 0 
+INFO:absl:171/171 - 0s - 339ms/epoch - 2ms/step
+
+INFO:root:Results: [0.46690723]
+INFO:root:Getting losses model 9 on data of client 9 trained on model 0 
+INFO:absl:195/195 - 0s - 385ms/epoch - 2ms/step
+
+INFO:root:Results: [0.46031147]
+INFO:root:Getting losses model 9 on data of client 8 trained on model 9 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4959404]
+INFO:root:Distances between models 0 and 9 are: 1000
+INFO:root:Models [id:1,name:1] and [id:8,name:2-3-4-5] have been trained. Checking distances
+INFO:root:Getting losses model 1 on data of client 0 trained on model 8 
+INFO:absl:49/49 - 0s - 116ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4290187]
+INFO:root:Getting losses model 1 on data of client 1 trained on model 8 
+INFO:absl:74/74 - 0s - 151ms/epoch - 2ms/step
+
+INFO:root:Results: [0.43441197]
+INFO:root:Getting losses model 1 on data of client 2 trained on model 8 
+INFO:absl:74/74 - 0s - 157ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4398374]
+INFO:root:Getting losses model 1 on data of client 3 trained on model 8 
+INFO:absl:74/74 - 0s - 164ms/epoch - 2ms/step
+
+INFO:root:Results: [0.41458055]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 8 
+INFO:absl:49/49 - 0s - 113ms/epoch - 2ms/step
+
+INFO:root:Results: [0.43239388]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4589709]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Results: [0.44569403]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:root:Results: [0.43686175]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.42511237]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 8 
+INFO:absl:49/49 - 0s - 118ms/epoch - 2ms/step
+
+INFO:root:Results: [0.39829147]
+INFO:root:Getting losses model 8 on data of client 1 trained on model 8 
+INFO:absl:74/74 - 0s - 156ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4014462]
+INFO:root:Getting losses model 8 on data of client 2 trained on model 8 
+INFO:absl:74/74 - 0s - 157ms/epoch - 2ms/step
+
+INFO:root:Results: [0.41088313]
+INFO:root:Getting losses model 8 on data of client 3 trained on model 8 
+INFO:absl:74/74 - 0s - 156ms/epoch - 2ms/step
+
+INFO:root:Results: [0.3822916]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 8 
+INFO:absl:49/49 - 0s - 114ms/epoch - 2ms/step
+
+INFO:root:Results: [0.39686877]
+INFO:root:Distances between models 1 and 8 are: 1000
+INFO:root:Models [id:1,name:1] and [id:9,name:9] have been trained. Checking distances
+INFO:root:Getting losses model 1 on data of client 8 trained on model 9 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.585567]
+INFO:root:Getting losses model 1 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 68ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4589709]
+INFO:root:Getting losses model 1 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.44569403]
+INFO:root:Getting losses model 9 on data of client 0 trained on model 1 
+INFO:absl:25/25 - 0s - 74ms/epoch - 3ms/step
+
+INFO:root:Results: [0.629889]
+INFO:root:Getting losses model 9 on data of client 4 trained on model 1 
+INFO:absl:25/25 - 0s - 67ms/epoch - 3ms/step
+
+INFO:root:Results: [0.621717]
+INFO:root:Getting losses model 9 on data of client 8 trained on model 9 
+INFO:absl:25/25 - 0s - 70ms/epoch - 3ms/step
+
+INFO:root:Results: [0.4959404]
+INFO:root:Distances between models 1 and 9 are: 1000
+INFO:root:Models [id:8,name:2-3-4-5] and [id:9,name:9] have been trained. Checking distances
+INFO:root:Getting losses model 8 on data of client 8 trained on model 9 
+INFO:absl:25/25 - 0s - 69ms/epoch - 3ms/step
+
+INFO:root:Results: [0.61288613]
+INFO:root:Getting losses model 8 on data of client 0 trained on model 8 
+INFO:absl:49/49 - 0s - 113ms/epoch - 2ms/step
+
+INFO:root:Results: [0.39829147]
+INFO:root:Getting losses model 8 on data of client 1 trained on model 8 
+INFO:absl:74/74 - 0s - 157ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4014462]
+INFO:root:Getting losses model 8 on data of client 2 trained on model 8 
+INFO:absl:74/74 - 0s - 161ms/epoch - 2ms/step
+
+INFO:root:Results: [0.41088313]
+INFO:root:Getting losses model 8 on data of client 3 trained on model 8 
+INFO:absl:74/74 - 0s - 156ms/epoch - 2ms/step
+
+INFO:root:Results: [0.3822916]
+INFO:root:Getting losses model 8 on data of client 4 trained on model 8 
+INFO:absl:49/49 - 0s - 103ms/epoch - 2ms/step
+
+INFO:root:Results: [0.39686877]
+INFO:root:Getting losses model 9 on data of client 0 trained on model 8 
+INFO:absl:49/49 - 0s - 101ms/epoch - 2ms/step
+
+INFO:root:Results: [0.60896474]
+INFO:root:Getting losses model 9 on data of client 1 trained on model 8 
+INFO:absl:74/74 - 0s - 140ms/epoch - 2ms/step
+
+INFO:root:Results: [0.62470967]
+INFO:root:Getting losses model 9 on data of client 2 trained on model 8 
+INFO:absl:74/74 - 0s - 151ms/epoch - 2ms/step
+
+INFO:root:Results: [0.6302237]
+INFO:root:Getting losses model 9 on data of client 3 trained on model 8 
+INFO:absl:74/74 - 0s - 156ms/epoch - 2ms/step
+
+INFO:root:Results: [0.60860735]
+INFO:root:Getting losses model 9 on data of client 4 trained on model 8 
+INFO:absl:49/49 - 0s - 103ms/epoch - 2ms/step
+
+INFO:root:Results: [0.61216366]
+INFO:root:Getting losses model 9 on data of client 8 trained on model 9 
+INFO:absl:25/25 - 0s - 59ms/epoch - 2ms/step
+
+INFO:root:Results: [0.4959404]
+INFO:root:Distances between models 8 and 9 are: 1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:      1000       1000       1000       1000       1000       1000       1000       1000       1000       1000
+INFO:root:STEP 5 - Train and average (timestep: 8)
+INFO:root:Getting data of client 0 for model 0 on timestep 0
+INFO:root:Getting data of client 0 for model 0 on timestep 1
+INFO:root:Getting data of client 0 for model 0 on timestep 2
+INFO:root:Getting data of client 0 for model 0 on timestep 3
+INFO:root:Getting data of client 0 for model 0 on timestep 4
+INFO:root:Getting data of client 0 for model 0 on timestep 8
+INFO:root:Model 0 client 0 with 4674 data instances
+INFO:root:Getting data of client 1 for model 0 on timestep 0
+INFO:root:Getting data of client 1 for model 0 on timestep 1
+INFO:root:Getting data of client 1 for model 0 on timestep 2
+INFO:root:Getting data of client 1 for model 0 on timestep 3
+INFO:root:Getting data of client 1 for model 0 on timestep 4
+INFO:root:Getting data of client 1 for model 0 on timestep 8
+INFO:root:Model 0 client 1 with 4674 data instances
+INFO:root:Getting data of client 2 for model 0 on timestep 0
+INFO:root:Getting data of client 2 for model 0 on timestep 1
+INFO:root:Getting data of client 2 for model 0 on timestep 2
+INFO:root:Getting data of client 2 for model 0 on timestep 3
+INFO:root:Getting data of client 2 for model 0 on timestep 4
+INFO:root:Getting data of client 2 for model 0 on timestep 8
+INFO:root:Model 0 client 2 with 4674 data instances
+INFO:root:Getting data of client 3 for model 0 on timestep 0
+INFO:root:Getting data of client 3 for model 0 on timestep 1
+INFO:root:Getting data of client 3 for model 0 on timestep 2
+INFO:root:Getting data of client 3 for model 0 on timestep 3
+INFO:root:Getting data of client 3 for model 0 on timestep 4
+INFO:root:Getting data of client 3 for model 0 on timestep 8
+INFO:root:Model 0 client 3 with 4674 data instances
+INFO:root:Getting data of client 4 for model 0 on timestep 0
+INFO:root:Getting data of client 4 for model 0 on timestep 1
+INFO:root:Getting data of client 4 for model 0 on timestep 2
+INFO:root:Getting data of client 4 for model 0 on timestep 3
+INFO:root:Getting data of client 4 for model 0 on timestep 4
+INFO:root:Getting data of client 4 for model 0 on timestep 8
+INFO:root:Model 0 client 4 with 4674 data instances
+INFO:root:Getting data of client 5 for model 0 on timestep 0
+INFO:root:Getting data of client 5 for model 0 on timestep 1
+INFO:root:Getting data of client 5 for model 0 on timestep 2
+INFO:root:Getting data of client 5 for model 0 on timestep 3
+INFO:root:Getting data of client 5 for model 0 on timestep 4
+INFO:root:Getting data of client 5 for model 0 on timestep 5
+INFO:root:Getting data of client 5 for model 0 on timestep 6
+INFO:root:Getting data of client 5 for model 0 on timestep 7
+INFO:root:Getting data of client 5 for model 0 on timestep 8
+INFO:root:Model 0 client 5 with 7011 data instances
+INFO:root:Getting data of client 6 for model 0 on timestep 0
+INFO:root:Getting data of client 6 for model 0 on timestep 1
+INFO:root:Getting data of client 6 for model 0 on timestep 2
+INFO:root:Getting data of client 6 for model 0 on timestep 3
+INFO:root:Getting data of client 6 for model 0 on timestep 4
+INFO:root:Getting data of client 6 for model 0 on timestep 5
+INFO:root:Getting data of client 6 for model 0 on timestep 6
+INFO:root:Getting data of client 6 for model 0 on timestep 7
+INFO:root:Getting data of client 6 for model 0 on timestep 8
+INFO:root:Model 0 client 6 with 7011 data instances
+INFO:root:Getting data of client 7 for model 0 on timestep 0
+INFO:root:Getting data of client 7 for model 0 on timestep 1
+INFO:root:Getting data of client 7 for model 0 on timestep 2
+INFO:root:Getting data of client 7 for model 0 on timestep 3
+INFO:root:Getting data of client 7 for model 0 on timestep 4
+INFO:root:Getting data of client 7 for model 0 on timestep 5
+INFO:root:Getting data of client 7 for model 0 on timestep 6
+INFO:root:Getting data of client 7 for model 0 on timestep 7
+INFO:root:Getting data of client 7 for model 0 on timestep 8
+INFO:root:Model 0 client 7 with 7011 data instances
+INFO:root:Getting data of client 8 for model 0 on timestep 0
+INFO:root:Getting data of client 8 for model 0 on timestep 1
+INFO:root:Getting data of client 8 for model 0 on timestep 2
+INFO:root:Getting data of client 8 for model 0 on timestep 3
+INFO:root:Getting data of client 8 for model 0 on timestep 4
+INFO:root:Getting data of client 8 for model 0 on timestep 5
+INFO:root:Getting data of client 8 for model 0 on timestep 6
+INFO:root:Getting data of client 8 for model 0 on timestep 8
+INFO:root:Model 0 client 8 with 6224 data instances
+INFO:root:Getting data of client 9 for model 0 on timestep 0
+INFO:root:Getting data of client 9 for model 0 on timestep 1
+INFO:root:Getting data of client 9 for model 0 on timestep 2
+INFO:root:Getting data of client 9 for model 0 on timestep 3
+INFO:root:Getting data of client 9 for model 0 on timestep 4
+INFO:root:Getting data of client 9 for model 0 on timestep 5
+INFO:root:Getting data of client 9 for model 0 on timestep 6
+INFO:root:Getting data of client 9 for model 0 on timestep 7
+INFO:root:Getting data of client 9 for model 0 on timestep 8
+INFO:root:Model 0 client 9 with 7002 data instances
+INFO:root:Getting data of client 0 for model 1 on timestep 5
+INFO:root:Model 1 client 0 with 779 data instances
+INFO:root:Getting data of client 4 for model 1 on timestep 6
+INFO:root:Model 1 client 4 with 779 data instances
+INFO:root:Getting data of client 0 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 0 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 0 with 1558 data instances
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 1 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 1 with 2337 data instances
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 2 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 2 with 2337 data instances
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 6
+INFO:root:Getting data of client 3 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 3 with 2337 data instances
+INFO:root:Getting data of client 4 for model 2-3-4-5 on timestep 5
+INFO:root:Getting data of client 4 for model 2-3-4-5 on timestep 7
+INFO:root:Model 8 client 4 with 1558 data instances
+INFO:root:Getting data of client 8 for model 9 on timestep 7
+INFO:root:Model 9 client 8 with 778 data instances
+INFO:root:Trained model 0 timestep 8 cround 0 client 0
+INFO:root:Trained model 0 timestep 8 cround 0 client 1
+INFO:root:Trained model 0 timestep 8 cround 0 client 2
+INFO:root:Trained model 0 timestep 8 cround 0 client 3
+INFO:root:Trained model 0 timestep 8 cround 0 client 4
+INFO:root:Trained model 0 timestep 8 cround 0 client 5
+INFO:root:Trained model 0 timestep 8 cround 0 client 6
+INFO:root:Trained model 0 timestep 8 cround 0 client 7
+INFO:root:Trained model 0 timestep 8 cround 0 client 8
+INFO:root:Trained model 0 timestep 8 cround 0 client 9
+INFO:root:Trained model 1 timestep 8 cround 0 client 0
+INFO:root:Trained model 1 timestep 8 cround 0 client 4
+INFO:root:Trained model 8 timestep 8 cround 0 client 0
+INFO:root:Trained model 8 timestep 8 cround 0 client 1
+INFO:root:Trained model 8 timestep 8 cround 0 client 2
+INFO:root:Trained model 8 timestep 8 cround 0 client 3
+INFO:root:Trained model 8 timestep 8 cround 0 client 4
+INFO:root:Trained model 9 timestep 8 cround 0 client 8
+INFO:root:Averaged models on timestep 8 cround 0 of cluster 0
+INFO:root:Averaged models on timestep 8 cround 0 of cluster 1
+INFO:root:Did not average models on timestep 8 cround 0 of cluster 2
+INFO:root:Did not average models on timestep 8 cround 0 of cluster 3
+INFO:root:Did not average models on timestep 8 cround 0 of cluster 4
+INFO:root:Did not average models on timestep 8 cround 0 of cluster 5
+INFO:root:Did not average models on timestep 8 cround 0 of cluster 6
+INFO:root:Did not average models on timestep 8 cround 0 of cluster 7
+INFO:root:Averaged models on timestep 8 cround 0 of cluster 8
+INFO:root:Averaged models on timestep 8 cround 0 of cluster 9
+INFO:root:Clients identities (for model) (timestep: 8)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 5
+INFO:root:Model name 1: [0]
+INFO:root:Model name 2-3-4-5: [1, 2, 3, 4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 6
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3]
+INFO:root:Model name 1: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 7
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3, 4]
+INFO:root:Model name 0: [5, 6, 7, 9]
+INFO:root:Model name 9: [8]
+INFO:root:Timestep 8
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Clients identities (for printing) (timestep: 8)
+INFO:root:
+Clients identities
+INFO:root:Timestep 0
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 1
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 2
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 3
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 4
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:root:Timestep 5
+INFO:root:Model name 1: [0]
+INFO:root:Model name 2: [1]
+INFO:root:Model name 3: [2]
+INFO:root:Model name 4: [3]
+INFO:root:Model name 5: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 6
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3]
+INFO:root:Model name 1: [4]
+INFO:root:Model name 0: [5, 6, 7, 8, 9]
+INFO:root:Timestep 7
+INFO:root:Model name 2-3-4-5: [0, 1, 2, 3, 4]
+INFO:root:Model name 0: [5, 6, 7, 9]
+INFO:root:Model name 9: [8]
+INFO:root:Timestep 8
+INFO:root:Model name 0: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+INFO:absl:25/25 - 0s - 115ms/epoch - 5ms/step
+
+INFO:root:Client 0: 0.8189987163029525 - ACC
+INFO:root:Client 0: 0.36276108026504517 - Loss
+INFO:root:Client 0: 0.3721623122692108 - LossPrivileged
+INFO:root:Client 0: 0.2745148241519928 - LossUnprivileged
+INFO:root:Client 0: 0.9391389860139859 - BalancedACC
+INFO:absl:25/25 - 0s - 107ms/epoch - 4ms/step
+
+INFO:root:Client 1: 0.8498074454428755 - ACC
+INFO:root:Client 1: 0.3429659903049469 - Loss
+INFO:root:Client 1: 0.3448061943054199 - LossPrivileged
+INFO:root:Client 1: 0.32489606738090515 - LossUnprivileged
+INFO:root:Client 1: 0.9855363416525984 - BalancedACC
+INFO:absl:25/25 - 0s - 120ms/epoch - 5ms/step
+
+INFO:root:Client 2: 0.8369704749679076 - ACC
+INFO:root:Client 2: 0.3425148129463196 - Loss
+INFO:root:Client 2: 0.35255688428878784 - LossPrivileged
+INFO:root:Client 2: 0.2571571171283722 - LossUnprivileged
+INFO:root:Client 2: 0.8785332314744079 - BalancedACC
+INFO:absl:25/25 - 0s - 112ms/epoch - 4ms/step
+
+INFO:root:Client 3: 0.8125802310654685 - ACC
+INFO:root:Client 3: 0.39013296365737915 - Loss
+INFO:root:Client 3: 0.3626537024974823 - LossPrivileged
+INFO:root:Client 3: 0.6087035536766052 - LossUnprivileged
+INFO:root:Client 3: 0.9102315039663267 - BalancedACC
+INFO:absl:25/25 - 0s - 112ms/epoch - 4ms/step
+
+INFO:root:Client 4: 0.8177150192554558 - ACC
+INFO:root:Client 4: 0.3944896459579468 - Loss
+INFO:root:Client 4: 0.356754332780838 - LossPrivileged
+INFO:root:Client 4: 0.7594366073608398 - LossUnprivileged
+INFO:root:Client 4: 0.8237847424797554 - BalancedACC
+INFO:absl:25/25 - 0s - 112ms/epoch - 4ms/step
+
+INFO:root:Client 5: 0.8138639281129654 - ACC
+INFO:root:Client 5: 0.38032758235931396 - Loss
+INFO:root:Client 5: 0.38551637530326843 - LossPrivileged
+INFO:root:Client 5: 0.33681654930114746 - LossUnprivileged
+INFO:root:Client 5: 0.9608374384236451 - BalancedACC
+INFO:absl:25/25 - 0s - 116ms/epoch - 5ms/step
+
+INFO:root:Client 6: 0.8369704749679076 - ACC
+INFO:root:Client 6: 0.33831602334976196 - Loss
+INFO:root:Client 6: 0.3440759479999542 - LossPrivileged
+INFO:root:Client 6: 0.2624936103820801 - LossUnprivileged
+INFO:root:Client 6: 0.9559162062615102 - BalancedACC
+INFO:absl:25/25 - 0s - 116ms/epoch - 5ms/step
+
+INFO:root:Client 7: 0.8331193838254172 - ACC
+INFO:root:Client 7: 0.34972020983695984 - Loss
+INFO:root:Client 7: 0.35301265120506287 - LossPrivileged
+INFO:root:Client 7: 0.3205466568470001 - LossUnprivileged
+INFO:root:Client 7: 0.9642647058823528 - BalancedACC
+INFO:absl:25/25 - 0s - 118ms/epoch - 5ms/step
+
+INFO:root:Client 8: 0.8200514138817481 - ACC
+INFO:root:Client 8: 0.3838126063346863 - Loss
+INFO:root:Client 8: 0.3551526963710785 - LossPrivileged
+INFO:root:Client 8: 0.7839488387107849 - LossUnprivileged
+INFO:root:Client 8: 0.8595289901446308 - BalancedACC
+INFO:absl:25/25 - 0s - 115ms/epoch - 5ms/step
+
+INFO:root:Client 9: 0.8213367609254498 - ACC
+INFO:root:Client 9: 0.40033891797065735 - Loss
+INFO:root:Client 9: 0.33650442957878113 - LossPrivileged
+INFO:root:Client 9: 0.9496305584907532 - LossUnprivileged
+INFO:root:Client 9: 0.7146474157773594 - BalancedACC
