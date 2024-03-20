@@ -39,7 +39,8 @@ class OverallPredictiveParity(Metric):
             if res > 1:
                 res = 1 / res
 
-            res_list.append(res)
+            if total_unpriv != 0 and total_priv != 0:
+                res_list.append(res)
 
             logging.info("{} {}".format(y, res))
 

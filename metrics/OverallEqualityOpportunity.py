@@ -38,7 +38,8 @@ class OverallEqualityOpportunity(Metric):
             if res > 1:
                 res = 1 / res
 
-            res_list.append(res)
+            if total_unpriv != 0 and total_priv != 0:
+                res_list.append(res)
 
         return sum(res_list) / len(res_list)
 
