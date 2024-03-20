@@ -1,27 +1,24 @@
 from metrics.Accuracy import Accuracy
-from metrics.BalancedAccuracy import BalancedAccuracy
-from metrics.EqualOdds import EqualOdds
-from metrics.EqualOpportunity import EqualOpportunity
+from metrics.AccuracyEquality import AccuracyEquality
 from metrics.Loss import Loss
 from metrics.LossPrivileged import LossPrivileged
 from metrics.LossUnprivileged import LossUnprivileged
-from metrics.StatisticalParity import StatisticalParity
+from metrics.MinimumEqualityOpportunity import MinimumEqualityOpportunity
+from metrics.MinimumPredictiveParity import MinimumPredictiveParity
+from metrics.OverallEqualityOpportunity import OverallEqualityOpportunity
+from metrics.OverallPredictiveParity import OverallPredictiveParity
 
 
-def get_metrics(is_binary_target):
-    if is_binary_target:
-        #return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
-        return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy()]
-    else:
-        return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy()]
-
-
-def get_all_metrics():
-    return [Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), BalancedAccuracy(), StatisticalParity(), EqualOpportunity(), EqualOdds()]
+def get_metrics(_):
+    return [
+        Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(),
+        AccuracyEquality(), OverallEqualityOpportunity(), OverallPredictiveParity(), MinimumEqualityOpportunity(),
+        MinimumPredictiveParity(),
+    ]
 
 
 def get_metric_by_names(name):
-    for metric in get_all_metrics():
+    for metric in get_metrics(None):
         if name == metric.name:
             return metric
 
