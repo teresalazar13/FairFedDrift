@@ -28,7 +28,7 @@ class OverallEqualityOpportunity(Metric):
                 df[(df["y"] == df["y_pred"]) & (df["s"] == 0) & (df["y"] == y)]
             )
             total_unpriv = len(
-                df[(df["s"] == 1) & (df["y"] == y)]
+                df[(df["s"] == 0) & (df["y"] == y)]
             )
 
             acc_priv = divide(correct_priv, total_priv)
