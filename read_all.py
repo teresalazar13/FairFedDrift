@@ -32,19 +32,23 @@ def get_arguments():
 def avg_results(all_results_dict, scenario, window, res_clients_list, algs, metric):
     for res_clients, alg in zip(res_clients_list, algs):
         avg = []
-        for i in range(len(res_clients[0][metric].values)):
+        stds = []
+        for timestep in range(len(res_clients[0][metric].values)):
             values = []
-            for j in range(len(res_clients)):
-                if i == 0:
-                    values.append(res_clients[j][metric].values[i])
+            for client_id in range(len(res_clients)):
+                if timestep == 0:
+                    values.append(res_clients[client_id][metric].values[timestep])
                 else:
-                    previous_drift_id = res_clients[j]["drift-id"][i - 1]
-                    current_drift_id = res_clients[j]["drift-id"][i]
+                    previous_drift_id = res_clients[client_id]["drift-id"][timestep - 1]
+                    current_drift_id = res_clients[client_id]["drift-id"][timestep]
                     if current_drift_id == previous_drift_id:
-                        values.append(res_clients[j][metric].values[i])
+                        values.append(res_clients[client_id][metric].values[timestep])
             avg.append(sum(values) / len(values))
+            stds.append(statistics.stdev(values))
         average = sum(avg)/len(avg)
         print("{} - {}: {:.2f}".format(alg, metric, average))
+        print("avg - {}".format(avg))
+        print("stds - {}".format(avg))
 
         alg_main = None
         if "FedDrift" not in alg and "FairFedDrift" not in alg:
@@ -68,7 +72,7 @@ def avg_results(all_results_dict, scenario, window, res_clients_list, algs, metr
 def get_best_results_dict(all_results_dict):
     best_results_dict = {}
     for alg, scenarios_dict in all_results_dict.items():
-        for scenario, algs_results_dict in scenarios_dict.items():
+        for scenario, algs_results_dict in scenarios_dict.items():  # For each scenario, find best results
             best_value = 0
             best_results = None
             for alg_spec, results_dict in algs_results_dict.items():
@@ -133,11 +137,12 @@ if __name__ == '__main__':
         for metric in get_metrics(dataset.is_binary_target):
             all_results_dict = avg_results(all_results_dict, scenario, window, res_clients_list, algs, metric.name)
 
-    print("all results dict")
-    print(json.dumps((all_results_dict), sort_keys=True, indent=4))
+    #print("all results dict")
+    #print(json.dumps((all_results_dict), sort_keys=True, indent=4))
 
     best_results_dict = get_best_results_dict(all_results_dict)
-    print("best results dict")
-    print(json.dumps((best_results_dict), sort_keys=True, indent=4))
+    #print("best results dict")
+    #print(json.dumps((best_results_dict), sort_keys=True, indent=4))
 
+    print("Best Results:")
     print_average_results(best_results_dict, len(scenarios))
