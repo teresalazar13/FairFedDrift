@@ -25,7 +25,7 @@ To build and test the software and produce all results run this in the top level
 
 To build and test the software and produce all results, run the following command in the top level of the repository:
 
-    python3 read_all.py --scenarios 1 2 3 4 5 --dataset DATASET --varying_disc ALPHA [--window WINDOW]
+    python3 read_all.py --scenarios SCENARIOS --dataset DATASET --varying_disc ALPHA [--window WINDOW]
 
 ## License
 

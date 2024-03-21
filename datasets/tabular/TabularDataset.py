@@ -97,6 +97,7 @@ class TabularDataset(Dataset):
 
     def get_dataset(self, varying_disc):
         df = pd.read_csv('./datasets/tabular/{}/{}.csv'.format(self.name.replace("-", "_"), self.name))
+        print(df.head(10)["relationship"])
 
         s = self.sensitive_attribute
         positive = df[s.name].isin(s.positive)
@@ -118,6 +119,9 @@ class TabularDataset(Dataset):
         columns = df.columns
         df = pd.DataFrame(x_scaled)
         df.columns = columns
+
+        print(df.head(10)["relationship"])
+        exit()
 
         size_priv = len(
             df.loc[

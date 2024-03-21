@@ -44,7 +44,10 @@ def avg_results(all_results_dict, scenario, window, res_clients_list, algs, metr
                     if current_drift_id == previous_drift_id:
                         values.append(res_clients[client_id][metric].values[timestep])
             avg.append(sum(values) / len(values))
-            stds.append(statistics.stdev(values))
+            if len(values) > 1:
+                stds.append(statistics.stdev(values))
+            else:
+                stds.append(0)
         average = sum(avg)/len(avg)
         print("{} - {}: {:.2f}".format(alg, metric, average))
         print("avg - {}".format(avg))
