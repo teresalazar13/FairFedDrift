@@ -48,7 +48,7 @@ def avg_results(all_results_dict, scenario, window, res_clients_list, algs, metr
         average = sum(avg)/len(avg)
         print("{} - {}: {:.2f}".format(alg, metric, average))
         print("avg - {}".format(avg))
-        print("stds - {}".format(avg))
+        print("stds - {}".format(stds))
 
         alg_main = None
         if "FedDrift" not in alg and "FairFedDrift" not in alg:
