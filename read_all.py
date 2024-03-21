@@ -72,11 +72,9 @@ def get_best_results_dict(all_results_dict):
             best_value = 0
             best_results = None
             for alg_spec, results_dict in algs_results_dict.items():
-                bacc = results_dict["BalancedACC"][0]
-                acc = results_dict["ACC"][0]
-                bacc_weight = 1
-                if bacc*(bacc_weight) + acc*(1-bacc_weight) > best_value:
-                    best_value = bacc*(bacc_weight) + acc*(1-bacc_weight)
+                aeq = results_dict["AEQ"][0]
+                if aeq > best_value:
+                    best_value = aeq
                     best_results = results_dict
             if alg not in best_results_dict:
                 best_results_dict[alg] = {scenario: best_results}
