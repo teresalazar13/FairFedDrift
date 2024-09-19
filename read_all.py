@@ -79,6 +79,8 @@ def get_best_results_dict(all_results_dict):
             best_value = 0
             best_results = None
             for alg_spec, results_dict in algs_results_dict.items():
+                print(alg, alg_spec, results_dict)
+                print("\n\n\n")
                 aeq = results_dict["AEQ"][0]
                 if aeq > best_value:
                     best_value = aeq
@@ -88,6 +90,21 @@ def get_best_results_dict(all_results_dict):
             best_results_dict[alg][scenario] = best_results
 
     return best_results_dict
+
+
+def print_results_dict(all_results_dict, n_scenarios):
+    res = {}
+    for alg, scenarios_dict in all_results_dict.items():
+        for scenario, algs_results_dict in scenarios_dict.items():  # For each scenario, find best results
+            for alg_spec, results_dict in algs_results_dict.items():
+                if alg_spec not in res:
+                    res[alg_spec] = {scenario: results_dict}
+                else:
+                    res[alg_spec][scenario] = results_dict
+
+    print("\n\nALL RESULTS\n\n")
+    print_average_results(res, n_scenarios)
+    print("\n\nFINISH ALL RESULTS\n\n")
 
 
 def print_average_results(best_results_dict, n_scenarios):
@@ -146,6 +163,8 @@ if __name__ == '__main__':
     best_results_dict = get_best_results_dict(all_results_dict)
     #print("best results dict")
     #print(json.dumps((best_results_dict), sort_keys=True, indent=4))
+
+    print_results_dict(all_results_dict, len(scenarios))  # for delta plot
 
     print("Best Results:")
     print_average_results(best_results_dict, len(scenarios))
