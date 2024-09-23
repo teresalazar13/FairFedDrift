@@ -12,7 +12,7 @@ class Adult_GDrift(Dataset):
 
     def __init__(self):
         name = "Adult-GDrift"
-        input_shape = 14
+        input_shape = (14,)
         sensitive_attribute = Feature("race", ["White"], ["Asian-Pac-Islander", "Amer-Indian-Eskimo", "Other", "Black"])
         target = Feature("income", ">50K", "<=50K")
         cat_columns = [
