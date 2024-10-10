@@ -8,7 +8,7 @@ def plot_main(delta_values, acc_values, acc_stds, aeq_values, aeq_stds, oeq_valu
     plot_each(delta_values, oeq_values, oeq_stds, "OEQ", color='r')
     plot_each(delta_values, opp_values, opp_stds, "OPP", color='m')
 
-    plt.xticks([0, 0.05, 0.1, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5])
+    plt.xticks([0, 0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
     plt.xlabel('Delta')
     plt.ylabel('Metric Values')
     plt.legend()
@@ -28,37 +28,25 @@ def plot_each(delta_values, values, stds, name, color):
 
 
 if __name__ == '__main__':
-    delta_values = [0.05, 0.1, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
+    delta_values = [0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0]
 
     # FairFedDrift - MNIST 0.05 scenario 1
-    acc_values = [None, None, 0.92, 0.94, 0.94, 0.94, 0.94, 0.94]
-    acc_stds = [None, None, 0.03, 0.02, 0.02, 0.02, 0.02, 0.02]
-    aeq_values = [None, None, 0.87, 0.91, 0.91, 0.91, 0.91, 0.91]
-    aeq_stds = [None, None, 0.06, 0.04, 0.04, 0.04, 0.04, 0.04]
-    oeq_values = [None, None, 0.82, 0.86, 0.87, 0.87, 0.87, 0.87]
-    oeq_stds = [None, None, 0.06, 0.04, 0.05, 0.05, 0.04, 0.05]
-    opp_values = [None, None, 0.83, 0.87, 0.87, 0.87, 0.88, 0.88]
-    opp_stds = [None, None, 0.06, 0.04, 0.04, 0.04, 0.04, 0.04]
-    plot_main(delta_values, acc_values, acc_stds, aeq_values, aeq_stds, oeq_values, oeq_stds, opp_values, opp_stds)
-
-    # FedDrift - MNIST 0.05 scenario 1
-    acc_values = [0.95, 0.96, 0.96, 0.96, 0.96, 0.96, 0.96, 0.96]
-    acc_stds = [0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
-    aeq_values = [0.86, 0.85, 0.86, 0.86, 0.85, 0.85, 0.85, 0.86]
-    aeq_stds = [0.06, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
-    oeq_values = [0.82, 0.83, 0.83, 0.83, 0.83, 0.83, 0.83, 0.83]
-    oeq_stds = [0.06, 0.04, 0.04, 0.05, 0.04, 0.04, 0.04, 0.04]
-    opp_values = [0.82, 0.83, 0.83, 0.83, 0.82, 0.83, 0.83, 0.83]
-    opp_stds = [0.06, 0.05, 0.05, 0.05, 0.04, 0.05, 0.05, 0.05]
+    acc_values = [None, None, None, 0.92, 0.92, 0.93, 0.93, 0.94, 0.94, 0.95, 0.95]
+    acc_stds = [None, None, None, 0.03, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01]
+    aeq_values = [None, None, None, 0.77, 0.81, 0.84, 0.85, 0.87, 0.87, 0.83, 0.83]
+    aeq_stds = [None, None, None, 0.08, 0.06, 0.06, 0.05, 0.05, 0.05, 0.06, 0.05]
+    oeq_values = [None, None, None, 0.71, 0.74, 0.77, 0.78, 0.80, 0.80, 0.79, 0.78]
+    oeq_stds = [None, None, None, 0.08, 0.07, 0.07, 0.06, 0.06, 0.06, 0.06, 0.06]
+    opp_values = [None, None, None, 0.70, 0.75, 0.77, 0.78, 0.80, 0.80, 0.79, 0.79]
+    opp_stds = [None, None, None, 0.09, 0.07, 0.07, 0.06, 0.06, 0.06, 0.06, 0.06]
     plot_main(delta_values, acc_values, acc_stds, aeq_values, aeq_stds, oeq_values, oeq_stds, opp_values, opp_stds)
 
     # FairFedDrift - MNIST 0.1 scenario 1
-    acc_values = [None, None, 0.91, 0.93, 0.93, 0.93, 0.94, 0.94]
-    acc_stds = [None, None, 0.03, 0.02, 0.02, 0.02, 0.02, 0.02]
-    aeq_values = [None, None, 0.86, 0.90, 0.91, 0.90, 0.91, 0.92]
-    aeq_stds = [None, None, 0.08, 0.03, 0.04, 0.04, 0.04, 0.04]
-    oeq_values = [None, None, 0.81, 0.85, 0.87, 0.86, 0.87, 0.88]
-    oeq_stds = [None, None, 0.07, 0.04, 0.04, 0.04, 0.04, 0.04]
-    opp_values = [None, None, 0.82, 0.86, 0.87, 0.86, 0.87, 0.88]
-    opp_stds = [None, None, 0.07, 0.04, 0.04, 0.05, 0.04, 0.04]
-    plot_main(delta_values, acc_values, acc_stds, aeq_values, aeq_stds, oeq_values, oeq_stds, opp_values, opp_stds)
+    acc_values = [None, None, 0.93, 0.94, 0.93, 0.93, 0.94, 0.94, 0.94, 0.94, 0.94]
+    acc_stds = [None, None, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02]
+    aeq_values = [None, None, 0.90, 0.92, 0.90, 0.91, 0.92, 0.91, 0.92, 0.92, 0.92]
+    aeq_stds = [None, None, 0.04, 0.04, 0.03, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04]
+    oeq_values = [None, None, 0.86, 0.88, 0.85, 0.87, 0.87, 0.87, 0.88, 0.88, 0.87]
+    oeq_stds = [None, None, 0.04, 0.05, 0.04, 0.04, 0.05, 0.04, 0.05, 0.04, 0.05]
+    opp_values = [None, None, 0.86, 0.88, 0.86, 0.87, 0.88, 0.87, 0.88, 0.88, 0.88]
+    opp_stds = [None, None, 0.05, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04]

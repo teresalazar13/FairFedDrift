@@ -158,13 +158,12 @@ if __name__ == '__main__':
             all_results_dict = avg_results(all_results_dict, scenario, window, res_clients_list, algs, metric.name)
 
     #print("all results dict")
-    #print(json.dumps((all_results_dict), sort_keys=True, indent=4))
+    print(json.dumps((all_results_dict), sort_keys=True, indent=4))
+    #print_results_dict(all_results_dict, len(scenarios))  # for delta plot
 
     best_results_dict = get_best_results_dict(all_results_dict)
     #print("best results dict")
-    #print(json.dumps((best_results_dict), sort_keys=True, indent=4))
-
-    print_results_dict(all_results_dict, len(scenarios))  # for delta plot
+    print(json.dumps((best_results_dict), sort_keys=True, indent=4))
 
     print("Best Results:")
     print_average_results(best_results_dict, len(scenarios))
