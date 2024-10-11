@@ -44,4 +44,12 @@ for s in s_values:
             check(base_path_FedDrift.format(s=s, disc=disc, t=t), base_path_FedDrift_2.format(s=s, disc=disc, t=t))
             check(base_path_FairFedDrift.format(s=s, disc=disc, t=t), base_path_FairFedDrift_2.format(s=s, disc=disc, t=t))
 
+base_path_window = "results/scenario-1/MNIST-GDrift/disc_0.1/FairFedDrift/window-{w}/loss_p-{t}/loss_up-{t}/client_1/results.csv"
+base_path_window_2 = "results/scenario-1/MNIST-GDrift/disc_0.1/FairFedDrift/window-{w}/loss_p-{t}/loss_up-{t}/output.txt"
+for w in range(1, 10):
+    for t in t_values:
+        check(base_path_window.format(w=w, t=t), base_path_window_2.format(w=w, t=t))
 
+base_path_delta = "results/scenario-1/MNIST-GDrift/disc_0.5/FedAvg/client_1/results.csv"
+base_path_delta_2 = "results/scenario-1/MNIST-GDrift/disc_0.5/FedAvg/client_1/output.txt"
+check(base_path_delta, base_path_delta_2)
