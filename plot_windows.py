@@ -64,5 +64,5 @@ if __name__ == '__main__':
     plot_dataset_alpha([scenario], dataset, alpha, algorithm, windows_args, deltas, axs)
     fig.set_figheight(4)
     fig.set_figwidth(6)
-    axs.set_title(r'Effect of window on Fairness and Performance')
+    #axs.set_title(r'Effect of window on Fairness and Performance')
     plt.show()

@@ -57,7 +57,7 @@ def plot_dataset_alpha(scenarios, dataset, alpha, algorithm, window, deltas_args
 
     title = r'{}: $\alpha={}$'.format(dataset.replace("Fashion", "FE"), alpha)
     plot(
-        title, deltas, "$\delta$", aeqs_avg, aeqs_std, oeqs_avg, oeqs_std, opps_avg, opps_std, accs_avg, accs_std, axs
+        title, deltas, "$\delta_s$", aeqs_avg, aeqs_std, oeqs_avg, oeqs_std, opps_avg, opps_std, accs_avg, accs_std, axs
     )
 
 
@@ -89,5 +89,5 @@ if __name__ == '__main__':
     fig.set_figheight(8)
     fig.set_figwidth(14)
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
-    fig.suptitle(r'Effect of $\delta$ on Fairness and Performance')
+    #fig.suptitle(r'Effect of $\delta_s$ on Fairness and Performance')
     plt.show()
