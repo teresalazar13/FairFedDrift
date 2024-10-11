@@ -1,5 +1,7 @@
 from metrics.Accuracy import Accuracy
 from metrics.AccuracyEquality import AccuracyEquality
+from metrics.F1Score import F1Score
+from metrics.F1ScoreEquality import F1ScoreEquality
 from metrics.Loss import Loss
 from metrics.LossPrivileged import LossPrivileged
 from metrics.LossUnprivileged import LossUnprivileged
@@ -13,7 +15,7 @@ def get_metrics(_):
     return [
         Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(),
         AccuracyEquality(), OverallEqualityOpportunity(), OverallPredictiveParity(), MinimumEqualityOpportunity(),
-        MinimumPredictiveParity(),
+        MinimumPredictiveParity(), F1Score(), F1ScoreEquality()
     ]
 
 
