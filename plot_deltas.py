@@ -22,7 +22,6 @@ def plot(title, x, xlabel, aeqs_avg, aeqs_std, oeqs_avg, oeqs_std, opps_avg, opp
     axs.set_xlabel(xlabel)
     axs.set_ylabel('metric values')
     axs.set_title(title)
-    axs.set_xticks(x)
     axs.legend(fontsize=8, loc="lower right")
     axs.grid(True)
 
@@ -83,12 +82,12 @@ if __name__ == '__main__':
         fig, axs = plt.subplots(1)
         plot_dataset_alpha(scenarios, dataset, alpha, algorithm, window, deltas_args, axs)
     else:
-        fig, axs = plt.subplots(2, 2)
+        fig, axs = plt.subplots(2, 3)
         for i, alpha in enumerate(["0.05", "0.1"]):
-            for j, dataset in enumerate(["MNIST-GDrift", "Adult-GDrift"]):
+            for j, dataset in enumerate(["MNIST-GDrift", "FashionMNIST-GDrift", "Adult-GDrift"]):
                 plot_dataset_alpha(scenarios, dataset, alpha, algorithm, window, deltas_args, axs[i, j])
     fig.set_figheight(8)
-    fig.set_figwidth(8)
+    fig.set_figwidth(14)
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
     fig.suptitle(r'Effect of $\delta$ on Fairness and Performance')
     plt.show()
