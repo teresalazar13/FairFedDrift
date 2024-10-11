@@ -21,8 +21,8 @@ def read(main_path):
     
     avgs_overall_losses = [avg(l) for l in overall_losses]
     stds_overall_losses = [std(l) for l in overall_losses]
-    avgs_unprivileged_losses = [avg(l) for l in overall_losses]
-    stds_unprivileged_losses = [std(l) for l in overall_losses]
+    avgs_unprivileged_losses = [avg(l) for l in unprivileged_losses]
+    stds_unprivileged_losses = [std(l) for l in unprivileged_losses]
     
     return avgs_overall_losses, stds_overall_losses, avgs_unprivileged_losses, stds_unprivileged_losses
 
