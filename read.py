@@ -47,6 +47,8 @@ def get_clients_results_scenario(main_path, algorithm, window, deltas):
     best_aeqs = []
     best_oeqs = []
     best_opps = []
+    best_f1 = []
+    best_f1eq = []
     best_delta = None
 
     for delta in deltas:
@@ -54,6 +56,8 @@ def get_clients_results_scenario(main_path, algorithm, window, deltas):
         aeqs = []
         oeqs = []
         opps = []
+        f1 = []
+        f1eq = []
         for client_id in range(1, 11):
             client_path = get_client_path(main_path, client_id, algorithm, window, delta)
             if os.path.exists(client_path):
@@ -66,6 +70,9 @@ def get_clients_results_scenario(main_path, algorithm, window, deltas):
                         aeqs.append(df["AEQ"][timestep])
                         oeqs.append(df["OEQ"][timestep])
                         opps.append(df["OPP"][timestep])
+                        oeqs.append(df["OEQ"][timestep])
+                        f1.append(df["F1Score"][timestep])
+                        f1eq.append(df["F1 Score Equality"][timestep])
                     previous_drift = current_drift
         if len(accs) == 0:
             print("No results for delta {}".format(delta))
@@ -74,9 +81,11 @@ def get_clients_results_scenario(main_path, algorithm, window, deltas):
             best_aeqs = aeqs
             best_oeqs = oeqs
             best_opps = opps
+            best_f1 = f1
+            best_f1eq = f1eq
             best_delta = delta
 
-    return best_accs, best_aeqs, best_oeqs, best_opps, best_delta
+    return best_accs, best_aeqs, best_oeqs, best_opps, best_f1, best_f1eq, best_delta
 
 
 def get_results(scenarios, dataset, alpha, algorithm, window, deltas):
@@ -84,9 +93,11 @@ def get_results(scenarios, dataset, alpha, algorithm, window, deltas):
     aeqs = []
     oeqs = []
     opps = []
+    f1s = []
+    f1eqs = []
     for scenario in scenarios:
         main_path = "./results/scenario-{}/{}/disc_{}/{}".format(scenario, dataset, alpha, algorithm)
-        accs_s, aeqs_s, oeqs_s, opps_s, delta_s = get_clients_results_scenario(main_path, algorithm, window, deltas)
+        accs_s, aeqs_s, oeqs_s, opps_s, f1s_s, f1eqs_s, delta_s = get_clients_results_scenario(main_path, algorithm, window, deltas)
         if len(accs_s) == 0:
             print("No results for scenario {} deltas {}".format(scenario, deltas))
             return None
@@ -94,8 +105,10 @@ def get_results(scenarios, dataset, alpha, algorithm, window, deltas):
         aeqs.extend(aeqs_s)
         oeqs.extend(oeqs_s)
         opps.extend(opps_s)
+        f1s.extend(f1s_s)
+        f1eqs.extend(f1eqs_s)
 
-    return accs, aeqs, oeqs, opps
+    return accs, aeqs, oeqs, opps, f1s, f1eqs
 
 
 if __name__ == '__main__':
@@ -116,8 +129,10 @@ if __name__ == '__main__':
 
     res = get_results(scenarios, dataset, alpha, algorithm, window, deltas)
     if res is not None:
-        accs, aeqs, oeqs, opps = res
+        accs, aeqs, oeqs, opps, f1s, f1eqs = res
         print("AEQ - {:.2f}+-{:.2f}".format(avg(aeqs), std(aeqs)))
         print("OEQ - {:.2f}+-{:.2f}".format(avg(oeqs), std(oeqs)))
         print("OPP - {:.2f}+-{:.2f}".format(avg(opps), std(opps)))
         print("ACC - {:.2f}+-{:.2f}".format(avg(accs), std(accs)))
+        print("F1 - {:.2f}+-{:.2f}".format(avg(f1s), std(f1s)))
+        print("F1Eq - {:.2f}+-{:.2f}".format(avg(f1s), std(f1s)))
