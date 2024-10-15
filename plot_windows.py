@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from plot_deltas import plot
 from read import get_results, avg, std
 
-# python3 plot_windows.py --scenario 1 --dataset MNIST-GDrift --alpha 0.1 --algorithm FairFedDrift --windows 1 2 3 4 5 6 7 8 9 --deltas 0.01 0.05 0.1 0.25 0.5 0.75 1.0 1.25 1.5 1.75 2.0
+# python3 plot_windows.py --scenario 1 --dataset MNIST-GDrift --alpha 0.1 --algorithm FairFedDrift --windows 1 2 3 4 5 6 7 8 9 inf --deltas 0.01 0.05 0.1 0.25 0.5 0.75 1.0 1.25 1.5 1.75 2.0
 
 
 def plot_dataset_alpha(scenarios, dataset, alpha, algorithm, windows_arg, deltas, axs):
@@ -38,6 +38,7 @@ def plot_dataset_alpha(scenarios, dataset, alpha, algorithm, windows_arg, deltas
             print("ACC - {:.2f}+-{:.2f}".format(avg(accs), std(accs)))
 
     title = r'{}: $\alpha={}$'.format(dataset.replace("Fashion", "FE"), alpha)
+    windows = [w.replace("inf", "10") for w in windows]
     plot(
         title, windows, "window", aeqs_avg, aeqs_std, oeqs_avg, oeqs_std, opps_avg, opps_std, accs_avg, accs_std, axs
     )

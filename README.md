@@ -41,7 +41,7 @@ To get the results for experiment from section VI-D run this in the top level of
 
 To get the results for experiment from section VI-E run this in the top level of the repository:
 
-    python3 plot_windows.py --scenario 1 --dataset MNIST-GDrift --alpha 0.1 --algorithm FairFedDrift --windows 1 2 3 4 5 6 7 8 9 --deltas 0.01 0.05 0.1 0.25 0.5 0.75 1.0 1.25 1.5 1.75 2.0
+    python3 plot_windows.py --scenario 1 --dataset MNIST-GDrift --alpha 0.1 --algorithm FairFedDrift --windows 1 2 3 4 5 6 7 8 9 inf --deltas 0.01 0.05 0.1 0.25 0.5 0.75 1.0 1.25 1.5 1.75 2.0
 
 To get the results for experiment from section VI-F run this in the top level of the repository:
 
