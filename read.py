@@ -135,4 +135,4 @@ if __name__ == '__main__':
         print("OPP - {:.2f}+-{:.2f}".format(avg(opps), std(opps)))
         print("ACC - {:.2f}+-{:.2f}".format(avg(accs), std(accs)))
         print("F1 - {:.2f}+-{:.2f}".format(avg(f1s), std(f1s)))
-        print("F1Eq - {:.2f}+-{:.2f}".format(avg(f1s), std(f1s)))
+        print("F1Eq - {:.2f}+-{:.2f}".format(avg(f1eqs), std(f1eqs)))
