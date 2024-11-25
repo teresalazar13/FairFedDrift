@@ -6,6 +6,7 @@ from federated.algorithms.Algorithm import Algorithm
 from federated.algorithms.Identity import Identity
 from federated.algorithms.drift.GlobalModels import GlobalModels
 from federated.algorithms.drift.fed_drift import get_init_model, train_and_average, get_start_window
+from federated.algorithms.drift.instance_assignment.instance_assignment_model import InstanceAssignmentModel
 from metrics.LossPrivileged import LossPrivileged
 from metrics.LossUnprivileged import LossUnprivileged
 from metrics.MetricFactory import get_metrics
@@ -38,13 +39,35 @@ class FairFedDriftIA(Algorithm):
         global_model = global_models.create_new_global_model(init_model)
         client_instances_identities = [[[Identity(global_model.identity.id, global_model.identity.name)] * len(clients_data[0][client_id][0])] for client_id in range(dataset.n_clients)]
 
-        # Train with data from first timestep
+        # Train global model with data from first timestep
         clients_data_models, n_clients_data_models = self.get_clients_data_from_models(
             global_models, client_instances_identities, clients_data
         )
-        train_and_average(global_models, dataset, seed, 0, clients_data_models)
+        #train_and_average(global_models, dataset, seed, 0, clients_data_models)
+
+        # Train instance assignment model with data from first timestep
+        instance_assignment_model = InstanceAssignmentModel(dataset, seed)
+        instance_assignment_model.compile()
+        instance_assignment_model = self.train_instance_assignment_model(instance_assignment_model, clients_data)
+
+
         exit()
         return
+
+    def train_instance_assignment_model(self, instance_assignment_model, clients_data):
+        timestep = 0
+        for client_id in range(len(clients_data[timestep])):
+            x, y, _, __ = clients_data[timestep][client_id]
+            x_flat = x.reshape(x.shape[0], -1)  # Flatten a from (700, 28, 28) to (700, 784)
+            concatenated_data = np.concatenate([x_flat, y], axis=1)  # Resulting shape: (700, 794)
+            ground_truth = np.tile([1, 0], (len(x), 1))  # Shape (700, 2)
+            #print(x_flat.shape, y.shape, concatenated_data.shape, ground_truth.shape)
+            logging.info("IAM: Learning data of client {} on timestep {}".format(
+                client_id, timestep
+            ))
+            instance_assignment_model.learn(concatenated_data, ground_truth)
+
+        return instance_assignment_model
 
     def get_clients_data_from_models(self, global_models, clients_instances_identities, clients_data):
         clients_data_models = {}

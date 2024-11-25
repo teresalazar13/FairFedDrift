@@ -7,7 +7,7 @@ class InstanceAssignmentModel:
         self.batch_size = 10
         self.n_epochs = 10
         self.initializer = initializer
-        self.input_shape = dataset.input_shape
+        self.input_shape = (794,)  # TODO
         self.num_classes = 2  # Start with one class + undecided class
         self._initialize_model()
 
