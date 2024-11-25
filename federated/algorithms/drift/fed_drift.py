@@ -46,7 +46,10 @@ def perform_fl(self, seed, clients_data, dataset):
     previous_loss_clients = [[[WORST_LOSS for _ in range(len(self.metrics_clustering))]] for _ in range(dataset.n_clients)]  # used for drift detection
 
     # Train with data from first timestep
-    global_models = train_and_average(clients_data, global_models, dataset, seed, 0, clients_identities, self.window)
+    clients_data_models, n_clients_data_models = get_clients_data_from_models(
+        global_models, clients_identities, clients_data, self.window
+    )
+    global_models = train_and_average(global_models, dataset, seed, 0, clients_data_models)
 
     for timestep in range(1, dataset.n_timesteps - 1):
         logging.info("Minimum Loss Clients")
@@ -81,9 +84,11 @@ def perform_fl(self, seed, clients_data, dataset):
 
         # STEP 5 - Train and average models with data from this timestep
         logging.info("STEP 5 - Train and average (timestep: {})".format(timestep))
-        global_models = train_and_average(
-            clients_data, global_models, dataset, seed, timestep, clients_identities, self.window
+        clients_data_models, n_clients_data_models = get_clients_data_from_models(
+            global_models, clients_identities, clients_data, self.window
         )
+        global_models = train_and_average(global_models, dataset, seed, timestep, clients_data_models)
+
         for client_id in range(dataset.n_clients):
             clients_identities_printing[client_id].append(clients_identities[client_id][-1])
 
@@ -395,11 +400,7 @@ def get_next_best_results(results_matrix):
         return None, None, False
 
 
-def train_and_average(clients_data, global_models, dataset, seed, timestep, clients_identities, window):
-    clients_data_models, n_clients_data_models = get_clients_data_from_models(
-        global_models, clients_identities, clients_data, window
-    )
-
+def train_and_average(global_models, dataset, seed, timestep, clients_data_models):
     for cround in range(dataset.n_rounds):
         local_weights_list = [[] for _ in range(global_models.n_models)]
         local_scales_list = [[] for _ in range(global_models.n_models)]
