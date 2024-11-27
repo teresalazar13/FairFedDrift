@@ -1,4 +1,4 @@
-from federated.algorithms.drift.instance_assignment.fair_fed_drift_ia import FairFedDriftIA
+from federated.algorithms.drift.assignment_model.fair_fed_drift_am import FairFedDriftAM
 from federated.algorithms.drift.fair_fed_drift import FairFedDrift
 from federated.algorithms.drift.fed_drift import FedDrift
 from federated.algorithms.fedavg import FedAvg
@@ -6,7 +6,7 @@ from federated.algorithms.oracle import Oracle
 
 
 def get_algorithms():
-    return [FedAvg(), Oracle(), FedDrift(), FairFedDrift(), FairFedDriftIA()]
+    return [FedAvg(), Oracle(), FedDrift(), FairFedDrift(), FairFedDriftAM()]
 
 
 def get_algorithm_by_name(name):

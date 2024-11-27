@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 
-class InstanceAssignmentModel:
+class AssignmentModel:
     def __init__(self, dataset, seed):
         initializer = tf.keras.initializers.RandomNormal(seed=seed)
         self.batch_size = 10
