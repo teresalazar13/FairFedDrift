@@ -1,9 +1,11 @@
 import math
 import logging
+import tensorflow as tf
 
 from federated.algorithms.Algorithm import Algorithm
 from federated.algorithms.Identity import Identity
 from federated.algorithms.drift.GlobalModels import GlobalModels
+from federated.algorithms.drift.assignment_model.autoencoder import Autoencoder
 from federated.algorithms.drift.fed_drift import get_init_model, train_and_average, get_clients_data_from_models, \
     test_models, print_clients_identities
 from federated.algorithms.drift.assignment_model.assignment_model import AssignmentModel
@@ -46,15 +48,17 @@ class FairFedDriftAM(Algorithm):
         previous_confidence_clients = [[[WORST_CONFIDENCE for _ in range(len(self.metrics_clustering))]] for _ in range(dataset.n_clients)]  # used for drift detection
 
         # Train with data from first timestep
-        clients_data_models, n_clients_data_models = get_clients_data_from_models(
-            global_models, clients_identities, clients_data, self.window
-        )
-        global_models = train_and_average(global_models, dataset, seed, 0, clients_data_models)
+        #clients_data_models, n_clients_data_models = get_clients_data_from_models(
+        #    global_models, clients_identities, clients_data, self.window
+        #)
+        #global_models = train_and_average(global_models, dataset, seed, 0, clients_data_models)
 
         # TODO - Train assignment model with data from first timestep
-        assignment_model = AssignmentModel(dataset, seed)
+        assignment_model = AssignmentModel(seed)
         assignment_model.compile()
-        assignment_model = self.train_assignment_model(assignment_model, clients_data)
+        autoencoder = Autoencoder()
+        autoencoder, assignment_model = self.train_assignment_and_autoencoder(autoencoder, assignment_model, clients_data)
+        exit()
 
         for timestep in range(1, dataset.n_timesteps - 1):
             logging.info("Current Global Models")
@@ -104,13 +108,24 @@ class FairFedDriftAM(Algorithm):
         return clients_metrics, clients_identities_printing
 
     # TODO
-    def train_assignment_model(self, assignment_model, clients_data):
-        timestep = 0
+    def train_assignment_and_autoencoder(self, autoencoder, assignment_model, clients_data):
+        timestep = 0  # for the first timestep, the concept is 0
+        ground_truth = 0  # Initial concept ID
+        batch_size = 100
         for client_id in range(len(clients_data[timestep])):
             x, y, _, __ = clients_data[timestep][client_id]
-            # ... assignment_model.learn(concatenated_data, ground_truth)
+            num_samples = x.shape[0]
+            for i in range(0, num_samples, batch_size):
+                print(client_id, i, num_samples)
+                x_batch = x[i:i + batch_size]
+                y_batch = y[i:i + batch_size]
+                # Train autoencoder and generate embeddings
+                embeddings = autoencoder.train_on_batch(x_batch, y_batch)
+                # Learn concept assignments
+                ground_truth = tf.one_hot([0] * batch_size, depth=assignment_model.num_classes)  # One-hot encoded vector for the concept
+                assignment_model.learn(embeddings.numpy(), ground_truth)
 
-        return assignment_model
+        return autoencoder, assignment_model
 
     # TODO
     def update(self,clients_data_timestep, global_models, dataset, clients_identities, previous_confidence_clients):

@@ -2,12 +2,12 @@ import tensorflow as tf
 
 
 class AssignmentModel:
-    def __init__(self, dataset, seed):
+    def __init__(self, seed):
         initializer = tf.keras.initializers.RandomNormal(seed=seed)
         self.batch_size = 10
         self.n_epochs = 10
         self.initializer = initializer
-        self.input_shape = (794,)  # TODO
+        self.input_shape = (128,)  # TODO - This should match the size of the embeddings embedding_dim=128
         self.num_classes = 2  # Start with one class + undecided class
         self._initialize_model()
 
@@ -24,7 +24,7 @@ class AssignmentModel:
         return self.model.get_weights()
 
     def compile(self):
-        optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
+        optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
         loss = 'categorical_crossentropy'
         self.model.compile(loss=loss, optimizer=optimizer)
 
