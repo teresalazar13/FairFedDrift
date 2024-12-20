@@ -10,7 +10,6 @@ from metrics.MetricFactory import get_metrics
 import logging
 
 WORST_LOSS = 1000
-BEST_LOSS = 0
 
 
 class FedDrift(Algorithm):

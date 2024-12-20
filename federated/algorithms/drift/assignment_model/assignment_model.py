@@ -1,5 +1,6 @@
-import numpy as np
+import logging
 import tensorflow as tf
+
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, Concatenate, TimeDistributed, MultiHeadAttention, LayerNormalization
 from tensorflow.keras.models import Model, Sequential
 
@@ -69,18 +70,18 @@ class AssignmentModel:
 
     def learn(self, x_image_train, x_label_train, y_train):
         tf.keras.utils.disable_interactive_logging()
-        print(len(x_image_train), len(x_label_train), len(y_train))  # they are the same
-        print(x_image_train[0][0].shape)  # this is one image
-        print(x_label_train[0][0].shape)  # this is one-hot encoding
-        print(y_train[0])  # this is one-hot encoding
-        print(f"x_image_train shape: {x_image_train.shape}")
-        print(f"x_label_train shape: {x_label_train.shape}")
-        print(f"y_train shape: {y_train.shape}")
+        logging.info(len(x_image_train), len(x_label_train), len(y_train))  # they are the same
+        logging.info(x_image_train[0][0].shape)  # this is one image
+        logging.info(x_label_train[0][0].shape)  # this is one-hot encoding
+        logging.info(y_train[0])  # this is one-hot encoding
+        logging.info(f"x_image_train shape: {x_image_train.shape}")
+        logging.info(f"x_label_train shape: {x_label_train.shape}")
+        logging.info(f"y_train shape: {y_train.shape}")
         self.model.fit([x_image_train, x_label_train], y_train, batch_size=self.batch_size, epochs=self.n_epochs, validation_split=0.2)
 
     def predict(self, x_image, x_label):
-        print(f"x_image shape: {x_image.shape}")
-        print(f"x_label shape: {x_label.shape}")
+        logging.info(f"x_image shape: {x_image.shape}")
+        logging.info(f"x_label shape: {x_label.shape}")
         return self.model.predict([x_image, x_label])
 
     def add_class(self):
