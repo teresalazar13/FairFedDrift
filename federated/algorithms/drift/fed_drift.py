@@ -127,12 +127,12 @@ def update(
     metrics_clustering, thresholds, clients_data_timestep, global_models, dataset, clients_identities,
     previous_loss_clients
 ):
-    clients_new_models = []
+    clients_new_models = []  # client ids that drifted and created new global models
     for client_id, client_data in enumerate(clients_data_timestep):
         # Calculate results on all global models
         results_global_models = {}
         for global_model in global_models.models:
-            results = test_client_on_model(metrics_clustering, global_model.model, dataset.is_binary_target, client_data[:3])  # client_data[:2] -> x, y, s
+            results = test_client_on_model(metrics_clustering, global_model.model, dataset.is_binary_target, client_data[:3])  # client_data[:3] -> x, y, s
             results_global_models[global_model] = results
 
         # Get Model for client given results_global_models
