@@ -7,12 +7,13 @@ from federated.algorithms.Identity import Identity
 from federated.algorithms.drift.GlobalModels import GlobalModels
 from federated.algorithms.drift.assignment_model.assignment_model import AssignmentModel
 from federated.algorithms.drift.fed_drift import get_init_model, train_and_average, get_clients_data_from_models, \
-    test_models, print_clients_identities, test_client_on_model
+    test_models, print_clients_identities, test_client_on_model, print_matrix, merge_global_models, get_start_window
 from metrics.LossPrivileged import LossPrivileged
 from metrics.LossUnprivileged import LossUnprivileged
 from metrics.MetricFactory import get_metrics
 
 WORST_LOSS = 1000
+DISTANCE_THRESHOLD = 0.9  # TODO - this should be hyperparameter
 
 
 class FairFedDriftAM(Algorithm):
@@ -66,20 +67,25 @@ class FairFedDriftAM(Algorithm):
 
             # STEP 2 - Select most likely model or create new for each client
             logging.info("STEP 2 - Update (timestep: {})".format(timestep))
-            global_models, clients_identities, previous_loss_clients, clients_new_models = self.update(
-                clients_data[timestep], global_models, dataset, clients_identities, previous_loss_clients,
-                assignment_model
-            )
+            global_models, clients_identities, previous_loss_clients, clients_new_models, clients_assignment_probs = \
+                self.update(
+                    clients_data[timestep], global_models, dataset, clients_identities, previous_loss_clients,
+                    assignment_model
+                )
 
             # STEP 3 - Add models from drifted clients
             logging.info("STEP 3 - Add models from drifted clients (timestep: {})".format(timestep))
             for client_id in clients_new_models:
                 new_global_model = global_models.create_new_global_model(get_init_model(dataset, seed))
                 clients_identities[client_id].append(Identity(new_global_model.identity.id, new_global_model.identity.name))
+                assignment_model.add_class()
 
-            # TODO - STEP 4 - Merge Global Models
-            # logging.info("STEP 4 - Merge (timestep: {})".format(timestep))
-            # global_models, clients_identities = self.merge(clients_data, global_models, dataset, seed, clients_identities)
+            # STEP 4 - Merge Global Models
+            logging.info("STEP 4 - Merge (timestep: {})".format(timestep))
+            global_models, clients_identities = self.merge(
+                clients_data, global_models, dataset, seed, clients_identities, clients_assignment_probs
+            )
+            exit()
 
             # STEP 5.1 - Train and average global models with data from this timestep
             logging.info("STEP 5 - Train and average (timestep: {})".format(timestep))
@@ -123,6 +129,7 @@ class FairFedDriftAM(Algorithm):
         assignment_model
     ):
         clients_new_models = []  # client ids that drifted and created new global models
+        clients_assignment_probs = []  # probabilities of clients belonging to models
 
         for client_id, client_data in enumerate(clients_data_timestep):
             x, y = client_data[:2]
@@ -131,6 +138,7 @@ class FairFedDriftAM(Algorithm):
             pred = assignment_model.predict(x_batch, y_batch)  # get model from assignment model
             pred_ = np.argmax(pred, axis=1)
             row_sums = np.sum(pred, axis=0)
+            clients_assignment_probs.append(row_sums)
             model_id = np.argmax(row_sums)
             logging.info(pred)
             logging.info(pred_)
@@ -159,12 +167,92 @@ class FairFedDriftAM(Algorithm):
                     Identity(global_model_selected.identity.id, global_model_selected.identity.name)
                 )
 
-        return global_models, clients_identities, previous_loss_clients, clients_new_models
+        return global_models, clients_identities, previous_loss_clients, clients_new_models, clients_assignment_probs
 
-    # TODO
-    def merge(self, clients_data, global_models, dataset, seed, clients_identities):
-        # return global_models, clients_identities
-        pass
+    def merge(self, clients_data, global_models, dataset, seed, clients_identities, clients_assignment_probs):
+        size = global_models.n_models
+        if size > 30:
+            logging.info("Number of global models > 30")
+            exit(1)
+
+        n_clients_data_models = self.get_n_clients_data_from_models(global_models, clients_identities, clients_data)
+        logging.info(n_clients_data_models)
+        if len(n_clients_data_models.keys()) == 1:
+            return global_models, clients_identities
+
+        distances = calculate_cosine_similarity_matrix(clients_assignment_probs)
+        while True:  # While we can still merge global models
+            print_matrix(distances)
+            id_0, id_1, found = get_closest_models(distances)
+            if found:
+                global_models, distances, clients_identities, n_clients_data_models = merge_global_models(
+                    dataset, seed, global_models, id_0, id_1, distances, clients_identities, n_clients_data_models,
+                    self.window
+                )
+            else:
+                return global_models, clients_identities
+
+    def get_n_clients_data_from_models(self, global_models, clients_identities, clients_data):
+        n_clients_data_models = {}
+
+        for global_model in global_models.models:
+            n = 0
+            for client_id, client_identities in enumerate(clients_identities):
+                has_trained_model = False
+                n_client_data = 0
+                for timestep in range(get_start_window(client_identities, self.window), len(client_identities)):
+                    if client_identities[timestep].id == global_model.identity.id:
+                        logging.info("Getting data of client {} for model {} on timestep {}".format(
+                            client_id, global_model.identity.name, timestep
+                        ))
+                        has_trained_model = True
+                        x, y, s, _ = clients_data[timestep][client_id]
+                        n_client_data += len(x)
+                if has_trained_model:
+                    logging.info("Model {} client {} with {} data instances".format(
+                        global_model.identity.id, client_id, n_client_data)
+                    )
+                n += n_client_data
+            if n > 0:
+                n_clients_data_models[global_model.identity.id] = n
+
+        return n_clients_data_models
+
+
+def calculate_cosine_similarity_matrix(clients_assignment_probs):
+    clients_assignment_probs = np.array(clients_assignment_probs)
+    num_models = clients_assignment_probs.shape[1]
+    similarity_matrix = np.zeros((num_models, num_models))
+
+    for i in range(num_models):
+        for j in range(num_models):
+            v1 = clients_assignment_probs[:, i]
+            v2 = clients_assignment_probs[:, j]
+            dot_product = np.dot(v1, v2)
+            norm_v1 = np.linalg.norm(v1)
+            norm_v2 = np.linalg.norm(v2)
+            similarity_matrix[i, j] = dot_product / (norm_v1 * norm_v2)
+
+    return similarity_matrix
+
+
+def get_closest_models(distances):
+    best_row = None
+    best_col = None
+    best_result = DISTANCE_THRESHOLD
+
+    for row in range(len(distances)):
+        for col in range(len(distances[row])):
+            result = distances[row][col]
+            if result < best_result:
+                best_result = result
+                best_row = row
+                best_col = col
+
+    if best_result != WORST_LOSS:
+        return best_row, best_col, True
+    else:
+        return None, None, False
 
 
 def get_slices(x, vector_size):

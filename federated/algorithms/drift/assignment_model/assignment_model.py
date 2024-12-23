@@ -70,7 +70,7 @@ class AssignmentModel:
 
     def learn(self, x_image_train, x_label_train, y_train):
         tf.keras.utils.disable_interactive_logging()
-        logging.info(len(x_image_train), len(x_label_train), len(y_train))  # they are the same
+        logging.info(f"x_image_train: {len(x_image_train)}, x_label_train: {len(x_label_train)}, y_train: {len(y_train)}")
         logging.info(x_image_train[0][0].shape)  # this is one image
         logging.info(x_label_train[0][0].shape)  # this is one-hot encoding
         logging.info(y_train[0])  # this is one-hot encoding
