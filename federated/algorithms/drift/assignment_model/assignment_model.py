@@ -8,6 +8,7 @@ from tensorflow.keras.models import Model, Sequential
 class AssignmentModel:
     def __init__(self, seed):
         initializer = tf.keras.initializers.RandomNormal(seed=seed)
+        self.n_rounds = 1
         self.batch_size = 1  # TODO
         self.n_epochs = 10
         self.initializer = initializer
@@ -77,7 +78,9 @@ class AssignmentModel:
         logging.info(f"x_image_train shape: {x_image_train.shape}")
         logging.info(f"x_label_train shape: {x_label_train.shape}")
         logging.info(f"y_train shape: {y_train.shape}")
-        self.model.fit([x_image_train, x_label_train], y_train, batch_size=self.batch_size, epochs=self.n_epochs, validation_split=0.2)
+        self.model.fit(
+            [x_image_train, x_label_train], y_train, batch_size=self.batch_size, epochs=self.n_epochs, verbose=0
+        )
 
     def predict(self, x_image, x_label):
         logging.info(f"x_image shape: {x_image.shape}")
@@ -100,3 +103,9 @@ class AssignmentModel:
         new_weights[-1][:-1] = old_weights[-1]  # Preserve old biases
         new_weights[-1][-1] = 0  # Set the new bias to zero for the new class
         self.model.set_weights(new_weights)
+
+    def set_weights(self, weights):
+        self.model.set_weights(weights)
+
+    def get_weights(self):
+        return self.model.get_weights()

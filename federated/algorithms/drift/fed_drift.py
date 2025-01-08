@@ -45,7 +45,7 @@ def perform_fl(self, seed, clients_data, dataset):
     previous_loss_clients = [[[WORST_LOSS for _ in range(len(self.metrics_clustering))]] for _ in range(dataset.n_clients)]  # used for drift detection
 
     # Train with data from first timestep
-    clients_data_models, n_clients_data_models = get_clients_data_from_models(
+    clients_data_models, _ = get_clients_data_from_models(
         global_models, clients_identities, clients_data, self.window
     )
     global_models = train_and_average(global_models, dataset, seed, 0, clients_data_models)
@@ -63,14 +63,14 @@ def perform_fl(self, seed, clients_data, dataset):
 
         # STEP 2 - Select best Models or create new for each client
         logging.info("STEP 2 - Update (timestep: {})".format(timestep))
-        global_models, clients_identities, previous_loss_clients, clients_new_models = update(
+        global_models, clients_identities, previous_loss_clients, client_ids_drifted = update(
             self.metrics_clustering, self.thresholds, clients_data[timestep], global_models, dataset, clients_identities,
             previous_loss_clients
         )
 
         # STEP 3 - Add models from drifted clients
         logging.info("STEP 3 - Add models from drifted clients (timestep: {})".format(timestep))
-        for client_id in clients_new_models:
+        for client_id in client_ids_drifted:
             new_global_model = global_models.create_new_global_model(get_init_model(dataset, seed))
             clients_identities[client_id].append(Identity(new_global_model.identity.id, new_global_model.identity.name))
 
@@ -83,7 +83,7 @@ def perform_fl(self, seed, clients_data, dataset):
 
         # STEP 5 - Train and average models with data from this timestep
         logging.info("STEP 5 - Train and average (timestep: {})".format(timestep))
-        clients_data_models, n_clients_data_models = get_clients_data_from_models(
+        clients_data_models, _ = get_clients_data_from_models(
             global_models, clients_identities, clients_data, self.window
         )
         global_models = train_and_average(global_models, dataset, seed, timestep, clients_data_models)
@@ -126,7 +126,7 @@ def update(
     metrics_clustering, thresholds, clients_data_timestep, global_models, dataset, clients_identities,
     previous_loss_clients
 ):
-    clients_new_models = []  # client ids that drifted and created new global models
+    client_ids_drifted = []  # client ids that drifted and created new global models
     for client_id, client_data in enumerate(clients_data_timestep):
         # Calculate results on all global models
         results_global_models = {}
@@ -144,9 +144,9 @@ def update(
             clients_identities[client_id].append(Identity(best_global_model.identity.id, best_global_model.identity.name))
         else:
             logging.info("Drift detected at client {}".format(client_id))
-            clients_new_models.append(client_id)
+            client_ids_drifted.append(client_id)
 
-    return global_models, clients_identities, previous_loss_clients, clients_new_models
+    return global_models, clients_identities, previous_loss_clients, client_ids_drifted
 
 
 def get_best_model(model_results_dict, previous_loss_client, thresholds):
