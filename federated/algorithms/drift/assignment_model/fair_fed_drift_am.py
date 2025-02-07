@@ -13,7 +13,8 @@ from metrics.LossUnprivileged import LossUnprivileged
 from metrics.MetricFactory import get_metrics
 
 WORST_LOSS = 1000
-DISTANCE_THRESHOLD = 0.9  # TODO - this should be hyperparameter
+WORST_DISTANCE_THRESHOLD = -1
+DISTANCE_THRESHOLD = 0.9  # TODO - this should be hyperparameter -> DO THIS NOW
 
 
 class FairFedDriftAM(Algorithm):
@@ -112,7 +113,6 @@ class FairFedDriftAM(Algorithm):
                     .format(timestep)
                 )
 
-            exit()
             # TODO STEP 5.2.2 - Train and average assignment model with data from merged clients
 
             for client_id in range(dataset.n_clients):
@@ -155,13 +155,14 @@ class FairFedDriftAM(Algorithm):
             results = test_client_on_model(
                 self.metrics_clustering, global_model_selected.model, dataset.is_binary_target, client_data[:3]
             )  # client_data[:3] -> x, y, s
-            previous_loss_clients[client_id].append(results)
             logging.info(results)
 
             drift_detected = False
             for loss, previous_loss, threshold in zip(results, previous_loss_clients[client_id][-1], self.thresholds):
+                logging.info("Loss: {}, Previous Loss: {}, Threshold: {}".format(loss, previous_loss, threshold))
                 if loss > (threshold + previous_loss):
                     drift_detected = True
+            previous_loss_clients[client_id].append(results)
 
             if drift_detected:
                 logging.info("Drift detected at client {}".format(client_id))
@@ -247,7 +248,7 @@ def calculate_cosine_similarity_matrix(clients_assignment_probs):
 def get_closest_models(distances):
     best_row = None
     best_col = None
-    best_result = 0
+    best_result = WORST_DISTANCE_THRESHOLD
 
     for row in range(len(distances)):
         for col in range(len(distances[row])):
