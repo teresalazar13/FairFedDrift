@@ -23,7 +23,7 @@ class NN_model:
                 x = tf.keras.layers.GlobalAveragePooling2D()(base_model.output)
                 x = tf.keras.layers.Dense(256, activation='relu')(x)
                 output = tf.keras.layers.Dense(100, activation='softmax')(x)
-                self.model = tf.keras.model.Model(inputs=base_model.input, outputs=output)
+                self.model = tf.keras.Model(inputs=base_model.input, outputs=output)
 
             else:  # MNIST and FEMNIST
                 self.batch_size = 32
