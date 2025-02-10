@@ -15,7 +15,7 @@ class NN_model:
             self.model.add(tf.keras.layers.Dense(1, activation='sigmoid', kernel_initializer=initializer))
         else:
             if dataset.is_large:  # CIFAR-100 - ResNet
-                self.batch_size = 32
+                self.batch_size = 64
                 self.n_epochs = 50
                 ResNet18, preprocess_input = Classifiers.get('resnet18')
                 base_model = ResNet18(input_shape=(32, 32, 3), weights='imagenet', include_top=False)
