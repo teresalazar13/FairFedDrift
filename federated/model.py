@@ -33,6 +33,8 @@ class NN_model:
                 self.model.add(tf.keras.layers.Dropout(.25))
                 self.model.add(tf.keras.layers.BatchNormalization())
                 self.model.add(tf.keras.layers.Dense(100, activation='softmax'))
+                dummy_input = tf.random.normal([1] + dataset.input_shape)  # batch size of 1, correct input shape
+                self.model.build(input_shape=dummy_input.shape)
 
             else:  # MNIST and FEMNIST
                 self.batch_size = 32
