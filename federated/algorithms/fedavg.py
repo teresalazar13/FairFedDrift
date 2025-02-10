@@ -36,32 +36,19 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
     for cround in range(dataset.n_rounds):
         local_weights_list = []
         client_scaling_factors_list = []
-        print(f"GLOBAL model weight count: {len(global_model.get_weights())}")
-        print("=== GLOBAL MODEL ===")
-        for i, layer in enumerate(global_model.model.layers):
-            print(f"Layer {i}: {layer.name}, Weights: {len(layer.get_weights())}")
         for client in range(dataset.n_clients):
             x, y, s, _ = clients_data[timestep][client]
             global_weights = global_model.get_weights()
             local_model = NN_model(dataset, seed)
             local_model.compile(dataset)
             local_model.set_weights(global_weights)
-            print(f"LOCAL 1 model weight count: {len(local_model.get_weights())}")
-            print("\n=== LOCAL MODEL ===")
-            for i, layer in enumerate(local_model.model.layers):
-                print(f"Layer {i}: {layer.name}, Weights: {len(layer.get_weights())}")
             local_model.learn(x, y)
             local_weights_list.append(local_model.get_weights())
             client_scaling_factors_list.append(len(x))
             # K.clear_session()
             logging.info("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
-            print(f"LOCAL 2 model weight count: {len(local_model.get_weights())}")
-            print("\n=== LOCAL MODEL ===")
-            for i, layer in enumerate(local_model.model.layers):
-                print(f"Layer {i}: {layer.name}, Weights: {len(layer.get_weights())}")
 
         new_global_weights = average_weights(local_weights_list, client_scaling_factors_list)
-        print(f"AVG GLOBAL model weight count: {len(new_global_weights)}")
         global_model.set_weights(new_global_weights)
         logging.info("Averaged models on timestep {} cround {}".format(timestep, cround))
 
