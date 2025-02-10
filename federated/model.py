@@ -18,8 +18,12 @@ class NN_model:
                 self.batch_size = 16
                 self.n_epochs = 10
                 ResNet18, preprocess_input = Classifiers.get('resnet18')
-                base_model = ResNet18(input_shape=(224, 224, 3), weights='imagenet', include_top=False)
-                # Add custom layers for CIFAR-100
+                base_model = ResNet18(input_shape=(32, 32, 3), weights='imagenet', include_top=False)
+                # Modify the first convolution layer to work with 32x32 input images
+                base_model.layers[0] = tf.keras.layers.Conv2D(
+                    64, kernel_size=(3, 3), strides=1, padding='same', use_bias=False
+                )
+                # Add custom layers for CIFAR-100 classification
                 x = tf.keras.layers.GlobalAveragePooling2D()(base_model.output)
                 x = tf.keras.layers.Dense(256, activation='relu')(x)
                 output = tf.keras.layers.Dense(100, activation='softmax')(x)
