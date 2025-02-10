@@ -1,5 +1,7 @@
 import tensorflow as tf
 from classification_models.keras import Classifiers
+from keras.applications.resnet50 import ResNet50
+
 
 
 class NN_model:
@@ -16,19 +18,23 @@ class NN_model:
         else:
             if dataset.is_large:  # CIFAR-100 - ResNet
                 self.batch_size = 64
-                self.n_epochs = 50
-                ResNet18, preprocess_input = Classifiers.get('resnet18')
-                base_model = ResNet18(input_shape=(32, 32, 3), weights='imagenet', include_top=False)
-                base_model.trainable = False  # Freeze the weights of the pretrained model
-                # Modify the first convolution layer to work with 32x32 input images
-                base_model.layers[0] = tf.keras.layers.Conv2D(
-                    64, kernel_size=(3, 3), strides=1, padding='same', use_bias=False
-                )
-                # Add custom layers for CIFAR-100 classification
-                x = tf.keras.layers.GlobalAveragePooling2D()(base_model.output)
-                x = tf.keras.layers.Dense(256, activation='relu')(x)
-                output = tf.keras.layers.Dense(100, activation='softmax')(x)
-                self.model = tf.keras.Model(inputs=base_model.input, outputs=output)
+                self.n_epochs = 15
+                self.model = tf.keras.models.Sequential()
+                self.model.add(tf.keras.layers.UpSampling2D())
+                self.model.add(tf.keras.layers.UpSampling2D())
+                self.model.add(tf.keras.layers.UpSampling2D())
+                resnet_model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+                for layer in resnet_model.layers:
+                    if isinstance(layer, tf.keras.layers.BatchNormalization):
+                        layer.trainable = True
+                    else:
+                        layer.trainable = False
+                self.model.add(resnet_model)
+                self.model.add(tf.keras.layers.GlobalAveragePooling2D())
+                self.model.add(tf.keras.layers.Dense(256, activation='relu'))
+                self.model.add(tf.keras.layers.Dropout(.25))
+                self.model.add(tf.keras.layers.BatchNormalization())
+                self.model.add(tf.keras.layers.Dense(100, activation='softmax'))
 
             else:  # MNIST and FEMNIST
                 self.batch_size = 32
