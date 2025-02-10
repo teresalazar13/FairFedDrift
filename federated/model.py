@@ -35,7 +35,7 @@ class NN_model:
                 self.model.add(tf.keras.layers.Dense(100, activation='softmax'))
                 dummy_input = tf.random.normal([1] + list(dataset.input_shape))
                 dummy_labels = tf.zeros([1, 100])
-                self.model.compile()
+                self.compile()
                 self.model.fit(dummy_input, dummy_labels, epochs=1, batch_size=1, verbose=0)
 
             else:  # MNIST and FEMNIST
