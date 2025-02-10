@@ -48,7 +48,11 @@ class NN_model:
         return self.model.get_weights()
 
     def compile(self, dataset):
-        optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
+        if dataset.is_large:
+            optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+        else:
+            optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
+
         if dataset.is_binary_target:
             loss = 'binary_crossentropy'
         else:
