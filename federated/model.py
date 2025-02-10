@@ -18,7 +18,7 @@ class NN_model:
         else:
             if dataset.is_large:  # CIFAR-100 - ResNet
                 self.batch_size = 64
-                self.n_epochs = 15
+                self.n_epochs = 30
                 self.model = tf.keras.models.Sequential()
                 self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
                 resnet_model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
