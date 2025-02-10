@@ -41,8 +41,6 @@ class MinimumEqualityOpportunity(Metric):
 
             if res < worst_res and total_unpriv != 0 and total_priv != 0:
                 worst_res = res
-            if total_unpriv == 0 or total_priv == 0:
-                logging.info("Can't calculate")
 
             logging.info("{} {}".format(y, res))
 

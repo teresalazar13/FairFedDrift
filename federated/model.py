@@ -15,8 +15,8 @@ class NN_model:
             self.model.add(tf.keras.layers.Dense(1, activation='sigmoid', kernel_initializer=initializer))
         else:
             if dataset.is_large:  # CIFAR-100 - ResNet
-                self.batch_size = 16
-                self.n_epochs = 10
+                self.batch_size = 32
+                self.n_epochs = 50
                 ResNet18, preprocess_input = Classifiers.get('resnet18')
                 base_model = ResNet18(input_shape=(32, 32, 3), weights='imagenet', include_top=False)
                 base_model.trainable = False  # Freeze the weights of the pretrained model
@@ -50,7 +50,7 @@ class NN_model:
 
     def compile(self, dataset):
         if dataset.is_large:
-            optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+            optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
         else:
             optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
 
