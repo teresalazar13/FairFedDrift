@@ -20,9 +20,7 @@ class NN_model:
                 self.batch_size = 64
                 self.n_epochs = 15
                 self.model = tf.keras.models.Sequential()
-                self.model.add(tf.keras.layers.UpSampling2D())
-                self.model.add(tf.keras.layers.UpSampling2D())
-                self.model.add(tf.keras.layers.UpSampling2D())
+                self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
                 resnet_model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
                 for layer in resnet_model.layers:
                     if isinstance(layer, tf.keras.layers.BatchNormalization):
