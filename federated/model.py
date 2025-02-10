@@ -19,6 +19,7 @@ class NN_model:
                 self.n_epochs = 10
                 ResNet18, preprocess_input = Classifiers.get('resnet18')
                 base_model = ResNet18(input_shape=(32, 32, 3), weights='imagenet', include_top=False)
+                base_model.trainable = False  # Freeze the weights of the pretrained model
                 # Modify the first convolution layer to work with 32x32 input images
                 base_model.layers[0] = tf.keras.layers.Conv2D(
                     64, kernel_size=(3, 3), strides=1, padding='same', use_bias=False
