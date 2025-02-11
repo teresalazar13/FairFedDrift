@@ -58,7 +58,7 @@ class NN_model:
 
     def compile(self, dataset):
         if dataset.is_large:
-            optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+            optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
         else:
             optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
 
