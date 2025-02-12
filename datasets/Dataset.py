@@ -8,7 +8,10 @@ class Dataset:
         self.input_shape = input_shape
         self.is_large = is_large
         self.is_binary_target = is_binary_target
-        self.n_rounds = 10  # number of rounds per timestep
+        if self.is_large:
+            self.n_rounds = 5
+        else:
+            self.n_rounds = 10  # number of rounds per timestep
         self.is_image = is_image
 
     def set_drifts(self, scenario):
