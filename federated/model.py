@@ -17,8 +17,8 @@ class NN_model:
             self.model.add(tf.keras.layers.Dense(1, activation='sigmoid', kernel_initializer=initializer))
         else:
             if dataset.is_large:  # CIFAR-100 - ResNet
-                self.batch_size = 32
-                self.n_epochs = 30
+                self.batch_size = 64
+                self.n_epochs = 50
                 self.model = tf.keras.models.Sequential()
                 self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
 
