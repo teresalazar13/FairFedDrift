@@ -22,8 +22,11 @@ class NN_model:
                 self.model = tf.keras.models.Sequential()
                 self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
 
-                resnet18, preprocess_input = Classifiers.get('resnet18')
-                resnet_model = resnet18(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+                if seed == 1:
+                    resnet18, preprocess_input = Classifiers.get('resnet18')
+                    resnet_model = resnet18(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+                else:
+                    resnet_model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
                 for layer in resnet_model.layers:
                     if isinstance(layer, tf.keras.layers.BatchNormalization):
                         layer.trainable = True
