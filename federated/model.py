@@ -1,7 +1,7 @@
 import tensorflow as tf
 from classification_models.keras import Classifiers
 from keras.applications.resnet50 import ResNet50
-from tensorflow.keras.applications import MobileNetV3Small
+from tensorflow.keras.applications import MobileNet
 
 
 
@@ -24,15 +24,16 @@ class NN_model:
                 self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
 
                 #resnet_model50 = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-                resnet18, preprocess_input = Classifiers.get('resnet18')
-                resnet_model18 = resnet18(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-                #mobilenet_model = MobileNetV3Small(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-                for layer in resnet18.layers:
+                #resnet18, preprocess_input = Classifiers.get('resnet18')
+                #resnet_model18 = resnet18(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+
+                mobilenet_model = MobileNet(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+                for layer in mobilenet_model.layers:
                     if isinstance(layer, tf.keras.layers.BatchNormalization):
                         layer.trainable = True
                     else:
                         layer.trainable = False
-                self.model.add(resnet18)
+                self.model.add(mobilenet_model)
                 self.model.add(tf.keras.layers.GlobalAveragePooling2D())
                 self.model.add(tf.keras.layers.Dense(256, activation='relu'))
                 self.model.add(tf.keras.layers.Dropout(.25))
