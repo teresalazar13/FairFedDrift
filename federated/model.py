@@ -1,6 +1,6 @@
 import tensorflow as tf
 from classification_models.keras import Classifiers
-from keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.applications import MobileNetV3Small
 
 

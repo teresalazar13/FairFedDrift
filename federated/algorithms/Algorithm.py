@@ -48,6 +48,36 @@ def get_y(y_true_raw, y_pred_raw, is_binary_target):
     return y_true, y_pred
 
 
+
+def scale_weights(local_weights, local_count):
+    scaled_local_weights = []
+    for i in range(len(local_weights)):
+        scaled_local_weights.append(local_count * local_weights[i])
+
+    return scaled_local_weights
+
+
+def sum_weights(current_global_weights, local_weights, local_count):
+    scaled_local_weights = scale_weights(local_weights, local_count)
+    local_weights_list = [current_global_weights, scaled_local_weights]
+
+    global_weights = []
+    for grad_list_tuple in zip(*local_weights_list):
+        layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)
+        global_weights.append(layer_mean)
+
+    return global_weights
+
+
+def divide_weights(scaled_global_weights, global_count):
+    global_weights = []
+
+    for i in range(len(scaled_global_weights)):
+        global_weights.append(scaled_global_weights[i] / global_count)
+
+    return global_weights
+
+
 def average_weights(weights_list, scaling_factors):
     scaled_local_weights_list = []
     global_count = sum(scaling_factors)

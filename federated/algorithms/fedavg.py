@@ -1,7 +1,8 @@
-from federated.algorithms.Algorithm import Algorithm, average_weights, test
+from federated.algorithms.Algorithm import Algorithm, average_weights, test, sum_weights, divide_weights, scale_weights
 from federated.algorithms.Identity import Identity
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics
+from tensorflow.keras import backend as K
 import logging
 import time
 
@@ -36,9 +37,9 @@ class FedAvg(Algorithm):
 def train_and_average(global_model, dataset, clients_data, timestep, seed):
     for cround in range(dataset.n_rounds):
         start = time.time()
+        total_count = 0
+        global_weights_summed = []
 
-        local_weights_list = []
-        client_scaling_factors_list = []
         for client in range(dataset.n_clients):
             x, y, s, _ = clients_data[timestep][client]
             global_weights = global_model.get_weights()
@@ -46,15 +47,19 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             local_model.compile(dataset)
             local_model.set_weights(global_weights)
             local_model.learn(x, y)
-            local_weights_list.append(local_model.get_weights())
-            client_scaling_factors_list.append(len(x))
-            # K.clear_session()
+            local_count = len(x)
+            local_weights = local_model.get_weights()
+            if not global_weights_summed:
+                global_weights_summed = scale_weights(local_weights, local_count)
+            else:
+                global_weights_summed = sum_weights(global_weights_summed, local_weights, local_count)
+            total_count += local_count
+            K.clear_session()
             logging.info("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
 
-        new_global_weights = average_weights(local_weights_list, client_scaling_factors_list)
+        new_global_weights = divide_weights(global_weights_summed, total_count)
         global_model.set_weights(new_global_weights)
         logging.info("Averaged models on timestep {} cround {}".format(timestep, cround))
-
         end = time.time()
         logging.info(end - start)
 
