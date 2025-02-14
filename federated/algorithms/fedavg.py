@@ -56,6 +56,6 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
         logging.info("Averaged models on timestep {} cround {}".format(timestep, cround))
 
         end = time.time()
-        print(end - start)
+        logging.info(end - start)
 
     return global_model

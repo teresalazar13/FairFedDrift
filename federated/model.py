@@ -1,7 +1,7 @@
 import tensorflow as tf
 from classification_models.keras import Classifiers
 from keras.applications.resnet50 import ResNet50
-from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.applications import MobileNetV3Small
 
 
 
@@ -27,7 +27,7 @@ class NN_model:
                 #resnet18, preprocess_input = Classifiers.get('resnet18')
                 #resnet_model18 = resnet18(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 
-                mobilenet_model = MobileNetV2(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+                mobilenet_model = MobileNetV3Small(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
                 for layer in mobilenet_model.layers:
                     if isinstance(layer, tf.keras.layers.BatchNormalization):
                         layer.trainable = True
