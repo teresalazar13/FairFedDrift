@@ -49,9 +49,7 @@ class NNModel(nn.Module):
     def learn(self, x, y):
         x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor
         y = torch.tensor(y, dtype=torch.float32)  # Convert labels to tensor
-        print(y.shape)
-        y = torch.argmax(y, dim=1)
-        print(y.shape)
+        y = torch.argmax(y, dim=1)  # TODO - not sure why it comes as torch.Size([600, 1, 100]) and need to conver to torch.Size([600, 100])
         y = y.to(torch.float)
         x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
 
