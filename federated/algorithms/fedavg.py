@@ -1,6 +1,7 @@
 from federated.algorithms.Algorithm import Algorithm, average_weights, test, sum_weights, divide_weights, scale_weights
 from federated.algorithms.Identity import Identity
 from federated.model import NN_model
+from federated.modelPT import NNModel
 from metrics.MetricFactory import get_metrics
 import logging
 import time
@@ -27,7 +28,7 @@ class FedAvg(Algorithm):
                     [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)]  # Set 4GB max usage
                 )
 
-        global_model = NN_model(dataset, seed)
+        global_model = NNModel(dataset, seed)
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
         # Train with data from first timestep
         global_model = train_and_average(global_model, dataset, clients_data, 0, seed)
@@ -56,8 +57,8 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             print_gpu_memory()
 
             x, y, s, _ = clients_data[timestep][client]
-            local_model = NN_model(dataset, seed)
-            local_model.compile(dataset)
+            local_model = NNModel(dataset, seed)
+            local_model.compile()
             local_model.set_weights(global_model.get_weights())
             local_model.learn(x, y)
             local_count = len(x)
