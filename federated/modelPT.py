@@ -76,25 +76,38 @@ class NNModel(nn.Module):
         self.criterion = nn.BCELoss() if self.dataset.is_binary_target else nn.CrossEntropyLoss()
 
     def learn(self, x, y):
-        x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor
-        y = torch.tensor(y, dtype=torch.float32)  # Convert labels to tensor
+        # Convert input and labels to tensors with the correct dtype
+        x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor (B, H, W, C)
+        y = torch.tensor(y, dtype=torch.int64)  # Convert labels to tensor (B, ) or (B, num_classes)
+
+        # Handle input tensor dimensions (if 3D, add the channel dimension)
         if x.dim() == 3:
             x = x.unsqueeze(1)  # Add channel dimension (B, 1, H, W)
+
+        # Permute the input tensor to match the required shape for CNNs (B, C, H, W)
         x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
 
-        self.model.train()
-        self.optimizer.zero_grad()
-        outputs = self.model(x)
+        self.model.train()  # Set the model to training mode
+        self.optimizer.zero_grad()  # Clear previous gradients
 
-        if y.dim() > 1:
-            y = y.argmax(dim=1)  # Convert from (B, num_classes) to (B,)
-        # Ensure target tensor is of type Long (torch.int64)
-        y = y.long()  # Ensure the target tensor is of type torch.int64
-        print(y)
-        loss = self.criterion(outputs, y)
+        # Forward pass through the model
+        outputs = self.model(x)  # outputs shape should be (B, num_classes) for classification
+
+        # If the target `y` is one-hot encoded, convert it to class indices
+        if y.dim() > 1:  # If y is one-hot encoded (B, num_classes)
+            y = y.argmax(dim=1)  # Convert to class indices (B, )
+
+        # Ensure the target tensor is of type Long (torch.int64), which is expected by cross_entropy
+        y = y.long()
+
+        # Compute the loss
+        loss = self.criterion(outputs, y)  # CrossEntropy expects (B, num_classes) for outputs and (B,) for targets
+
+        # Backward pass
         loss.backward()
-        self.optimizer.step()
-        return loss.item()
+        self.optimizer.step()  # Update the model parameters
+
+        return loss.item()  # Return the scalar loss value for logging/monitoring
 
     def predict(self, x):
         x = torch.tensor(x, dtype=torch.float32)
