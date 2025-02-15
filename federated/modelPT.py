@@ -54,6 +54,8 @@ class NNModel(nn.Module):
         self.model.train()
         self.optimizer.zero_grad()
         outputs = self.model(x)
+        print(x)
+        print(y)
         loss = self.criterion(outputs, y)
         loss.backward()
         self.optimizer.step()
