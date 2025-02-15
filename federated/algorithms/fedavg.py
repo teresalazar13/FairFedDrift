@@ -5,6 +5,7 @@ from metrics.MetricFactory import get_metrics
 from tensorflow.keras import backend as K
 import logging
 import time
+import gc
 
 
 class FedAvg(Algorithm):
@@ -54,13 +55,20 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             else:
                 global_weights_summed = sum_weights(global_weights_summed, local_weights, local_count)
             total_count += local_count
-            K.clear_session()
             logging.info("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
+
+            K.clear_session()
+            del local_model, x, y, s, local_weights
+            K.clear_session()
+            gc.collect()
 
         new_global_weights = divide_weights(global_weights_summed, total_count)
         global_model.set_weights(new_global_weights)
         logging.info("Averaged models on timestep {} cround {}".format(timestep, cround))
         end = time.time()
         logging.info(end - start)
+
+        del global_weights_summed, new_global_weights
+        gc.collect()
 
     return global_model
