@@ -48,17 +48,21 @@ class NNModel(nn.Module):
 
     def learn(self, x, y):
         x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor
-        y = torch.tensor(y, dtype=torch.float32)  # Convert labels to tensor
+        y = torch.tensor(y, dtype=torch.long)  # Convert labels to tensor as integer (long) type
         x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
 
         self.model.train()
         self.optimizer.zero_grad()
         outputs = self.model(x)
-        print(x.shape())
-        print(y.shape())
-        loss = self.criterion(outputs, y)
+
+        print(f"outputs shape: {outputs.shape}, y shape: {y.shape}")
+        print(f"y dtype: {y.dtype}")  # Check dtype to ensure it's long (integers)
+
+        # Compute loss
+        loss = self.criterion(outputs, y)  # CrossEntropyLoss expects y as class indices (long)
         loss.backward()
         self.optimizer.step()
+
         return loss.item()
 
     def predict(self, x):
