@@ -48,7 +48,12 @@ class NNModel(nn.Module):
 
     def learn(self, x, y):
         x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor
-        y = torch.tensor(y, dtype=torch.long)  # Convert labels to tensor as integer (long) type
+        y = torch.tensor(y, dtype=torch.float32)  # Convert labels to tensor
+
+        # If y is one-hot encoded, convert it to class indices
+        if y.dim() > 1 and y.shape[1] > 1:  # Check if y is one-hot encoded
+            y = torch.argmax(y, dim=1)  # Convert one-hot to class indices
+
         x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
 
         self.model.train()
@@ -64,6 +69,7 @@ class NNModel(nn.Module):
         self.optimizer.step()
 
         return loss.item()
+
 
     def predict(self, x):
         x = torch.tensor(x, dtype=torch.float32)
