@@ -82,13 +82,12 @@ class NNModel(nn.Module):
             x = x.unsqueeze(1)  # Add channel dimension (B, 1, H, W)
         x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
 
-        # Add the batch dimension if missing
-        if len(x.shape) == 3:  # If input is missing batch dimension
-            x = x.unsqueeze(0)  # Add batch dimension at the start
-
         self.model.train()
         self.optimizer.zero_grad()
         outputs = self.model(x)
+
+        if y.dim() > 1:
+            y = y.argmax(dim=1)  # Convert from (B, num_classes) to (B,)
         loss = self.criterion(outputs, y)
         loss.backward()
         self.optimizer.step()
