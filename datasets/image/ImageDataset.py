@@ -1,7 +1,7 @@
 import random
 import numpy as np
+import torch
 from scipy.ndimage import rotate
-from tensorflow.keras.utils import to_categorical
 from datasets.Dataset import Dataset
 
 
@@ -53,7 +53,10 @@ class ImageDataset(Dataset):
                 y_original = np.concatenate((y_priv_round_client[size_unpriv:], y_unpriv_round_client[:size_unpriv]), axis=0)
                 s = [1] * (len(X_priv_round_client) - size_unpriv) + [0] * size_unpriv
                 X = X.astype('float32') / 255.0
-                y = to_categorical(y_original)
+                num_classes = np.max(y_original) + 1
+                y_tensor = torch.tensor(y_original, dtype=torch.long)
+                y_one_hot = torch.nn.functional.one_hot(y_tensor, num_classes=num_classes).float()
+                y = y_one_hot.numpy()
                 perm = list(range(0, len(X)))
                 random.shuffle(perm)
                 X = X[perm]

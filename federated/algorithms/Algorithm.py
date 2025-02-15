@@ -1,6 +1,6 @@
 from abc import abstractmethod
-import tensorflow as tf
 import logging
+import torch
 
 
 class Algorithm:
@@ -63,8 +63,8 @@ def sum_weights(current_global_weights, local_weights, local_count):
 
     global_weights = []
     for grad_list_tuple in zip(*local_weights_list):
-        layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)
-        global_weights.append(layer_mean)
+        layer_sum = torch.sum(torch.stack([torch.tensor(layer) for layer in grad_list_tuple]), dim=0)
+        global_weights.append(layer_sum)
 
     return global_weights
 
@@ -84,15 +84,12 @@ def average_weights(weights_list, scaling_factors):
 
     for local_weights, local_count in zip(weights_list, scaling_factors):
         scale = local_count / global_count
-        scaled_local_weights = []
-        for i in range(len(local_weights)):
-            scaled_local_weights.append(scale * local_weights[i])
-
+        scaled_local_weights = [scale * torch.tensor(layer) for layer in local_weights]
         scaled_local_weights_list.append(scaled_local_weights)
 
     global_weights = []
     for grad_list_tuple in zip(*scaled_local_weights_list):
-        layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)
+        layer_mean = torch.sum(torch.stack(grad_list_tuple), dim=0)
         global_weights.append(layer_mean)
 
     return global_weights

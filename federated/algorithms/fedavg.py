@@ -1,12 +1,10 @@
 from federated.algorithms.Algorithm import Algorithm, average_weights, test, sum_weights, divide_weights, scale_weights
 from federated.algorithms.Identity import Identity
-from federated.model import NN_model
 from federated.modelPT import NNModel
 from metrics.MetricFactory import get_metrics
 import logging
 import time
 import gc
-import tensorflow as tf
 import psutil
 
 
@@ -44,9 +42,6 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
         global_weights_summed = None
 
         for client in range(dataset.n_clients):
-            print_memory_usage("Before Training")
-            print_gpu_memory()
-
             x, y, s, _ = clients_data[timestep][client]
             local_model = NNModel(dataset, seed)
             local_model.compile()
@@ -69,22 +64,3 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
 
     return global_model
 
-
-def print_gpu_memory():
-    gpus = tf.config.experimental.list_physical_devices('GPU')
-    if not gpus:
-        print("[INFO] No GPU detected.")
-        return
-    for gpu in gpus:
-        try:
-            device_name = gpu.name.replace("physical_device:", "")  # Extract device name
-            details = tf.config.experimental.get_memory_info(device_name)  # Pass as string
-            print(f"GPU Memory (Used): {details['current'] / 1024**2:.2f} MB")
-        except Exception as e:
-            print(f"Could not retrieve GPU memory info: {e}")
-
-
-def print_memory_usage(label):
-    process = psutil.Process()
-    mem = process.memory_info().rss / (1024 * 1024)  # Convert bytes to MB
-    logging.info(f"[{label}] Memory Usage: {mem:.2f} MB")

@@ -3,7 +3,6 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.models as models
-import torchvision.transforms as transforms
 
 
 class NNModel(nn.Module):
@@ -48,21 +47,22 @@ class NNModel(nn.Module):
         return self.model(x)
 
     def set_weights(self, weights):
-        """Set model weights from given list of NumPy arrays."""
+        """Set model weights from a given list of NumPy arrays or tensors."""
         with torch.no_grad():  # Disable gradient tracking
             for param, weight in zip(self.model.parameters(), weights):
-                # Ensure weight is a NumPy array first
-                if isinstance(weight, (int, float)):  # If it's a scalar, make it an array
-                    weight = np.array([weight])
-                elif hasattr(weight, 'numpy'):  # If it's a TensorFlow tensor, convert it
-                    weight = weight.numpy()
+                # Convert NumPy array or scalar to a PyTorch tensor
+                if isinstance(weight, np.ndarray) or isinstance(weight, (int, float)):
+                    weight_tensor = torch.as_tensor(weight, dtype=param.dtype, device=param.device)
+                elif isinstance(weight, torch.Tensor):
+                    weight_tensor = weight.to(dtype=param.dtype, device=param.device)
+                else:
+                    raise TypeError(f"Unsupported weight type: {type(weight)}")
 
-                weight_tensor = torch.tensor(weight, dtype=param.dtype)  # Convert to PyTorch tensor
-
-                if weight_tensor.shape != param.shape:  # Ensure shape matches
+                # Ensure weight shape matches model parameter shape
+                if weight_tensor.shape != param.shape:
                     raise ValueError(f"Shape mismatch: Expected {param.shape}, got {weight_tensor.shape}")
 
-                param.copy_(weight_tensor)  # Copy into model
+                param.copy_(weight_tensor)  # Update model weights
 
     def get_weights(self):
         return [param.detach().cpu().numpy() for param in self.model.parameters()]
@@ -78,8 +78,7 @@ class NNModel(nn.Module):
     def learn(self, x, y):
         x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor
         y = torch.tensor(y, dtype=torch.float32)  # Convert labels to tensor
-        if len(x.shape) == 4 and x.shape[-1] in [1, 3]:  # Check if last dim is color channels
-            x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
+        x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
 
         self.model.train()
         self.optimizer.zero_grad()
@@ -90,23 +89,10 @@ class NNModel(nn.Module):
         return loss.item()
 
     def predict(self, x):
-        # Convert NumPy array to PyTorch tensor if necessary
-        if isinstance(x, np.ndarray):
-            x = torch.tensor(x, dtype=torch.float32)
-
-        # Ensure the input has the correct shape for PyTorch
-        if len(x.shape) == 4 and x.shape[-1] == 3:
-            # If the input shape is (batch_size, height, width, 3), convert it to (batch_size, 3, height, width)
-            x = x.permute(0, 3, 1, 2)
-
-        # Add the batch dimension if missing
-        if len(x.shape) == 3:  # If input is missing batch dimension
-            x = x.unsqueeze(0)  # Add batch dimension at the start
-
-        # Make sure the model is in eval mode
+        x = torch.tensor(x, dtype=torch.float32)
+        x = x.permute(0, 3, 1, 2)
         self.model.eval()
 
-        # Perform prediction without tracking gradients
         with torch.no_grad():
             y_pred_raw = self.model(x)
 

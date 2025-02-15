@@ -1,6 +1,6 @@
 from metrics.Metric import Metric
-
-import tensorflow as tf
+import torch
+import torch.nn.functional as F
 
 
 class Loss(Metric):
@@ -11,14 +11,11 @@ class Loss(Metric):
 
     def calculate(self, _, __, y_true_raw, y_pred_raw, s):
         if y_pred_raw.shape[1] == 1:
-            # Binary classification problem (y_pred_raw has shape (batch_size, 1))
-            y_pred_raw_reshaped = tf.reshape(y_pred_raw, [len(y_pred_raw)])
-            #logging.info(tf.shape(y_true_raw))
-            #logging.info(tf.shape(y_pred_raw_reshaped))
-            loss = tf.keras.losses.binary_crossentropy(y_true_raw, y_pred_raw_reshaped)
+            # Binary classification (y_pred_raw has shape (batch_size, 1))
+            y_pred_raw_reshaped = torch.squeeze(y_pred_raw, dim=1)  # Remove single dimension
+            loss = F.binary_cross_entropy(y_pred_raw_reshaped, y_true_raw)
         else:
-            # Categorical classification problem (y_pred_raw has shape (batch_size, num_classes))
-            loss = tf.keras.losses.categorical_crossentropy(y_true_raw, y_pred_raw)
-        mean_loss = tf.reduce_mean(loss).numpy()
+            # Categorical classification (y_pred_raw has shape (batch_size, num_classes))
+            loss = F.cross_entropy(y_pred_raw, y_true_raw)
 
-        return mean_loss
+        return loss.mean().item()
