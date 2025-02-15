@@ -47,9 +47,15 @@ class NNModel(nn.Module):
         return self.model(x)
 
     def set_weights(self, weights):
-        with torch.no_grad():
+        """Set model weights from given list of NumPy arrays."""
+        with torch.no_grad():  # Disable gradient tracking
             for param, weight in zip(self.model.parameters(), weights):
-                param.copy_(torch.tensor(weight, dtype=param.dtype))
+                weight_tensor = torch.tensor(weight, dtype=param.dtype)  # Convert to tensor
+
+                if weight_tensor.shape != param.shape:  # Ensure shape matches
+                    raise ValueError(f"Shape mismatch: Expected {param.shape}, got {weight_tensor.shape}")
+
+                param.copy_(weight_tensor)  # Copy into model
 
     def get_weights(self):
         return [param.detach().cpu().numpy() for param in self.model.parameters()]
