@@ -2,7 +2,6 @@ from federated.algorithms.Algorithm import Algorithm, average_weights, test, sum
 from federated.algorithms.Identity import Identity
 from federated.model import NN_model
 from metrics.MetricFactory import get_metrics
-from tensorflow.keras import backend as K
 import logging
 import time
 import gc
@@ -23,6 +22,10 @@ class FedAvg(Algorithm):
         if gpus:
             for gpu in gpus:
                 tf.config.experimental.set_memory_growth(gpu, True)
+                tf.config.experimental.set_virtual_device_configuration(
+                    gpu,
+                    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)]  # Set 4GB max usage
+                )
 
         global_model = NN_model(dataset, seed)
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
@@ -46,7 +49,7 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
     for cround in range(dataset.n_rounds):
         start = time.time()
         total_count = 0
-        global_weights_summed = []
+        global_weights_summed = None
 
         for client in range(dataset.n_clients):
             print_memory_usage("Before Training")
@@ -59,7 +62,7 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             local_model.learn(x, y)
             local_count = len(x)
             local_weights = local_model.get_weights()
-            if not global_weights_summed:
+            if global_weights_summed is None:
                 global_weights_summed = scale_weights(local_weights, local_count)
             else:
                 global_weights_summed = sum_weights(global_weights_summed, local_weights, local_count)
@@ -69,10 +72,9 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             print_memory_usage("After Training")
             print_gpu_memory()
 
-            del local_model, x, y, s, _, local_weights  # TODO _
-            K.clear_session()
+            del local_model, x, y, s, _, local_weights
+            tf.keras.backend.clear_session()
             gc.collect()
-
             print_memory_usage("After Cleanup")
             print_gpu_memory()
 
@@ -83,6 +85,7 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
         logging.info(end - start)
 
         del global_weights_summed, new_global_weights
+        tf.keras.backend.clear_session()
         gc.collect()
 
     return global_model
