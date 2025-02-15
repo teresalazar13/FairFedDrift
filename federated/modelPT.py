@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -50,7 +51,13 @@ class NNModel(nn.Module):
         """Set model weights from given list of NumPy arrays."""
         with torch.no_grad():  # Disable gradient tracking
             for param, weight in zip(self.model.parameters(), weights):
-                weight_tensor = torch.tensor(weight, dtype=param.dtype)  # Convert to tensor
+                # Ensure weight is a NumPy array first
+                if isinstance(weight, (int, float)):  # If it's a scalar, make it an array
+                    weight = np.array([weight])
+                elif hasattr(weight, 'numpy'):  # If it's a TensorFlow tensor, convert it
+                    weight = weight.numpy()
+
+                weight_tensor = torch.tensor(weight, dtype=param.dtype)  # Convert to PyTorch tensor
 
                 if weight_tensor.shape != param.shape:  # Ensure shape matches
                     raise ValueError(f"Shape mismatch: Expected {param.shape}, got {weight_tensor.shape}")
