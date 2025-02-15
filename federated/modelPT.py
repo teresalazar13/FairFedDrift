@@ -63,6 +63,9 @@ class NNModel(nn.Module):
         self.criterion = nn.BCELoss() if self.dataset.is_binary_target else nn.CrossEntropyLoss()
 
     def learn(self, x, y):
+        x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor
+        y = torch.tensor(y, dtype=torch.float32)  # Convert labels to tensor
+
         self.model.train()
         self.optimizer.zero_grad()
         outputs = self.model(x)
