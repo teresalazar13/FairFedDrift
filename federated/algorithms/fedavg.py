@@ -91,14 +91,15 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
 def print_gpu_memory():
     gpus = tf.config.experimental.list_physical_devices('GPU')
     if not gpus:
-        logging.info("[INFO] No GPU detected.")
+        print("[INFO] No GPU detected.")
         return
     for gpu in gpus:
         try:
-            details = tf.config.experimental.get_memory_info(gpu)  # FIX: Pass gpu directly
-            logging.info(f"GPU Memory (Used): {details['current'] / 1024**2:.2f} MB")
+            device_name = gpu.name.replace("physical_device:", "")  # Extract device name
+            details = tf.config.experimental.get_memory_info(device_name)  # Pass as string
+            print(f"GPU Memory (Used): {details['current'] / 1024**2:.2f} MB")
         except Exception as e:
-            logging.info(f"Could not retrieve GPU memory info: {e}")
+            print(f"Could not retrieve GPU memory info: {e}")
 
 
 def print_memory_usage(label):
