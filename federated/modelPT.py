@@ -52,7 +52,7 @@ class NNModel(nn.Module):
 
         # If y is one-hot encoded, convert it to class indices
         if y.dim() > 1 and y.shape[1] > 1:  # Check if y is one-hot encoded
-            y = torch.argmax(y, dim=1)  # Convert one-hot to class indices
+            y = torch.argmax(y, dim=2)  # Convert one-hot to class indices (flatten last dimension)
 
         x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
 
