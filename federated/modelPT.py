@@ -65,6 +65,8 @@ class NNModel(nn.Module):
     def learn(self, x, y):
         x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor
         y = torch.tensor(y, dtype=torch.float32)  # Convert labels to tensor
+        if len(x.shape) == 4 and x.shape[-1] in [1, 3]:  # Check if last dim is color channels
+            x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
 
         self.model.train()
         self.optimizer.zero_grad()
