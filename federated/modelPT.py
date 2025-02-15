@@ -88,6 +88,9 @@ class NNModel(nn.Module):
 
         if y.dim() > 1:
             y = y.argmax(dim=1)  # Convert from (B, num_classes) to (B,)
+        # Ensure target tensor is of type Long (torch.int64)
+        y = y.long()  # Ensure the target tensor is of type torch.int64
+        print(y)
         loss = self.criterion(outputs, y)
         loss.backward()
         self.optimizer.step()
