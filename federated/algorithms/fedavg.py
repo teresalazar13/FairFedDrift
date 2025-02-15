@@ -19,15 +19,6 @@ class FedAvg(Algorithm):
         super().__init__(name, color, marker)
 
     def perform_fl(self, seed, clients_data, dataset):
-        gpus = tf.config.experimental.list_physical_devices('GPU')
-        if gpus:
-            for gpu in gpus:
-                tf.config.experimental.set_memory_growth(gpu, True)
-                tf.config.experimental.set_virtual_device_configuration(
-                    gpu,
-                    [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=4096)]  # Set 4GB max usage
-                )
-
         global_model = NNModel(dataset, seed)
         clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
         # Train with data from first timestep
@@ -70,24 +61,11 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             total_count += local_count
             logging.info("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
 
-            print_memory_usage("After Training")
-            print_gpu_memory()
-
-            del local_model, x, y, s, _, local_weights
-            tf.keras.backend.clear_session()
-            gc.collect()
-            print_memory_usage("After Cleanup")
-            print_gpu_memory()
-
         new_global_weights = divide_weights(global_weights_summed, total_count)
         global_model.set_weights(new_global_weights)
         logging.info("Averaged models on timestep {} cround {}".format(timestep, cround))
         end = time.time()
         logging.info(end - start)
-
-        del global_weights_summed, new_global_weights
-        tf.keras.backend.clear_session()
-        gc.collect()
 
     return global_model
 

@@ -90,6 +90,19 @@ class NNModel(nn.Module):
         return loss.item()
 
     def predict(self, x):
+        # Ensure that x is a PyTorch tensor
+        if isinstance(x, np.ndarray):
+            x = torch.tensor(x, dtype=torch.float32)  # Convert NumPy array to PyTorch tensor
+
+        # Add the batch dimension if it is missing
+        if len(x.shape) == 3:  # If input is missing batch dimension
+            x = x.unsqueeze(0)  # Add batch dimension at the start
+
+        # Ensure the model is in evaluation mode
         self.model.eval()
-        with torch.no_grad():
-            return self.model(x)
+
+        # Perform prediction
+        with torch.no_grad():  # Disable gradient calculation for inference
+            y_pred_raw = self.model(x)
+
+        return y_pred_raw
