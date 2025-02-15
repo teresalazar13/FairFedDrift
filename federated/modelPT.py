@@ -78,7 +78,12 @@ class NNModel(nn.Module):
     def learn(self, x, y):
         x = torch.tensor(x, dtype=torch.float32)  # Convert input to tensor
         y = torch.tensor(y, dtype=torch.float32)  # Convert labels to tensor
+        print(f"Shape of x before permuting: {x.shape}")
         x = x.permute(0, 3, 1, 2)  # Convert (B, H, W, C) → (B, C, H, W)
+
+        # Add the batch dimension if missing
+        if len(x.shape) == 3:  # If input is missing batch dimension
+            x = x.unsqueeze(0)  # Add batch dimension at the start
 
         self.model.train()
         self.optimizer.zero_grad()
@@ -90,7 +95,9 @@ class NNModel(nn.Module):
 
     def predict(self, x):
         x = torch.tensor(x, dtype=torch.float32)
+        print(f"Shape of x before permuting: {x.shape}")
         x = x.permute(0, 3, 1, 2)
+
         self.model.eval()
 
         with torch.no_grad():
