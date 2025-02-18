@@ -1,6 +1,6 @@
 from metrics.Metric import Metric
-import torch
-import torch.nn.functional as F
+
+import tensorflow as tf
 
 
 class LossPrivileged(Metric):
@@ -10,19 +10,21 @@ class LossPrivileged(Metric):
         super().__init__(name)
 
     def calculate(self, _, __, y_true_raw, y_pred_raw, s):
-        mask_s1 = torch.where(s == 1)[0]  # Extract indices
-
-        # Select only the relevant samples
-        y_true_s1 = y_true_raw[mask_s1]
-        y_pred_s1 = y_pred_raw[mask_s1]
+        mask_s1 = tf.where(s == 1)
+        y_true_s1 = tf.gather(y_true_raw, mask_s1)
+        y_pred_s1 = tf.gather(y_pred_raw, mask_s1)
 
         if y_pred_raw.shape[1] == 1:
-            # Binary classification
-            y_true_s1 = y_true_s1.view(-1)  # Flatten
-            y_pred_s1 = y_pred_s1.view(-1)  # Flatten
-            loss_s1 = F.binary_cross_entropy(y_pred_s1, y_true_s1)
+            # Binary classification problem (y_pred_raw has shape (batch_size, 1))
+            y_true_s1_reshaped = tf.reshape(y_true_s1, [len(y_true_s1)])
+            y_pred_s1_reshaped = tf.reshape(y_pred_s1, [len(y_pred_s1)])
+            #logging.info(tf.shape(y_true_s1_reshaped))
+            #logging.info(tf.shape(y_pred_s1_reshaped))
+            loss_s1 = tf.keras.losses.binary_crossentropy(y_true_s1_reshaped, y_pred_s1_reshaped)
         else:
-            # Categorical classification
-            loss_s1 = F.cross_entropy(y_pred_s1, y_true_s1)
+            # Categorical classification problem (y_pred_raw has shape (batch_size, num_classes))
+            loss_s1 = tf.keras.losses.categorical_crossentropy(y_true_s1, y_pred_s1)
 
-        return loss_s1.mean().item()
+        mean_loss_s1 = tf.reduce_mean(loss_s1).numpy()
+
+        return mean_loss_s1

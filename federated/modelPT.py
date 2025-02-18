@@ -57,7 +57,7 @@ class NNModel(nn.Module):
         self.optimizer.zero_grad()
         outputs = self.model(x)
 
-        loss = self.criterion(outputs, y)  # CrossEntropyLoss expects y as class indices (long)
+        loss = self.criterion(outputs, y)
         loss.backward()
         self.optimizer.step()
 
