@@ -17,6 +17,7 @@ import tensorflow as tf
 
 from federated.algorithms.Algorithm import get_y
 from federated.algorithms.Identity import Identity
+from metrics.Accuracy import Accuracy
 from metrics.MetricFactory import get_metrics
 
 class NNPT:
@@ -38,12 +39,10 @@ class NNPT:
         self.model.train()
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.SGD(self.model.parameters(), lr=0.1)
-
         x_tensor = torch.tensor(x_, dtype=torch.float32).unsqueeze(1)  # Add channel dim  # TODO - check if for cifar100 this works
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)  # Convert from one-hot to class indices. Ensure y is Long type for CrossEntropyLoss
         dataset = TensorDataset(x_tensor, y_tensor)
         dataloader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
-
         for epoch in range(self.n_epochs):
             for batch, (X, y) in enumerate(dataloader):
                 self.model.zero_grad()
@@ -51,6 +50,7 @@ class NNPT:
                 loss = criterion(pred, y)
                 loss.backward()
                 optimizer.step()
+
     def predict(self, x):
         self.model.eval()
         x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(1)  # Add channel dim  # TODO - check if for cifar100 this works
@@ -77,7 +77,7 @@ class NNPT_(nn.Module):
         x = self.pool(x)  # Max pooling
         x = torch.flatten(x, start_dim=1)  # Flatten
         x = torch.nn.functional.relu(self.fc1(x))  # Fully connected layer + ReLU
-        x = torch.nn.functional.softmax(self.fc2(x), dim=1)  # Output layer with softmax
+        x = self.fc2(x)  # Output layer with softmax
         return x
 
 
@@ -161,12 +161,14 @@ def average_weights(weights_list, scaling_factors):
             layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)
             global_weights.append(layer_mean)
 
-    else:  # TODO - check if it weighted average
+    else:
         global_weights = copy.deepcopy(weights_list[0])
+        global_count = sum(scaling_factors)
         for key in global_weights.keys():
+            global_weights[key] *= scaling_factors[0]  # Scale first model's weights
             for i in range(1, len(weights_list)):
-                global_weights[key] += weights_list[i][key]
-            global_weights[key] = torch.div(global_weights[key], len(weights_list))
+                global_weights[key] += weights_list[i][key] * scaling_factors[i]  # Scale other models' weights
+            global_weights[key] = torch.div(global_weights[key], global_count)  # Normalize by total samples
 
     return global_weights
 
