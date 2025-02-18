@@ -4,10 +4,11 @@ import torch
 import random
 import numpy as np
 from torch import nn
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, TensorDataset
 from torchvision import datasets
 from torchvision.transforms import ToTensor
 import sys
+import copy
 
 
 from keras.datasets import fashion_mnist
@@ -18,21 +19,66 @@ from federated.algorithms.Algorithm import get_y
 from federated.algorithms.Identity import Identity
 from metrics.MetricFactory import get_metrics
 
+class NNPT:
+    def __init__(self):
+        self.batch_size = 32
+        self.n_epochs = 5
+        self.model = NNPT_()
 
-class NNPT(nn.Module):  # TODO
+    def set_weights(self, weights):
+        self.model.load_state_dict(weights)
+
+    def get_weights(self):
+        return self.model.state_dict()
+
+    def compile(self):
+        pass
+
+    def learn(self, x_, y_):
+        self.model.train()
+        criterion = nn.CrossEntropyLoss()
+        optimizer = torch.optim.SGD(self.model.parameters(), lr=0.1)
+
+        x_tensor = torch.tensor(x_, dtype=torch.float32).unsqueeze(1)  # Add channel dim  # TODO - check if for cifar100 this works
+        y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)  # Convert from one-hot to class indices. Ensure y is Long type for CrossEntropyLoss
+        dataset = TensorDataset(x_tensor, y_tensor)
+        dataloader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
+
+        for epoch in range(self.n_epochs):
+            for batch, (X, y) in enumerate(dataloader):
+                self.model.zero_grad()
+                pred = self.model(X)
+                loss = criterion(pred, y)
+                loss.backward()
+                optimizer.step()
+    def predict(self, x):
+        self.model.eval()
+        x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(1)  # Add channel dim  # TODO - check if for cifar100 this works
+
+        return self.model(x_tensor).detach().numpy()
+
+
+class NNPT_(nn.Module):
     def __init__(self):
         super().__init__()
-
-        self.stack = nn.Sequential(
-            nn.Linear((28, 28, 1), 10),  # Hidden layer with 10 neurons
-            nn.Tanh(),  # Tanh activation function
-            nn.Linear(10, 1),  # Output layer with 1 neuron
-        )
+        in_channels = input_shape[0]
+        self.conv1 = nn.Conv2d(in_channels, 32, kernel_size=3, stride=1, padding=0)
+        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
+        # Calculate the flattened size after conv + pool
+        # Input: (1, 28, 28) → Conv(3x3) → (32, 26, 26) → Pool(2x2) → (32, 13, 13)
+        #After convolution: (32, 26, 26) (since 28 - 3 + 1 = 26)
+        #After pooling: (32, 13, 13) (dividing by 2)
+        #Flattened size: 32 × 13 × 13 = 5408
+        self.fc1 = nn.Linear(32 * 13 * 13, 100)  # Fully connected layer
+        self.fc2 = nn.Linear(100, 10)
 
     def forward(self, x):
-        logits = self.stack(x)
-
-        return nn.Softmax(logits, dim=1)
+        x = torch.nn.functional.relu(self.conv1(x))  # Convolution + ReLU
+        x = self.pool(x)  # Max pooling
+        x = torch.flatten(x, start_dim=1)  # Flatten
+        x = torch.nn.functional.relu(self.fc1(x))  # Fully connected layer + ReLU
+        x = torch.nn.functional.softmax(self.fc2(x), dim=1)  # Output layer with softmax
+        return x
 
 
 class NNTF:
@@ -50,7 +96,7 @@ class NNTF:
         self.model.set_weights(weights)
 
     def get_weights(self):
-        return self.model.get_weights()
+        return copy.deepcopy(self.model.get_weights())
 
     def compile(self):
         optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
@@ -98,21 +144,29 @@ def perform_fl(clients_data):
 
 
 def average_weights(weights_list, scaling_factors):
-    scaled_local_weights_list = []
-    global_count = sum(scaling_factors)
+    if is_tf:
+        scaled_local_weights_list = []
+        global_count = sum(scaling_factors)
 
-    for local_weights, local_count in zip(weights_list, scaling_factors):
-        scale = local_count / global_count
-        scaled_local_weights = []
-        for i in range(len(local_weights)):
-            scaled_local_weights.append(scale * local_weights[i])
+        for local_weights, local_count in zip(weights_list, scaling_factors):
+            scale = local_count / global_count
+            scaled_local_weights = []
+            for i in range(len(local_weights)):
+                scaled_local_weights.append(scale * local_weights[i])
 
-        scaled_local_weights_list.append(scaled_local_weights)
+            scaled_local_weights_list.append(scaled_local_weights)
 
-    global_weights = []
-    for grad_list_tuple in zip(*scaled_local_weights_list):
-        layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)  # TODO?
-        global_weights.append(layer_mean)
+        global_weights = []
+        for grad_list_tuple in zip(*scaled_local_weights_list):
+            layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)
+            global_weights.append(layer_mean)
+
+    else:  # TODO - check if it weighted average
+        global_weights = copy.deepcopy(weights_list[0])
+        for key in global_weights.keys():
+            for i in range(1, len(weights_list)):
+                global_weights[key] += weights_list[i][key]
+            global_weights[key] = torch.div(global_weights[key], len(weights_list))
 
     return global_weights
 
@@ -142,7 +196,10 @@ def train_and_average(global_model, clients_data, timestep):
 
     return global_model
 
-
+logging.basicConfig(
+    level=logging.DEBUG
+)
+logging.getLogger().addHandler(logging.StreamHandler())
 if sys.argv[1] == "tf":
     is_tf = True
 else:
