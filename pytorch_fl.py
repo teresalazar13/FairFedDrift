@@ -7,11 +7,15 @@ from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
 from torchvision import datasets
 from torchvision.transforms import ToTensor
+import torchvision.models as models
+
 import sys
 import copy
+import time
 
 
-from keras.datasets import fashion_mnist
+from keras.datasets import fashion_mnist, cifar100
+from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.utils import to_categorical
 import tensorflow as tf
 
@@ -20,11 +24,20 @@ from federated.algorithms.Identity import Identity
 from metrics.Accuracy import Accuracy
 from metrics.MetricFactory import get_metrics
 
+
+dataset = "large"
+
 class NNPT:
+    dataset = "large"
     def __init__(self):
-        self.batch_size = 32
-        self.n_epochs = 5
-        self.model = NNPT_()
+        if dataset == "small":
+            self.batch_size = 32
+            self.n_epochs = 5
+            self.model = NNPTSmall()
+        else:
+            self.batch_size = 64
+            self.n_epochs = 15
+            self.model = NNPTLarge()
 
     def set_weights(self, weights):
         self.model.load_state_dict(weights)
@@ -38,8 +51,12 @@ class NNPT:
     def learn(self, x_, y_):
         self.model.train()
         criterion = nn.CrossEntropyLoss()
-        optimizer = torch.optim.SGD(self.model.parameters(), lr=0.1)
-        x_tensor = torch.tensor(x_, dtype=torch.float32).unsqueeze(1)  # Add channel dim  # TODO - check if for cifar100 this works
+        dataset = "large"
+        if dataset == "small":
+            x_tensor = torch.tensor(x_, dtype=torch.float32).unsqueeze(1)  # Add channel dim  # TODO - check if for cifar100 this works
+        else:
+            x_tensor = torch.tensor(x_, dtype=torch.float32) # TODO - check if for cifar100 this works
+            x_tensor = x_tensor.permute(0, 3, 1, 2)
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)  # Convert from one-hot to class indices. Ensure y is Long type for CrossEntropyLoss
         dataset = TensorDataset(x_tensor, y_tensor)
         dataloader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
@@ -49,28 +66,35 @@ class NNPT:
                 pred = self.model(X)
                 loss = criterion(pred, y)
                 loss.backward()
+                if dataset == "small":
+                    optimizer = torch.optim.SGD(self.model.parameters(), lr=0.1)
+                else:
+                    optimizer = torch.optim.Adam(self.model.parameters(), lr=0.01)
                 optimizer.step()
 
     def predict(self, x):
         self.model.eval()
-        x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(1)  # Add channel dim  # TODO - check if for cifar100 this works
-
+        if dataset == "small":
+            x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(1)  # Add channel dim
+        else:
+            x_tensor = torch.tensor(x, dtype=torch.float32)
+            x_tensor = x_tensor.permute(0, 3, 1, 2)
         return self.model(x_tensor).detach().numpy()
 
 
-class NNPT_(nn.Module):
+class NNPTSmall(nn.Module):
     def __init__(self):
         super().__init__()
         in_channels = input_shape[0]
         self.conv1 = nn.Conv2d(in_channels, 32, kernel_size=3, stride=1, padding=0)
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.fc1 = nn.Linear(32 * 13 * 13, 100)  # Fully connected layer
+        self.fc2 = nn.Linear(100, 10)
         # Calculate the flattened size after conv + pool
         # Input: (1, 28, 28) → Conv(3x3) → (32, 26, 26) → Pool(2x2) → (32, 13, 13)
         #After convolution: (32, 26, 26) (since 28 - 3 + 1 = 26)
         #After pooling: (32, 13, 13) (dividing by 2)
         #Flattened size: 32 × 13 × 13 = 5408
-        self.fc1 = nn.Linear(32 * 13 * 13, 100)  # Fully connected layer
-        self.fc2 = nn.Linear(100, 10)
 
     def forward(self, x):
         x = torch.nn.functional.relu(self.conv1(x))  # Convolution + ReLU
@@ -81,16 +105,67 @@ class NNPT_(nn.Module):
         return x
 
 
+class NNPTLarge(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
+        for layer in self.resnet50.children():
+            if isinstance(layer, nn.BatchNorm2d):
+                for param in layer.parameters():
+                    param.requires_grad = True
+            else:
+                for param in layer.parameters():
+                    param.requires_grad = False
+
+        # Remove the original fully connected layer
+        self.resnet50 = nn.Sequential(*list(self.resnet50.children())[:-1])  # Remove FC layer
+        self.fc = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(2048, 256),  # ResNet-50 outputs 2048 features
+            nn.ReLU(),
+            nn.Dropout(0.25),
+            nn.BatchNorm1d(256),
+            nn.Linear(256, 100)  # 100 output classes
+        )
+
+    def forward(self, x):
+        x = self.resnet50(x)  # Feature extraction
+        x = self.fc(x)  # Classification
+        return x
+
+
 class NNTF:
     def __init__(self):
-        self.batch_size = 32
-        self.n_epochs = 5
-        self.model = tf.keras.models.Sequential()
-        self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape))
-        self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-        self.model.add(tf.keras.layers.Flatten())
-        self.model.add(tf.keras.layers.Dense(100, activation='relu'))
-        self.model.add(tf.keras.layers.Dense(10, activation='softmax'))
+        if dataset == "small":
+            self.batch_size = 32
+            self.n_epochs = 5
+            self.model = tf.keras.models.Sequential()
+            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape))
+            self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+            self.model.add(tf.keras.layers.Flatten())
+            self.model.add(tf.keras.layers.Dense(100, activation='relu'))
+            self.model.add(tf.keras.layers.Dense(10, activation='softmax'))
+        else:
+            self.batch_size = 64
+            self.n_epochs = 15
+            self.model = tf.keras.models.Sequential()
+            self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
+            resnet_model50 = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+            for layer in resnet_model50.layers:
+                if isinstance(layer, tf.keras.layers.BatchNormalization):
+                    layer.trainable = True
+                else:
+                    layer.trainable = False
+            self.model.add(resnet_model50)
+            self.model.add(tf.keras.layers.GlobalAveragePooling2D())
+            self.model.add(tf.keras.layers.Dense(256, activation='relu'))
+            self.model.add(tf.keras.layers.Dropout(.25))
+            self.model.add(tf.keras.layers.BatchNormalization())
+            self.model.add(tf.keras.layers.Dense(100, activation='softmax'))
+            dummy_input = tf.random.normal([1] + list(input_shape))
+            dummy_labels = tf.zeros([1, 100])
+            self.compile()
+            self.model.fit(dummy_input, dummy_labels, epochs=1, batch_size=1, verbose=0)
 
     def set_weights(self, weights):
         self.model.set_weights(weights)
@@ -99,7 +174,10 @@ class NNTF:
         return copy.deepcopy(self.model.get_weights())
 
     def compile(self):
-        optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
+        if dataset == "small":
+            optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
+        else:
+            optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
         loss = 'categorical_crossentropy'
         self.model.compile(loss=loss, optimizer=optimizer)
 
@@ -178,6 +256,7 @@ def train_and_average(global_model, clients_data, timestep):
         local_weights_list = []
         client_scaling_factors_list = []
         for client in range(n_clients):
+            start = time.time()
             x, y, s, _ = clients_data[timestep][client]
             global_weights = global_model.get_weights()
             if is_tf:
@@ -192,11 +271,28 @@ def train_and_average(global_model, clients_data, timestep):
             # K.clear_session()
             logging.info("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
 
+            end = time.time()
+            print(start-end)
+
         new_global_weights = average_weights(local_weights_list, client_scaling_factors_list)
         global_model.set_weights(new_global_weights)
         logging.info("Averaged models on timestep {} cround {}".format(timestep, cround))
 
     return global_model
+
+
+def negate(X_priv_round_client):
+    if is_tf:
+        dim = input_shape[2]
+    else:
+        dim = input_shape[0]
+    if dim == 1:
+        return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
+    elif dim == 3:
+        return np.rot90(X_priv_round_client * -1, axes=(-3, -2))
+    else:
+        raise Exception("Can't rotate for shape ", input_shape)
+
 
 logging.basicConfig(
     level=logging.DEBUG
@@ -207,27 +303,13 @@ if sys.argv[1] == "tf":
 else:
     is_tf = False
 
+(train_X, train_y), (test_X, test_y) = cifar100.load_data()
+X_priv = np.concatenate([train_X, test_X], axis=0)
+y_priv = np.concatenate([train_y, test_y], axis=0)
 if is_tf:
-    (train_X, train_y), (test_X, test_y) = fashion_mnist.load_data()
-    input_shape = (28, 28, 1)
-    X_priv = np.concatenate([train_X, test_X], axis=0)
-    y_priv = np.concatenate([train_y, test_y], axis=0)
+    input_shape = (32, 32, 3)
 else:
-    train_dataset = datasets.FashionMNIST(
-        root="data",
-        train=True,
-        download=True,
-        transform=ToTensor()
-    )
-    test_dataset = datasets.FashionMNIST(
-        root="data",
-        train=False,
-        download=True,
-        transform=ToTensor()
-    )
-    X_priv = torch.cat([train_dataset.data, test_dataset.data], dim=0).float()
-    y_priv = torch.cat([train_dataset.targets, test_dataset.targets], dim=0)
-    input_shape = (1, 28, 28)  # PyTorch uses (C, H, W) format
+    input_shape = (3, 32, 32)  # PyTorch uses (C, H, W) format
 
 varying_disc = 0.1
 n_clients = 10
@@ -260,12 +342,8 @@ for i in range(n_timesteps):
         X_priv_round_client = X_priv_round_clients[j]
         y_priv_round_client = y_priv_round_clients[j]
         size_unpriv = round(len(X_priv_round_client) * varying_disc)
-        if is_tf:
-            X_unpriv_round_client = np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
-            y_unpriv_round_client = y_priv_round_client.copy()
-        else:
-            X_unpriv_round_client = np.rot90(X_priv_round_client.clone() * -1, axes=(-2, -1))
-            y_unpriv_round_client = y_priv_round_client.clone()
+        X_unpriv_round_client = negate(X_priv_round_client)
+        y_unpriv_round_client = y_priv_round_client.copy()
         if drift_id != 0:
             y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
             y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
