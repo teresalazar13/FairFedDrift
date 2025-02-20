@@ -79,7 +79,8 @@ class NNPT:
                 x_tensor = torch.tensor(x, dtype=torch.float32)
                 x_tensor = x_tensor.permute(0, 3, 1, 2)
                 x_tensor = x_tensor.to('cuda')
-            return self.model(x_tensor).detach().numpy()
+            y_pred_raw = self.model(x_tensor)
+            return y_pred_raw.cpu().detach().numpy()
 
 
 class NNPTSmall(nn.Module):
