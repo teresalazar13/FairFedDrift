@@ -104,7 +104,7 @@ class NNPTLarge(nn.Module):
     def __init__(self):
         super().__init__()
         self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
-        for layer in self.resnet18.children():
+        for layer in self.resnet50.children():
             if isinstance(layer, nn.BatchNorm2d):
                 for param in layer.parameters():
                     param.requires_grad = True
@@ -113,10 +113,10 @@ class NNPTLarge(nn.Module):
                     param.requires_grad = False
 
         # Remove the original fully connected layer
-        self.resnet50 = nn.Sequential(*list(self.resnet18.children())[:-1])  # Remove FC layer
+        self.resnet50 = nn.Sequential(*list(self.resnet50.children())[:-1])  # Remove FC layer
         self.fc = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(512, 256),  # ResNet-18 outputs 512 features
+            nn.Linear(2048, 256),  # ResNet-18 outputs 512 features
             nn.ReLU(),
             nn.Dropout(0.25),
             nn.BatchNorm1d(256),
@@ -124,7 +124,7 @@ class NNPTLarge(nn.Module):
         )
 
     def forward(self, x):
-        x = self.resnet18(x)  # Feature extraction
+        x = self.resnet50(x)  # Feature extraction
         x = self.fc(x)  # Classification
         return x
 
