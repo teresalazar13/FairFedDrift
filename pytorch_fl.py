@@ -29,8 +29,8 @@ dataset = "large"
 
 class NNPT:
     dataset = "large"
-    def __init__(self):
-        if dataset == "small":
+    def __init__(self, is_large):
+        if not is_large:
             self.batch_size = 32
             self.n_epochs = 5
             self.model = NNPTSmall()
@@ -52,10 +52,10 @@ class NNPT:
         self.model.train()
         criterion = nn.CrossEntropyLoss()
         dataset = "large"
-        if dataset == "small":
-            x_tensor = torch.tensor(x_, dtype=torch.float32).unsqueeze(1)  # Add channel dim  # TODO - check if for cifar100 this works
+        if not is_large:
+            x_tensor = torch.tensor(x_, dtype=torch.float32).unsqueeze(1)  # Add channel dim
         else:
-            x_tensor = torch.tensor(x_, dtype=torch.float32) # TODO - check if for cifar100 this works
+            x_tensor = torch.tensor(x_, dtype=torch.float32)
             x_tensor = x_tensor.permute(0, 3, 1, 2)
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)  # Convert from one-hot to class indices. Ensure y is Long type for CrossEntropyLoss
         dataset = TensorDataset(x_tensor, y_tensor)
@@ -66,7 +66,7 @@ class NNPT:
                 pred = self.model(X)
                 loss = criterion(pred, y)
                 loss.backward()
-                if dataset == "small":
+                if not is_large:
                     optimizer = torch.optim.SGD(self.model.parameters(), lr=0.1)
                 else:
                     optimizer = torch.optim.Adam(self.model.parameters(), lr=0.01)
@@ -74,7 +74,7 @@ class NNPT:
 
     def predict(self, x):
         self.model.eval()
-        if dataset == "small":
+        if not is_large:
             x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(1)  # Add channel dim
         else:
             x_tensor = torch.tensor(x, dtype=torch.float32)
@@ -129,14 +129,12 @@ class NNPTLarge(nn.Module):
         )
 
     def forward(self, x):
-        x = self.resnet18(x)  # Feature extraction
-        x = self.fc(x)  # Classification
-        return x
+        return self.model(x)
 
 
 class NNTF:
-    def __init__(self):
-        if dataset == "small":
+    def __init__(self, is_large):
+        if not is_large:
             self.batch_size = 32
             self.n_epochs = 5
             self.model = tf.keras.models.Sequential()
@@ -200,18 +198,18 @@ def test(clients_data_timestep, clients_metrics, global_model):
             logging.info("{}-{}".format(res, client_metric.name))
 
 
-def perform_fl(clients_data):
+def perform_fl(clients_data, is_large):
     if is_tf:
-        global_model = NNTF()
+        global_model = NNTF(is_large)
     else:
-        global_model = NNPT()
+        global_model = NNPT(is_large)
     clients_metrics = [get_metrics(False) for _ in range(n_clients)]
     # Train with data from first timestep
-    global_model = train_and_average(global_model, clients_data, 0)
+    global_model = train_and_average(global_model, clients_data, 0, is_large)
 
     for timestep in range(1, n_timesteps):
         test(clients_data[timestep], clients_metrics, global_model)
-        global_model = train_and_average(global_model, clients_data, timestep)
+        global_model = train_and_average(global_model, clients_data, timestep, is_large)
 
     # Clients identities are always 0 (only one global model)
     clients_identities = [[] for _ in range(n_clients)]
@@ -252,7 +250,7 @@ def average_weights(weights_list, scaling_factors):
     return global_weights
 
 
-def train_and_average(global_model, clients_data, timestep):
+def train_and_average(global_model, clients_data, timestep, is_large):
     for cround in range(n_rounds):
         local_weights_list = []
         client_scaling_factors_list = []
@@ -261,9 +259,9 @@ def train_and_average(global_model, clients_data, timestep):
             x, y, s, _ = clients_data[timestep][client]
             global_weights = global_model.get_weights()
             if is_tf:
-                local_model = NNTF()
+                local_model = NNTF(is_large)
             else:
-                local_model = NNPT()
+                local_model = NNPT(is_large)
             local_model.compile()
             local_model.set_weights(global_weights)
             local_model.learn(x, y)
@@ -304,13 +302,25 @@ if sys.argv[1] == "tf":
 else:
     is_tf = False
 
-(train_X, train_y), (test_X, test_y) = cifar100.load_data()
+if sys.argv[1] == "large":
+    is_large = True
+else:
+    is_large = False
+
+if is_large:
+    (train_X, train_y), (test_X, test_y) = cifar100.load_data()
+    if is_tf:
+        input_shape = (32, 32, 3)
+    else:
+        input_shape = (3, 32, 32)  # PyTorch uses (C, H, W) format
+else:
+    (train_X, train_y), (test_X, test_y) = fashion_mnist.load_data()
+    if is_tf:
+        input_shape = (24, 24, 1)
+    else:
+        input_shape = (1, 24, 24)  # PyTorch uses (C, H, W) format
 X_priv = np.concatenate([train_X, test_X], axis=0)
 y_priv = np.concatenate([train_y, test_y], axis=0)
-if is_tf:
-    input_shape = (32, 32, 3)
-else:
-    input_shape = (3, 32, 32)  # PyTorch uses (C, H, W) format
 
 varying_disc = 0.1
 n_clients = 10
@@ -370,4 +380,4 @@ print(len(batched_data[0][0]))
 print(len(batched_data[0][0][0]))
 print(batched_data[0][0][0].shape)
 
-perform_fl(batched_data)
+perform_fl(batched_data, is_large)
