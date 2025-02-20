@@ -28,7 +28,7 @@ class NNPT:
             self.n_epochs = 15
             self.model = NNPTLarge()
 
-        print("hey", self.model.device)
+        print("hey", next(self.model.parameters()).device)
 
 
     def set_weights(self, weights):
@@ -49,6 +49,7 @@ class NNPT:
             x_tensor = torch.tensor(x_, dtype=torch.float32)
             x_tensor = x_tensor.permute(0, 3, 1, 2)
         print("oi", x_tensor.device)
+        print("hey", next(self.model.parameters()).device)
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)  # Convert from one-hot to class indices. Ensure y is Long type for CrossEntropyLoss
         dataset = TensorDataset(x_tensor, y_tensor)
         dataloader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
