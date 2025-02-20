@@ -25,10 +25,7 @@ from metrics.Accuracy import Accuracy
 from metrics.MetricFactory import get_metrics
 
 
-dataset = "large"
-
 class NNPT:
-    dataset = "large"
     def __init__(self, is_large):
         if not is_large:
             self.batch_size = 32
@@ -51,7 +48,6 @@ class NNPT:
     def learn(self, x_, y_):
         self.model.train()
         criterion = nn.CrossEntropyLoss()
-        dataset = "large"
         if not is_large:
             x_tensor = torch.tensor(x_, dtype=torch.float32).unsqueeze(1)  # Add channel dim
         else:
@@ -129,7 +125,9 @@ class NNPTLarge(nn.Module):
         )
 
     def forward(self, x):
-        return self.model(x)
+        x = self.resnet18(x)  # Feature extraction
+        x = self.fc(x)  # Classification
+        return x
 
 
 class NNTF:
@@ -302,7 +300,7 @@ if sys.argv[1] == "tf":
 else:
     is_tf = False
 
-if sys.argv[1] == "large":
+if sys.argv[2] == "large":
     is_large = True
 else:
     is_large = False
@@ -316,9 +314,9 @@ if is_large:
 else:
     (train_X, train_y), (test_X, test_y) = fashion_mnist.load_data()
     if is_tf:
-        input_shape = (24, 24, 1)
+        input_shape = (28, 28, 1)
     else:
-        input_shape = (1, 24, 24)  # PyTorch uses (C, H, W) format
+        input_shape = (1, 28, 28)  # PyTorch uses (C, H, W) format
 X_priv = np.concatenate([train_X, test_X], axis=0)
 y_priv = np.concatenate([train_y, test_y], axis=0)
 
