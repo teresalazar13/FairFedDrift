@@ -1,6 +1,5 @@
 import time
 import logging
-import torch
 import random
 import numpy as np
 
