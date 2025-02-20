@@ -118,15 +118,16 @@ class NNPTLarge(nn.Module):
                 for param in layer.parameters():
                     param.requires_grad = False
 
-        # Remove the final fully connected layer (we'll add our own later)
-        self.resnet50 = nn.Sequential(*list(self.resnet50.children())[:-2])
+        # Remove the final fully connected layer and add GlobalAveragePooling manually
+        self.resnet50 = nn.Sequential(*list(self.resnet50.children())[:-2])  # Remove fc layer
 
-        # Add global average pooling (this mimics the behavior of GlobalAveragePooling2D in TensorFlow)
+        # Global Average Pooling
         self.global_avg_pool = nn.AdaptiveAvgPool2d(1)
 
-        # Add our custom fully connected layers
+        # Fully connected layers
+        in_features = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1).fc.in_features
         self.fc = nn.Sequential(
-            nn.Linear(self.resnet50.fc.in_features, 256),
+            nn.Linear(in_features, 256),
             nn.ReLU(),
             nn.Dropout(0.25),
             nn.BatchNorm1d(256),
