@@ -10,7 +10,6 @@ import copy
 import time
 from keras.datasets import fashion_mnist, cifar100
 from tensorflow.keras.utils import to_categorical
-import tensorflow as tf
 from federated.algorithms.Algorithm import get_y
 from federated.algorithms.Identity import Identity
 from metrics.MetricFactory import get_metrics
@@ -115,8 +114,8 @@ class NNPTLarge(nn.Module):
         )
 
     def forward(self, x):
-        x = self.resnet50(x)  # Feature extraction
-        x = self.fc(x)  # Classification
+        x = self.resize(x)  # Apply resizing transformation
+        x = self.resnet50(x)
         return x
 
 
