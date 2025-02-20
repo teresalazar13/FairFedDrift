@@ -197,81 +197,84 @@ def negate(X_priv_round_client):
         raise Exception("Can't rotate for shape ", input_shape)
 
 
-logging.basicConfig(
-    level=logging.DEBUG
-)
-logging.getLogger().addHandler(logging.StreamHandler())
+if __name__ == '__main__':
+    print(torch.__version__)
+    print(torch.cuda.is_available())
+    logging.basicConfig(
+        level=logging.DEBUG
+    )
+    logging.getLogger().addHandler(logging.StreamHandler())
 
-if sys.argv[1] == "large":
-    is_large = True
-else:
-    is_large = False
+    if sys.argv[1] == "large":
+        is_large = True
+    else:
+        is_large = False
 
-if is_large:
-    (train_X, train_y), (test_X, test_y) = cifar100.load_data()
-    input_shape = (3, 224, 224)  # PyTorch uses (C, H, W) format
-else:
-    (train_X, train_y), (test_X, test_y) = fashion_mnist.load_data()
-    input_shape = (1, 28, 28)  # PyTorch uses (C, H, W) format
-X_priv = np.concatenate([train_X, test_X], axis=0)
-y_priv = np.concatenate([train_y, test_y], axis=0)
+    if is_large:
+        (train_X, train_y), (test_X, test_y) = cifar100.load_data()
+        input_shape = (3, 224, 224)  # PyTorch uses (C, H, W) format
+    else:
+        (train_X, train_y), (test_X, test_y) = fashion_mnist.load_data()
+        input_shape = (1, 28, 28)  # PyTorch uses (C, H, W) format
+    X_priv = np.concatenate([train_X, test_X], axis=0)
+    y_priv = np.concatenate([train_y, test_y], axis=0)
 
-varying_disc = 0.1
-n_clients = 10
-n_timesteps = 10
-n_rounds = 10
-drift_ids = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
-    [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
-    [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],
-    [2, 2, 2, 0, 0, 0, 0, 0, 1, 1]
-]
+    varying_disc = 0.1
+    n_clients = 10
+    n_timesteps = 10
+    n_rounds = 10
+    drift_ids = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+        [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
+        [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
+        [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
+        [2, 2, 2, 0, 0, 0, 0, 0, 1, 1],
+        [2, 2, 2, 0, 0, 0, 0, 0, 1, 1]
+    ]
 
 
-batched_data = []
-X_priv_rounds = np.array_split(X_priv, n_timesteps)
-y_priv_rounds = np.array_split(y_priv, n_timesteps)
+    batched_data = []
+    X_priv_rounds = np.array_split(X_priv, n_timesteps)
+    y_priv_rounds = np.array_split(y_priv, n_timesteps)
 
-for i in range(n_timesteps):
-    batched_data_round = []
-    X_priv_round_clients = np.array_split(X_priv_rounds[i], n_clients)
-    y_priv_round_clients = np.array_split(y_priv_rounds[i], n_clients)
-    for j in range(n_clients):
-        drift_id = drift_ids[i][j]
-        X_priv_round_client = X_priv_round_clients[j]
-        y_priv_round_client = y_priv_round_clients[j]
-        size_unpriv = round(len(X_priv_round_client) * varying_disc)
-        X_unpriv_round_client = negate(X_priv_round_client)
-        y_unpriv_round_client = y_priv_round_client.copy()
-        if drift_id != 0:
-            y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
-            y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
-            y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + 1
-            y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id
+    for i in range(n_timesteps):
+        batched_data_round = []
+        X_priv_round_clients = np.array_split(X_priv_rounds[i], n_clients)
+        y_priv_round_clients = np.array_split(y_priv_rounds[i], n_clients)
+        for j in range(n_clients):
+            drift_id = drift_ids[i][j]
+            X_priv_round_client = X_priv_round_clients[j]
+            y_priv_round_client = y_priv_round_clients[j]
+            size_unpriv = round(len(X_priv_round_client) * varying_disc)
+            X_unpriv_round_client = negate(X_priv_round_client)
+            y_unpriv_round_client = y_priv_round_client.copy()
+            if drift_id != 0:
+                y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
+                y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
+                y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + 1
+                y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id
 
-        X = np.concatenate((X_priv_round_client[size_unpriv:], X_unpriv_round_client[:size_unpriv]), axis=0)
-        y_original = np.concatenate((y_priv_round_client[size_unpriv:], y_unpriv_round_client[:size_unpriv]), axis=0)
-        s = [1] * (len(X_priv_round_client) - size_unpriv) + [0] * size_unpriv
-        X = X.astype('float32') / 255.0
-        y = to_categorical(y_original)
-        perm = list(range(0, len(X)))
-        random.shuffle(perm)
-        X = X[perm]
-        y = y[perm]
-        s = np.array(s)[perm]
-        batched_data_round.append([X, y, s, y_original])
-    batched_data.append(batched_data_round)
+            X = np.concatenate((X_priv_round_client[size_unpriv:], X_unpriv_round_client[:size_unpriv]), axis=0)
+            y_original = np.concatenate((y_priv_round_client[size_unpriv:], y_unpriv_round_client[:size_unpriv]), axis=0)
+            s = [1] * (len(X_priv_round_client) - size_unpriv) + [0] * size_unpriv
+            X = X.astype('float32') / 255.0
+            y = to_categorical(y_original)
+            perm = list(range(0, len(X)))
+            random.shuffle(perm)
+            X = X[perm]
+            y = y[perm]
+            s = np.array(s)[perm]
+            batched_data_round.append([X, y, s, y_original])
+        batched_data.append(batched_data_round)
 
-print(len(batched_data))
-print(len(batched_data[0]))
-print(len(batched_data[0][0]))
-print(len(batched_data[0][0][0]))
-print(batched_data[0][0][0].shape)
+    print(len(batched_data))
+    print(len(batched_data[0]))
+    print(len(batched_data[0][0]))
+    print(len(batched_data[0][0][0]))
+    print(batched_data[0][0][0].shape)
 
-perform_fl(batched_data, is_large)
+    perform_fl(batched_data, is_large)
