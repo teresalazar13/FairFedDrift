@@ -210,8 +210,6 @@ else:
 
 if is_large:
     (train_X, train_y), (test_X, test_y) = cifar100.load_data()
-    train_X = tf.image.resize(train_X, (224, 224))  # Resize to 224x224
-    test_X = tf.image.resize(test_X, (224, 224))  # Resize to 224x224
     input_shape = (3, 224, 224)  # PyTorch uses (C, H, W) format
 else:
     (train_X, train_y), (test_X, test_y) = fashion_mnist.load_data()
