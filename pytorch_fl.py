@@ -1,26 +1,18 @@
-import time
 import logging
 import torch
 import random
 import numpy as np
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
-from torchvision import datasets
-from torchvision.transforms import ToTensor
 import torchvision.models as models
-
 import sys
 import copy
 import time
-
 from keras.datasets import fashion_mnist, cifar100
-from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.utils import to_categorical
 import tensorflow as tf
-
 from federated.algorithms.Algorithm import get_y
 from federated.algorithms.Identity import Identity
-from metrics.Accuracy import Accuracy
 from metrics.MetricFactory import get_metrics
 
 
@@ -104,19 +96,9 @@ class NNPTLarge(nn.Module):
     def __init__(self):
         super().__init__()
         self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
-        for layer in self.resnet50.children():
-            if isinstance(layer, nn.BatchNorm2d):
-                for param in layer.parameters():
-                    param.requires_grad = True
-            else:
-                for param in layer.parameters():
-                    param.requires_grad = False
-
-        # Remove the original fully connected layer
-        self.resnet50 = nn.Sequential(*list(self.resnet50.children())[:-1])  # Remove FC layer
         self.fc = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(2048, 256),  # ResNet-18 outputs 512 features
+            nn.Linear(2048, 256),  # ResNet-50 outputs 2048 features
             nn.ReLU(),
             nn.Dropout(0.25),
             nn.BatchNorm1d(256),
@@ -127,62 +109,6 @@ class NNPTLarge(nn.Module):
         x = self.resnet50(x)  # Feature extraction
         x = self.fc(x)  # Classification
         return x
-
-
-class NNTF:
-    def __init__(self, is_large):
-        self.dataset = is_large
-        if not is_large:
-            self.batch_size = 32
-            self.n_epochs = 5
-            self.model = tf.keras.models.Sequential()
-            self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape))
-            self.model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-            self.model.add(tf.keras.layers.Flatten())
-            self.model.add(tf.keras.layers.Dense(100, activation='relu'))
-            self.model.add(tf.keras.layers.Dense(10, activation='softmax'))
-        else:
-            self.batch_size = 64
-            self.n_epochs = 15
-            self.model = tf.keras.models.Sequential()
-            self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
-            resnet_model50 = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-            for layer in resnet_model50.layers:
-                if isinstance(layer, tf.keras.layers.BatchNormalization):
-                    layer.trainable = True
-                else:
-                    layer.trainable = False
-            self.model.add(resnet_model50)
-            self.model.add(tf.keras.layers.GlobalAveragePooling2D())
-            self.model.add(tf.keras.layers.Dense(256, activation='relu'))
-            self.model.add(tf.keras.layers.Dropout(.25))
-            self.model.add(tf.keras.layers.BatchNormalization())
-            self.model.add(tf.keras.layers.Dense(100, activation='softmax'))
-            dummy_input = tf.random.normal([1] + list(input_shape))
-            dummy_labels = tf.zeros([1, 100])
-            self.compile()
-            self.model.fit(dummy_input, dummy_labels, epochs=1, batch_size=1, verbose=0)
-
-    def set_weights(self, weights):
-        self.model.set_weights(weights)
-
-    def get_weights(self):
-        return copy.deepcopy(self.model.get_weights())
-
-    def compile(self):
-        if self.dataset == "small":
-            optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
-        else:
-            optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
-        loss = 'categorical_crossentropy'
-        self.model.compile(loss=loss, optimizer=optimizer)
-
-    def learn(self, x, y):
-        tf.keras.utils.disable_interactive_logging()
-        self.model.fit(x=x, y=y, batch_size=self.batch_size, epochs=self.n_epochs, verbose=0)
-
-    def predict(self, x):
-        return self.model.predict(x)
 
 
 def test(clients_data_timestep, clients_metrics, global_model):
@@ -196,10 +122,7 @@ def test(clients_data_timestep, clients_metrics, global_model):
 
 
 def perform_fl(clients_data, is_large):
-    if is_tf:
-        global_model = NNTF(is_large)
-    else:
-        global_model = NNPT(is_large)
+    global_model = NNPT(is_large)
     clients_metrics = [get_metrics(False) for _ in range(n_clients)]
     # Train with data from first timestep
     global_model = train_and_average(global_model, clients_data, 0, is_large)
@@ -218,31 +141,13 @@ def perform_fl(clients_data, is_large):
 
 
 def average_weights(weights_list, scaling_factors):
-    if is_tf:
-        scaled_local_weights_list = []
-        global_count = sum(scaling_factors)
-
-        for local_weights, local_count in zip(weights_list, scaling_factors):
-            scale = local_count / global_count
-            scaled_local_weights = []
-            for i in range(len(local_weights)):
-                scaled_local_weights.append(scale * local_weights[i])
-
-            scaled_local_weights_list.append(scaled_local_weights)
-
-        global_weights = []
-        for grad_list_tuple in zip(*scaled_local_weights_list):
-            layer_mean = tf.math.reduce_sum(grad_list_tuple, axis=0)
-            global_weights.append(layer_mean)
-
-    else:
-        global_weights = copy.deepcopy(weights_list[0])
-        global_count = sum(scaling_factors)
-        for key in global_weights.keys():
-            global_weights[key] *= scaling_factors[0]  # Scale first model's weights
-            for i in range(1, len(weights_list)):
-                global_weights[key] += weights_list[i][key] * scaling_factors[i]  # Scale other models' weights
-            global_weights[key] = torch.div(global_weights[key], global_count)  # Normalize by total samples
+    global_weights = copy.deepcopy(weights_list[0])
+    global_count = sum(scaling_factors)
+    for key in global_weights.keys():
+        global_weights[key] *= scaling_factors[0]  # Scale first model's weights
+        for i in range(1, len(weights_list)):
+            global_weights[key] += weights_list[i][key] * scaling_factors[i]  # Scale other models' weights
+        global_weights[key] = torch.div(global_weights[key], global_count)  # Normalize by total samples
 
     return global_weights
 
@@ -255,10 +160,7 @@ def train_and_average(global_model, clients_data, timestep, is_large):
             start = time.time()
             x, y, s, _ = clients_data[timestep][client]
             global_weights = global_model.get_weights()
-            if is_tf:
-                local_model = NNTF(is_large)
-            else:
-                local_model = NNPT(is_large)
+            local_model = NNPT(is_large)
             local_model.compile()
             local_model.set_weights(global_weights)
             local_model.learn(x, y)
@@ -278,10 +180,7 @@ def train_and_average(global_model, clients_data, timestep, is_large):
 
 
 def negate(X_priv_round_client):
-    if is_tf:
-        dim = input_shape[2]
-    else:
-        dim = input_shape[0]
+    dim = input_shape[0]
     if dim == 1:
         return np.rot90(X_priv_round_client.copy().astype(np.int16) * -1, axes=(-2, -1))
     elif dim == 3:
@@ -294,28 +193,20 @@ logging.basicConfig(
     level=logging.DEBUG
 )
 logging.getLogger().addHandler(logging.StreamHandler())
-if sys.argv[1] == "tf":
-    is_tf = True
-else:
-    is_tf = False
 
-if sys.argv[2] == "large":
+if sys.argv[1] == "large":
     is_large = True
 else:
     is_large = False
 
 if is_large:
     (train_X, train_y), (test_X, test_y) = cifar100.load_data()
-    if is_tf:
-        input_shape = (32, 32, 3)
-    else:
-        input_shape = (3, 32, 32)  # PyTorch uses (C, H, W) format
+    train_X = tf.image.resize(train_X, (224, 224))  # Resize to 224x224
+    test_X = tf.image.resize(test_X, (224, 224))  # Resize to 224x224
+    input_shape = (3, 224, 224)  # PyTorch uses (C, H, W) format
 else:
     (train_X, train_y), (test_X, test_y) = fashion_mnist.load_data()
-    if is_tf:
-        input_shape = (28, 28, 1)
-    else:
-        input_shape = (1, 28, 28)  # PyTorch uses (C, H, W) format
+    input_shape = (1, 28, 28)  # PyTorch uses (C, H, W) format
 X_priv = np.concatenate([train_X, test_X], axis=0)
 y_priv = np.concatenate([train_y, test_y], axis=0)
 

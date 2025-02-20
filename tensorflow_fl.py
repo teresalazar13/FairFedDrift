@@ -1,23 +1,16 @@
-import time
 import logging
 import random
 import numpy as np
-
 import sys
 import copy
 import time
-
 from keras.datasets import fashion_mnist, cifar100
 from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.utils import to_categorical
 import tensorflow as tf
-
 from federated.algorithms.Algorithm import get_y
 from federated.algorithms.Identity import Identity
-from metrics.Accuracy import Accuracy
 from metrics.MetricFactory import get_metrics
-
-
 
 
 class NNTF:
