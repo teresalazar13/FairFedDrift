@@ -282,9 +282,9 @@ def negate(X_priv_round_client):
     else:
         dim = input_shape[0]
     if dim == 1:
-        return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
+        return np.rot90(X_priv_round_client.copy().astype(np.int16) * -1, axes=(-2, -1))
     elif dim == 3:
-        return np.rot90(X_priv_round_client * -1, axes=(-3, -2))
+        return np.rot90(X_priv_round_client.copy().astype(np.int16) * -1, axes=(-3, -2))
     else:
         raise Exception("Can't rotate for shape ", input_shape)
 
