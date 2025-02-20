@@ -56,7 +56,6 @@ class NNPT:
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)  # Convert from one-hot to class indices. Ensure y is Long type for CrossEntropyLoss
         y_tensor = y_tensor.to('cuda')
         dataset = TensorDataset(x_tensor, y_tensor)
-        dataset = dataset.to('cuda')
         dataloader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
         for epoch in range(self.n_epochs):
             for batch, (X, y) in enumerate(dataloader):
