@@ -14,6 +14,8 @@ import tensorflow as tf
 from federated.algorithms.Algorithm import get_y
 from federated.algorithms.Identity import Identity
 from metrics.MetricFactory import get_metrics
+import torchvision.transforms as transforms
+
 
 
 class NNPT:
@@ -95,15 +97,21 @@ class NNPTSmall(nn.Module):
 class NNPTLarge(nn.Module):
     def __init__(self):
         super().__init__()
+        self.resize = transforms.Resize((224, 224))
         self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
-        self.resnet50.fc = nn.Identity()  # Remove the default 1000-class fc layer
-        self.fc = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(2048, 256),  # ResNet-50 outputs 2048 features
+        for layer in self.resnet50.children():
+            if isinstance(layer, nn.BatchNorm2d):
+                for param in layer.parameters():
+                    param.requires_grad = True
+            else:
+                for param in layer.parameters():
+                    param.requires_grad = False
+        self.resnet50.fc = nn.Sequential(
+            nn.Linear(self.resnet50.fc.in_features, 256),
             nn.ReLU(),
             nn.Dropout(0.25),
             nn.BatchNorm1d(256),
-            nn.Linear(256, 100)  # 100 output classes
+            nn.Linear(256, 100)
         )
 
     def forward(self, x):
