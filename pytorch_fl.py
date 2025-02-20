@@ -71,14 +71,15 @@ class NNPT:
 
     def predict(self, x):
         self.model.eval()
-        if not is_large:
-            x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(1)  # Add channel dim
-            x_tensor = x_tensor.to('cuda')
-        else:
-            x_tensor = torch.tensor(x, dtype=torch.float32)
-            x_tensor = x_tensor.permute(0, 3, 1, 2)
-            x_tensor = x_tensor.to('cuda')
-        return self.model(x_tensor).detach().numpy()
+        with torch.no_grad():
+            if not is_large:
+                x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(1)  # Add channel dim
+                x_tensor = x_tensor.to('cuda')
+            else:
+                x_tensor = torch.tensor(x, dtype=torch.float32)
+                x_tensor = x_tensor.permute(0, 3, 1, 2)
+                x_tensor = x_tensor.to('cuda')
+            return self.model(x_tensor).detach().numpy()
 
 
 class NNPTSmall(nn.Module):
