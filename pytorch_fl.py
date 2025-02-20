@@ -105,46 +105,29 @@ class NNPTSmall(nn.Module):
 class NNPTLarge(nn.Module):
     def __init__(self):
         super().__init__()
-
-        # Load pre-trained ResNet50 model (excluding the top fully connected layer)
         self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
 
-        # Freeze all layers except BatchNorm layers
-        for layer in self.resnet50.children():
-            if isinstance(layer, nn.BatchNorm2d):
+        # First, freeze all layers
+        for param in self.resnet50.parameters():
+            param.requires_grad = False
+        # Then, unfreeze only BatchNorm layers
+        for name, layer in self.resnet50.named_modules():
+            if isinstance(layer, torch.nn.modules.batchnorm.BatchNorm2d):
                 for param in layer.parameters():
-                    param.requires_grad = True
-            else:
-                for param in layer.parameters():
-                    param.requires_grad = False
+                    param.requires_grad = True  # Unfreeze BatchNorm
 
-        # Remove the final fully connected layer and add GlobalAveragePooling manually
-        self.resnet50 = nn.Sequential(*list(self.resnet50.children())[:-2])  # Remove fc layer
-
-        # Global Average Pooling
-        self.global_avg_pool = nn.AdaptiveAvgPool2d(1)
-
-        # Fully connected layers
-        in_features = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1).fc.in_features
-        self.fc = nn.Sequential(
-            nn.Linear(in_features, 256),
+        self.resnet50.fc = nn.Sequential(
+            nn.Linear(self.resnet50.fc.in_features, 256),
             nn.ReLU(),
             nn.Dropout(0.25),
             nn.BatchNorm1d(256),
-            nn.Linear(256, 100)  # CIFAR-100 has 100 classes
+            nn.Linear(256, 100)
         )
 
     def forward(self, x):
-        # Resize the input image to (224, 224) before passing to ResNet50
         x = F.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
-
-        # Pass through the ResNet50 backbone and apply global average pooling
         x = self.resnet50(x)
-        x = self.global_avg_pool(x)
-        x = torch.flatten(x, 1)  # Flatten the output of the pooling layer
 
-        # Pass through the custom fully connected layers
-        x = self.fc(x)
         return x
 
 
