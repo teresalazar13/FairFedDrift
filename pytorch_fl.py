@@ -131,6 +131,7 @@ class NNPTLarge(nn.Module):
 
 class NNTF:
     def __init__(self, is_large):
+        self.dataset = is_large
         if not is_large:
             self.batch_size = 32
             self.n_epochs = 5
@@ -169,7 +170,7 @@ class NNTF:
         return copy.deepcopy(self.model.get_weights())
 
     def compile(self):
-        if dataset == "small":
+        if self.dataset == "small":
             optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
         else:
             optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
