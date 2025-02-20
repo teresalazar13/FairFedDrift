@@ -13,7 +13,6 @@ import sys
 import copy
 import time
 
-from classification_models.keras import Classifiers
 from keras.datasets import fashion_mnist, cifar100
 from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.utils import to_categorical
@@ -104,7 +103,7 @@ class NNPTSmall(nn.Module):
 class NNPTLarge(nn.Module):
     def __init__(self):
         super().__init__()
-        self.resnet18 = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+        self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
         for layer in self.resnet18.children():
             if isinstance(layer, nn.BatchNorm2d):
                 for param in layer.parameters():
@@ -114,7 +113,7 @@ class NNPTLarge(nn.Module):
                     param.requires_grad = False
 
         # Remove the original fully connected layer
-        self.resnet18 = nn.Sequential(*list(self.resnet18.children())[:-1])  # Remove FC layer
+        self.resnet50 = nn.Sequential(*list(self.resnet18.children())[:-1])  # Remove FC layer
         self.fc = nn.Sequential(
             nn.Flatten(),
             nn.Linear(512, 256),  # ResNet-18 outputs 512 features
@@ -146,14 +145,13 @@ class NNTF:
             self.n_epochs = 15
             self.model = tf.keras.models.Sequential()
             self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
-            resnet18, preprocess_input = Classifiers.get('resnet18')
-            resnet_model18 = resnet18(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-            for layer in resnet_model18.layers:
+            resnet_model50 = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+            for layer in resnet_model50.layers:
                 if isinstance(layer, tf.keras.layers.BatchNormalization):
                     layer.trainable = True
                 else:
                     layer.trainable = False
-            self.model.add(resnet_model18)
+            self.model.add(resnet_model50)
             self.model.add(tf.keras.layers.GlobalAveragePooling2D())
             self.model.add(tf.keras.layers.Dense(256, activation='relu'))
             self.model.add(tf.keras.layers.Dropout(.25))
