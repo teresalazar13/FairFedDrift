@@ -126,7 +126,7 @@ class NNPTLarge(nn.Module):
 
         # Add our custom fully connected layers
         self.fc = nn.Sequential(
-            nn.Linear(self.resnet50[-1].in_features, 256),
+            nn.Linear(self.resnet50.fc.in_features, 256),
             nn.ReLU(),
             nn.Dropout(0.25),
             nn.BatchNorm1d(256),
