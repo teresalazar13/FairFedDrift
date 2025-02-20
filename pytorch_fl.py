@@ -23,10 +23,12 @@ class NNPT:
             self.batch_size = 32
             self.n_epochs = 5
             self.model = NNPTSmall()
+            self.model = self.model.to('cuda')
         else:
             self.batch_size = 64
             self.n_epochs = 15
             self.model = NNPTLarge()
+            self.model = self.model.to('cuda')
 
         print("hey", next(self.model.parameters()).device)
 
@@ -48,10 +50,13 @@ class NNPT:
         else:
             x_tensor = torch.tensor(x_, dtype=torch.float32)
             x_tensor = x_tensor.permute(0, 3, 1, 2)
+        x_tensor = x_tensor.to('cuda')
         print("oi", x_tensor.device)
         print("hey", next(self.model.parameters()).device)
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)  # Convert from one-hot to class indices. Ensure y is Long type for CrossEntropyLoss
+        y_tensor = y_tensor.to('cuda')
         dataset = TensorDataset(x_tensor, y_tensor)
+        dataset = dataset.to('cuda')
         dataloader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
         for epoch in range(self.n_epochs):
             for batch, (X, y) in enumerate(dataloader):
@@ -69,9 +74,11 @@ class NNPT:
         self.model.eval()
         if not is_large:
             x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(1)  # Add channel dim
+            x_tensor = x_tensor.to('cuda')
         else:
             x_tensor = torch.tensor(x, dtype=torch.float32)
             x_tensor = x_tensor.permute(0, 3, 1, 2)
+            x_tensor = x_tensor.to('cuda')
         return self.model(x_tensor).detach().numpy()
 
 
