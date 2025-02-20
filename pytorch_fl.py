@@ -96,6 +96,7 @@ class NNPTLarge(nn.Module):
     def __init__(self):
         super().__init__()
         self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
+        self.resnet50.fc = nn.Identity()  # Remove the default 1000-class fc layer
         self.fc = nn.Sequential(
             nn.Flatten(),
             nn.Linear(2048, 256),  # ResNet-50 outputs 2048 features
