@@ -13,7 +13,7 @@ from tensorflow.keras.utils import to_categorical
 from federated.algorithms.Algorithm import get_y
 from federated.algorithms.Identity import Identity
 from metrics.MetricFactory import get_metrics
-import torchvision.transforms as transforms
+import torch.nn.functional as F
 
 
 
@@ -29,9 +29,6 @@ class NNPT:
             self.n_epochs = 15
             self.model = NNPTLarge()
             self.model = self.model.to('cuda')
-
-        print("hey", next(self.model.parameters()).device)
-
 
     def set_weights(self, weights):
         self.model.load_state_dict(weights)
@@ -51,8 +48,6 @@ class NNPT:
             x_tensor = torch.tensor(x_, dtype=torch.float32)
             x_tensor = x_tensor.permute(0, 3, 1, 2)
         x_tensor = x_tensor.to('cuda')
-        print("oi", x_tensor.device)
-        print("hey", next(self.model.parameters()).device)
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)  # Convert from one-hot to class indices. Ensure y is Long type for CrossEntropyLoss
         y_tensor = y_tensor.to('cuda')
         dataset = TensorDataset(x_tensor, y_tensor)
@@ -80,6 +75,7 @@ class NNPT:
                 x_tensor = x_tensor.permute(0, 3, 1, 2)
                 x_tensor = x_tensor.to('cuda')
             y_pred_raw = self.model(x_tensor)
+
             return y_pred_raw.cpu().detach().numpy()
 
 
@@ -109,7 +105,6 @@ class NNPTSmall(nn.Module):
 class NNPTLarge(nn.Module):
     def __init__(self):
         super().__init__()
-        self.resize = transforms.Resize((224, 224))
         self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
         for layer in self.resnet50.children():
             if isinstance(layer, nn.BatchNorm2d):
@@ -127,7 +122,9 @@ class NNPTLarge(nn.Module):
         )
 
     def forward(self, x):
-        x = self.resize(x)  # Apply resizing transformation
+        x = F.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
+
+        # Pass resized image through ResNet50
         x = self.resnet50(x)
         return x
 
