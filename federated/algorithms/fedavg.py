@@ -3,6 +3,7 @@ from federated.algorithms.Identity import Identity
 from federated.nn_model import NN_model
 from metrics.MetricFactory import get_metrics
 import logging
+import time
 
 
 class FedAvg(Algorithm):
@@ -37,6 +38,7 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
         local_weights_list = []
         client_scaling_factors_list = []
         for client in range(dataset.n_clients):
+            start = time.time()
             x, y, s, _ = clients_data[timestep][client]
             global_weights = global_model.get_weights()
             local_model = NN_model(dataset, seed)
@@ -46,7 +48,8 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             local_weights_list.append(local_model.get_weights())
             client_scaling_factors_list.append(len(x))
             # K.clear_session()
-            logging.info("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
+            time_taken = round(start - time.time(), 1)
+            logging.info("Trained model timestep {} cround {} client {} time {}".format(timestep, cround, client, time_taken))
 
         new_global_weights = average_weights(dataset.is_pt, local_weights_list, client_scaling_factors_list)
         global_model.set_weights(new_global_weights)

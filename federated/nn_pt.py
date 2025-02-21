@@ -29,14 +29,8 @@ class NNPT:
         x_tensor = torch.tensor(x_, dtype=torch.float32)
         x_tensor = x_tensor.permute(0, 3, 1, 2)
         x_tensor = x_tensor.to('cuda')
-        print(f"CUDA available: {torch.cuda.is_available()}")
-        device = x_tensor.device
-        print(f"x_tensor is running on: {device}")
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)
         y_tensor = y_tensor.to('cuda')
-        print(f"CUDA available: {torch.cuda.is_available()}")
-        device = y_tensor.device
-        print(f"y_tensor is running on: {device}")
         dataset = torch.utils.data.TensorDataset(x_tensor, y_tensor)
         dataloader = torch.utils.data.DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
         for epoch in range(self.n_epochs):
@@ -62,9 +56,7 @@ class NNPT:
 class NNPTLarge(torch.nn.Module):
     def __init__(self):
         super().__init__()
-        print("before calling resnet")
         self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
-        print("after calling resnet")
 
         # First, freeze all layers
         for param in self.resnet50.parameters():
@@ -82,7 +74,6 @@ class NNPTLarge(torch.nn.Module):
             torch.nn.BatchNorm1d(256),
             torch.nn.Linear(256, 100)
         )
-        print("after resnet")
 
     def forward(self, x):
         x = torch.nn.functional.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
