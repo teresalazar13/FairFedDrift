@@ -85,7 +85,7 @@ class NNPTLarge(torch.nn.Module):
         print("after resnet")
 
     def forward(self, x):
-        x = torch.nn.functional.F.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
+        x = torch.nn.functional.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
         x = self.resnet50(x)
 
         return x
