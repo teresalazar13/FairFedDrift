@@ -48,8 +48,8 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             local_weights_list.append(local_model.get_weights())
             client_scaling_factors_list.append(len(x))
             # K.clear_session()
-            time_taken = round(start - time.time(), 1)
-            logging.info("Trained model timestep {} cround {} client {} time {}".format(timestep, cround, client, time_taken))
+            time_taken = round(time.time() - start)
+            logging.info("Trained model timestep {} cround {} client {} time {}s".format(timestep, cround, client, time_taken))
 
         new_global_weights = average_weights(dataset.is_pt, local_weights_list, client_scaling_factors_list)
         global_model.set_weights(new_global_weights)

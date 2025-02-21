@@ -10,9 +10,7 @@ class NNPT:
         self.n_epochs = 15
         self.model = NNPTLarge()
         self.model = self.model.to('cuda')
-        print(f"CUDA available: {torch.cuda.is_available()}")
         device = next(self.model.parameters()).device
-        print(f"Model is running on: {device}")
 
     def set_weights(self, weights):
         self.model.load_state_dict(weights)
