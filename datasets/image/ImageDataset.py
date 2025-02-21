@@ -18,10 +18,6 @@ class ImageDataset(Dataset):
         n_timesteps = self.n_timesteps
         X_priv = self.X
         y_priv = self.y
-
-        if self.is_pt:
-            X_priv, y_priv = self.augment(self.X, self.y)
-
         batched_data = []
         X_priv_rounds = np.array_split(X_priv, n_timesteps)
         y_priv_rounds = np.array_split(y_priv, n_timesteps)

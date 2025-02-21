@@ -62,7 +62,9 @@ class NNPT:
 class NNPTLarge(torch.nn.Module):
     def __init__(self):
         super().__init__()
+        print("before calling resnet")
         self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
+        print("after calling resnet")
 
         # First, freeze all layers
         for param in self.resnet50.parameters():
@@ -80,6 +82,7 @@ class NNPTLarge(torch.nn.Module):
             torch.nn.BatchNorm1d(256),
             torch.nn.Linear(256, 100)
         )
+        print("after resnet")
 
     def forward(self, x):
         x = torch.nn.functional.F.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
