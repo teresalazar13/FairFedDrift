@@ -10,6 +10,9 @@ class NNPT:
         self.n_epochs = 15
         self.model = NNPTLarge()
         self.model = self.model.to('cuda')
+        print(f"CUDA available: {torch.cuda.is_available()}")
+        device = next(self.model.parameters()).device
+        print(f"Model is running on: {device}")
 
     def set_weights(self, weights):
         self.model.load_state_dict(weights)
@@ -26,8 +29,14 @@ class NNPT:
         x_tensor = torch.tensor(x_, dtype=torch.float32)
         x_tensor = x_tensor.permute(0, 3, 1, 2)
         x_tensor = x_tensor.to('cuda')
+        print(f"CUDA available: {torch.cuda.is_available()}")
+        device = x_tensor.device
+        print(f"x_tensor is running on: {device}")
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)
         y_tensor = y_tensor.to('cuda')
+        print(f"CUDA available: {torch.cuda.is_available()}")
+        device = y_tensor.device
+        print(f"y_tensor is running on: {device}")
         dataset = torch.utils.data.TensorDataset(x_tensor, y_tensor)
         dataloader = torch.utils.data.DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
         for epoch in range(self.n_epochs):
