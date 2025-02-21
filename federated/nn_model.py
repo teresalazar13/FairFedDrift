@@ -1,5 +1,4 @@
-from federated.algorithms.nn_tf_2 import NNTF_2
-from federated.nn_pt import NNPT
+from federated.nn_tf_2 import NNTF_2
 from federated.nn_tf import NNTF
 
 

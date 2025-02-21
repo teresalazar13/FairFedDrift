@@ -1,15 +1,16 @@
 import tensorflow as tf
 from tensorflow.keras.applications import ResNet50
 
+# Test model in TF - not being used. Using PyTorch model instead.
 class NNTF_2:
     def __init__(self, dataset, seed):
-        initializer = tf.keras.initializers.RandomNormal(seed=seed)
-
+        initializer = tf.keras.initializers.RandomNormal(seed=seed)  # TODO - use this
+        input_shape = (224, 224, 3)
         self.batch_size = 64
         self.n_epochs = 15
         self.model = tf.keras.models.Sequential()
         self.model.add(tf.keras.layers.Resizing(224, 224, interpolation='bilinear'))
-        resnet_model50 = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+        resnet_model50 = ResNet50(weights='imagenet', include_top=False, input_shape=input_shape)
         for layer in resnet_model50.layers:
             if isinstance(layer, tf.keras.layers.BatchNormalization):
                 layer.trainable = True
@@ -21,7 +22,7 @@ class NNTF_2:
         self.model.add(tf.keras.layers.Dropout(.25))
         self.model.add(tf.keras.layers.BatchNormalization())
         self.model.add(tf.keras.layers.Dense(100, activation='softmax'))
-        dummy_input = tf.random.normal([1] + list(dataset.input_shape))
+        dummy_input = tf.random.normal([1] + list(input_shape))
         dummy_labels = tf.zeros([1, 100])
         self.compile(dataset)
         self.model.fit(dummy_input, dummy_labels, epochs=1, batch_size=1, verbose=0)
