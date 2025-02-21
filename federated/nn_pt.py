@@ -20,7 +20,7 @@ class NNPT:
     def get_weights(self):
         return self.model.state_dict()
 
-    def compile(self):
+    def compile(self, _):
         pass
 
     def learn(self, x_, y_):
