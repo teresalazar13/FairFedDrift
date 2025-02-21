@@ -1,6 +1,6 @@
 from federated.algorithms.Algorithm import Algorithm, average_weights, test
 from federated.algorithms.Identity import Identity
-from federated.model import NN_model
+from federated.nn_model import NN_model
 from metrics.MetricFactory import get_metrics
 import logging
 
@@ -48,7 +48,7 @@ def train_and_average(global_model, dataset, clients_data, timestep, seed):
             # K.clear_session()
             logging.info("Trained model timestep {} cround {} client {}".format(timestep, cround, client))
 
-        new_global_weights = average_weights(local_weights_list, client_scaling_factors_list)
+        new_global_weights = average_weights(dataset.is_pt, local_weights_list, client_scaling_factors_list)
         global_model.set_weights(new_global_weights)
         logging.info("Averaged models on timestep {} cround {}".format(timestep, cround))
 

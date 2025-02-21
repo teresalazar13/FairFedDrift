@@ -1,5 +1,4 @@
 import math
-
 from federated.algorithms.Algorithm import Algorithm
 from federated.algorithms.drift.fed_drift import perform_fl
 from metrics.LossPrivileged import LossPrivileged

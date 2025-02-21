@@ -7,8 +7,8 @@ from datasets.Dataset import Dataset
 
 class ImageDataset(Dataset):
 
-    def __init__(self, name, input_shape, is_large, is_binary_target, X, y):
-        super().__init__(name, input_shape, is_large, is_binary_target)
+    def __init__(self, name, input_shape, is_pt, is_binary_target, X, y):
+        super().__init__(name, input_shape, is_pt, is_binary_target)
         self.X = X
         self.y = y
 
@@ -19,7 +19,7 @@ class ImageDataset(Dataset):
         X_priv = self.X
         y_priv = self.y
 
-        if self.is_large:
+        if self.is_pt:
             X_priv, y_priv = self.augment(self.X, self.y)
 
         batched_data = []
@@ -59,14 +59,10 @@ class ImageDataset(Dataset):
         return batched_data
 
     def negate(self, X_priv_round_client):
-        if self.input_shape[2] == 1:
+        if not self.is_pt:  # MNIST and FashionMNIST tensorflow
             return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
-
-        elif self.input_shape[2] == 3:
-            return X_priv_round_client * -1
-
-        else:
-            raise Exception("Can't rotate for shape ", self.input_shape)
+        else:  # CIFAR-100 and Pytorch (C, H, W) format
+            return np.rot90(X_priv_round_client.copy().astype(np.int16) * -1, axes=(-3, -2))
 
     def augment(self, X, Y):
         X_augmented = []

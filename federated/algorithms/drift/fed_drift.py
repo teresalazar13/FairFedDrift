@@ -1,10 +1,9 @@
 import math
 import numpy as np
-
 from federated.algorithms.Algorithm import Algorithm, get_y, average_weights
 from federated.algorithms.Identity import Identity
 from federated.algorithms.drift.GlobalModels import GlobalModels
-from federated.model import NN_model
+from federated.nn_model import NN_model
 from metrics.Loss import Loss
 from metrics.MetricFactory import get_metrics
 import logging
@@ -321,7 +320,7 @@ def merge_global_models(
     global_model_1 = global_models.get_model(id_1)
     scales = [n_clients_data_models[id_0], n_clients_data_models[id_1]]
     weights = [global_model_0.model.get_weights(), global_model_1.model.get_weights()]
-    new_global_model_weights = average_weights(weights, scales)
+    new_global_model_weights = average_weights(dataset.is_pt, weights, scales)
     new_global_model = get_init_model(dataset, seed)
     new_global_model.set_weights(new_global_model_weights)
 
@@ -417,7 +416,7 @@ def train_and_average(clients_data, global_models, dataset, seed, timestep, clie
 
         for global_model_id, (local_weights, local_scales) in enumerate(zip(local_weights_list, local_scales_list)):
             if len(local_weights) > 0:
-                new_global_weights = average_weights(local_weights, local_scales)
+                new_global_weights = average_weights(dataset.is_pt, local_weights, local_scales)
                 global_models.get_model(global_model_id).model.set_weights(new_global_weights)
                 logging.info("Averaged models on timestep {} cround {} of cluster {}".format(
                     timestep, cround, global_model_id)

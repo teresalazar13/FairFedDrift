@@ -1,9 +1,8 @@
 import logging
 import numpy as np
-
 from federated.algorithms.Algorithm import Algorithm, average_weights, get_y
 from federated.algorithms.Identity import Identity
-from federated.model import NN_model
+from federated.nn_model import NN_model
 from metrics.MetricFactory import get_metrics
 
 
@@ -77,7 +76,7 @@ def train_and_average(global_models, dataset, clients_data, timestep, seed):
         logging.info("")
         for gm_id in range(len(global_models)):
             if len(local_weights_list[gm_id]) > 0:
-                new_global_weights = average_weights(local_weights_list[gm_id], local_scales_list[gm_id])
+                new_global_weights = average_weights(dataset.is_pt, local_weights_list[gm_id], local_scales_list[gm_id])
                 global_models[gm_id].set_weights(new_global_weights)
                 logging.info("Averaged models on timestep {} cround {} of model {}".format(timestep, cround, gm_id))
             else:
