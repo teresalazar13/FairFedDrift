@@ -85,6 +85,6 @@ class NNPTLarge(torch.nn.Module):
 
     def forward(self, x):
         x = torch.nn.functional.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
-        x = self.resnet50(x)
+        x = self.resnet(x)
 
         return x
