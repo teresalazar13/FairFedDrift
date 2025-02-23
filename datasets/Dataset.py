@@ -31,20 +31,6 @@ class Dataset:
     def get_folder(self, scenario, algorithm_subfolders, varying_disc):
         return "./results/scenario-{}/{}/disc_{}/{}".format(scenario, self.name, varying_disc, algorithm_subfolders)
 
-    def get_all_folders(self, scenario, varying_disc):
-        folder = "./results/scenario-{}/{}/disc_{}".format(scenario, self.name, varying_disc)
-        folders = []
-        algs = []
-        for x in os.walk(folder):
-            if len(x) > 1 and "client_1" in x[0] and "results.csv" in x[-1]:
-                f = "/".join(x[0].split("/")[:-1])
-                a = ";".join(x[0].split("/")[4:-1])
-                if f not in folders:
-                    folders.append(f)
-                    algs.append(a)
-
-        return folder, folders, algs
-
     # TODO - remove
     def set_args(self, net, bs, lr, ne, nr):
         self.net = net

@@ -45,9 +45,8 @@ def get_arguments():
 
 def generate_directories(scenario, dataset, algorithm_subfolders, varying_disc, args):
     # TODO - remove
-    args_dict = vars(args)
-    folder = "_".join(f"{key}-{','.join(value) if isinstance(value, list) else value}" for key, value in args_dict.items())
-    #folder = dataset.get_folder(scenario, algorithm_subfolders, varying_disc)
+    folder = "_".join(f"{key}-{','.join(value) if isinstance(value, list) else value}" for key, value in vars(args).items())
+    # folder = dataset.get_folder(scenario, algorithm_subfolders, varying_disc)
     if os.path.exists(folder):
         shutil.rmtree(folder)
 
@@ -85,16 +84,13 @@ if __name__ == '__main__':
     seed = scenario
     set_seeds(seed)
     generate_directories(scenario, dataset, algorithm.subfolders, varying_disc, args)
-    logging.basicConfig(
-        filename="{}/output.txt".format(dataset.get_folder(scenario, algorithm.subfolders, varying_disc)),
-        level=logging.DEBUG
-    )
+    # TODO-remove
+    folder = "_".join(f"{key}-{','.join(value) if isinstance(value, list) else value}" for key, value in vars(args).items())
+    # folder = dataset.get_folder(scenario, algorithm.subfolders, varying_disc)
+    logging.basicConfig(filename="{}/output.txt".format(folder), level=logging.DEBUG)
     logging.getLogger().addHandler(logging.StreamHandler())
     clients_data = dataset.create_batched_data(varying_disc)
     clients_metrics, clients_identities = algorithm.perform_fl(seed, clients_data, dataset)
 
     for i in range(len(clients_metrics)):
-        save_results(
-            clients_metrics[i], dataset.drift_ids_col[i], clients_identities[i],
-            "{}/client_{}/results.csv".format(dataset.get_folder(scenario, algorithm.subfolders, varying_disc), i+1)
-        )
+        save_results(clients_metrics[i], dataset.drift_ids_col[i], clients_identities[i],"{}/client_{}/results.csv".format(folder, i+1))
