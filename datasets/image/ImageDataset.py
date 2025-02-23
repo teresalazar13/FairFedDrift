@@ -34,10 +34,17 @@ class ImageDataset(Dataset):
                 X_unpriv_round_client = self.negate(X_priv_round_client)
                 y_unpriv_round_client = y_priv_round_client.copy()
                 if drift_id != 0:
-                    y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
-                    y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
-                    y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + 1
-                    y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id
+                    if self.is_pt:  # if is CIFAR-100 (nothing to do with PyTorch)
+                        for k in range(10):
+                            y_unpriv_round_client[y_unpriv_round_client == drift_id + k] = 100
+                            y_unpriv_round_client[y_unpriv_round_client == drift_id + k + 10] = 101
+                            y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + k + 10
+                            y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id + k
+                    else:
+                        y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
+                        y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
+                        y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + 1
+                        y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id
 
                 X = np.concatenate((X_priv_round_client[size_unpriv:], X_unpriv_round_client[:size_unpriv]), axis=0)
                 y_original = np.concatenate((y_priv_round_client[size_unpriv:], y_unpriv_round_client[:size_unpriv]), axis=0)
@@ -59,25 +66,3 @@ class ImageDataset(Dataset):
             return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
         else:  # CIFAR-100 and Pytorch (C, H, W) format
             return np.rot90(X_priv_round_client.copy().astype(np.int16) * -1, axes=(-3, -2))
-
-    def augment(self, X, Y):
-        X_augmented = []
-        Y_augmented = []
-
-        for i in range(len(X)):
-            x = X[i]
-            y = Y[i]
-
-            angles = np.linspace(-20, 20, 20)
-            for angle in angles:
-                x_augmented = rotate(x, angle, reshape=False)
-                X_augmented.append(x_augmented)
-                Y_augmented.append(y)
-
-        X_augmented = np.array(X_augmented)
-        Y_augmented = np.array(Y_augmented)
-
-        indices = np.arange(len(X_augmented))
-        np.random.shuffle(indices)
-
-        return X_augmented[indices], Y_augmented[indices]
