@@ -4,13 +4,17 @@ import numpy as np
 
 
 class NNPT:
-    def __init__(self, _, seed):
+    def __init__(self, dataset, seed):
         torch.manual_seed(seed)
-        self.batch_size = 64
-        self.n_epochs = 15
-        self.model = NNPTLarge()
+        #self.batch_size = 64
+        #self.n_epochs = 15
+        # TODO - remove
+        self.batch_size = dataset.bs
+        self.n_epochs = dataset.ne
+        self.lr = dataset.lr
+
+        self.model = NNPTLarge(dataset)
         self.model = self.model.to('cuda')
-        device = next(self.model.parameters()).device
 
     def set_weights(self, weights):
         self.model.load_state_dict(weights)
@@ -37,7 +41,9 @@ class NNPT:
                 pred = self.model(X)
                 loss = criterion(pred, y)
                 loss.backward()
-                optimizer = torch.optim.Adam(self.model.parameters(), lr=0.01)
+                # TODO - remove
+                optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
+                #optimizer = torch.optim.Adam(self.model.parameters(), lr=0.01)
                 optimizer.step()
 
     def predict(self, x):
@@ -52,21 +58,25 @@ class NNPT:
 
 
 class NNPTLarge(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, dataset):
         super().__init__()
-        self.resnet50 = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
+        # TODO - remove
+        if dataset.net == "resnet18":
+            self.resnet = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+        elif dataset.net == "resnet50":
+            self.resnet = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
 
         # First, freeze all layers
-        for param in self.resnet50.parameters():
+        for param in self.resnet.parameters():
             param.requires_grad = False
         # Then, unfreeze only BatchNorm layers
-        for name, layer in self.resnet50.named_modules():
+        for name, layer in self.resnet.named_modules():
             if isinstance(layer, torch.nn.modules.batchnorm.BatchNorm2d):
                 for param in layer.parameters():
                     param.requires_grad = True  # Unfreeze BatchNorm
 
         self.resnet50.fc = torch.nn.Sequential(
-            torch.nn.Linear(self.resnet50.fc.in_features, 256),
+            torch.nn.Linear(self.resnet.fc.in_features, 256),
             torch.nn.ReLU(),
             torch.nn.Dropout(0.25),
             torch.nn.BatchNorm1d(256),

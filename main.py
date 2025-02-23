@@ -30,6 +30,14 @@ def get_arguments():
         algorithm.set_specs(args)
     varying_disc = float(args.varying_disc)
 
+    # TODO - remove
+    parser.add_argument('--net', required=True, help='net')
+    parser.add_argument('--bs', required=True, help='batch_size')
+    parser.add_argument('--lr', required=True, help='learning_rate')
+    parser.add_argument('--ne', required=True, help='n_epochs')
+    parser.add_argument('--nr', required=True, help='n_rounds')
+    dataset.set_args(args.net, int(args.bs), float(args.lr), int(args.ne), int(args.nr))
+
     return scenario, algorithm, dataset, varying_disc
 
 
