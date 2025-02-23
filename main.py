@@ -21,6 +21,13 @@ def get_arguments():
     parser.add_argument('--thresholds', nargs='+', required=False, help='thresholds')
     parser.add_argument('--window', required=False, help='window')
 
+    # TODO - remove
+    parser.add_argument('--net', required=True, help='net')
+    parser.add_argument('--bs', required=True, help='batch_size')
+    parser.add_argument('--lr', required=True, help='learning_rate')
+    parser.add_argument('--ne', required=True, help='n_epochs')
+    parser.add_argument('--nr', required=True, help='n_rounds')
+
     args = parser.parse_args(sys.argv[1:])
     scenario = int(args.scenario)
     algorithm = get_algorithm_by_name(args.fl)
@@ -31,18 +38,16 @@ def get_arguments():
     varying_disc = float(args.varying_disc)
 
     # TODO - remove
-    parser.add_argument('--net', required=True, help='net')
-    parser.add_argument('--bs', required=True, help='batch_size')
-    parser.add_argument('--lr', required=True, help='learning_rate')
-    parser.add_argument('--ne', required=True, help='n_epochs')
-    parser.add_argument('--nr', required=True, help='n_rounds')
     dataset.set_args(args.net, int(args.bs), float(args.lr), int(args.ne), int(args.nr))
 
-    return scenario, algorithm, dataset, varying_disc
+    return scenario, algorithm, dataset, varying_disc, args
 
 
-def generate_directories(scenario, dataset, algorithm_subfolders, varying_disc):
-    folder = dataset.get_folder(scenario, algorithm_subfolders, varying_disc)
+def generate_directories(scenario, dataset, algorithm_subfolders, varying_disc, args):
+    # TODO - remove
+    args_dict = vars(args)
+    folder = "_".join(f"{key}-{','.join(value) if isinstance(value, list) else value}" for key, value in args_dict.items())
+    #folder = dataset.get_folder(scenario, algorithm_subfolders, varying_disc)
     if os.path.exists(folder):
         shutil.rmtree(folder)
 
@@ -76,10 +81,10 @@ def save_results(metrics, drift_ids, clients_identities, filename):
 
 if __name__ == '__main__':
     os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
-    scenario, algorithm, dataset, varying_disc = get_arguments()
+    scenario, algorithm, dataset, varying_disc, args = get_arguments()
     seed = scenario
     set_seeds(seed)
-    generate_directories(scenario, dataset, algorithm.subfolders, varying_disc)
+    generate_directories(scenario, dataset, algorithm.subfolders, varying_disc, args)
     logging.basicConfig(
         filename="{}/output.txt".format(dataset.get_folder(scenario, algorithm.subfolders, varying_disc)),
         level=logging.DEBUG
