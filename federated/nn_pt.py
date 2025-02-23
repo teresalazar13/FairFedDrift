@@ -75,7 +75,7 @@ class NNPTLarge(torch.nn.Module):
                 for param in layer.parameters():
                     param.requires_grad = True  # Unfreeze BatchNorm
 
-        self.resnet50.fc = torch.nn.Sequential(
+        self.resnet.fc = torch.nn.Sequential(
             torch.nn.Linear(self.resnet.fc.in_features, 256),
             torch.nn.ReLU(),
             torch.nn.Dropout(0.25),
