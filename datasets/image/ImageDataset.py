@@ -1,6 +1,5 @@
 import random
 import numpy as np
-from scipy.ndimage import rotate
 from tensorflow.keras.utils import to_categorical
 from datasets.Dataset import Dataset
 
@@ -62,7 +61,9 @@ class ImageDataset(Dataset):
         return batched_data
 
     def negate(self, X_priv_round_client):
-        if not self.is_pt:  # MNIST and FashionMNIST tensorflow
+        if not self.is_pt:  # MNIST and FashionMNIST
             return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
-        else:  # CIFAR-100 and Pytorch (C, H, W) format
-            return np.rot90(X_priv_round_client.copy().astype(np.int16) * -1, axes=(-3, -2))
+        else:  # CIFAR-100
+            inverted = X_priv_round_client.copy()
+            inverted[..., :3] = 255 - inverted[..., :3]
+            return inverted
