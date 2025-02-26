@@ -69,12 +69,12 @@ class NNPTLarge(torch.nn.Module):
         # First, freeze all layers
         for param in self.resnet.parameters():
             param.requires_grad = False
-        """
+
         # Then, unfreeze only BatchNorm layers
         for name, layer in self.resnet.named_modules():
             if isinstance(layer, torch.nn.modules.batchnorm.BatchNorm2d):
                 for param in layer.parameters():
-                    param.requires_grad = True  # Unfreeze BatchNorm"""
+                    param.requires_grad = True  # Unfreeze BatchNorm
 
         self.resnet.fc = torch.nn.Sequential(
             torch.nn.Linear(self.resnet.fc.in_features, 256),

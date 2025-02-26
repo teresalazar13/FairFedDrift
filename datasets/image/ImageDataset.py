@@ -2,6 +2,7 @@ import random
 import numpy as np
 from tensorflow.keras.utils import to_categorical
 from datasets.Dataset import Dataset
+from scipy.ndimage import rotate
 
 
 class ImageDataset(Dataset):
@@ -15,8 +16,7 @@ class ImageDataset(Dataset):
         drift_ids = self.drift_ids
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps
-        X_priv = self.X
-        y_priv = self.y
+        X_priv, y_priv = self.augment(self.X, self.y)
         batched_data = []
         X_priv_rounds = np.array_split(X_priv, n_timesteps)
         y_priv_rounds = np.array_split(y_priv, n_timesteps)
@@ -67,3 +67,24 @@ class ImageDataset(Dataset):
             inverted = X_priv_round_client.copy()
             inverted[..., :3] = 255 - inverted[..., :3]
             return inverted
+
+    def augment(self, X, Y):
+        X_augmented = []
+        Y_augmented = []
+
+        for i in range(len(X)):
+            x = X[i]
+            y = Y[i]
+            angles = np.linspace(-20, 20, 10)
+            for angle in angles:
+                new_image = rotate(x, angle, reshape=False, mode='nearest')  # Rotate image
+                X_augmented.append(new_image)
+                Y_augmented.append(y)
+
+        X_augmented = np.array(X_augmented)
+        Y_augmented = np.array(Y_augmented)
+
+        indices = np.arange(len(X_augmented))
+        np.random.shuffle(indices)
+
+        return X_augmented[indices], Y_augmented[indices]
