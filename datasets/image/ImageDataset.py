@@ -75,7 +75,7 @@ class ImageDataset(Dataset):
         for i in range(len(X)):
             x = X[i]
             y = Y[i]
-            angles = np.linspace(-20, 20, 10)
+            angles = np.linspace(-20, 20, 3)
             for angle in angles:
                 new_image = rotate(x, angle, reshape=False, mode='nearest')  # Rotate image
                 X_augmented.append(new_image)
