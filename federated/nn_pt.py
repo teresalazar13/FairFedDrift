@@ -14,7 +14,7 @@ class NNPT:
         self.lr = dataset.lr
 
         self.model = NNPTLarge(dataset)
-        #self.model = self.model.to('cuda')
+        self.model = self.model.to('cuda')
 
     def set_weights(self, weights):
         self.model.load_state_dict(weights)
@@ -30,9 +30,9 @@ class NNPT:
         criterion = torch.nn.CrossEntropyLoss()
         x_tensor = torch.tensor(x_, dtype=torch.float32)
         x_tensor = x_tensor.permute(0, 3, 1, 2)
-        #x_tensor = x_tensor.to('cuda')
+        x_tensor = x_tensor.to('cuda')
         y_tensor = torch.tensor(np.argmax(y_, axis=-1), dtype=torch.long)
-        #y_tensor = y_tensor.to('cuda')
+        y_tensor = y_tensor.to('cuda')
         dataset = torch.utils.data.TensorDataset(x_tensor, y_tensor)
         dataloader = torch.utils.data.DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
         for epoch in range(self.n_epochs):
@@ -51,7 +51,7 @@ class NNPT:
         with torch.no_grad():
             x_tensor = torch.tensor(x, dtype=torch.float32)
             x_tensor = x_tensor.permute(0, 3, 1, 2)
-            #x_tensor = x_tensor.to('cuda')
+            x_tensor = x_tensor.to('cuda')
             y_pred_raw = self.model(x_tensor)
 
             return y_pred_raw.cpu().detach().numpy()
