@@ -33,7 +33,7 @@ class Loss(Metric):
 
         y_true_raw_3 = torch.tensor(y_true_raw, dtype=torch.float32)
         y_pred_raw_3 = torch.tensor(y_pred_raw, dtype=torch.float32)
-        loss_py_torch = F.cross_entropy(y_true_raw_3, y_pred_raw_3)
+        loss_py_torch = F.cross_entropy(y_pred_raw_3, y_true_raw_3)
         mean_loss = loss_py_torch.item()
         print(mean_loss)
         exit()
