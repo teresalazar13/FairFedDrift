@@ -53,8 +53,9 @@ class NNPT:
             x_tensor = x_tensor.permute(0, 3, 1, 2)
             x_tensor = x_tensor.to('cuda')
             y_pred_raw = self.model(x_tensor)
+            y_pred_softmax = torch.nn.functional.softmax(y_pred_raw, dim=1)
 
-            return y_pred_raw.cpu().detach().numpy()
+            return y_pred_softmax.cpu().detach().numpy()
 
 
 class NNPTLarge(torch.nn.Module):
