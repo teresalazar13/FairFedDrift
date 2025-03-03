@@ -35,7 +35,7 @@ class ImageDataset(Dataset):
                 y_unpriv_round_client = y_priv_round_client.copy()
                 if drift_id != 0:
                     if self.is_pt:  # if is CIFAR-100 (nothing to do with PyTorch)
-                        for k in range(10):
+                        for k in range(3):
                             y_unpriv_round_client[y_unpriv_round_client == drift_id + k] = 100
                             y_unpriv_round_client[y_unpriv_round_client == drift_id + k + 10] = 101
                             y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + k + 10

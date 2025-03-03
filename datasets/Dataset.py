@@ -31,14 +31,6 @@ class Dataset:
     def get_folder(self, scenario, algorithm_subfolders, varying_disc):
         return "./results/scenario-{}/{}/disc_{}/{}".format(scenario, self.name, varying_disc, algorithm_subfolders)
 
-    # TODO - remove
-    def set_args(self, net, bs, lr, ne, nr):
-        self.net = net
-        self.bs = bs
-        self.lr = lr
-        self.ne = ne
-        self.n_rounds = nr
-
 
 def get_drift_ids(scenario):
     f = open("./datasets/scenarios/{}.csv".format(scenario))
