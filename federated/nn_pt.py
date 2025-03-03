@@ -8,7 +8,6 @@ class NNPT:
         torch.manual_seed(seed)
         self.batch_size = 128
         self.n_epochs = 30
-        self.lr = dataset.lr
         self.model = NNPTLarge(dataset)
         self.model = self.model.to('cuda')
 
