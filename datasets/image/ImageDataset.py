@@ -16,8 +16,8 @@ class ImageDataset(Dataset):
         drift_ids = self.drift_ids
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps
-        # X_priv, y_priv = self.X, self.y
-        X_priv, y_priv = self.augment(self.X, self.y)
+        X_priv, y_priv = self.X, self.y
+        #X_priv, y_priv = self.augment(self.X, self.y)
         batched_data = []
         X_priv_rounds = np.array_split(X_priv, n_timesteps)
         y_priv_rounds = np.array_split(y_priv, n_timesteps)
@@ -64,7 +64,7 @@ class ImageDataset(Dataset):
     def negate(self, X_priv_round_client):
         if not self.is_pt:  # MNIST and FashionMNIST
             return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
-        else:  # CIFAR-100
+        else:  # CIFAR-100 and CIFAR-10
             inverted = X_priv_round_client.copy()
             inverted[..., :3] = 255 - inverted[..., :3]
             return inverted
