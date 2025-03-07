@@ -34,17 +34,17 @@ class ImageDataset(Dataset):
                 X_unpriv_round_client = self.negate(X_priv_round_client)
                 y_unpriv_round_client = y_priv_round_client.copy()
                 if drift_id != 0:
-                    if self.is_pt:  # if is CIFAR-100 (nothing to do with PyTorch)
-                        for k in range(3):
-                            y_unpriv_round_client[y_unpriv_round_client == drift_id + k] = 100
-                            y_unpriv_round_client[y_unpriv_round_client == drift_id + k + 10] = 101
-                            y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + k + 10
-                            y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id + k
-                    else:
-                        y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
-                        y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
-                        y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + 1
-                        y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id
+                    #if self.is_pt:  # if is CIFAR-100 (nothing to do with PyTorch)
+                        #for k in range(3):
+                            #y_unpriv_round_client[y_unpriv_round_client == drift_id + k] = 100
+                            #y_unpriv_round_client[y_unpriv_round_client == drift_id + k + 10] = 101
+                            #y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + k + 10
+                            #y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id + k
+                    #else:
+                    y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
+                    y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
+                    y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + 1
+                    y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id
 
                 X = np.concatenate((X_priv_round_client[size_unpriv:], X_unpriv_round_client[:size_unpriv]), axis=0)
                 y_original = np.concatenate((y_priv_round_client[size_unpriv:], y_unpriv_round_client[:size_unpriv]), axis=0)
