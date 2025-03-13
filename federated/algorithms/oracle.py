@@ -1,4 +1,5 @@
 import logging
+import time
 import numpy as np
 from federated.algorithms.Algorithm import Algorithm, average_weights, get_y
 from federated.algorithms.Identity import Identity
@@ -51,6 +52,7 @@ def train_and_average(global_models, dataset, clients_data, timestep, gm_has_bee
         local_weights_list = [[] for _ in range(len(global_models))]
         local_scales_list = [[] for _ in range(len(global_models))]
         for client_id in range(dataset.n_clients):
+            start = time.time()
             # Get client data of each global model of all timesteps until timestep (inclusive)
             x_shape = list(clients_data[0][client_id][0].shape)
             y_shape = list(clients_data[0][client_id][1].shape)
@@ -86,6 +88,9 @@ def train_and_average(global_models, dataset, clients_data, timestep, gm_has_bee
                     logging.info("Trained timestep {} model {} cround {} client {}".format(timestep, gm_id, cround, client_id))
                 else:
                     logging.info("Did not train timestep {} model {} cround {} client {}".format(timestep, gm_id, cround, client_id))
+            time_taken = round(time.time() - start)
+            logging.info("time {}s".format(time_taken))
+
         logging.info("")
         for gm_id in range(len(global_models)):
             if len(local_weights_list[gm_id]) > 0:
