@@ -9,8 +9,8 @@ from metrics.OverallPredictiveParity import OverallPredictiveParity
 
 def get_metrics(_):
     return [
-        Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), AccuracyEquality(), OverallEqualityOpportunity(),
-        OverallPredictiveParity()
+        Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), AccuracyEquality(),
+        #OverallEqualityOpportunity(), OverallPredictiveParity()
     ]
 
 
