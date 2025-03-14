@@ -35,7 +35,7 @@ class NNPT2:
                 pred = self.model(X)
                 loss = criterion(pred, y)
                 loss.backward()
-                optimizer = torch.optim.SGD(self.model.parameters(), lr=0.01)
+                optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
                 optimizer.step()
 
     def predict(self, x):
