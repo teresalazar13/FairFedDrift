@@ -3,6 +3,8 @@ import numpy as np
 from tensorflow.keras.utils import to_categorical
 from datasets.Dataset import Dataset
 from scipy.ndimage import rotate
+import matplotlib.pyplot as plt
+
 
 
 class ImageDataset(Dataset):
@@ -65,9 +67,28 @@ class ImageDataset(Dataset):
         if not self.is_pt:  # MNIST and FashionMNIST
             return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
         else:  # CIFAR-100 and CIFAR-10
-            inverted = X_priv_round_client.copy()
-            inverted[..., :3] = 255 - inverted[..., :3]
-            return inverted
+            #inverted = X_priv_round_client.copy()
+            #inverted[..., :3] = 255 - inverted[..., :3]
+            grayscale = X_priv_round_client.copy()
+            grayscale[..., 0] = 0.2989 * X_priv_round_client[..., 0] + 0.5870 * X_priv_round_client[..., 1] + 0.1140 * X_priv_round_client[..., 2]
+            grayscale[..., 1] = grayscale[..., 0]
+            grayscale[..., 2] = grayscale[..., 0]
+            """
+            for i in range(10):
+                plt.imshow(X_priv_round_client[i])
+                plt.axis('off')  # Hide axes
+                plt.show()
+
+                plt.imshow(inverted[i])
+                plt.axis('off')  # Hide axes
+                plt.show()
+
+                plt.imshow(grayscale[i])
+                plt.axis('off')  # Hide axes
+                plt.show()
+            exit()"""
+
+            return grayscale
 
     def augment(self, X, Y):
         X_augmented = []
