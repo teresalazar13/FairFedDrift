@@ -68,7 +68,7 @@ class OverallPredictiveParity(Metric):
                 ppvs_priv.append(ppv_priv)
             if total_unpriv != 0:
                 ppv_unpriv = divide(correct_unpriv, total_unpriv)
-                logging.info("S=0 {} - {}".format(y, ppvs_unpriv))
+                logging.info("S=0 {} - {}".format(y, ppv_unpriv))
                 ppvs_unpriv.append(ppv_unpriv)
 
         avg_ppvs_priv = sum(ppvs_priv) / len(ppvs_priv)

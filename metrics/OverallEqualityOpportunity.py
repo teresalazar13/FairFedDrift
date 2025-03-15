@@ -68,7 +68,7 @@ class OverallEqualityOpportunity(Metric):
                 tprs_priv.append(tpr_priv)
             if total_unpriv != 0:
                 tpr_unpriv = divide(correct_unpriv, total_unpriv)
-                logging.info("S=0 {} - {}".format(y, tprs_unpriv))
+                logging.info("S=0 {} - {}".format(y, tpr_unpriv))
                 tprs_unpriv.append(tpr_unpriv)
 
         avg_tprs_priv = sum(tprs_priv) / len(tprs_priv)
