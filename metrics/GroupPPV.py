@@ -25,18 +25,18 @@ class GroupPPV(Metric):
             total_priv = len(
                 df[(df["s"] == 1) & (df["y_pred"] == y)]
             )
-            t_priv = {
+            t_priv = len(
                 df[(df["s"] == 1) & (df["y"] == y)]
-            }
+            )
             correct_unpriv = len(
                 df[(df["y"] == df["y_pred"]) & (df["s"] == 0) & (df["y"] == y)]
             )
             total_unpriv = len(
                 df[(df["s"] == 0) & (df["y_pred"] == y)]
             )
-            t_unpriv = {
+            t_unpriv = len(
                 df[(df["s"] == 0) & (df["y"] == y)]
-            }
+            )
 
             if t_priv != 0:
                 ppv_priv = divide(correct_priv, total_priv)
