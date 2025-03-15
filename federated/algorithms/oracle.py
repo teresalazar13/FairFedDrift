@@ -89,7 +89,8 @@ def train_and_average(global_models, dataset, clients_data, timestep, seed):
                 logging.info("Did not average models on timestep {} cround {} of model {}".format(timestep, cround, gm_id))
         logging.info("")
 
-    return global_models, gm_has_been_trained
+    return global_models
+
 
 def test_models(global_models, clients_data, clients_metrics, dataset, timestep, clients_identities):
     for client_id, (client_data, client_metrics) in enumerate(zip(clients_data[timestep], clients_metrics)):
