@@ -16,7 +16,7 @@ class FedAvg(Algorithm):
 
     def perform_fl(self, seed, clients_data, dataset):
         global_model = NN_model(dataset, seed)
-        clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
+        clients_metrics = [get_metrics(dataset.is_pt) for _ in range(dataset.n_clients)]
         # Train with data from first timestep
         global_model = train_and_average(global_model, dataset, clients_data, 0, seed)
 

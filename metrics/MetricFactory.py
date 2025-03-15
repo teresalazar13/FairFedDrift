@@ -5,18 +5,18 @@ from metrics.LossPrivileged import LossPrivileged
 from metrics.LossUnprivileged import LossUnprivileged
 from metrics.OverallEqualityOpportunity import OverallEqualityOpportunity
 from metrics.OverallPredictiveParity import OverallPredictiveParity
+from metrics.GroupTPR import GroupTPR
+from metrics.GroupPPV import GroupPPV
 
 
-def get_metrics(_):
-    return [
-        Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), AccuracyEquality(),
-        OverallEqualityOpportunity(), OverallPredictiveParity()
-    ]
-
-
-def get_metric_by_names(name):
-    for metric in get_metrics(None):
-        if name == metric.name:
-            return metric
-
-    raise Exception("No Metric with the name ", name)
+def get_metrics(dataset_is_pt):
+    if dataset_is_pt:
+        return [
+            Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), AccuracyEquality(),
+            GroupTPR(), GroupPPV()
+        ]
+    else:
+        return [
+            Accuracy(), Loss(), LossPrivileged(), LossUnprivileged(), AccuracyEquality(),
+            OverallEqualityOpportunity(), OverallPredictiveParity()
+        ]

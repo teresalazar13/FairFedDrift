@@ -36,7 +36,7 @@ class FedDrift(Algorithm):
 
 
 def perform_fl(self, seed, clients_data, dataset):
-    clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
+    clients_metrics = [get_metrics(dataset.is_pt) for _ in range(dataset.n_clients)]
     global_models = GlobalModels()
     init_model = get_init_model(dataset, seed)
     global_model = global_models.create_new_global_model(init_model)

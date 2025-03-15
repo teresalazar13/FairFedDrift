@@ -4,7 +4,7 @@ import logging
 from metrics.Metric import Metric
 
 
-class OverallPredictiveParity(Metric):
+class GroupPPV(Metric):
 
     def __init__(self):
         name = "OPP"
@@ -15,8 +15,8 @@ class OverallPredictiveParity(Metric):
         df["y"] = y_true
         df["y_pred"] = y_pred
         df["s"] = s
-
-        res_list = []
+        ppvs_priv = []
+        ppvs_unpriv = []
 
         for y in set(y_true):
             correct_priv = len(
@@ -32,18 +32,22 @@ class OverallPredictiveParity(Metric):
                 df[(df["s"] == 0) & (df["y_pred"] == y)]
             )
 
-            ppv_priv = divide(correct_priv, total_priv)
-            ppv_unpriv = divide(correct_unpriv, total_unpriv)
-            res = divide(ppv_unpriv, ppv_priv)
+            if total_priv != 0:
+                ppv_priv = divide(correct_priv, total_priv)
+                logging.info("S=1 {} - {}".format(y, ppv_priv))
+                ppvs_priv.append(ppv_priv)
+            if total_unpriv != 0:
+                ppv_unpriv = divide(correct_unpriv, total_unpriv)
+                logging.info("S=0 {} - {}".format(y, ppv_unpriv))
+                ppvs_unpriv.append(ppv_unpriv)
 
-            if res > 1:
-                res = 1 / res
+        avg_ppvs_priv = sum(ppvs_priv) / len(ppvs_priv)
+        avg_ppvs_unpriv = sum(ppvs_unpriv) / len(ppvs_unpriv)
+        res = divide(avg_ppvs_priv, avg_ppvs_unpriv)
+        if res > 1:
+            res = 1 / res
 
-            if total_unpriv != 0 and total_priv != 0:
-                res_list.append(res)
-                logging.info("{} - {}".format(y, res))
-
-        return sum(res_list) / len(res_list)
+        return res
 
 
 def divide(a, b):

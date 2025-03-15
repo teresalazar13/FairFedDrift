@@ -17,7 +17,7 @@ class Oracle(Algorithm):
         super().__init__(name, color, marker)
 
     def perform_fl(self, seed, clients_data, dataset):
-        clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
+        clients_metrics = [get_metrics(dataset.is_pt) for _ in range(dataset.n_clients)]
         global_models, clients_identities, gm_has_been_trained = setup(seed, dataset)
         # Train with data from first timestep
         global_models, gm_has_been_trained = train_and_average(global_models, dataset, clients_data, 0, gm_has_been_trained, seed)
