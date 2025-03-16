@@ -3,11 +3,11 @@ import os
 
 class Dataset:
 
-    def __init__(self, name, input_shape, is_pt, is_binary_target, is_image=True):
+    def __init__(self, name, input_shape, is_pt, n_classes, is_image=True):
         self.name = name
         self.input_shape = input_shape
         self.is_pt = is_pt
-        self.is_binary_target = is_binary_target
+        self.n_classes = n_classes
         self.n_rounds = 10  # number of rounds per timestep
         self.is_image = is_image
 

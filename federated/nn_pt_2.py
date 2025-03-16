@@ -62,7 +62,7 @@ class NNPTLarge(torch.nn.Module):
         self.pool = torch.nn.MaxPool2d(2, 2)
         self.fc1 = torch.nn.Linear(128 * 4 * 4, 512)
         self.fc2 = torch.nn.Linear(512, 256)
-        self.fc3 = torch.nn.Linear(256, 10)
+        self.fc3 = torch.nn.Linear(256, dataset.n_classes)
         self.dropout = torch.nn.Dropout(0.3)
 
     def forward(self, x):

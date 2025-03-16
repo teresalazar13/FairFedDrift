@@ -97,7 +97,7 @@ def test_models(global_models, clients_data, clients_metrics, dataset, timestep,
         x, y_true_raw, s, _ = client_data
         model = global_models[clients_identities[client_id][-1].id]
         y_pred_raw = model.predict(x)
-        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
+        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.n_classes)
         for client_metric in client_metrics:
             res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
             logging.info("Client {}, timestep {}: {} - {}".format(client_id, timestep, res, client_metric.name))

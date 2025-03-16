@@ -2,24 +2,26 @@ import random
 import numpy as np
 from tensorflow.keras.utils import to_categorical
 from datasets.Dataset import Dataset
-from scipy.ndimage import rotate
-import matplotlib.pyplot as plt
 
 
 class ImageDataset(Dataset):
 
-    def __init__(self, name, input_shape, is_pt, is_binary_target, X, y):
-        super().__init__(name, input_shape, is_pt, is_binary_target)
+    def __init__(self, name, input_shape, is_pt, n_classes, X, y):
+        super().__init__(name, input_shape, is_pt, n_classes)
         self.X = X
         self.y = y
 
-    """
     def create_batched_data(self, varying_disc):
+        if self.is_pt:
+            return self.create_batched_data_pt(varying_disc)
+        else:
+            return self.create_batched_data_tf(varying_disc)
+
+    def create_batched_data_tf(self, varying_disc):
         drift_ids = self.drift_ids
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps
         X_priv, y_priv = self.X, self.y
-        #X_priv, y_priv = self.augment(self.X, self.y)
         batched_data = []
         X_priv_rounds = np.array_split(X_priv, n_timesteps)
         y_priv_rounds = np.array_split(y_priv, n_timesteps)
@@ -33,14 +35,13 @@ class ImageDataset(Dataset):
                 X_priv_round_client = X_priv_round_clients[j]
                 y_priv_round_client = y_priv_round_clients[j]
                 size_unpriv = round(len(X_priv_round_client) * varying_disc)
-                X_unpriv_round_client = self.negate(X_priv_round_client)
+                X_unpriv_round_client = np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
                 y_unpriv_round_client = y_priv_round_client.copy()
                 if drift_id != 0:
                     y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
                     y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
                     y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + 1
                     y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id
-
                 X = np.concatenate((X_priv_round_client[size_unpriv:], X_unpriv_round_client[:size_unpriv]), axis=0)
                 y_original = np.concatenate((y_priv_round_client[size_unpriv:], y_unpriv_round_client[:size_unpriv]), axis=0)
                 s = [1] * (len(X_priv_round_client) - size_unpriv) + [0] * size_unpriv
@@ -54,9 +55,9 @@ class ImageDataset(Dataset):
                 batched_data_round.append([X, y, s, y_original])
             batched_data.append(batched_data_round)
 
-        return batched_data"""
+        return batched_data
 
-    def create_batched_data(self, varying_disc):
+    def create_batched_data_pt(self, varying_disc):
         drift_ids = self.drift_ids
         n_clients = self.n_clients
         n_timesteps = self.n_timesteps
@@ -81,10 +82,12 @@ class ImageDataset(Dataset):
                 X_unpriv_round_client = X_unpriv_round_clients[j]
                 y_unpriv_round_client = y_unpriv_round_clients[j]
                 if drift_id != 0:
-                    y_unpriv_round_client[y_unpriv_round_client == drift_id] = 100
-                    y_unpriv_round_client[y_unpriv_round_client == drift_id + 1] = 101
-                    y_unpriv_round_client[y_unpriv_round_client == 100] = drift_id + 1
-                    y_unpriv_round_client[y_unpriv_round_client == 101] = drift_id
+                    class_a = drift_id - 1
+                    class_b = drift_id
+                    y_unpriv_round_client[y_unpriv_round_client == class_a] = 100
+                    y_unpriv_round_client[y_unpriv_round_client == class_b] = 101
+                    y_unpriv_round_client[y_unpriv_round_client == 100] = class_b
+                    y_unpriv_round_client[y_unpriv_round_client == 101] = class_a
                 X = np.concatenate((X_priv_round_client, X_unpriv_round_client), axis=0)
                 y_original = np.concatenate((y_priv_round_client, y_unpriv_round_client), axis=0)
                 s = [1] * len(X_priv_round_client) + [0] * len(X_unpriv_round_client)
@@ -111,52 +114,3 @@ class ImageDataset(Dataset):
             y_filtered = self.y[mask.squeeze()][:size]
 
         return X_filtered, y_filtered
-
-    def negate(self, X_priv_round_client):
-        if not self.is_pt:  # MNIST and FashionMNIST
-            return np.rot90(X_priv_round_client.copy() * -1, axes=(-2, -1))
-        else:  # CIFAR-100 and CIFAR-10
-            # inverted = X_priv_round_client.copy()
-            # inverted[..., :3] = 255 - inverted[..., :3]
-            grayscale = X_priv_round_client.copy()
-            grayscale[..., 0] = 0.2989 * X_priv_round_client[..., 0] + 0.5870 * X_priv_round_client[..., 1] + 0.1140 * \
-                                X_priv_round_client[..., 2]
-            grayscale[..., 1] = grayscale[..., 0]
-            grayscale[..., 2] = grayscale[..., 0]
-            """
-            for i in range(10):
-                plt.imshow(X_priv_round_client[i])
-                plt.axis('off')  # Hide axes
-                plt.show()
-
-                plt.imshow(inverted[i])
-                plt.axis('off')  # Hide axes
-                plt.show()
-
-                plt.imshow(grayscale[i])
-                plt.axis('off')  # Hide axes
-                plt.show()
-            exit()"""
-
-            return grayscale
-
-    def augment(self, X, Y):
-        X_augmented = []
-        Y_augmented = []
-
-        for i in range(len(X)):
-            x = X[i]
-            y = Y[i]
-            angles = np.linspace(-20, 20, 3)
-            for angle in angles:
-                new_image = rotate(x, angle, reshape=False, mode='nearest')  # Rotate image
-                X_augmented.append(new_image)
-                Y_augmented.append(y)
-
-        X_augmented = np.array(X_augmented)
-        Y_augmented = np.array(Y_augmented)
-
-        indices = np.arange(len(X_augmented))
-        np.random.shuffle(indices)
-
-        return X_augmented[indices], Y_augmented[indices]

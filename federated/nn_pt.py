@@ -67,8 +67,7 @@ class NNPTLarge(torch.nn.Module):
             torch.nn.ReLU(),
             torch.nn.Dropout(0.25),
             torch.nn.BatchNorm1d(256),
-            #torch.nn.Linear(256, 100)
-            torch.nn.Linear(256, 10)
+            torch.nn.Linear(256, dataset.n_classes)
         )
 
     def forward(self, x):

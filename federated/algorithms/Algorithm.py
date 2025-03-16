@@ -27,17 +27,17 @@ def test(clients_data_timestep, clients_metrics, global_model, dataset):
     for client_data, client_metrics in zip(clients_data_timestep, clients_metrics):
         x, y_true_raw, s, _ = client_data
         y_pred_raw = global_model.predict(x)
-        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
+        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.n_classes)
         for client_metric in client_metrics:
             res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
             logging.info("{}-{}".format(res, client_metric.name))
 
-def get_y(y_true_raw, y_pred_raw, is_binary_target):
+def get_y(y_true_raw, y_pred_raw, n_classes):
     y_true = []
     y_pred = []
 
     for y_true_original_i, y_pred_original_i in zip(y_true_raw, y_pred_raw):
-        if is_binary_target:
+        if n_classes == 2:
             y_pred_new_i = 0
             if y_pred_original_i[0] > 0.5:
                 y_pred_new_i = 1

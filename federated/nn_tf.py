@@ -22,11 +22,10 @@ class NNTF:
             self.model.add(tf.keras.layers.Flatten())
             self.model.add(tf.keras.layers.Dense(100, activation='relu', kernel_initializer=initializer))
 
-        if dataset.is_binary_target:
+        if dataset.n_classes == 2:
             self.model.add(tf.keras.layers.Dense(1, activation='sigmoid', kernel_initializer=initializer))
         else:
-            # TODO - number of classes here
-            self.model.add(tf.keras.layers.Dense(10, activation='softmax', kernel_initializer=initializer))
+            self.model.add(tf.keras.layers.Dense(dataset.n_classes, activation='softmax', kernel_initializer=initializer))
 
     def set_weights(self, weights):
         self.model.set_weights(weights)
@@ -36,7 +35,7 @@ class NNTF:
 
     def compile(self, dataset):
         optimizer = tf.keras.optimizers.SGD(learning_rate=0.1)
-        if dataset.is_binary_target:
+        if dataset.n_classes == 2:
             loss = 'binary_crossentropy'
         else:
             loss = 'categorical_crossentropy'
