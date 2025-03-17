@@ -54,21 +54,21 @@ class NNPT3:
 class NNPTLarge(torch.nn.Module):
     def __init__(self, dataset):
         super().__init__()
-        self.mobilenet = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V1)
+        self.shufflenet = models.shufflenet_v2_x0_5(weights=models.ShuffleNet_V2_Weights.IMAGENET1K_V1)
 
         # Freeze all parameters
-        for param in self.mobilenet.parameters():
+        for param in self.shufflenet.parameters():
             param.requires_grad = False
 
         # Unfreeze BatchNorm layers
-        for name, layer in self.mobilenet.named_modules():
+        for name, layer in self.shufflenet.named_modules():
             if isinstance(layer, torch.nn.BatchNorm2d):
                 for param in layer.parameters():
                     param.requires_grad = True
 
         # Modify the classifier
-        self.mobilenet.classifier = torch.nn.Sequential(
-            torch.nn.Linear(self.mobilenet.last_channel, 256),
+        self.shufflenet.fc = torch.nn.Sequential(
+            torch.nn.Linear(self.shufflenet.fc.in_features, 256),
             torch.nn.ReLU(),
             torch.nn.Dropout(0.25),
             torch.nn.BatchNorm1d(256),
@@ -77,5 +77,5 @@ class NNPTLarge(torch.nn.Module):
 
     def forward(self, x):
         x = torch.nn.functional.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
-        x = self.mobilenet(x)
+        x = self.shufflenet(x)
         return x
