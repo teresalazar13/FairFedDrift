@@ -54,7 +54,7 @@ class NNPT3:
 class NNPTLarge(torch.nn.Module):
     def __init__(self, dataset):
         super().__init__()
-        self.shufflenet = models.shufflenet_v2_x0_5(weights=models.ShuffleNet_V2_Weights.IMAGENET1K_V1)
+        self.shufflenet = models.shufflenet_v2_x0_5(weights=models.ShuffleNet_V2_X0_5_Weights.IMAGENET1K_V1)
 
         # Freeze all parameters
         for param in self.shufflenet.parameters():
