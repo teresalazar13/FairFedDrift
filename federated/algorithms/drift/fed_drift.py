@@ -68,7 +68,10 @@ def perform_fl(self, seed, clients_data, dataset):
         # STEP 3 - Add models from drifted clients
         logging.info("STEP 3 - Add models from drifted clients (timestep: {})".format(timestep))
         for client_id in clients_new_models:
-            new_global_model = global_models.create_new_global_model(get_init_model(dataset, seed))
+            new_model = NN_model(dataset, seed)
+            new_model.compile(dataset)
+            new_model.set_weights(global_models.models[0].model.get_weights())
+            new_global_model = global_models.create_new_global_model(new_model)  # reuse model 0
             clients_identities[client_id].append(Identity(new_global_model.identity.id, new_global_model.identity.name))
 
         # STEP 4 - Merge Global Models
