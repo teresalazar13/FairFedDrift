@@ -54,16 +54,21 @@ class NNPT:
 class NNPTLarge(torch.nn.Module):
     def __init__(self, dataset):
         super().__init__()
-        self.resnet = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
-        for param in self.resnet.parameters():
-            param.requires_grad = False
-        for name, layer in self.resnet.named_modules():
-            if isinstance(layer, torch.nn.modules.batchnorm.BatchNorm2d):
-                for param in layer.parameters():
-                    param.requires_grad = True  # Unfreeze BatchNorm
+        self.shufflenet = models.shufflenet_v2_x0_5(weights=models.ShuffleNet_V2_X0_5_Weights.IMAGENET1K_V1)
 
-        self.resnet.fc = torch.nn.Sequential(
-            torch.nn.Linear(self.resnet.fc.in_features, 256),
+        # Freeze all parameters
+        for param in self.shufflenet.parameters():
+            param.requires_grad = False
+
+        # Unfreeze BatchNorm layers
+        for name, layer in self.shufflenet.named_modules():
+            if isinstance(layer, torch.nn.BatchNorm2d):
+                for param in layer.parameters():
+                    param.requires_grad = True
+
+        # Modify the classifier
+        self.shufflenet.fc = torch.nn.Sequential(
+            torch.nn.Linear(self.shufflenet.fc.in_features, 256),
             torch.nn.ReLU(),
             torch.nn.Dropout(0.25),
             torch.nn.BatchNorm1d(256),
@@ -72,6 +77,5 @@ class NNPTLarge(torch.nn.Module):
 
     def forward(self, x):
         x = torch.nn.functional.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
-        x = self.resnet(x)
-
+        x = self.shufflenet(x)
         return x

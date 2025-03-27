@@ -55,7 +55,7 @@ def plot_dataset_alpha(scenarios, dataset, alpha, algorithm, window, deltas_args
             print("OPP - {:.2f}+-{:.2f}".format(avg(opps), std(opps)))
             print("ACC - {:.2f}+-{:.2f}".format(avg(accs), std(accs)))
 
-    title = r'{}: $\alpha={}$'.format(dataset.replace("Fashion", "FE"), alpha)
+    title = r'{}: $\alpha={}$'.format(dataset.replace("Fashion", "FE").replace("CIFAR10", "CIFAR-10"), alpha)
     plot(
         title, deltas, "$\delta_s$", aeqs_avg, aeqs_std, oeqs_avg, oeqs_std, opps_avg, opps_std, accs_avg, accs_std, axs
     )
@@ -84,8 +84,10 @@ if __name__ == '__main__':
     else:
         fig, axs = plt.subplots(2, 4)
         for i, alpha in enumerate(["0.05", "0.1"]):
-            for j, dataset in enumerate(["MNIST-GDrift", "FashionMNIST-GDrift", "Adult-GDrift", "Adult-GDrift"]):
+            for j, dataset in enumerate(["MNIST-GDrift", "FashionMNIST-GDrift", "Adult-GDrift"]):
                 plot_dataset_alpha(scenarios, dataset, alpha, algorithm, window, deltas_args, axs[i, j])
+        plot_dataset_alpha(scenarios, "CIFAR10-GDrift", "0.25", algorithm, window, deltas_args, axs[0, 3])
+        plot_dataset_alpha(scenarios, "CIFAR10-GDrift", "0.5", algorithm, window, deltas_args, axs[1, 3])
     fig.set_figheight(7)
     fig.set_figwidth(16)
     plt.tight_layout()
