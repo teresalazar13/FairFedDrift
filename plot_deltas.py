@@ -82,12 +82,14 @@ if __name__ == '__main__':
         fig, axs = plt.subplots(1)
         plot_dataset_alpha(scenarios, dataset, alpha, algorithm, window, deltas_args, axs)
     else:
-        fig, axs = plt.subplots(2, 3)
+        fig, axs = plt.subplots(2, 4)
         for i, alpha in enumerate(["0.05", "0.1"]):
-            for j, dataset in enumerate(["MNIST-GDrift", "FashionMNIST-GDrift", "Adult-GDrift"]):
+            for j, dataset in enumerate(["MNIST-GDrift", "FashionMNIST-GDrift", "Adult-GDrift", "Adult-GDrift"]):
                 plot_dataset_alpha(scenarios, dataset, alpha, algorithm, window, deltas_args, axs[i, j])
-    fig.set_figheight(8)
-    fig.set_figwidth(14)
+    fig.set_figheight(7)
+    fig.set_figwidth(16)
+    plt.tight_layout()
+
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
     #fig.suptitle(r'Effect of $\delta_s$ on Fairness and Performance')
     plt.show()
