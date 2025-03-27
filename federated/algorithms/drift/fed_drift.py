@@ -1,10 +1,9 @@
 import math
 import numpy as np
-
 from federated.algorithms.Algorithm import Algorithm, get_y, average_weights
 from federated.algorithms.Identity import Identity
 from federated.algorithms.drift.GlobalModels import GlobalModels
-from federated.model import NN_model
+from federated.nn_model import NN_model
 from metrics.Loss import Loss
 from metrics.MetricFactory import get_metrics
 import logging
@@ -37,7 +36,7 @@ class FedDrift(Algorithm):
 
 
 def perform_fl(self, seed, clients_data, dataset):
-    clients_metrics = [get_metrics(dataset.is_binary_target) for _ in range(dataset.n_clients)]
+    clients_metrics = [get_metrics(dataset.is_pt) for _ in range(dataset.n_clients)]
     global_models = GlobalModels()
     init_model = get_init_model(dataset, seed)
     global_model = global_models.create_new_global_model(init_model)
@@ -69,7 +68,10 @@ def perform_fl(self, seed, clients_data, dataset):
         # STEP 3 - Add models from drifted clients
         logging.info("STEP 3 - Add models from drifted clients (timestep: {})".format(timestep))
         for client_id in clients_new_models:
-            new_global_model = global_models.create_new_global_model(get_init_model(dataset, seed))
+            new_model = NN_model(dataset, seed)
+            new_model.compile(dataset)
+            new_model.set_weights(global_models.models[0].model.get_weights())
+            new_global_model = global_models.create_new_global_model(new_model)  # reuse model 0
             clients_identities[client_id].append(Identity(new_global_model.identity.id, new_global_model.identity.name))
 
         # STEP 4 - Merge Global Models
@@ -112,7 +114,7 @@ def test_models(global_models, clients_data_timestep, clients_metrics, dataset, 
         global_model_id = clients_identities[client_id][-1].id
         model = get_model_copy(global_models, global_model_id, dataset, seed)
         y_pred_raw = model.predict(x)
-        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.is_binary_target)
+        y_true, y_pred = get_y(y_true_raw, y_pred_raw, dataset.n_classes)
         for client_metric in client_metrics:
             res = client_metric.update(y_true, y_pred, y_true_raw, y_pred_raw, s)
             logging.info("Client {}: {} - {}".format(client_id, res, client_metric.name))
@@ -127,7 +129,7 @@ def update(
         # Calculate results on all global models
         results_global_models = {}
         for global_model in global_models.models:
-            results = test_client_on_model(metrics_clustering, global_model.model, dataset.is_binary_target, client_data[:3])  # client_data[:2] -> x, y, s
+            results = test_client_on_model(metrics_clustering, global_model.model, dataset.n_classes, client_data[:3])  # client_data[:2] -> x, y, s
             results_global_models[global_model] = results
 
         # Get Model for client given results_global_models
@@ -170,10 +172,10 @@ def get_best_model(model_results_dict, previous_loss_client, thresholds):
         return None, minimum_loss_client_new_b
 
 
-def test_client_on_model(metrics_clustering, model, is_binary_target, client_data):
+def test_client_on_model(metrics_clustering, model, n_classes, client_data):
     x, y_true_raw, s = client_data
     y_pred_raw = model.predict(x)
-    y_true, y_pred = get_y(y_true_raw, y_pred_raw, is_binary_target)
+    y_true, y_pred = get_y(y_true_raw, y_pred_raw, n_classes)
 
     results = []
     for metric_clustering in metrics_clustering:
@@ -297,7 +299,7 @@ def get_losses_of_model_on_data(global_model_model, global_model_data, dataset, 
             global_model_model.identity.id, client_id, global_model_data.identity.id
         ))
         results = test_client_on_model(
-            metrics_clustering, global_model_model.model, dataset.is_binary_target, client_data
+            metrics_clustering, global_model_model.model, dataset.n_classes, client_data
         )
         logging.info("Results: {}".format(results))
         losses.append(results)
@@ -321,7 +323,7 @@ def merge_global_models(
     global_model_1 = global_models.get_model(id_1)
     scales = [n_clients_data_models[id_0], n_clients_data_models[id_1]]
     weights = [global_model_0.model.get_weights(), global_model_1.model.get_weights()]
-    new_global_model_weights = average_weights(weights, scales)
+    new_global_model_weights = average_weights(dataset.is_pt, weights, scales)
     new_global_model = get_init_model(dataset, seed)
     new_global_model.set_weights(new_global_model_weights)
 
@@ -417,7 +419,7 @@ def train_and_average(clients_data, global_models, dataset, seed, timestep, clie
 
         for global_model_id, (local_weights, local_scales) in enumerate(zip(local_weights_list, local_scales_list)):
             if len(local_weights) > 0:
-                new_global_weights = average_weights(local_weights, local_scales)
+                new_global_weights = average_weights(dataset.is_pt, local_weights, local_scales)
                 global_models.get_model(global_model_id).model.set_weights(new_global_weights)
                 logging.info("Averaged models on timestep {} cround {} of cluster {}".format(
                     timestep, cround, global_model_id)

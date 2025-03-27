@@ -32,17 +32,16 @@ class OverallPredictiveParity(Metric):
                 df[(df["s"] == 0) & (df["y_pred"] == y)]
             )
 
-            acc_priv = divide(correct_priv, total_priv)
-            acc_unpriv = divide(correct_unpriv, total_unpriv)
-            res = divide(acc_unpriv, acc_priv)
+            ppv_priv = divide(correct_priv, total_priv)
+            ppv_unpriv = divide(correct_unpriv, total_unpriv)
+            res = divide(ppv_unpriv, ppv_priv)
 
             if res > 1:
                 res = 1 / res
 
             if total_unpriv != 0 and total_priv != 0:
                 res_list.append(res)
-
-            logging.info("{} {}".format(y, res))
+                logging.info("{} - {}".format(y, res))
 
         return sum(res_list) / len(res_list)
 

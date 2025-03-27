@@ -18,10 +18,10 @@ class Adult_GDrift(Dataset):
         cat_columns = [
             "workclass", "education", "marital-status", "occupation", "relationship", "gender", "native-country"
         ]
-        is_large = False
-        is_binary_target = True
+        is_pt = False
+        n_classes = 2
         is_image = False
-        super().__init__(name, input_shape, is_large, is_binary_target, is_image)
+        super().__init__(name, input_shape, is_pt, n_classes, is_image)
         self.sensitive_attribute = sensitive_attribute
         self.target = target
         self.cat_columns = cat_columns

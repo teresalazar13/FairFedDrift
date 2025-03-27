@@ -1,4 +1,5 @@
 import pandas as pd
+import logging
 
 from metrics.Metric import Metric
 
@@ -40,6 +41,7 @@ class OverallEqualityOpportunity(Metric):
 
             if total_unpriv != 0 and total_priv != 0:
                 res_list.append(res)
+                logging.info("{} - {}".format(y, res))
 
         return sum(res_list) / len(res_list)
 

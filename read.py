@@ -32,10 +32,13 @@ def get_client_path(main_path, client_id, algorithm, window, delta):
 
 
 def avg(l):
+    if len(l) == 0:
+        return 0
     return sum(l)/len(l)
 
-
 def std(l):
+    if len(l) == 0:
+        return 0
     return statistics.stdev(l)
 
 
@@ -64,8 +67,9 @@ def get_clients_results_scenario(main_path, algorithm, window, deltas):
                     if previous_drift == current_drift:
                         accs.append(df["ACC"][timestep])
                         aeqs.append(df["AEQ"][timestep])
-                        oeqs.append(df["OEQ"][timestep])
-                        opps.append(df["OPP"][timestep])
+                        if "OEQ" in df:
+                            oeqs.append(df["OEQ"][timestep])
+                            opps.append(df["OPP"][timestep])
                     previous_drift = current_drift
         if len(accs) == 0:
             print("No results for delta {}".format(delta))
