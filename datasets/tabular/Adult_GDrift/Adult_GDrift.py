@@ -157,6 +157,7 @@ class Adult_GDrift(Dataset):
             print(dict(enumerate(df[col].cat.categories)))
         df[self.cat_columns] = df[self.cat_columns].apply(lambda x: x.cat.codes)
 
+
         size_priv = len(
             df.loc[
                 (df[self.sensitive_attribute.name] == 1),
@@ -204,9 +205,10 @@ class Adult_GDrift(Dataset):
 
     def oversample(self, df, sampling_strategy):
         X = df.drop(self.sensitive_attribute.name, axis=1)
-        y = df[self.sensitive_attribute.name]
+        y_for_smote = df[self.sensitive_attribute.name]
+        y_for_smote = y_for_smote.astype(int)
         smote = SMOTE(sampling_strategy=sampling_strategy, random_state=42)
-        X_resampled, y_resampled = smote.fit_resample(X, y)
-        X_resampled[self.sensitive_attribute.name] = y_resampled
+        X_resampled, y_for_smote_resampled = smote.fit_resample(X, y_for_smote)
+        X_resampled[self.sensitive_attribute.name] = y_for_smote_resampled
 
         return X_resampled
