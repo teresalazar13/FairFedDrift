@@ -45,7 +45,8 @@ class Adult_GDrift(Dataset):
             df_round_clients = np.array_split(dfs_rounds[i], n_clients)
             for j in range(n_clients):
                 drift_id = drift_ids[i][j]
-                df_round_client = df_round_clients[j]
+                df_round_client_raw = df_round_clients[j]
+                df_round_client = self.scale(df_round_client_raw)
 
                 if drift_id == 1:
                     print("\nDrift 1")
@@ -125,6 +126,16 @@ class Adult_GDrift(Dataset):
 
         return batched_data
 
+    def scale(self, df):
+        x = df.values
+        min_max_scaler = preprocessing.MinMaxScaler()
+        x_scaled = min_max_scaler.fit_transform(x)
+        columns = df.columns
+        df = pd.DataFrame(x_scaled)
+        df.columns = columns
+
+        return df
+
     def get_dataset(self, varying_disc):
         df = pd.read_csv('./datasets/tabular/{}/{}.csv'.format(self.name.replace("-", "_"), self.name))
         print(df.head(10)["relationship"])
@@ -145,13 +156,6 @@ class Adult_GDrift(Dataset):
             print("Category mapping for column:", col)
             print(dict(enumerate(df[col].cat.categories)))
         df[self.cat_columns] = df[self.cat_columns].apply(lambda x: x.cat.codes)
-
-        x = df.values
-        min_max_scaler = preprocessing.MinMaxScaler()
-        x_scaled = min_max_scaler.fit_transform(x)
-        columns = df.columns
-        df = pd.DataFrame(x_scaled)
-        df.columns = columns
 
         size_priv = len(
             df.loc[
